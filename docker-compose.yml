@@ -3,18 +3,28 @@ version: '3'
 services:
 ###> doctrine/doctrine-bundle ###
   database:
-    # arm compatible mysql docker image
-    image: mysql/mysql-server:${MYSQL_VERSION:-8.0} # arm and x86/x64 compatible mysql image
+    image: mariadb
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-su_myapp}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-su_myapp}
       # You should definitely change the password in production
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ChangeMe}
-      MYSQL_ROOT_HOST: '%'
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-root}
+      MARIADB_ROOT_HOST: '%'
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mariadb
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/mysql:rw
+      # - ./docker/db/data:/var/lib/mariadb:rw
 ###< doctrine/doctrine-bundle ###
+
+  # http://127.0.0.1:8081/
+  adminer:
+    image: adminer
+    container_name: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+    depends_on:
+      - database
+    ports:
+      - 8081:8080
 
 volumes:
 ###> doctrine/doctrine-bundle ###
