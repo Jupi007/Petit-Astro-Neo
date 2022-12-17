@@ -48,6 +48,7 @@
         "symfony/runtime": "^6.0",
         "symfony/security-bundle": "^6.0",
         "symfony/twig-bundle": "^6.0",
+        "symfony/ux-turbo": "^2.6",
         "symfony/webpack-encore-bundle": "^1.16"
     },
     "require-dev": {
