@@ -47,7 +47,8 @@
         "symfony/monolog-bundle": "^3.4",
         "symfony/runtime": "^6.0",
         "symfony/security-bundle": "^6.0",
-        "symfony/twig-bundle": "^6.0"
+        "symfony/twig-bundle": "^6.0",
+        "symfony/webpack-encore-bundle": "^1.16"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.9",
