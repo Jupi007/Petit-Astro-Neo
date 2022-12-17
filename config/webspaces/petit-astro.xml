@@ -2,14 +2,12 @@
 <webspace xmlns="http://schemas.sulu.io/webspace/webspace"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://schemas.sulu.io/webspace/webspace http://schemas.sulu.io/webspace/webspace-1.1.xsd">
-    <!-- See: http://docs.sulu.io/en/latest/book/webspaces.html how to configure your webspace-->
-
-    <name>example.com</name>
-    <key>example</key>
+    <name>Le Petit Astro</name>
+    <key>petit-astro</key>
 
     <localizations>
-        <!-- See: http://docs.sulu.io/en/latest/book/localization.html how to add new localizations -->
-        <localization language="en" default="true"/>
+        <localization language="fr" default="true"/>
+        <localization language="en"/>
     </localizations>
 
     <default-templates>
@@ -27,8 +25,8 @@
         <contexts>
             <context key="main">
                 <meta>
+                    <title lang="fr">Navigation Principale</title>
                     <title lang="en">Main Navigation</title>
-                    <title lang="de">Hauptnavigation</title>
                 </meta>
             </context>
         </contexts>
@@ -36,28 +34,28 @@
 
     <portals>
         <portal>
-            <name>example.com</name>
-            <key>example</key>
+            <name>Le Petit Astro</name>
+            <key>petit-astro</key>
 
             <environments>
                 <environment type="prod">
                     <urls>
-                        <url language="en">{host}</url>
+                        <url>{host}/{language}</url>
                     </urls>
                 </environment>
                 <environment type="stage">
                     <urls>
-                        <url language="en">{host}</url>
+                        <url>{host}/{language}</url>
                     </urls>
                 </environment>
                 <environment type="test">
                     <urls>
-                        <url language="en">{host}</url>
+                        <url>{host}/{language}</url>
                     </urls>
                 </environment>
                 <environment type="dev">
                     <urls>
-                        <url language="en">{host}</url>
+                        <url>{host}/{language}</url>
                     </urls>
                 </environment>
             </environments>
