@@ -1,3 +1,10 @@
-body {
-    background-color: lightgray;
-}
+/*@import "_fonts.css";*/
+
+@import "tailwindcss/base";
+/*@import "./custom/_base.css";*/
+
+@import "tailwindcss/components";
+/*@import "custom/_components.css";*/
+
+@import "tailwindcss/utilities";
+/*@import "custom/_utilities.css";*/
