@@ -1,0 +1,23 @@
+<nav class="fixed h-screen bg-zinc-900 text-white overflow-y-auto">
+	<ul class="flex flex-col h-full">
+		<div class="h-full mb-8">
+			{% include 'includes/navigation/_item.html.twig' with {
+				url: sulu_content_root_path(),
+				label: 'Homepage',
+			} %}
+
+			{% for item in sulu_navigation_root_tree('main') %}
+				{% include 'includes/navigation/_item.html.twig' with {
+					url: sulu_content_path(item.url, item.webspaceKey),
+					label: item.title,
+				} %}
+			{% endfor %}
+		</div>
+
+		{% include 'includes/navigation/_item.html.twig' with {
+			url: path('sulu_search.website_search'),
+			label: 'Search',
+			last: true,
+		} %}
+	</ul>
+</nav>

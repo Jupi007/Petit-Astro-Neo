@@ -1,16 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-	<form
-		action="{{ path('sulu_search.website_search') }}" method="GET">
-		<input
-			name="q"
-			type="text"
-			placeholder="Search"
-			value="{{ query }}"/>
-		<input
-			type="submit"
-			value="Go"/>
+	<form action="{{ path('sulu_search.website_search') }}" method="GET">
+		<input name="q" type="text" placeholder="Search" value="{{ query }}"/>
+		<input type="submit" value="Go"/>
 	</form>
 
 	{% if query != "" %}
@@ -21,8 +14,7 @@
 		<ul>
 			{% for i, hit in hits %}
 				<li>
-					<a
-						href="{{ hit.document.url }}">
+					<a href="{{ hit.document.url }}">
 						{{- hit.document.title -}}
 					</a>
 				</li>

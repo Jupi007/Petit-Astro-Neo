@@ -1,0 +1,10 @@
+<li>
+	<a href="{{ url }}" title="{{ label }}" class="flex flex-col items-center justify-center w-24 h-24 p-1 {{ last|default(false) ? 'border-t' : 'border-b' }} border-zinc-700 -outline-offset-2 transition-colors hover:bg-white/5">
+		<div class="w-12 h-12 mb-2 bg-zinc-600">
+			{{ icon|default('') }}
+		</div>
+		<div class="text-sm text-center font-light">
+			{{ label }}
+		</div>
+	</a>
+</li>
