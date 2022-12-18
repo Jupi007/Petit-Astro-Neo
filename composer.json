@@ -38,6 +38,7 @@
         "scheb/2fa-email": "^6.1",
         "scheb/2fa-trusted-device": "^6.1",
         "sulu/sulu": "~2.5.5",
+        "sulu/web-twig": "^2.5",
         "symfony/config": "^6.0",
         "symfony/dotenv": "^6.0",
         "symfony/flex": "^1.17 || ^2.0",
