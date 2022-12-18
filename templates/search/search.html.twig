@@ -1,15 +1,32 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-    <h2>Showing {{ hits|length }} results for "{{ query }}"</h2>
+	<form
+		action="{{ path('sulu_search.website_search') }}" method="GET">
+		<input
+			name="q"
+			type="text"
+			placeholder="Search"
+			value="{{ query }}"/>
+		<input
+			type="submit"
+			value="Go"/>
+	</form>
 
-    <ul>
-        {% for i, hit in hits %}
-            <li>
-                <a href="{{ hit.document.url }}">
-                    {{- hit.document.title -}}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+	{% if query != "" %}
+		<h2>Showing
+			{{ hits|length }}
+			results for "{{ query }}"</h2>
+
+		<ul>
+			{% for i, hit in hits %}
+				<li>
+					<a
+						href="{{ hit.document.url }}">
+						{{- hit.document.title -}}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 {% endblock %}
