@@ -1,4 +1,5 @@
-const plugin = require('tailwindcss/plugin')
+const plugin = require('tailwindcss/plugin');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -15,8 +16,13 @@ module.exports = {
       'xl': '80rem',
       '2xl': '96rem',
     },
+    extend: {
+      fontFamily: {
+        'nimbus': ['Nimbus Mono L', ...defaultTheme.fontFamily.mono],
+      },
+    }
   },
   plugins: [
     require('@tailwindcss/typography'),
   ],
-}
+};
