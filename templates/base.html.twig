@@ -24,8 +24,12 @@
 	</head>
 	<body class="dark:bg-zinc-800 dark:text-white accent-slate-500">
 		{% include "includes/_navigation.html.twig" %}
-		{% include "includes/_main.html.twig" with {
-			content: block('content'),
-		} %}
+
+		<div class="ml-24">
+			{% include "includes/_header.html.twig" %}
+			{% include "includes/_main.html.twig" with {
+				content: block('content'),
+			} %}
+		</div>
 	</body>
 </html>
