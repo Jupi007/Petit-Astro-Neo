@@ -1,6 +1,6 @@
 <li>
 	<a href="{{ url }}" title="{{ label }}" class="flex flex-col items-center justify-center w-24 h-24 p-1 {{ last|default(false) ? 'border-t' : 'border-b' }} border-zinc-700 -outline-offset-2 transition-colors hover:bg-white/5">
-		<img src="{{ iconSrc }}" alt="{{ label }} icon" class="block w-10 h-10 mb-2">
+		<img src="{{ iconSrc }}" alt="{{ label }} icon" class="block w-10 h-10 mb-2" loading="lazy">
 		<div class="text-sm text-center font-light">
 			{{ label }}
 		</div>

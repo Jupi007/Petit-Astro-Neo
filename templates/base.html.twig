@@ -22,19 +22,10 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body>
+	<body class="dark:bg-zinc-800 dark:text-white accent-slate-500">
 		{% include "includes/_navigation.html.twig" %}
-
-		<main>
-			{% block content %}{% endblock %}
-		</main>
-
-		<footer>
-			{% block footer %}
-				<p>Copyright
-					{{ 'now'|date('Y') }}
-					SULU</p>
-			{% endblock %}
-		</footer>
+		{% include "includes/_main.html.twig" with {
+			content: block('content'),
+		} %}
 	</body>
 </html>
