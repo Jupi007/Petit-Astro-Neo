@@ -1,35 +1,29 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale|split('_')[0] }}">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		{% block meta %}
-			{% include "@SuluWebsite/Extension/seo.html.twig" with {
-				"seo": extension.seo|default([]),
-				"content": content|default([]),
-				"localizations": localizations|default([]),
-				"shadowBaseLocale": shadowBaseLocale|default(),
-			} %}
-		{% endblock %}
+    {% block meta %}
+      {% include "@SuluWebsite/Extension/seo.html.twig" with {
+      "seo": extension.seo|default([]),
+      "content": content|default([]),
+      "localizations": localizations|default([]),
+      "shadowBaseLocale": shadowBaseLocale|default(),
+      } %}
+    {% endblock %}
 
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
-		{% endblock %}
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+    {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
+  </head>
+	
+  <body class="dark:bg-zinc-800 dark:text-white accent-slate-500">
+    {% include "includes/_navigation.html.twig" %}
 
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-	</head>
-	<body class="dark:bg-zinc-800 dark:text-white accent-slate-500">
-		{% include "includes/_navigation.html.twig" %}
-
-		<div class="ml-24">
-			{% include "includes/_header.html.twig" %}
-			{% include "includes/_main.html.twig" with {
-				content: block('content'),
-			} %}
-		</div>
-	</body>
+    <div class="ml-24">
+      {% include "includes/_header.html.twig" %}
+      {% include "includes/_main.html.twig" with { 'content': block('content') } %}
+    </div>
+  </body>
 </html>

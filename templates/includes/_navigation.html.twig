@@ -1,29 +1,28 @@
 <nav class="fixed h-screen bg-zinc-900 text-white dark:border-r border-zinc-700">
-	<ul class="flex flex-col h-full">
-		<div class="h-full mb-[-1px] overflow-y-auto">
-			{% include 'includes/navigation/_item.html.twig' with {
-				url: sulu_content_root_path(),
-				label: 'Homepage',
-				iconSrc: asset('build/website/images/home.svg'),
-			} %}
-
-			{% for item in sulu_navigation_root_tree('main') %}
-				{% set page = sulu_content_load(item.id, {
-					'excerptIcons': 'excerpt.icon',
-				}) %}
-				{% include 'includes/navigation/_item.html.twig' with {
-					url: sulu_content_path(item.url, item.webspaceKey),
-					label: item.title,
-					iconSrc: page.content.excerptIcons[0].url,
-				} %}
-			{% endfor %}
-		</div>
-
-		{% include 'includes/navigation/_item.html.twig' with {
-			url: path('sulu_search.website_search'),
-			label: 'Search',
-			iconSrc: asset('build/website/images/looking-glass.svg'),
-			last: true,
-		} %}
-	</ul>
+  <ul class="flex flex-col h-full">
+    <div class="h-full mb-[-1px] overflow-y-auto">
+      {% include 'includes/navigation/_item.html.twig' with {
+      url: sulu_content_root_path(),
+      label: 'Homepage',
+      iconSrc: asset('build/website/images/home.svg'),
+      } %}
+	
+      {% for item in sulu_navigation_root_tree('main') %}
+        {% set page = sulu_content_load(item.id, {
+        'excerptIcons': 'excerpt.icon',
+        }) %}
+        {% include 'includes/navigation/_item.html.twig' with {
+        url: sulu_content_path(item.url, item.webspaceKey),
+        label: item.title,
+        iconSrc: page.content.excerptIcons[0].url,
+        } %}
+      {% endfor %}
+    </div>
+    {% include 'includes/navigation/_item.html.twig' with {
+    url: path('sulu_search.website_search'),
+    label: 'Search',
+    iconSrc: asset('build/website/images/looking-glass.svg'),
+    last: true,
+    } %}
+  </ul>
 </nav>
