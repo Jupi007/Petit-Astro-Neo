@@ -1,31 +1,45 @@
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-[1px] my-12 not-prose">
-	{% for page in content.pages %}
-		{% include "includes/common/_card.html.twig" with {
-			url: sulu_content_path(page.url),
-			image: page.excerpt.images[0]|default(page.coverImage|default),
-			title: page.excerptTitle|default(page.title),
-			description: page.excerptDescription,
-		} %}
-	{% endfor %}
+<div class="my-12">
+	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-[1px] not-prose" id="smart-pages-{{ id }}">
+		{% for page in content.pages %}
+			{% include "includes/common/_card.html.twig" with {
+				url: sulu_content_path(page.url),
+				image: page.excerpt.images[0]|default(page.coverImage|default),
+				title: page.excerptTitle|default(page.title),
+				description: page.excerptDescription,
+			} %}
+		{% endfor %}
+	</div>
+	
+	{% set currentPageIndex = view.pages.page %}
+	
+	{% if currentPageIndex - 1 >= 1 or view.pages.hasNextPage %}
+		{% set blockContent %}
+			<div class="flex flex-row">
+				{% if currentPageIndex - 1 >= 1 %}
+					{% set url = sulu_content_path(parentContent.url) ~ '?p=' ~ (currentPageIndex - 1) ~ '#smart-pages-' ~ id %}
+						<div class="w-full text-start my-5">
+							{% include "includes/common/_button.html.twig" with {
+								'url': url,
+								'label': '&laquo; Page précédente',
+								'small': true,
+							} %}
+						</div>
+				{% endif %}
+		
+				{% if view.pages.hasNextPage %}
+					{% set url = sulu_content_path(parentContent.url) ~ '?p=' ~ (currentPageIndex + 1) ~ '#smart-pages-' ~ id %}
+					<div class="w-full text-end my-5">
+						{% include "includes/common/_button.html.twig" with {
+							'url': url,
+							'label': 'Page suivante &raquo;',
+							'small': true,
+						} %}
+					</div>
+				{% endif %}
+			</div>
+		{% endset %}
+
+		{% include "includes/common/_page_container.html.twig" with {'content': blockContent} %}
+	{% endif %}
 </div>
 
-{% set currentPageIndex = view.pages.page %}
-
-{% if currentPageIndex - 1 >= 1 or view.pages.hasNextPage %}
-	<div
-		class="flex flex-wrap gap-4">
-		{% if currentPageIndex - 1 >= 1 %}
-			<a
-				href="{{ sulu_content_path(parentContent.url) }}?p={{ currentPageIndex - 1 }}" class="mr-auto mt-8">
-				&laquo; Précédent
-			</a>
-		{% endif %}
-
-		{% if view.pages.hasNextPage %}
-			<a
-				href="{{ sulu_content_path(parentContent.url) }}?p={{ currentPageIndex + 1 }}" class="ml-auto mt-8">
-				Suivant &raquo;
-			</a>
-		{% endif %}
-	</div>
-{% endif %}

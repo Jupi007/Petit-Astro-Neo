@@ -9,7 +9,7 @@
     </meta>
 
     <properties>
-        <property name="link" type="link" mandatory="true">
+        <property name="url" type="link" mandatory="true">
             <meta>
                 <title lang="en">Link</title>
                 <title lang="fr">Lien</title>

@@ -1,7 +1,7 @@
 /*@import "_fonts.css";*/
 
 @import "tailwindcss/base";
-/*@import "./custom/_base.css";*/
+@import "./custom/_base.css";
 
 @import "tailwindcss/components";
 @import "custom/_components.css";
