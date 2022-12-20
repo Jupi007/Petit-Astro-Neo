@@ -1,25 +1,56 @@
 {% extends "base.html.twig" %}
 
-{% set contentTitle = 'Search' %}
-{% set contentSubtitle = null %}
+{% set headerTitle = 'Recherche' %}
+{% set headerSubtitle = null %}
 
 {% block content %}
-  <form action="{{ path('sulu_search.website_search') }}" method="GET">
-    <input name="q" type="text" placeholder="Search" value="{{ query }}"/>
-    <input type="submit" value="Go"/>
-  </form>
+  {% set searchForm %}
+    <form action="{{ path('sulu_search.website_search') }}"
+          method="GET"
+          class="flex flex-row my-8 rounded-full border border-zinc-200 dark:border-zinc-700">
+      <input name="q"
+             type="text"
+             placeholder="Search"
+             value="{{ query }}"
+             class="flex-grow rounded-full px-6 py-4 bg-transparent"/>
+      <button type="submit" class="px-6 py-4">Go</button>
+    </form>
+
+    {% if query != "" %}
+      <h2 class="font-medium italic text-center">
+        {{ hits|length }}
+        résultats pour "{{ query }}"
+      </h2>
+    {% endif %}
+  {% endset %}
+
+  {% include "includes/common/_page_container.html.twig" with { 'content': searchForm } %}
+
   {% if query != "" %}
-    <h2>
-      Showing
-      {{ hits|length }}
-      results for "{{ query }}"
-    </h2>
-    <ul>
-      {% for i, hit in hits %}
-        <li>
-          <a href="{{ hit.document.url }}">{{- hit.document.title -}}</a>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="my-8">
+      {% set gridItems %}
+        {% for i, hit in hits %}
+          {% set page = sulu_content_load(hit.id, {
+            'title': 'title',
+            'coverImage': 'coverImage',
+            'excerptImages': 'excerpt.images',
+            'excerptTitle': 'excerpt.title',
+            'excerptDescription': 'excerpt.description',
+          }) %}
+          {% include "includes/common/_card.html.twig" with {
+            url: hit.document.url,
+            image: page.content.excerptImages[0]|default(page.content.coverImage|default),
+            title: page.content.excerptTitle|default(page.content.title),
+            description: page.content.excerptDescription,
+          } %}
+        {% endfor %}
+      {% endset %}
+      
+      {% include "includes/common/_card_grid_container.html.twig" with {
+        'content': gridItems,
+      } %}
+    </div>
   {% endif %}
+
+  
 {% endblock %}

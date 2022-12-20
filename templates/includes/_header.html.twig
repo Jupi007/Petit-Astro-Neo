@@ -1,6 +1,6 @@
 {% set headerHeight = '' %}
 
-{% if content.coverSize == 'small' %}
+{% if content.coverSize|default('small') == 'small' %}
   {% set headerHeight = 'min-h-[22rem]' %}
 {% elseif content.coverSize == 'medium' %}
   {% set headerHeight = 'min-h-[75vh]' %}
