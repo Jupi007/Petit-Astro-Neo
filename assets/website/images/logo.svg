@@ -19,12 +19,12 @@
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="1.888"
-     inkscape:cx="233.05085"
-     inkscape:cy="30.190678"
+     showgrid="true"
+     inkscape:zoom="7.552"
+     inkscape:cx="38.135593"
+     inkscape:cy="31.978284"
      inkscape:window-width="1920"
-     inkscape:window-height="1043"
+     inkscape:window-height="1016"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -69,6 +69,11 @@
          id="feGaussianBlur5" />
     </filter>
   </defs>
+  <path
+     id="ellipse418"
+     style="opacity:0.2;fill:#ffffff;fill-rule:evenodd;stroke-width:1.00001;stroke-linecap:round;stroke-linejoin:round"
+     d="M -12.903841 -23.771984 A 14.6 49.450001 30 0 0 -11.560065 -22.581214 A 14.6 49.450001 30 0 0 13.163904 -39.422106 A 49.450001 14.6 60 0 0 37.890077 -22.579492 A 49.450001 14.6 60 0 0 35.667032 -52.414294 A 49.450001 14.6 0 0 0 62.615349 -65.406409 A 49.450001 14.6 0 0 0 35.665929 -78.396674 A 14.6 49.450001 30 0 0 37.89074 -108.23069 A 14.6 49.450001 30 0 0 13.160458 -91.392918 A 49.450001 14.6 60 0 0 -11.560118 -108.22974 A 49.450001 14.6 60 0 0 -9.3480067 -78.40216 A 49.450001 14.6 0 0 0 -36.284675 -65.405494 A 49.450001 14.6 0 0 0 -9.3369459 -52.414252 A 14.6 49.450001 30 0 0 -12.903841 -23.771984 z "
+     transform="rotate(120)" />
   <path
      d="m 0,44.004181 v -43.90899986 h 100 v 87.81299986 h -100 z"
      fill="none"
