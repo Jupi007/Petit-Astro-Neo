@@ -1,19 +1,35 @@
-<div class="relative overflow-hidden w-full h-[48rem] dark:border-b border-zinc-700"
+{% set headerHeight = '' %}
+
+{% if content.coverSize == 'small' %}
+  {% set headerHeight = 'min-h-[22rem]' %}
+{% elseif content.coverSize == 'medium' %}
+  {% set headerHeight = 'min-h-[75vh]' %}
+  {% elseif content.coverSize == 'full' %}
+    {% set headerHeight = 'min-h-[100vh]' %}
+{% endif %}
+
+<div class="relative overflow-hidden w-full dark:border-b border-zinc-700"
      x-data="{ scrollPosition: window.pageYOffset }"
      @scroll.window="scrollPosition = window.pageYOffset">
-     <div class="absolute w-full h-full flex flex-col gap-12 items-center justify-center bg-gradient-to-b from-black/0 via-black/30 to-black/0 text-white [text-shadow:_0_0_5px_black]"
-          x-bind:style="{ top: scrollPosition / 2 + 'px' }">
-          <a href="{{ sulu_content_root_path() }}">
-               <img src="{{ asset('build/website/images/logo.svg') }}"
-                    alt="Logo"
-                    class="drop-shadow-[0_0_5px_black]"
-                    loading="lazy"/>
-          </a>
-          <h1 class="text-5xl font-light font-nimbus">{{ contentTitle }}</h1>
-     </div>
-     <img src="{{ asset('build/website/images/NGC_1952.jpg') }}"
-          alt=""
-          class="relative z-[-1] h-full w-full object-cover bg-slate-600"
-          x-bind:style="{ top: scrollPosition / 1.5 + 'px' }"
-          loading="lazy"/>
+  <div class="relative w-full {{ headerHeight}} flex flex-col gap-12 py-10 px-8 items-center justify-center bg-gradient-to-b from-black/0 via-black/30 to-black/0 text-white [text-shadow:_0_0_5px_black]"
+       x-bind:style="{ top: scrollPosition / 2 + 'px' }">
+    <a href="{{ sulu_content_root_path() }}">
+      <img src="{{ asset('build/website/images/logo.svg') }}"
+           alt="Logo"
+           class="drop-shadow-[0_0_5px_black]"
+           loading="lazy"/>
+    </a>
+    <h1 class="text-5xl text-center font-light font-nimbus">
+      {{ contentTitle }}
+      {% if contentSubtitle != null %}
+        <br>
+        <small class="italic text-3xl">{{ contentSubtitle }}</small>
+      {% endif %}
+    </h1>
+  </div>
+  <img src="{{ asset('build/website/images/NGC_1952.jpg') }}"
+       alt=""
+       class="absolute z-[-1] h-full w-full object-cover bg-slate-600"
+       x-bind:style="{ top: scrollPosition / 1.5 + 'px' }"
+       loading="lazy"/>
 </div>

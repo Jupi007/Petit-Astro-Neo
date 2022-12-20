@@ -28,7 +28,7 @@
   <body class="relative dark:bg-zinc-800 dark:text-white accent-slate-500">
     {% include "includes/_navigation.html.twig" %}
 
-    <div class="ml-24">
+    <div class="ml-24 min-h-screen flex flex-col">
       {% include "includes/_header.html.twig" %}
       {% include "includes/_main.html.twig" with { 'content': block('content') } %}
     </div>

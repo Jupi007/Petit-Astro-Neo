@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<property name="subtitle" type="text_line"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Subtitle</title>
+        <title lang="fr">Sous-titre</title>
+    </meta>
+
+    <tag name="sulu.rlp.part" />
+    <tag name="sulu.search.field" />
+</property>

@@ -1,0 +1,51 @@
+<type name="rich_text"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Texte</title>
+        <title lang="fr">Texte</title>
+    </meta>
+
+    <properties>
+        <property name="separator" type="checkbox">
+            <params>
+                <param name="default_value" value="true"/>
+                <param name="label">
+                    <meta>
+                        <title lang="en">Display a separator</title>
+                        <title lang="fr">Afficher un séparateur</title>
+                    </meta>
+                </param>
+            </params>
+            <meta>
+                <info_text lang="en">
+                    Display a separator on top of the block (depends on some conditions).
+                </info_text>
+                <info_text lang="fr">
+                    Affiche un séparateur en haut du bloc (sous certaines conditions).
+                </info_text>
+            </meta>
+        </property>
+
+        <property name="title" type="text_line">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="fr">Titre</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+            <tag name="sulu.search.field" />
+        </property>
+
+        <property name="text" type="text_editor" mandatory="true">
+            <meta>
+                <title lang="en">Texte</title>
+                <title lang="fr">Texte</title>
+            </meta>
+            <tag name="sulu.search.field" />
+        </property>
+    </properties>
+</type>

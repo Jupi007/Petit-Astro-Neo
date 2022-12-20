@@ -1,0 +1,28 @@
+<type name="pages_smart_content"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Pages</title>
+        <title lang="fr">Pages</title>
+    </meta>
+
+    <properties>
+        <property name="pages" type="smart_content">
+            <params>
+                <param name="provider" value="pages"/>
+                <param name="max_per_page" value="12"/>
+
+                <param name="properties" type="collection">
+                    <param name="title" value="title"/>
+                    <param name="excerptTitle" value="excerpt.title"/>
+                    <param name="coverImage" value="coverImage"/>
+                    <param name="excerptDescription" value="excerpt.description"/>
+                    <param name="excerptTags" value="excerpt.tags"/>
+                    <param name="more" value="excerpt.more"/>
+                </param>
+            </params>
+        </property>
+    </properties>
+</type>

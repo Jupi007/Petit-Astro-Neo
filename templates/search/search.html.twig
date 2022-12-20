@@ -1,5 +1,8 @@
 {% extends "base.html.twig" %}
+
 {% set contentTitle = 'Search' %}
+{% set contentSubtitle = null %}
+
 {% block content %}
   <form action="{{ path('sulu_search.website_search') }}" method="GET">
     <input name="q" type="text" placeholder="Search" value="{{ query }}"/>

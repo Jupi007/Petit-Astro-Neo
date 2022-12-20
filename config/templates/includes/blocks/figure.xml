@@ -1,0 +1,32 @@
+<type name="figure"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Image</title>
+        <title lang="fr">Image</title>
+    </meta>
+
+    <properties>
+        <property name="image" type="single_media_selection" mandatory="true">
+            <meta>
+                <title lang="en">Image</title>
+                <title lang="fr">Image</title>
+            </meta>
+
+            <params>
+                <param name="types" value="image" />
+            </params>
+        </property>
+
+        <property name="caption" type="text_line">
+            <meta>
+                <title lang="en">Caption</title>
+                <title lang="fr">Légende</title>
+            </meta>
+
+            <tag name="sulu.search.field" />
+        </property>
+    </properties>
+</type>

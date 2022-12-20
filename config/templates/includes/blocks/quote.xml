@@ -1,0 +1,44 @@
+<type name="quote"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Quote</title>
+        <title lang="fr">Citation</title>
+    </meta>
+
+    <properties>
+        <property name="quote" type="text_area" mandatory="true">
+            <meta>
+                <title lang="en">Quote</title>
+                <title lang="fr">Citation</title>
+            </meta>
+
+            <tag name="sulu.search.field" />
+        </property>
+
+        <property name="source" type="text_line">
+            <meta>
+                <title lang="en">Source</title>
+                <title lang="fr">Source</title>
+            </meta>
+
+            <tag name="sulu.search.field" />
+        </property>
+
+        <property name="sourceLink" type="link">
+            <meta>
+                <title lang="en">Source link</title>
+                <title lang="fr">Lien vers la source</title>
+            </meta>
+
+            <params>
+                <param name="types" type="collection">
+                    <param name="page"/>
+                    <param name="external"/>
+                </param>
+            </params>
+        </property>
+    </properties>
+</type>

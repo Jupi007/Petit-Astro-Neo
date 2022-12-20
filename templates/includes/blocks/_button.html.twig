@@ -1,0 +1,9 @@
+{% set blockContent %}
+	<div class="text-end my-5">
+		<a href="{{ content.link }}" class="inline-block font-cursive font-normal rounded no-underline text-white bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors px-4 py-2">
+			{{ content.label }}
+		</a>
+	</div>
+{% endset %}
+
+{% include "includes/common/_page_container.html.twig" with {'content': blockContent} %}

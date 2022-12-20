@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<section name="cover"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Cover</title>
+        <title lang="fr">Couverture</title>
+    </meta>
+
+    <properties>
+        <property name="coverImage" type="single_media_selection" colspan="8">
+            <meta>
+                <title lang="en">Image</title>
+                <title lang="fr">Image</title>
+            </meta>
+
+            <params>
+                <param name="types" value="image" />
+            </params>
+
+            <tag name="sulu.search.field" role="image" index="false" />
+        </property>
+
+        <property name="coverSize" type="single_select" colspan="4" mandatory="true">
+            <meta>
+                <title lang="en">Size</title>
+                <title lang="fr">Taille</title>
+            </meta>
+
+            <params>
+                <param name="default_value" value="small" />
+
+                <param name="values" type="collection">
+                    <param name="small">
+                        <meta>
+                            <title lang="en">Small height</title>
+                            <title lang="fr">Petite hauteur</title>
+                        </meta>
+                    </param>
+
+                    <param name="medium">
+                        <meta>
+                            <title lang="en">Medium height</title>
+                            <title lang="fr">Moyenne hauteur</title>
+                        </meta>
+                    </param>
+
+                    <param name="full">
+                        <meta>
+                            <title lang="en">Full height</title>
+                            <title lang="fr">Pleine hauteur</title>
+                        </meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+    </properties>
+</section>

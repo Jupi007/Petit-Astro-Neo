@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <template xmlns="http://schemas.sulu.io/template/template"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
 
     <key>homepage</key>
 
@@ -11,36 +11,34 @@
 
     <meta>
         <title lang="en">Homepage</title>
-        <title lang="de">Startseite</title>
+        <title lang="fr">Accueil</title>
     </meta>
 
     <properties>
-        <property name="title" type="text_line" mandatory="true">
-            <meta>
-                <title lang="en">Title</title>
-                <title lang="de">Titel</title>
-            </meta>
-            <params>
-                <param name="headline" value="true"/>
-            </params>
 
-            <tag name="sulu.rlp.part"/>
-        </property>
+        <xi:include href="../includes/title.xml"/>
+        <xi:include href="../includes/subtitle.xml"/>
+        <xi:include href="../includes/url.xml"/>
 
-        <property name="url" type="resource_locator" mandatory="true">
+        <xi:include href="../includes/cover-image.xml"/>
+
+        <section name="blocks">
             <meta>
-                <title lang="en">Resourcelocator</title>
-                <title lang="de">Adresse</title>
+                <title lang="en">Page</title>
+                <title lang="fr">Page</title>
             </meta>
 
-            <tag name="sulu.rlp"/>
-        </property>
-
-        <property name="article" type="text_editor">
-            <meta>
-                <title lang="en">Article</title>
-                <title lang="de">Artikel</title>
-            </meta>
-        </property>
+            <properties>
+                <block name="blocks">
+                    <types>
+                        <xi:include href="../includes/blocks/rich-text.xml" />
+                        <xi:include href="../includes/blocks/figure.xml" />
+                        <xi:include href="../includes/blocks/quote.xml" />
+                        <xi:include href="../includes/blocks/button.xml" />
+                        <xi:include href="../includes/blocks/pages-smart-content.xml" />
+                    </types>
+                </block>
+            </properties>
+        </section>
     </properties>
 </template>

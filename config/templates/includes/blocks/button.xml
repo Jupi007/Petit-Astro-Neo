@@ -1,0 +1,36 @@
+<type name="button"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Button</title>
+        <title lang="fr">Bouton</title>
+    </meta>
+
+    <properties>
+        <property name="link" type="link" mandatory="true">
+            <meta>
+                <title lang="en">Link</title>
+                <title lang="fr">Lien</title>
+            </meta>
+
+            <params>
+                <param name="enable_anchor" value="true"/>
+                <param name="enable_attributes" value="true"/>
+                <param name="types" type="collection">
+                    <param name="page"/>
+                    <param name="external"/>
+                    <param name="media"/>
+                </param>
+            </params>
+        </property>
+
+        <property name="label" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Text</title>
+                <title lang="fr">Texte</title>
+            </meta>
+        </property>
+    </properties>
+</type>
