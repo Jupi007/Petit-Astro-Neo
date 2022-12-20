@@ -1,3 +1,8 @@
 [x-cloak] {
     display: none;
 }
+
+.turbo-progress-bar {
+    height: 0.25rem;
+    background-color: theme('colors.slate.500');
+}
