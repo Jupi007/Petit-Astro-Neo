@@ -22,6 +22,19 @@
 
         <xi:include href="../includes/cover-image.xml"/>
 
+        <property name="coverPage" type="smart_content">
+            <params>
+                <param name="provider" value="pages"/>
+                <param name="max_per_page" value="1"/>
+
+                <param name="properties" type="collection">
+                    <param name="title" value="title"/>
+                    <param name="excerptTitle" value="excerpt.title"/>
+                    <param name="coverImage" value="coverImage"/>
+                </param>
+            </params>
+        </property>
+
         <section name="blocks">
             <meta>
                 <title lang="en">Page</title>

@@ -1,7 +1,10 @@
 {% extends "base.html.twig" %}
 
-{% set contentTitle = content.title %}
-{% set contentSubtitle = content.subtitle %}
+{% set headerImage = content.coverPage[0].coverImage %}
+{% set headerTitle = 'Dernière publication' %}
+{% set headerSubtitle = content.coverPage[0].title %}
+{% set headerLinkUrl = content.coverPage[0].url %}
+{% set headerLinkLabel = 'Lire' %}
 
 {% block content %}
   {% include "includes/_blocks.html.twig" %}

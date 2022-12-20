@@ -11,25 +11,40 @@
 <div class="relative overflow-hidden w-full dark:border-b border-zinc-700"
      x-data="{ scrollPosition: window.pageYOffset }"
      @scroll.window="scrollPosition = window.pageYOffset">
-  <div class="relative w-full {{ headerHeight}} flex flex-col gap-12 py-10 px-8 items-center justify-center bg-gradient-to-b from-black/0 via-black/30 to-black/0 text-white [text-shadow:_0_0_5px_black]"
+  <div class="relative w-full {{ headerHeight}} flex flex-col gap-12 py-10 px-8 items-center justify-center bg-gradient-to-b from-black/0 via-black/[.15] to-black/0 text-white  drop-shadow-[0_0_5px_black] text-center font-light font-nimbus"
        x-bind:style="{ top: scrollPosition / 2 + 'px' }">
     <a href="{{ sulu_content_root_path() }}">
       <img src="{{ asset('build/website/images/logo.svg') }}"
            alt="Logo"
-           class="drop-shadow-[0_0_5px_black]"
            loading="lazy"/>
     </a>
-    <h1 class="text-5xl text-center font-light font-nimbus">
-      {{ contentTitle }}
-      {% if contentSubtitle != null %}
+    <h1 class="text-4xl">
+      {{ headerTitle }}
+      {% if headerSubtitle != null %}
         <br>
-        <small class="italic text-3xl">{{ contentSubtitle }}</small>
+        <small class="italic text-3xl">{{ headerSubtitle }}</small>
       {% endif %}
     </h1>
+    {% if headerLinkUrl|default and headerLinkLabel|default %}
+      <a href="{{ headerLinkUrl }}"
+         class="border border-white px-4 py-2 rounded-full text-xl bg-white/10 hover:bg-white/20 transition-colors">
+        {{ headerLinkLabel }}
+      </a>
+    {% endif %}
   </div>
-  <img src="{{ asset('build/website/images/NGC_1952.jpg') }}"
-       alt=""
-       class="absolute z-[-1] h-full w-full object-cover bg-slate-600"
-       x-bind:style="{ top: scrollPosition / 1.5 + 'px' }"
-       loading="lazy"/>
+
+  {% if headerImage|default %}
+    {{ get_image(headerImage, {
+      src: 'figure',
+      srcset: 'figure@2x 2x',
+      class: 'absolute z-[-1] h-full w-full object-cover bg-slate-600',
+      'x-bind:style': "{ top: scrollPosition / 1.5 + 'px' }",
+    }) }}
+  {% else %}
+    <img src="{{ asset('build/website/images/NGC_1952.jpg') }}"
+         alt="NGC_1952"
+         class="absolute z-[-1] h-full w-full object-cover bg-slate-600"
+         x-bind:style="{ top: scrollPosition / 1.5 + 'px' }"
+         loading="lazy"/>
+  {% endif %}
 </div>

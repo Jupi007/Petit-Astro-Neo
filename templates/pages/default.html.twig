@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% set contentTitle = content.title %}
-{% set contentSubtitle = content.subtitle %}
+{% set headerImage = content.coverImage %}
+{% set headerTitle = content.title %}
+{% set headerSubtitle = content.subtitle %}
 
 {% block content %}
   {% include "includes/_blocks.html.twig" %}
