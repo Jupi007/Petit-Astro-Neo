@@ -20,6 +20,14 @@ module.exports = {
       fontFamily: {
         'nimbus': ['Nimbus Mono L', ...defaultTheme.fontFamily.mono],
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            '--tw-prose-hr': theme('colors.zinc.200'),
+            '--tw-prose-invert-hr': theme('colors.zinc.700'),
+          },
+        },
+      }),
     }
   },
   plugins: [
