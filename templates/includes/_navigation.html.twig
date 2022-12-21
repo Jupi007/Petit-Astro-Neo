@@ -7,15 +7,12 @@
         iconSrc: asset('build/website/images/home.svg'),
       } %}
 	
-      {% for item in sulu_navigation_root_tree('main') %}
-        {% set page = sulu_content_load(item.id, {
-          'menuIcon': 'excerpt.menu_icon',
-        }) %}
-        {% set menuIcon = page.content.menuIcon %}
+      {% for item in sulu_navigation_root_tree('main', 1, true) %}
+        {% set menuIcon = item.excerpt.menu_icon %}
         {% include 'includes/navigation/_item.html.twig' with {
           url: sulu_content_path(item.url, item.webspaceKey),
           label: item.title,
-          iconSrc: menuIcon != null ? asset('build/website/images/' ~ page.content.menuIcon ~ '.svg') : null,
+          iconSrc: menuIcon != null ? asset('build/website/images/' ~ menuIcon ~ '.svg') : null,
           current: item.uuid == uuid|default(null)
         } %}
       {% endfor %}
