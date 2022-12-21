@@ -70,6 +70,7 @@
         "symfony/css-selector": "^6.0",
         "symfony/debug-bundle": "^6.0",
         "symfony/error-handler": "^6.0",
+        "symfony/maker-bundle": "^1.48",
         "symfony/phpunit-bridge": "^6.0",
         "symfony/thanks": "^1.2",
         "symfony/web-profiler-bundle": "^6.0",
