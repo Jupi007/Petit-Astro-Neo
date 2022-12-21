@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd">
+  <key>page_excerpt</key>
+
+  <properties>
+    <property name="ext/excerpt/menu_icon" type="single_select">
+      <meta>
+        <title lang="en">Menu icon</title>
+        <title lang="fr">Icône du menu</title>
+      </meta>
+
+      <params>
+        <param name="default_value" value="null"/>
+
+        <param name="values" type="collection">
+          <param name="null">
+            <meta>
+              <title lang="en">Null</title>
+              <title lang="fr">Aucune</title>
+            </meta>
+          </param>
+
+          <param name="bell">
+            <meta>
+              <title lang="en">Bell</title>
+              <title lang="fr">Cloche</title>
+            </meta>
+          </param>
+
+          <param name="book">
+            <meta>
+              <title lang="en">Book</title>
+              <title lang="fr">Livre</title>
+            </meta>
+          </param>
+
+          <param name="gallery">
+            <meta>
+              <title lang="en">Gallery</title>
+              <title lang="fr">Galerie</title>
+            </meta>
+          </param>
+
+          <param name="home">
+            <meta>
+              <title lang="en">Home</title>
+              <title lang="fr">Maison</title>
+            </meta>
+          </param>
+
+          <param name="letter">
+            <meta>
+              <title lang="en">Letter</title>
+              <title lang="fr">Lettre</title>
+            </meta>
+          </param>
+
+          <param name="looking-glass">
+            <meta>
+              <title lang="en">Looking glass</title>
+              <title lang="fr">Loupe</title>
+            </meta>
+          </param>
+
+          <param name="publications">
+            <meta>
+              <title lang="en">Publications</title>
+              <title lang="fr">Publications</title>
+            </meta>
+          </param>
+
+          <param name="speaker">
+            <meta>
+              <title lang="en">Speaker</title>
+              <title lang="fr">Mégaphone</title>
+            </meta>
+          </param>
+        </param>
+      </params>
+    </property>
+  </properties>
+</form>

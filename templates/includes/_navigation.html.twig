@@ -1,4 +1,4 @@
-<nav class="fixed h-screen bg-zinc-900 text-white dark:border-r border-zinc-700">
+<nav class="fixed h-screen bg-zinc-900 text-white border-r border-zinc-700">
   <ul class="flex flex-col h-full">
     <div class="h-full mb-[-1px] overflow-y-auto">
       {% include 'includes/navigation/_item.html.twig' with {
@@ -9,12 +9,13 @@
 	
       {% for item in sulu_navigation_root_tree('main') %}
         {% set page = sulu_content_load(item.id, {
-          'excerptIcons': 'excerpt.icon',
+          'menuIcon': 'excerpt.menu_icon',
         }) %}
+        {% set menuIcon = page.content.menuIcon %}
         {% include 'includes/navigation/_item.html.twig' with {
           url: sulu_content_path(item.url, item.webspaceKey),
           label: item.title,
-          iconSrc: page.content.excerptIcons[0].url,
+          iconSrc: menuIcon != null ? asset('build/website/images/' ~ page.content.menuIcon ~ '.svg') : null,
           current: item.uuid == uuid|default(null)
         } %}
       {% endfor %}
