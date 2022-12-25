@@ -1,9 +1,9 @@
 {% extends "base.html.twig" %}
 
-{% set headerImage = content.coverPage[0].coverImage %}
-{% set headerTitle = 'Dernière publication' %}
-{% set headerSubtitle = content.coverPage[0].title %}
-{% set headerLinkUrl = content.coverPage[0].url %}
+{% set headerImage = content.coverPage != null ? content.coverPage[0].coverImage : content.coverImage %}
+{% set headerTitle = content.coverPage != null ? 'Dernière publication' : content.title %}
+{% set headerSubtitle = content.coverPage != null ? content.coverPage[0].title : null %}
+{% set headerLinkUrl = content.coverPage != null ? content.coverPage[0].url : null %}
 {% set headerLinkLabel = 'Lire' %}
 
 {% block content %}
