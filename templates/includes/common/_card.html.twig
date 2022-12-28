@@ -1,5 +1,5 @@
 <article class="shadow-[0_0_0_1px] shadow-zinc-200 dark:shadow-zinc-700">
-  <a href="{{ url }}" class="h-full flex flex-col hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+  <a href="{{ url }}" class="h-full flex flex-col bg-black/[.025] hover:bg-black/5 dark:bg-black/10 dark:hover:bg-black/20 transition-colors">
     {% set imageClasses = 'aspect-video object-cover' %}
     {% if image|default(null) %}
       {{ get_image(image, {

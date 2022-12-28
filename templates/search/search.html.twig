@@ -7,19 +7,19 @@
   {% set searchForm %}
     <form action="{{ path('sulu_search.website_search') }}"
           method="GET"
-          class="flex flex-row my-8 rounded-full border border-zinc-200 dark:border-zinc-700">
+          class="flex flex-row my-8 rounded-full bg-black/[.025] dark:bg-black/10 border border-zinc-200 dark:border-zinc-700">
       <input name="q"
              type="text"
-             placeholder="Search"
+             placeholder="Système solaire..."
              value="{{ query }}"
              class="flex-grow rounded-full px-6 py-4 bg-transparent"/>
-      <button type="submit" class="px-6 py-4">Go</button>
+      <button type="submit" class="px-6 py-4 rounded-full hover:bg-black/5 dark:hover:bg-black/10 transition-colors">Go</button>
     </form>
 
     {% if query != "" %}
       <h2 class="font-medium italic text-center">
         {{ hits|length }}
-        résultats pour "{{ query }}"
+        résultat{{ hits|length > 1 ? 's' : '' }} pour "{{ query }}"
       </h2>
     {% endif %}
   {% endset %}
