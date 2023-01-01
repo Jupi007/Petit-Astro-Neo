@@ -4,133 +4,68 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Common\DoctrineListRepresentationFactory;
 use App\Entity\Definition;
+use App\Entity\Representation\DefinitionRepresentation;
+use App\Manager\DefinitionManager;
 use App\Repository\DefinitionRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandlerInterface;
-use Sulu\Component\Rest\AbstractRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @phpstan-type DefinitionData array{
- *     id: int|null,
- *     title: string|null,
- *     content: string|null,
- * }
- */
-class DefinitionController extends AbstractRestController
+#[Route('/admin/api/definitions')]
+class DefinitionController extends AbstractController
 {
     public function __construct(
-        ViewHandlerInterface $viewHandler,
-        TokenStorageInterface $tokenStorage,
-        private readonly DefinitionRepository $definitionRepository,
-        private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
+        private readonly DefinitionManager $manager,
+        private readonly DefinitionRepository $repository,
     ) {
-        parent::__construct($viewHandler, $tokenStorage);
     }
 
-    #[Rest\Get(path: '/admin/api/definitions/{id}', name: 'app.get_definition')]
-    public function getAction(int $id, Request $request): View
+    #[Rest\Get(path: '', name: 'app.get_definition_list')]
+    public function getListAction(?string $locale): View
     {
-        $definition = $this->load($id, $request);
-        if (!$definition instanceof Definition) {
-            throw new NotFoundHttpException();
-        }
+        $listRepresentation = $this->repository->createDoctrineListRepresentation($locale ?? '');
 
-        return $this->view($this->getDataForEntity($definition));
+        return View::create($listRepresentation->toArray());
     }
 
-    #[Rest\Put(path: '/admin/api/definitions/{id}', name: 'app.put_definition')]
-    public function putAction(int $id, Request $request): View
+    #[Rest\Get(path: '/{id}', name: 'app.get_definition')]
+    public function getAction(Definition $definition): View
     {
-        $definition = $this->load($id, $request);
-        if (!$definition instanceof Definition) {
-            throw new NotFoundHttpException();
-        }
-
-        /** @var DefinitionData $data */
-        $data = $request->toArray();
-        $this->mapDataToEntity($data, $definition);
-        $this->save($definition);
-
-        return $this->view($this->getDataForEntity($definition));
+        return View::create(
+            DefinitionRepresentation::fromDefinition($definition),
+        );
     }
 
-    #[Rest\Post(path: '/admin/api/definitions', name: 'app.post_definition')]
+    #[Rest\Post(path: '', name: 'app.post_definition')]
     public function postAction(Request $request): View
     {
-        $definition = $this->create($request);
+        $definition = $this->manager->createFromRequest($request);
 
-        /** @var DefinitionData $data */
-        $data = $request->toArray();
-        $this->mapDataToEntity($data, $definition);
-        $this->save($definition);
-
-        return $this->view($this->getDataForEntity($definition), 201);
+        return View::create(
+            DefinitionRepresentation::fromDefinition($definition),
+            Response::HTTP_CREATED,
+        );
     }
 
-    #[Rest\Delete(path: '/admin/api/definitions/{id}', name: 'app.delete_definition')]
+    #[Rest\Put(path: '/{id}', name: 'app.put_definition')]
+    public function putAction(Definition $definition, Request $request): View
+    {
+        $definition = $this->manager->updateFromRequest($definition, $request);
+
+        return View::create(
+            DefinitionRepresentation::fromDefinition($definition),
+        );
+    }
+
+    #[Rest\Delete(path: '/{id}', name: 'app.delete_definition')]
     public function deleteAction(Definition $definition): View
     {
-        $this->remove($definition);
+        $this->repository->remove($definition);
 
-        return $this->view(null);
-    }
-
-    #[Rest\Get(path: '/admin/api/definitions', name: 'app.get_definition_list')]
-    public function getListAction(Request $request): View
-    {
-        $listRepresentation = $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
-            Definition::RESOURCE_KEY,
-            [],
-            ['locale' => $this->getLocale($request)],
-        );
-
-        return $this->view($listRepresentation->toArray());
-    }
-
-    /**
-     * @return DefinitionData
-     */
-    protected function getDataForEntity(Definition $definition): array
-    {
-        return [
-            'id' => $definition->getId(),
-            'title' => $definition->getTitle(),
-            'content' => $definition->getContent(),
-        ];
-    }
-
-    /**
-     * @param DefinitionData $data
-     */
-    protected function mapDataToEntity($data, Definition $definition): void
-    {
-        $definition->setTitle($data['title'] ?? '');
-        $definition->setContent($data['content'] ?? '');
-    }
-
-    protected function load(int $id, Request $request): ?Definition
-    {
-        return $this->definitionRepository->findById($id, $this->getLocale($request));
-    }
-
-    protected function create(Request $request): Definition
-    {
-        return $this->definitionRepository->create($this->getLocale($request));
-    }
-
-    protected function save(Definition $definition): void
-    {
-        $this->definitionRepository->save($definition);
-    }
-
-    protected function remove(Definition $definition): void
-    {
-        $this->definitionRepository->remove($definition);
+        return View::create(null);
     }
 }

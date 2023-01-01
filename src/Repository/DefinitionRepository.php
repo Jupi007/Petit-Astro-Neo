@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Common\DoctrineListRepresentationFactory;
 use App\Entity\Definition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
+use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryTrait;
 
 /**
@@ -20,23 +21,17 @@ use Sulu\Component\SmartContent\Orm\DataProviderRepositoryTrait;
  * @method Definition[] findAll()
  * @method Definition[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DefinitionRepository extends ServiceEntityRepository implements DataProviderRepositoryInterface
+class DefinitionRepository extends ServiceEntityRepository
 {
     use DataProviderRepositoryTrait {
         findByFilters as parentFindByFilters;
     }
 
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
+    ) {
         parent::__construct($registry, Definition::class);
-    }
-
-    public function create(string $locale): Definition
-    {
-        $definition = new Definition();
-        $definition->setLocale($locale);
-
-        return $definition;
     }
 
     public function remove(Definition $definition): void
@@ -51,28 +46,11 @@ class DefinitionRepository extends ServiceEntityRepository implements DataProvid
         $this->getEntityManager()->flush();
     }
 
-    public function findById(int $id, string $locale): ?Definition
+    public function createDoctrineListRepresentation(string $locale): PaginatedRepresentation
     {
-        $definition = $this->find($id);
-        if (!$definition instanceof Definition) {
-            return null;
-        }
-
-        $definition->setLocale($locale);
-
-        return $definition;
-    }
-
-    /**
-     * @param mixed[] $filters
-     */
-    public function findByFilters($filters, $page, $pageSize, $limit, $locale, $options = [])
-    {
-        $entities = $this->parentFindByFilters($filters, $page, $pageSize, $limit, $locale, $options);
-
-        return \array_map(
-            fn (Definition $entity) => $entity->setLocale($locale),
-            $entities,
+        return $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
+            Definition::RESOURCE_KEY,
+            parameters: ['locale' => $locale],
         );
     }
 
@@ -85,23 +63,5 @@ class DefinitionRepository extends ServiceEntityRepository implements DataProvid
     protected function appendJoins(QueryBuilder $queryBuilder, $alias, $locale)
     {
         // join and select entities that are used for creating data items or resource items in the DataProvider here
-    }
-
-    /**
-     * @param mixed[] $options
-     *
-     * @return string[]
-     */
-    protected function append(QueryBuilder $queryBuilder, string $alias, string $locale, $options = []): array
-    {
-        $queryBuilder->andWhere($alias . '.enabled = true');
-
-        return [];
-    }
-
-    protected function appendSortByJoins(QueryBuilder $queryBuilder, string $alias, string $locale): void
-    {
-        $queryBuilder->innerJoin($alias . '.translations', 'translation', Join::WITH, 'translation.locale = :locale');
-        $queryBuilder->setParameter('locale', $locale);
     }
 }

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Contract\Localizable;
 use App\Repository\DefinitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DefinitionRepository::class)]
-class Definition
+class Definition implements Localizable
 {
     final public const RESOURCE_KEY = 'definitions';
 
