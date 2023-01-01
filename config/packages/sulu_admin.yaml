@@ -6,6 +6,11 @@ sulu_admin:
     lists:
         directories:
             - "%kernel.project_dir%/config/lists"
+    resources:
+        definitions:
+            routes:
+                list: app.get_definition_list
+                detail: app.get_definition
 
 sulu_core:
     locales:

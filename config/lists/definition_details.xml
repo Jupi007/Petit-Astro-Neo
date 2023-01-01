@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+
+  <key>definitions</key>
+
+  <joins name="translation">
+    <join>
+      <entity-name>App\Entity\DefinitionTranslation</entity-name>
+      <field-name>App\Entity\Definition.translations</field-name>
+      <condition>App\Entity\DefinitionTranslation.locale = :locale</condition>
+    </join>
+  </joins>
+
+  <properties>
+    <property name="id" visibility="no" translation="sulu_admin.id">
+      <field-name>id</field-name>
+      <entity-name>App\Entity\Definition</entity-name>
+    </property>
+
+    <property name="title" visibility="always" searchability="yes" translation="sulu_admin.title">
+      <field-name>title</field-name>
+      <entity-name>App\Entity\DefinitionTranslation</entity-name>
+
+      <joins ref="translation"/>
+    </property>
+
+    <property name="changed" translation="sulu_admin.changed" type="datetime" visibility="yes">
+      <field-name>changed</field-name>
+      <entity-name>App\Entity\DefinitionTranslation</entity-name>
+
+      <joins ref="translation"/>
+    </property>
+  </properties>
+</list>
