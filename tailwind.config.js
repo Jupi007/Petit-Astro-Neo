@@ -18,7 +18,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'nimbus': ['Nimbus Mono L', ...defaultTheme.fontFamily.mono],
+        'colombia': ['colombia'],
       },
       typography: (theme) => ({
         DEFAULT: {

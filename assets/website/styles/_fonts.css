@@ -1,8 +1,8 @@
 @font-face {
-  font-family: 'Nimbus Mono L';
+  font-family: 'colombia';
   font-display: swap;
-  src: url('../fonts/woff2/nimbusmono-regular.woff2') format('woff2'),
-    url('../fonts/woff/nimbusmono-regular.woff') format('woff');
+  src: url('../fonts/woff2/Colombia.woff2') format('woff2'),
+    url('../fonts/woff/Colombia.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
