@@ -64,7 +64,7 @@ class DefinitionController extends AbstractController
     #[Rest\Delete(path: '/{id}', name: 'app.delete_definition')]
     public function deleteAction(Definition $definition): View
     {
-        $this->repository->remove($definition);
+        $this->manager->remove($definition);
 
         return View::create(null);
     }

@@ -1,4 +1,7 @@
 {
   "app.definition": "Définition",
-  "app.definitions": "Définitions"
+  "app.definitions": "Définitions",
+  "sulu_activity.description.definitions.created": "{userFullName} a créé la définition \"{resourceTitle}\"",
+  "sulu_activity.description.definitions.modified": "{userFullName} a modifié la définition \"{resourceTitle}\"",
+  "sulu_activity.description.definitions.removed": "{userFullName} a supprimé la définition \"{resourceTitle}\""
 }
