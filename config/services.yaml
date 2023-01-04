@@ -11,7 +11,6 @@ services:
     _defaults:
         autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: true
         # Binding arguments by name or type
         # https://symfony.com/doc/current/service_container.html#binding-arguments-by-name-or-type
         #bind:
@@ -29,6 +28,11 @@ services:
     App\ValueResolver\LocalizedEntityValueResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 111 }
+
+    Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
+        public: true
+    Sulu\Bundle\WebsiteBundle\Controller\DefaultController:
+        public: true
 
     Sulu\Twig\Extensions\ImageExtension:
         arguments:
