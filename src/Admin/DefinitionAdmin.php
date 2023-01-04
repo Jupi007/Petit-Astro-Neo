@@ -32,7 +32,7 @@ class DefinitionAdmin extends Admin
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
         // Configure a NavigationItem with a View
-        $definitions = new NavigationItem('app.definitions');
+        $definitions = new NavigationItem('app.lexicon');
         $definitions->setPosition(40);
         $definitions->setIcon('fa-book');
         $definitions->setView(static::DEFINITION_LIST_VIEW);
@@ -48,10 +48,10 @@ class DefinitionAdmin extends Admin
             new ToolbarAction('sulu_admin.add'),
             new ToolbarAction('sulu_admin.delete'),
         ];
-        $listView = $this->viewBuilderFactory->createListViewBuilder(static::DEFINITION_LIST_VIEW, '/definitions/:locale')
+        $listView = $this->viewBuilderFactory->createListViewBuilder(static::DEFINITION_LIST_VIEW, '/lexicon/:locale')
             ->setResourceKey(Definition::RESOURCE_KEY)
             ->setListKey(static::DEFINITION_LIST_KEY)
-            ->setTitle('app.definitions')
+            ->setTitle('app.lexicon')
             ->addListAdapters(['table'])
             ->addLocales($locales)
             ->setDefaultLocale($locales[0])
@@ -61,7 +61,7 @@ class DefinitionAdmin extends Admin
         $viewCollection->add($listView);
 
         // Configure Definition Add View
-        $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::DEFINITION_ADD_FORM_VIEW, '/definitions/:locale/add')
+        $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::DEFINITION_ADD_FORM_VIEW, '/lexicon/:locale/add')
             ->setResourceKey(Definition::RESOURCE_KEY)
             ->setBackView(static::DEFINITION_LIST_VIEW)
             ->addLocales($locales);
@@ -77,7 +77,7 @@ class DefinitionAdmin extends Admin
         $viewCollection->add($addDetailsFormView);
 
         // Configure Definition Edit View
-        $editFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::DEFINITION_EDIT_FORM_VIEW, '/definitions/:locale/:id')
+        $editFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::DEFINITION_EDIT_FORM_VIEW, '/lexicon/:locale/:id')
             ->setResourceKey(Definition::RESOURCE_KEY)
             ->setBackView(static::DEFINITION_LIST_VIEW)
             ->setTitleProperty('title')

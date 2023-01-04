@@ -1,4 +1,5 @@
 {
+  "app.lexicon": "Léxique",
   "app.definition": "Définition",
   "app.definitions": "Définitions",
   "sulu_activity.description.definitions.created": "{userFullName} a créé la définition \"{resourceTitle}\"",
