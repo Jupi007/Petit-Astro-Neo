@@ -12,8 +12,7 @@
         {% include 'includes/navigation/_item.html.twig' with {
           url: sulu_content_path(item.url, item.webspaceKey),
           label: item.title,
-          iconSrc: menuIcon != null ? asset('build/website/images/' ~ menuIcon ~ '.svg') : null,
-          current: item.uuid == uuid|default(null)
+          iconSrc: menuIcon != null ? asset('build/website/images/' ~ menuIcon ~ '.svg') : null
         } %}
       {% endfor %}
     </div>
@@ -22,8 +21,7 @@
       url: path('sulu_search.website_search'),
       label: 'Search',
       iconSrc: asset('build/website/images/looking-glass.svg'),
-      last: true,
-      current: app.request.requesturi == path('sulu_search.website_search'),
+      last: true
     } %}
   </ul>
 </nav>
