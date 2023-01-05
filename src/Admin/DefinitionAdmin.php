@@ -15,13 +15,13 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 class DefinitionAdmin extends Admin
 {
-    final public const DEFINITION_LIST_KEY = 'definitions';
+    final public const LIST_KEY = 'definitions';
 
-    final public const DEFINITION_FORM_KEY = 'definition_details';
+    final public const FORM_KEY = 'definition_details';
 
-    final public const DEFINITION_LIST_VIEW = 'app.definitions_list';
-    final public const DEFINITION_ADD_FORM_VIEW = 'app.definition_add_form';
-    final public const DEFINITION_EDIT_FORM_VIEW = 'app.definition_edit_form';
+    final public const LIST_VIEW = 'app.definitions_list';
+    final public const ADD_FORM_VIEW = 'app.definition_add_form';
+    final public const EDIT_FORM_VIEW = 'app.definition_edit_form';
 
     public function __construct(
         private readonly ViewBuilderFactoryInterface $viewBuilderFactory,
@@ -35,7 +35,7 @@ class DefinitionAdmin extends Admin
         $definitions = new NavigationItem('app.lexicon');
         $definitions->setPosition(40);
         $definitions->setIcon('fa-book');
-        $definitions->setView(static::DEFINITION_LIST_VIEW);
+        $definitions->setView(static::LIST_VIEW);
         $navigationItemCollection->add($definitions);
     }
 
@@ -48,38 +48,38 @@ class DefinitionAdmin extends Admin
             new ToolbarAction('sulu_admin.add'),
             new ToolbarAction('sulu_admin.delete'),
         ];
-        $listView = $this->viewBuilderFactory->createListViewBuilder(static::DEFINITION_LIST_VIEW, '/lexicon/:locale')
+        $listView = $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, '/lexicon/:locale')
             ->setResourceKey(Definition::RESOURCE_KEY)
-            ->setListKey(static::DEFINITION_LIST_KEY)
+            ->setListKey(static::LIST_KEY)
             ->setTitle('app.lexicon')
             ->addListAdapters(['table'])
             ->addLocales($locales)
             ->setDefaultLocale($locales[0])
-            ->setAddView(static::DEFINITION_ADD_FORM_VIEW)
-            ->setEditView(static::DEFINITION_EDIT_FORM_VIEW)
+            ->setAddView(static::ADD_FORM_VIEW)
+            ->setEditView(static::EDIT_FORM_VIEW)
             ->addToolbarActions($listToolbarActions);
         $viewCollection->add($listView);
 
         // Configure Definition Add View
-        $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::DEFINITION_ADD_FORM_VIEW, '/lexicon/:locale/add')
+        $addFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::ADD_FORM_VIEW, '/lexicon/:locale/add')
             ->setResourceKey(Definition::RESOURCE_KEY)
-            ->setBackView(static::DEFINITION_LIST_VIEW)
+            ->setBackView(static::LIST_VIEW)
             ->addLocales($locales);
         $viewCollection->add($addFormView);
 
-        $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::DEFINITION_ADD_FORM_VIEW . '.details', '/details')
+        $addDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::ADD_FORM_VIEW . '.details', '/details')
             ->setResourceKey(Definition::RESOURCE_KEY)
-            ->setFormKey(static::DEFINITION_FORM_KEY)
+            ->setFormKey(static::FORM_KEY)
             ->setTabTitle('sulu_admin.details')
-            ->setEditView(static::DEFINITION_EDIT_FORM_VIEW)
+            ->setEditView(static::EDIT_FORM_VIEW)
             ->addToolbarActions([new ToolbarAction('sulu_admin.save')])
-            ->setParent(static::DEFINITION_ADD_FORM_VIEW);
+            ->setParent(static::ADD_FORM_VIEW);
         $viewCollection->add($addDetailsFormView);
 
         // Configure Definition Edit View
-        $editFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::DEFINITION_EDIT_FORM_VIEW, '/lexicon/:locale/:id')
+        $editFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_FORM_VIEW, '/lexicon/:locale/:id')
             ->setResourceKey(Definition::RESOURCE_KEY)
-            ->setBackView(static::DEFINITION_LIST_VIEW)
+            ->setBackView(static::LIST_VIEW)
             ->setTitleProperty('title')
             ->addLocales($locales);
         $viewCollection->add($editFormView);
@@ -88,12 +88,12 @@ class DefinitionAdmin extends Admin
             new ToolbarAction('sulu_admin.save'),
             new ToolbarAction('sulu_admin.delete'),
         ];
-        $editDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::DEFINITION_EDIT_FORM_VIEW . '.details', '/details')
+        $editDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::EDIT_FORM_VIEW . '.details', '/details')
             ->setResourceKey(Definition::RESOURCE_KEY)
-            ->setFormKey(static::DEFINITION_FORM_KEY)
+            ->setFormKey(static::FORM_KEY)
             ->setTabTitle('sulu_admin.details')
             ->addToolbarActions($formToolbarActions)
-            ->setParent(static::DEFINITION_EDIT_FORM_VIEW);
+            ->setParent(static::EDIT_FORM_VIEW);
         $viewCollection->add($editDetailsFormView);
     }
 }

@@ -34,15 +34,15 @@ class DefinitionRepository extends ServiceEntityRepository
         parent::__construct($registry, Definition::class);
     }
 
-    public function remove(Definition $definition): void
-    {
-        $this->getEntityManager()->remove($definition);
-        $this->getEntityManager()->flush();
-    }
-
     public function save(Definition $definition): void
     {
         $this->getEntityManager()->persist($definition);
+        $this->getEntityManager()->flush();
+    }
+
+    public function remove(Definition $definition): void
+    {
+        $this->getEntityManager()->remove($definition);
         $this->getEntityManager()->flush();
     }
 

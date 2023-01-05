@@ -9,6 +9,7 @@ use App\Repository\DefinitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Sulu\Component\Security\Authentication\UserInterface;
 
 #[ORM\Entity(repositoryClass: DefinitionRepository::class)]
 class Definition implements Localizable
@@ -107,14 +108,102 @@ class Definition implements Localizable
         return $translation->getContent();
     }
 
-    public function setContent(string $title): self
+    public function setContent(string $content): self
     {
         $translation = $this->getTranslation($this->locale);
         if (!$translation instanceof DefinitionTranslation) {
             $translation = $this->createTranslation($this->locale);
         }
 
-        $translation->setContent($title);
+        $translation->setContent($content);
+
+        return $this;
+    }
+
+    public function getCreator(): ?UserInterface
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            return null;
+        }
+
+        return $translation->getCreator();
+    }
+
+    public function setCreator(?UserInterface $creator): self
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            $translation = $this->createTranslation($this->locale);
+        }
+
+        $translation->setCreator($creator);
+
+        return $this;
+    }
+
+    public function getChanger(): ?UserInterface
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            return null;
+        }
+
+        return $translation->getChanger();
+    }
+
+    public function setChanger(?UserInterface $changer): self
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            $translation = $this->createTranslation($this->locale);
+        }
+
+        $translation->setChanger($changer);
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTime
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            return null;
+        }
+
+        return $translation->getCreated();
+    }
+
+    public function setCreated(\DateTime $created): self
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            $translation = $this->createTranslation($this->locale);
+        }
+
+        $translation->setCreated($created);
+
+        return $this;
+    }
+
+    public function getChanged(): ?\DateTime
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            return null;
+        }
+
+        return $translation->getChanged();
+    }
+
+    public function setChanged(\DateTime $changed): self
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            $translation = $this->createTranslation($this->locale);
+        }
+
+        $translation->setChanged($changed);
 
         return $this;
     }

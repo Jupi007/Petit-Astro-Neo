@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\Api\DefinitionRepresentation;
 use App\Entity\Definition;
-use App\Entity\Representation\DefinitionRepresentation;
 use App\Manager\DefinitionManager;
 use App\Repository\DefinitionRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;

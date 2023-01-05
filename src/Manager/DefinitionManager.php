@@ -5,27 +5,28 @@ declare(strict_types=1);
 namespace App\Manager;
 
 use App\Entity\Definition;
-use App\Entity\Factory\DefinitionFactory;
 use App\Event\Definition\CreatedDefinitionActivityEvent;
 use App\Event\Definition\ModifiedDefinitionActivityEvent;
 use App\Event\Definition\RemovedDefinitionActivityEvent;
 use App\Repository\DefinitionRepository;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
+use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefinitionManager
 {
     public function __construct(
         private readonly DefinitionRepository $repository,
-        private readonly DomainEventCollectorInterface $domainEventCollectorInterface,
+        private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly TrashManagerInterface $trashManager,
     ) {
     }
 
     public function createFromRequest(Request $request): Definition
     {
-        $definition = DefinitionFactory::createFromRequest($request);
+        $definition = $this->mapRequestToDefinition(new Definition(), $request);
 
-        $this->domainEventCollectorInterface->collect(new CreatedDefinitionActivityEvent($definition));
+        $this->domainEventCollector->collect(new CreatedDefinitionActivityEvent($definition));
         $this->repository->save($definition);
 
         return $definition;
@@ -33,9 +34,9 @@ class DefinitionManager
 
     public function updateFromRequest(Definition $definition, Request $request): Definition
     {
-        $definition = DefinitionFactory::updateFromRequest($definition, $request);
+        $definition = $this->mapRequestToDefinition($definition, $request);
 
-        $this->domainEventCollectorInterface->collect(new ModifiedDefinitionActivityEvent($definition));
+        $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
         $this->repository->save($definition);
 
         return $definition;
@@ -43,7 +44,20 @@ class DefinitionManager
 
     public function remove(Definition $definition): void
     {
-        $this->domainEventCollectorInterface->collect(new RemovedDefinitionActivityEvent($definition));
+        $this->domainEventCollector->collect(new RemovedDefinitionActivityEvent($definition));
+        $this->trashManager->store(Definition::RESOURCE_KEY, $definition);
         $this->repository->remove($definition);
+    }
+
+    private function mapRequestToDefinition(Definition $definition, Request $request): Definition
+    {
+        $data = $request->toArray();
+        $locale = $request->query->get('locale');
+
+        $definition->setLocale($locale ?? '');
+        $definition->setTitle($data['title'] ?? '');
+        $definition->setContent($data['content'] ?? '');
+
+        return $definition;
     }
 }
