@@ -36,7 +36,7 @@ class DefinitionController extends AbstractController
     public function getAction(Definition $definition): View
     {
         return View::create(
-            DefinitionRepresentation::fromDefinition($definition),
+            new DefinitionRepresentation($definition),
         );
     }
 
@@ -46,7 +46,7 @@ class DefinitionController extends AbstractController
         $definition = $this->manager->createFromRequest($request);
 
         return View::create(
-            DefinitionRepresentation::fromDefinition($definition),
+            new DefinitionRepresentation($definition),
             Response::HTTP_CREATED,
         );
     }
@@ -57,7 +57,7 @@ class DefinitionController extends AbstractController
         $definition = $this->manager->updateFromRequest($definition, $request);
 
         return View::create(
-            DefinitionRepresentation::fromDefinition($definition),
+            new DefinitionRepresentation($definition),
         );
     }
 

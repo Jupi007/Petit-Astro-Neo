@@ -5,44 +5,43 @@ declare(strict_types=1);
 namespace App\Entity\Api;
 
 use App\Entity\Definition;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\VirtualProperty;
 
+#[ExclusionPolicy(ExclusionPolicy::ALL)]
 class DefinitionRepresentation
 {
-    private function __construct(
-        private ?int $id = null,
-        private ?string $title = null,
-        private ?string $content = null,
-        private ?string $locale = null,
+    public function __construct(
+        private Definition $definition,
     ) {
     }
 
-    public static function fromDefinition(Definition $definition): self
-    {
-        return new self(
-            id: $definition->getId(),
-            title: $definition->getTitle(),
-            content: $definition->getContent(),
-            locale: $definition->getLocale(),
-        );
-    }
-
+    #[VirtualProperty]
+    #[SerializedName('id')]
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->definition->getId();
     }
 
+    #[VirtualProperty]
+    #[SerializedName('title')]
     public function getTitle(): ?string
     {
-        return $this->title;
+        return $this->definition->getTitle();
     }
 
+    #[VirtualProperty]
+    #[SerializedName('content')]
     public function getContent(): ?string
     {
-        return $this->content;
+        return $this->definition->getContent();
     }
 
+    #[VirtualProperty]
+    #[SerializedName('locale')]
     public function getLocale(): ?string
     {
-        return $this->locale;
+        return $this->definition->getLocale();
     }
 }
