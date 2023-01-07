@@ -9,8 +9,8 @@ sulu_admin:
     resources:
         definitions:
             routes:
-                list: app.get_definition_list
-                detail: app.get_definition
+                list: app.admin.get_definition_list
+                detail: app.admin.get_definition
 
 sulu_core:
     locales:

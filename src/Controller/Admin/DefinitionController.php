@@ -24,24 +24,16 @@ class DefinitionController extends AbstractController
     ) {
     }
 
-    #[Rest\Get(path: '', name: 'app.get_definition_list')]
-    public function getListAction(?string $locale): View
+    #[Rest\Get(path: '', name: 'app.admin.get_definition_list')]
+    public function getList(?string $locale): View
     {
         $listRepresentation = $this->repository->createDoctrineListRepresentation($locale ?? '');
 
         return View::create($listRepresentation->toArray());
     }
 
-    #[Rest\Get(path: '/{id}', name: 'app.get_definition')]
-    public function getAction(Definition $definition): View
-    {
-        return View::create(
-            new DefinitionRepresentation($definition),
-        );
-    }
-
-    #[Rest\Post(path: '', name: 'app.post_definition')]
-    public function postAction(Request $request): View
+    #[Rest\Post(path: '', name: 'app.admin.post_definition')]
+    public function post(Request $request): View
     {
         $definition = $this->manager->createFromRequest($request);
 
@@ -51,8 +43,16 @@ class DefinitionController extends AbstractController
         );
     }
 
-    #[Rest\Put(path: '/{id}', name: 'app.put_definition')]
-    public function putAction(Definition $definition, Request $request): View
+    #[Rest\Get(path: '/{id}', name: 'app.admin.get_definition')]
+    public function get(Definition $definition): View
+    {
+        return View::create(
+            new DefinitionRepresentation($definition),
+        );
+    }
+
+    #[Rest\Put(path: '/{id}', name: 'app.admin.put_definition')]
+    public function put(Definition $definition, Request $request): View
     {
         $definition = $this->manager->updateFromRequest($definition, $request);
 
@@ -61,8 +61,8 @@ class DefinitionController extends AbstractController
         );
     }
 
-    #[Rest\Delete(path: '/{id}', name: 'app.delete_definition')]
-    public function deleteAction(Definition $definition): View
+    #[Rest\Delete(path: '/{id}', name: 'app.admin.delete_definition')]
+    public function delete(Definition $definition): View
     {
         $this->manager->remove($definition);
 
