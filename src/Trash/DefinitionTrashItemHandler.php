@@ -81,7 +81,7 @@ class DefinitionTrashItemHandler implements
                 'title' => $translation->getTitle(),
                 'content' => $translation->getContent(),
                 'created' => $translation->getCreated()->format('c'),
-                'creatorId' => $creator ? $creator->getId() : null,
+                'creatorId' => null !== $creator ? $creator->getId() : null,
             ];
         }
 
@@ -109,7 +109,7 @@ class DefinitionTrashItemHandler implements
                 ->setContent($translationData['content'])
                  ->setCreated(new \DateTime($translationData['created']));
 
-            if ($translationData['creatorId']) {
+            if (0 !== $translationData['creatorId']) {
                 $definition->setCreator($this->entityManager->find(UserInterface::class, $translationData['creatorId']));
             }
         }

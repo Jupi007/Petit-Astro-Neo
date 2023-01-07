@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 class LocalizedEntityValueResolver implements ValueResolverInterface
 {
-    private EntityValueResolver $entityValueResolver;
+    private readonly EntityValueResolver $entityValueResolver;
 
     public function __construct(ManagerRegistry $registry)
     {

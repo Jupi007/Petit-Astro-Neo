@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 class DefinitionRepresentation
 {
     public function __construct(
-        private Definition $definition,
+        private readonly Definition $definition,
     ) {
     }
 
