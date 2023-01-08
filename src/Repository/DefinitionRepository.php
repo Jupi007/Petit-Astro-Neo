@@ -54,6 +54,18 @@ class DefinitionRepository extends ServiceEntityRepository
         );
     }
 
+    public function findById(int $id, string $locale): ?Definition
+    {
+        $definition = $this->find($id);
+        if (!$definition instanceof Definition) {
+            return null;
+        }
+
+        $definition->setLocale($locale);
+
+        return $definition;
+    }
+
     /**
      * @param string $alias
      * @param string $locale

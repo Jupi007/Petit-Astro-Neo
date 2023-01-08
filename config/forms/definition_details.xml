@@ -9,8 +9,21 @@
       <meta>
         <title>sulu_admin.title</title>
       </meta>
+
       <params>
         <param name="headline" value="true"/>
+      </params>
+
+      <tag name="sulu.rlp.part"/>
+    </property>
+
+    <property name="routePath" type="route">
+      <meta>
+        <title>sulu_admin.url</title>
+      </meta>
+
+      <params>
+        <param name="mode" value="leaf"/>
       </params>
     </property>
 
@@ -18,6 +31,7 @@
       <meta>
         <title>app.definition</title>
       </meta>
+
       <params>
         <param name="headline" value="true"/>
       </params>

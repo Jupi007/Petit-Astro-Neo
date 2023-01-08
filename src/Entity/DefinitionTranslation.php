@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\DefinitionTranslationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 
@@ -25,6 +26,10 @@ class DefinitionTranslation implements AuditableInterface
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
+
+    #[ORM\ManyToOne(targetEntity: RouteInterface::class, cascade: ['all'], inversedBy: 'target')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?RouteInterface $route = null;
 
     public function __construct(
         #[ORM\ManyToOne(targetEntity: Definition::class, inversedBy: 'translations')]
@@ -70,6 +75,18 @@ class DefinitionTranslation implements AuditableInterface
     public function setContent(?string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getRoute(): ?RouteInterface
+    {
+        return $this->route;
+    }
+
+    public function setRoute(RouteInterface $route): self
+    {
+        $this->route = $route;
 
         return $this;
     }

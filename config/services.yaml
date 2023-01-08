@@ -42,3 +42,8 @@ services:
                 webp: "image/webp"
             $aspectRatio: true
             $imageFormatConfiguration: "%sulu_media.image.formats%"
+
+    # Should be ported to Sulu
+    _instanceof:
+        Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface:
+            tags: [sulu_route.defaults_provider]

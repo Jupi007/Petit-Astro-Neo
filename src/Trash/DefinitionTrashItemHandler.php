@@ -6,7 +6,8 @@ namespace App\Trash;
 
 use App\Admin\DefinitionAdmin;
 use App\Entity\Definition;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\DefinitionRepository;
+use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfigurationProviderInterface;
@@ -14,8 +15,17 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\RestoreTrashItemHandler
 use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerInterface;
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
-use Sulu\Component\Security\Authentication\UserInterface;
+use Sulu\Component\Security\Authentication\UserRepositoryInterface;
 
+/**
+ * @phpstan-type TrashData array<string, array{
+ *    title: string|null,
+ *    content: string|null,
+ *    created: string,
+ *    creatorId: int|null,
+ *    routePath: string|null
+ * }>
+ */
 class DefinitionTrashItemHandler implements
     StoreTrashItemHandlerInterface,
     RestoreTrashItemHandlerInterface,
@@ -23,8 +33,10 @@ class DefinitionTrashItemHandler implements
 {
     public function __construct(
         private readonly TrashItemRepositoryInterface $trashItemRepository,
-        private readonly EntityManagerInterface $entityManager,
         private readonly DoctrineRestoreHelperInterface $doctrineRestoreHelper,
+        private readonly RouteManagerInterface $routeManager,
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly DefinitionRepository $definitionRepository,
     ) {
     }
 
@@ -36,7 +48,7 @@ class DefinitionTrashItemHandler implements
         return $this->trashItemRepository->create(
             resourceKey: Definition::RESOURCE_KEY,
             resourceId: (string) $definition->getId(),
-            resourceTitle: $definition->getTitle() ?? '',
+            resourceTitle: $this->definitionToTrashTitles($definition),
             restoreData: $this->definitionToTrashData($definition),
             restoreType: null,
             restoreOptions: $options,
@@ -50,6 +62,9 @@ class DefinitionTrashItemHandler implements
     {
         $definition = $this->trashItemToDefinition($trashItem);
         $this->doctrineRestoreHelper->persistAndFlushWithId($definition, (int) $trashItem->getResourceId());
+
+        $this->restoreDefinitionRoutes($definition, $trashItem);
+        $this->definitionRepository->save($definition);
 
         return $definition;
     }
@@ -67,53 +82,69 @@ class DefinitionTrashItemHandler implements
         return Definition::RESOURCE_KEY;
     }
 
-    /**
-     * @return array<string, array<string, int|string|null>>
-     */
+    /** @return TrashData */
     private function definitionToTrashData(Definition $definition): array
     {
+        /** @var TrashData */
         $data = [];
 
         foreach ($definition->getTranslations() as $translation) {
-            $creator = $translation->getCreator();
-
             $data[$translation->getLocale()] = [
                 'title' => $translation->getTitle(),
                 'content' => $translation->getContent(),
                 'created' => $translation->getCreated()->format('c'),
-                'creatorId' => null !== $creator ? $creator->getId() : null,
+                'creatorId' => $translation->getCreator()?->getId(),
+                'routePath' => $translation->getRoute()?->getPath(),
             ];
         }
 
         return $data;
     }
 
+    /** @return array<string, string> */
+    private function definitionToTrashTitles(Definition $definition): array
+    {
+        /** @var array<string, string> */
+        $titles = [];
+
+        foreach ($definition->getTranslations() as $translation) {
+            $titles[$translation->getLocale()] = $translation->getTitle() ?? '';
+        }
+
+        return $titles;
+    }
+
     private function trashItemToDefinition(TrashItemInterface $trashItem): Definition
     {
-        /**
-         * @var array<string, array{
-         *  title: string,
-         *  content: string,
-         *  created: string,
-         *  creatorId: int
-         * }>
-         */
+        /** @var TrashData */
         $data = $trashItem->getRestoreData();
-
         $definition = new Definition();
 
         foreach ($data as $locale => $translationData) {
-            $definition->setLocale($locale);
             $definition
-                ->setTitle($translationData['title'])
-                ->setContent($translationData['content'])
-                 ->setCreated(new \DateTime($translationData['created']));
+                ->setLocale($locale)
+                ->setTitle($translationData['title'] ?? '')
+                ->setContent($translationData['content'] ?? '')
+                ->setCreated(new \DateTime($translationData['created']));
 
-            if (0 !== $translationData['creatorId']) {
-                $definition->setCreator($this->entityManager->find(UserInterface::class, $translationData['creatorId']));
+            if (null !== $translationData['creatorId']) {
+                $definition->setCreator($this->userRepository->find($translationData['creatorId']));
             }
         }
 
         return $definition;
+    }
+
+    public function restoreDefinitionRoutes(Definition $definition, TrashItemInterface $trashItem): void
+    {
+        /** @var TrashData */
+        $data = $trashItem->getRestoreData();
+
+        foreach ($data as $locale => $translationData) {
+            if (null !== $translationData['routePath']) {
+                $definition->setLocale($locale);
+                $this->routeManager->create($definition, $translationData['routePath']);
+            }
+        }
     }
 }

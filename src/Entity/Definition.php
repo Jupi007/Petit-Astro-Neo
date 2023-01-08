@@ -9,10 +9,12 @@ use App\Repository\DefinitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Sulu\Bundle\RouteBundle\Model\RoutableInterface;
+use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
 #[ORM\Entity(repositoryClass: DefinitionRepository::class)]
-class Definition implements Localizable
+class Definition implements Localizable, RoutableInterface
 {
     final public const RESOURCE_KEY = 'definitions';
 
@@ -204,6 +206,28 @@ class Definition implements Localizable
         }
 
         $translation->setChanged($changed);
+
+        return $this;
+    }
+
+    public function getRoute(): ?RouteInterface
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            return null;
+        }
+
+        return $translation->getRoute();
+    }
+
+    public function setRoute(RouteInterface $route): self
+    {
+        $translation = $this->getTranslation($this->locale);
+        if (!$translation instanceof DefinitionTranslation) {
+            $translation = $this->createTranslation($this->locale);
+        }
+
+        $translation->setRoute($route);
 
         return $this;
     }

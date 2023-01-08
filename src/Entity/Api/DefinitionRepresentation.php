@@ -39,6 +39,13 @@ class DefinitionRepresentation
     }
 
     #[VirtualProperty]
+    #[SerializedName('routePath')]
+    public function getRoutePath(): ?string
+    {
+        return $this->definition->getRoute()?->getPath();
+    }
+
+    #[VirtualProperty]
     #[SerializedName('locale')]
     public function getLocale(): ?string
     {
