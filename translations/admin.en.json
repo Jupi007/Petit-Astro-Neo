@@ -3,6 +3,8 @@
   "app.admin.definition": "Definition",
   "app.admin.definitions": "Definitions",
   "sulu_activity.resource.definitions": "Definition",
+  "app.admin.definition_select": "{count} {count, plural, =1 {definition} other {definitions}} selected",
+  "app.admin.definition_selection_overlay_title": "Select definitions",
   "sulu_activity.description.definitions.created": "{userFullName} has created the definition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.modified": "{userFullName} has changed the definition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.removed": "{userFullName} has removed the definition \"{resourceTitle}\""

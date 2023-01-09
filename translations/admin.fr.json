@@ -1,8 +1,10 @@
 {
   "app.admin.lexicon": "Lexique",
-  "app.admin.definition": "Définition",
-  "app.admin.definitions": "Définitions",
-  "sulu_activity.description.definitions.created": "{userFullName} a créé la définition \"{resourceTitle}\"",
-  "sulu_activity.description.definitions.modified": "{userFullName} a modifié la définition \"{resourceTitle}\"",
-  "sulu_activity.description.definitions.removed": "{userFullName} a supprimé la définition \"{resourceTitle}\""
+  "app.admin.definition": "D\u00e9finition",
+  "app.admin.definitions": "D\u00e9finitions",
+  "app.admin.definition_select": "{count} {count, plural, =1 {d\u00e9finition} other {d\u00e9finitions}} s\u00e9lectionn\u00e9s",
+  "app.admin.definition_selection_overlay_title": "Choisir les d\u00e9finitions",
+  "sulu_activity.description.definitions.created": "{userFullName} a cr\u00e9\u00e9 la d\u00e9finition \"{resourceTitle}\"",
+  "sulu_activity.description.definitions.modified": "{userFullName} a modifi\u00e9 la d\u00e9finition \"{resourceTitle}\"",
+  "sulu_activity.description.definitions.removed": "{userFullName} a supprim\u00e9 la d\u00e9finition \"{resourceTitle}\""
 }

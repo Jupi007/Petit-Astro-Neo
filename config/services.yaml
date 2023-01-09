@@ -29,6 +29,10 @@ services:
         tags:
             - { name: controller.argument_value_resolver, priority: 111 }
 
+    App\Content\DefinitionsSelectionContentType:
+        tags:
+            - { name: sulu.content.type, alias: "definitions_selection" }
+
     Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
         public: true
     Sulu\Bundle\WebsiteBundle\Controller\DefaultController:
@@ -43,7 +47,6 @@ services:
             $aspectRatio: true
             $imageFormatConfiguration: "%sulu_media.image.formats%"
 
-    # Should be ported to Sulu
     _instanceof:
         Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface:
             tags: [sulu_route.defaults_provider]
