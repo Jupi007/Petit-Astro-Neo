@@ -30,20 +30,29 @@
     <div class="my-8">
       {% set gridItems %}
         {% for i, hit in hits %}
-          {% set page = sulu_content_load(hit.id, {
-            'title': 'title',
-            'coverImage': 'coverImage',
-            'excerptImages': 'excerpt.images',
-            'excerptTitle': 'excerpt.title',
-            'excerptDescription': 'excerpt.description',
-          }) %}
-          {% if null != page %}
-            {% include "includes/common/_card.html.twig" with {
-              url: hit.document.url,
-              image: page.content.excerptImages[0]|default(page.content.coverImage|default),
-              title: page.content.excerptTitle|default(page.content.title),
-              description: page.content.excerptDescription,
-            } %}
+          {% if hit.document.class == 'Sulu\\Bundle\\PageBundle\\Document\\PageDocument' %}
+            {% set page = sulu_content_load(hit.id, {
+              'title': 'title',
+              'coverImage': 'coverImage',
+              'excerptImages': 'excerpt.images',
+              'excerptTitle': 'excerpt.title',
+              'excerptDescription': 'excerpt.description',
+            }) %}
+            {% if null != page %}
+              {% include "includes/common/_card.html.twig" with {
+                url: hit.document.url,
+                image: page.content.excerptImages[0]|default(page.content.coverImage|default),
+                title: page.content.excerptTitle|default(page.content.title),
+                description: page.content.excerptDescription,
+              } %}
+            {% endif %}
+          {% elseif hit.document.class == 'App\\Entity\\DefinitionTranslation' %}
+              {# TODO Add specific definition card #}
+              {% include "includes/common/_card.html.twig" with {
+                url: '',
+                title: hit.document.title,
+                description: 'Définition',
+              } %}
           {% endif %}
         {% endfor %}
       {% endset %}
@@ -53,6 +62,4 @@
       } %}
     </div>
   {% endif %}
-
-  
 {% endblock %}

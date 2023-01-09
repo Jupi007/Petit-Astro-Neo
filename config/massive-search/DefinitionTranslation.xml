@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<massive-search-mapping xmlns="http://massiveart.io/schema/dic/massive-search-mapping">
+  <mapping class="App\Entity\DefinitionTranslation">
+    <id expr="object.getDefinition().getId()" />
+    <index value="definition" />
+
+    <title property="title" />
+    <description property="content" />
+    <locale property="locale" />
+
+    <fields>
+      <field name="title" type="string" />
+      <field name="content" type="string" />
+    </fields>
+  </mapping>
+</massive-search-mapping>
