@@ -1,7 +1,7 @@
 {
-  "app.lexicon": "Lexicon",
-  "app.definition": "Definition",
-  "app.definitions": "Definitions",
+  "app.admin.lexicon": "Lexicon",
+  "app.admin.definition": "Definition",
+  "app.admin.definitions": "Definitions",
   "sulu_activity.resource.definitions": "Definition",
   "sulu_activity.description.definitions.created": "{userFullName} has created the definition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.modified": "{userFullName} has changed the definition \"{resourceTitle}\"",

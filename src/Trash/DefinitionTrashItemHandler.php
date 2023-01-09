@@ -52,7 +52,7 @@ class DefinitionTrashItemHandler implements
             restoreData: $this->definitionToTrashData($definition),
             restoreType: null,
             restoreOptions: $options,
-            resourceSecurityContext: null,
+            resourceSecurityContext: DefinitionAdmin::SECURITY_CONTEXT,
             resourceSecurityObjectType: null,
             resourceSecurityObjectId: null,
         );

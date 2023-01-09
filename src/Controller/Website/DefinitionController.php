@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefinitionController extends AbstractController
 {
+    // Controlled by App\Routing\DefinitionRouteDefaultsProvider
     public function index(Definition $definition): Response
     {
         return $this->render('definition/definition.html.twig', [

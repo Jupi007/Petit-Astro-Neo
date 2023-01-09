@@ -29,7 +29,7 @@
 
     <property name="content" type="text_editor" mandatory="true">
       <meta>
-        <title>app.definition</title>
+        <title>app.admin.definition</title>
       </meta>
 
       <params>
