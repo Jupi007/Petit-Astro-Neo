@@ -7,10 +7,10 @@ namespace App\Repository;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Entity\Definition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
+use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryTrait;
 
 /**
@@ -21,7 +21,7 @@ use Sulu\Component\SmartContent\Orm\DataProviderRepositoryTrait;
  * @method Definition[] findAll()
  * @method Definition[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DefinitionRepository extends ServiceEntityRepository
+class DefinitionRepository extends ServiceEntityRepository implements DataProviderRepositoryInterface
 {
     use DataProviderRepositoryTrait {
         findByFilters as parentFindByFilters;
@@ -67,13 +67,28 @@ class DefinitionRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param mixed[] $filters
+     */
+    public function findByFilters($filters, $page, $pageSize, $limit, $locale, $options = [])
+    {
+        $definitions = $this->parentFindByFilters($filters, $page, $pageSize, $limit, $locale, $options);
+
+        return \array_map(
+            fn (Definition $definition) => $definition->setLocale($locale),
+            $definitions,
+        );
+    }
+
+    /**
      * @param string $alias
      * @param string $locale
-     *
-     * @return void
      */
-    protected function appendJoins(QueryBuilder $queryBuilder, $alias, $locale)
+    protected function appendJoins(QueryBuilder $queryBuilder, $alias, $locale): void
     {
-        // join and select entities that are used for creating data items or resource items in the DataProvider here
+        $queryBuilder
+            ->leftJoin($alias . '.translations', 'translations')
+            ->addSelect('translations')
+            ->andWhere('translations.locale = :locale')
+            ->setParameter('locale', $locale);
     }
 }

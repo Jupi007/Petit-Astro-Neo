@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Content;
+namespace App\ContentType;
 
 use App\Entity\Definition;
 use App\Repository\DefinitionRepository;
@@ -14,7 +14,7 @@ class DefinitionsSelectionContentType extends SimpleContentType
     public function __construct(
         private readonly DefinitionRepository $definitionRepository,
     ) {
-        parent::__construct('definitions_selection', []);
+        parent::__construct('definition_selection', []);
     }
 
     /**

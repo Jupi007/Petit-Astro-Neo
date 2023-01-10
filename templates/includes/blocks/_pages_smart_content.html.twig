@@ -1,4 +1,4 @@
-<div class="my-12">
+<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
 	{% set gridItems %}
 		{% for page in content.pages %}
 			{% include "includes/common/_card.html.twig" with {

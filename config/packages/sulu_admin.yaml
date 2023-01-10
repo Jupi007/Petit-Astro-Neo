@@ -14,14 +14,13 @@ sulu_admin:
 
   field_type_options:
     selection:
-      definitions_selection:
+      definition_selection:
         default_type: list_overlay
         resource_key: !php/const App\Entity\Definition::RESOURCE_KEY
         view:
           name: !php/const App\Admin\DefinitionAdmin::EDIT_FORM_VIEW
           result_to_view:
             id: id
-            locale: locale
         types:
           auto_complete:
             display_property: title

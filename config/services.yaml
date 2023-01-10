@@ -29,9 +29,16 @@ services:
         tags:
             - { name: controller.argument_value_resolver, priority: 111 }
 
-    App\Content\DefinitionsSelectionContentType:
+    App\ContentType\DefinitionsSelectionContentType:
         tags:
-            - { name: sulu.content.type, alias: "definitions_selection" }
+            - { name: sulu.content.type, alias: "definition_selection" }
+
+    App\SmartContent\DataProvider\DefinitionDataProvider:
+        tags:
+            - {
+                  name: sulu.smart_content.data_provider,
+                  alias: "definitions",
+              }
 
     Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
         public: true
