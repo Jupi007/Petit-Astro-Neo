@@ -25,6 +25,13 @@ services:
             - "../src/Entity/"
             - "../src/Kernel.php"
 
+    App\Link\DefinitionLinkProvider:
+        tags:
+            - {
+                  name: sulu.link.provider,
+                  alias: !php/const App\Entity\Definition::RESOURCE_KEY,
+              }
+
     App\ValueResolver\LocalizedEntityValueResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 111 }
@@ -35,10 +42,7 @@ services:
 
     App\SmartContent\DataProvider\DefinitionDataProvider:
         tags:
-            - {
-                  name: sulu.smart_content.data_provider,
-                  alias: "definitions",
-              }
+            - { name: sulu.smart_content.data_provider, alias: "definitions" }
 
     Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
         public: true

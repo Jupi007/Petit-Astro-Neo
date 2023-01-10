@@ -4,6 +4,9 @@
   "app.admin.definitions": "D\u00e9finitions",
   "app.admin.definition_select": "{count} {count, plural, =1 {d\u00e9finition} other {d\u00e9finitions}} s\u00e9lectionn\u00e9s",
   "app.admin.definition_selection_overlay_title": "Choisir les d\u00e9finitions",
+  "app.admin.single_definition_selection_overlay_title": "Choisir une d\u00e9finition",
+  "app.admin.no_definition_selected": "Aucune d\u00e9finition s\u00e9lectionn\u00e9",
+  "sulu_activity.resource.definitions": "D\u00e9finition",
   "sulu_activity.description.definitions.created": "{userFullName} a cr\u00e9\u00e9 la d\u00e9finition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.modified": "{userFullName} a modifi\u00e9 la d\u00e9finition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.removed": "{userFullName} a supprim\u00e9 la d\u00e9finition \"{resourceTitle}\""
