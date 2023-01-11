@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\DefinitionTranslation;
+use App\Pagination\PaginateTrait;
+use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,8 +20,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DefinitionTranslationRepository extends ServiceEntityRepository
 {
+    /** @template-use PaginateTrait<DefinitionTranslation> */
+    use PaginateTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, DefinitionTranslation::class);
+    }
+
+    /** @return Paginator<DefinitionTranslation> */
+    public function findPaginatedForSitemap(int $page, int $limit): Paginator
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->addSelect('t')
+            ->innerJoin('t.definition', 'd')
+            ->addSelect('d')
+            ->innerJoin('d.translations', 'altT')
+            ->addSelect('altT');
+
+        return $this->paginate($qb, $page, $limit);
     }
 }
