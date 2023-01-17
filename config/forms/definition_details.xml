@@ -17,7 +17,7 @@
       <tag name="sulu.rlp.part"/>
     </property>
 
-    <property name="routePath" type="route">
+    <property name="routePath" type="route" disabledCondition="title == null and routePath == null">
       <meta>
         <title>sulu_admin.url</title>
       </meta>
