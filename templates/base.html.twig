@@ -26,7 +26,9 @@
   </head>
 	
   <body class="relative dark:bg-zinc-800 dark:text-white accent-slate-500">
-    <div class="fixed w-screen h-screen z-[-1] opacity-[.15] dark:invert" style="background-image: url('{{ asset('build/website/images/dot.svg') }}')"></div>
+    <div class="fixed w-screen h-screen z-[-1] opacity-[.15] bg-center dark:invert"
+         style="background-image: url('{{ asset('build/website/images/dot.svg') }}')">
+    </div>
     {% include "includes/_navigation.html.twig" %}
 
     <div class="ml-24 min-h-screen flex flex-col">
