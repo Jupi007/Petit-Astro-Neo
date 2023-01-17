@@ -1,12 +1,13 @@
 <?xml version="1.0" ?>
 <massive-search-mapping xmlns="http://massiveart.io/schema/dic/massive-search-mapping">
   <mapping class="App\Entity\DefinitionTranslation">
-    <id expr="object.getDefinition().getId()" />
+    <id property="id" />
     <index value="definition" />
 
     <title property="title" />
     <description property="content" />
     <locale property="locale" />
+    <url expr="object.getRoute().getPath()" />
 
     <fields>
       <field name="title" type="string" />
