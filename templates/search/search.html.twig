@@ -7,12 +7,12 @@
   {% set searchForm %}
     <form action="{{ path('sulu_search.website_search') }}"
           method="GET"
-          class="flex flex-row my-8 rounded-full bg-black/[.025] dark:bg-black/10 border border-zinc-200 dark:border-zinc-700">
+          class="flex flex-row my-8 rounded-full bg-black/[.025] dark:bg-black/10 border border-zinc-200 dark:border-zinc-700 focus-within:outline">
       <input name="q"
              type="text"
              placeholder="Système solaire..."
              value="{{ query }}"
-             class="flex-grow rounded-full px-6 py-4 bg-transparent"/>
+             class="flex-grow rounded-full px-6 py-4 bg-transparent outline-none"/>
       <button type="submit" class="px-6 py-4 rounded-full hover:bg-black/5 dark:hover:bg-black/10 transition-colors">Go</button>
     </form>
 

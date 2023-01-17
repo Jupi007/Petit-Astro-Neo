@@ -20,6 +20,9 @@ module.exports = {
       fontFamily: {
         'colombia': ['colombia'],
       },
+      outlineWidth: {
+        DEFAULT: '2px',
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
