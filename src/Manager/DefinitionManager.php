@@ -44,8 +44,8 @@ class DefinitionManager
     {
         $this->mapRequestToDefinition($definition, $request);
         $this->generateDefinitionRoute($definition, $request);
-        $this->repository->save($definition);
         $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
+        $this->repository->save($definition);
 
         return $definition;
     }
@@ -82,8 +82,10 @@ class DefinitionManager
 
     private function removeRoutes(Definition $definition): void
     {
-        foreach ($definition->getTranslations() as $translation) {
-            if (null !== $route = $translation->getRoute()) {
+        foreach ($definition->getLocales() as $locale) {
+            $definition->setLocale($locale);
+
+            if (null !== $route = $definition->getRoute()) {
                 $this->routeRepository->remove($route);
 
                 foreach ($route->getHistories() as $historyRoute) {

@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Event\Definition;
 
-use App\Event\ActivityEventType;
+use App\Event\Trait\ModifiedActivityEventTrait;
 
 class ModifiedDefinitionActivityEvent extends AbstractDefinitionActivityEvent
 {
-    public function getActivityEventType(): ActivityEventType
-    {
-        return ActivityEventType::Modified;
-    }
+    use ModifiedActivityEventTrait;
 }

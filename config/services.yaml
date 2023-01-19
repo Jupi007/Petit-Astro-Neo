@@ -4,60 +4,77 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    default_locale: en
+  default_locale: en
 
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        # Binding arguments by name or type
-        # https://symfony.com/doc/current/service_container.html#binding-arguments-by-name-or-type
-        #bind:
-        #    'bool $isDebug': '%kernel.debug%'
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    # Binding arguments by name or type
+    # https://symfony.com/doc/current/service_container.html#binding-arguments-by-name-or-type
+    #bind:
+    #    'bool $isDebug': '%kernel.debug%'
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: "../src/"
-        exclude:
-            - "../src/DependencyInjection/"
-            - "../src/Entity/"
-            - "../src/Kernel.php"
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: "../src/"
+    exclude:
+      - "../src/DependencyInjection/"
+      - "../src/Entity/"
+      - "../src/Kernel.php"
 
-    App\Link\DefinitionLinkProvider:
-        tags:
-            - {
-                  name: sulu.link.provider,
-                  alias: !php/const App\Entity\Definition::RESOURCE_KEY,
-              }
+  _instanceof:
+    Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface:
+      tags: [sulu_route.defaults_provider]
 
-    App\ValueResolver\LocalizedEntityValueResolver:
-        tags:
-            - { name: controller.argument_value_resolver, priority: 111 }
+  App\Link\DefinitionLinkProvider:
+    tags:
+      - {
+          name: sulu.link.provider,
+          alias: !php/const App\Entity\Definition::RESOURCE_KEY,
+        }
 
-    App\ContentType\DefinitionsSelectionContentType:
-        tags:
-            - { name: sulu.content.type, alias: "definition_selection" }
+  App\Link\PublicationLinkProvider:
+    tags:
+      - {
+          name: sulu.link.provider,
+          alias: !php/const App\Entity\Publication::RESOURCE_KEY,
+        }
 
-    App\SmartContent\DataProvider\DefinitionDataProvider:
-        tags:
-            - { name: sulu.smart_content.data_provider, alias: "definitions" }
+  App\ValueResolver\LocalizedEntityValueResolver:
+    tags:
+      - { name: controller.argument_value_resolver, priority: 111 }
 
-    Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
-        public: true
-    Sulu\Bundle\WebsiteBundle\Controller\DefaultController:
-        public: true
+  App\ContentType\DefinitionSelectionContentType:
+    tags:
+      - { name: sulu.content.type, alias: "definition_selection" }
 
-    Sulu\Twig\Extensions\ImageExtension:
-        arguments:
-            $defaultAttributes:
-                loading: "lazy"
-            $defaultAdditionalTypes:
-                webp: "image/webp"
-            $aspectRatio: true
-            $imageFormatConfiguration: "%sulu_media.image.formats%"
+  App\SmartContent\DataProvider\DefinitionDataProvider:
+    tags:
+      - {
+          name: sulu.smart_content.data_provider,
+          alias: !php/const App\Entity\Definition::RESOURCE_KEY,
+        }
 
-    _instanceof:
-        Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface:
-            tags: [sulu_route.defaults_provider]
+  App\SmartContent\DataProvider\PublicationDataProvider:
+    tags:
+      - {
+          name: sulu.smart_content.data_provider,
+          alias: !php/const App\Entity\Publication::RESOURCE_KEY,
+        }
+
+  Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
+    public: true
+  Sulu\Bundle\WebsiteBundle\Controller\DefaultController:
+    public: true
+
+  Sulu\Twig\Extensions\ImageExtension:
+    arguments:
+      $defaultAttributes:
+        loading: "lazy"
+      $defaultAdditionalTypes:
+        webp: "image/webp"
+      $aspectRatio: true
+      $imageFormatConfiguration: "%sulu_media.image.formats%"

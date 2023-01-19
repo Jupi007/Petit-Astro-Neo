@@ -1,5 +1,7 @@
 <ul>
   {% for definition in content.definitions %}
-    <li>{{ definition.resource.title }}</li>
+    <li>
+      <a href="{{ definition.resource.route.path }}">{{ definition.resource.title }}</a>
+    </li>
   {% endfor %}
 </ul>

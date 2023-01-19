@@ -48,8 +48,11 @@ class DefinitionSitemapProvider implements SitemapProviderInterface
                 lastmod: $translation->getChanged(),
             );
 
-            foreach ($translation->getDefinition()->getTranslations() as $alternateTranslation) {
-                $path = $alternateTranslation->getRoute()?->getPath();
+            $definition = $translation->getDefinition();
+
+            foreach ($definition->getLocales() as $alternateLocale) {
+                $definition->setLocale($alternateLocale);
+                $path = $definition->getRoute()?->getPath();
 
                 if (null === $path) {
                     continue;
@@ -57,7 +60,7 @@ class DefinitionSitemapProvider implements SitemapProviderInterface
 
                 $sitemapUrl->addAlternateLink(new SitemapAlternateLink(
                     href: $this->generateUrl($scheme, $host, $path),
-                    locale: $alternateTranslation->getLocale(),
+                    locale: $definition->getLocale(),
                 ));
             }
 

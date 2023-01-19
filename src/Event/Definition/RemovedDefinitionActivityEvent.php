@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Event\Definition;
 
-use App\Event\ActivityEventType;
+use App\Event\Trait\RemovedActivityEventTrait;
 
 class RemovedDefinitionActivityEvent extends AbstractDefinitionActivityEvent
 {
-    public function getActivityEventType(): ActivityEventType
-    {
-        return ActivityEventType::Removed;
-    }
+    use RemovedActivityEventTrait;
 }

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Contract\PersistableEntityInterface;
+use App\Entity\Contract\TranslationInterface;
+use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\DefinitionTranslationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,16 +15,12 @@ use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 
 #[ORM\Entity(repositoryClass: DefinitionTranslationRepository::class)]
-class DefinitionTranslation implements AuditableInterface
+class DefinitionTranslation implements PersistableEntityInterface, TranslationInterface, AuditableInterface
 {
     use AuditableTrait;
+    use PersistableEntityTrait;
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -40,11 +39,6 @@ class DefinitionTranslation implements AuditableInterface
     ) {
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getDefinition(): Definition
     {
         return $this->definition;
@@ -60,7 +54,7 @@ class DefinitionTranslation implements AuditableInterface
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -72,7 +66,7 @@ class DefinitionTranslation implements AuditableInterface
         return $this->content;
     }
 
-    public function setContent(?string $content): self
+    public function setContent(string $content): self
     {
         $this->content = $content;
 

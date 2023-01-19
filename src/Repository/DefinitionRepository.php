@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Entity\Definition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
@@ -85,10 +86,25 @@ class DefinitionRepository extends ServiceEntityRepository implements DataProvid
      */
     protected function appendJoins(QueryBuilder $queryBuilder, $alias, $locale): void
     {
+        // join and select entities that are used for creating data items or resource items in the DataProvider here
+    }
+
+    /**
+     * @param mixed[] $options
+     *
+     * @return string[]
+     */
+    protected function append(QueryBuilder $queryBuilder, string $alias, string $locale, $options = []): array
+    {
+        // $queryBuilder->andWhere($alias . '.published = true');
+
+        return [];
+    }
+
+    protected function appendSortByJoins(QueryBuilder $queryBuilder, string $alias, string $locale): void
+    {
         $queryBuilder
-            ->leftJoin($alias . '.translations', 'translations')
-            ->addSelect('translations')
-            ->andWhere('translations.locale = :locale')
+            ->innerJoin($alias . '.translations', 'translation', Join::WITH, 'translation.locale = :locale')
             ->setParameter('locale', $locale);
     }
 }

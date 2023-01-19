@@ -27,8 +27,8 @@ class DefinitionLinkProvider implements LinkProviderInterface
             ->setListAdapter('table')
             ->setDisplayProperties(['title'])
             ->setOverlayTitle($this->translator->trans('app.admin.single_definition_selection_overlay_title', [], 'admin'))
-            ->setEmptyText($this->translator->trans('sulu_page.no_page_selected', [], 'admin'))
-            ->setIcon('fa-book')
+            ->setEmptyText($this->translator->trans('app.admin.no_definition_selected', [], 'admin'))
+            ->setIcon(Definition::RESOURCE_ICON)
             ->getLinkConfiguration();
     }
 

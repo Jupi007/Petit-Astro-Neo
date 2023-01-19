@@ -25,6 +25,13 @@ class DefinitionRepresentation
     }
 
     #[VirtualProperty]
+    #[SerializedName('locale')]
+    public function getLocale(): ?string
+    {
+        return $this->definition->getLocale();
+    }
+
+    #[VirtualProperty]
     #[SerializedName('title')]
     public function getTitle(): ?string
     {
@@ -43,12 +50,5 @@ class DefinitionRepresentation
     public function getRoutePath(): ?string
     {
         return $this->definition->getRoute()?->getPath();
-    }
-
-    #[VirtualProperty]
-    #[SerializedName('locale')]
-    public function getLocale(): ?string
-    {
-        return $this->definition->getLocale();
     }
 }

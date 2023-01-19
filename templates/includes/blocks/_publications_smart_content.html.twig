@@ -1,0 +1,7 @@
+<ul>
+  {% for publication in content.publications %}
+    <li>
+      <a href="{{ publication.resource.route.path }}">{{ publication.resource.title }}</a>
+    </li>
+  {% endfor %}
+</ul>

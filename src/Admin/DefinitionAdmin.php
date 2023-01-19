@@ -40,8 +40,9 @@ class DefinitionAdmin extends Admin
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
             $item = new NavigationItem('app.admin.lexicon');
             $item->setPosition(40);
-            $item->setIcon('fa-book');
+            $item->setIcon(Definition::RESOURCE_ICON);
             $item->setView(static::LIST_VIEW);
+
             $navigationItemCollection->add($item);
         }
     }

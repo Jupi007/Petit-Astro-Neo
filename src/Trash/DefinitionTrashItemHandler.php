@@ -21,7 +21,7 @@ use Sulu\Component\Security\Authentication\UserRepositoryInterface;
  * @phpstan-type TrashData array<string, array{
  *    title: string|null,
  *    content: string|null,
- *    created: string,
+ *    created: string|null,
  *    creatorId: int|null,
  *    routePath: string|null
  * }>
@@ -88,13 +88,15 @@ class DefinitionTrashItemHandler implements
         /** @var TrashData */
         $data = [];
 
-        foreach ($definition->getTranslations() as $translation) {
-            $data[$translation->getLocale()] = [
-                'title' => $translation->getTitle(),
-                'content' => $translation->getContent(),
-                'created' => $translation->getCreated()->format('c'),
-                'creatorId' => $translation->getCreator()?->getId(),
-                'routePath' => $translation->getRoute()?->getPath(),
+        foreach ($definition->getLocales() as $locale) {
+            $definition->setLocale($locale);
+
+            $data[$locale] = [
+                'title' => $definition->getTitle(),
+                'content' => $definition->getContent(),
+                'created' => $definition->getCreated()?->format('c'),
+                'creatorId' => $definition->getCreator()?->getId(),
+                'routePath' => $definition->getRoute()?->getPath(),
             ];
         }
 
@@ -107,8 +109,9 @@ class DefinitionTrashItemHandler implements
         /** @var array<string, string> */
         $titles = [];
 
-        foreach ($definition->getTranslations() as $translation) {
-            $titles[$translation->getLocale()] = $translation->getTitle() ?? '';
+        foreach ($definition->getLocales() as $locale) {
+            $definition->setLocale($locale);
+            $titles[$locale] = $definition->getTitle() ?? '';
         }
 
         return $titles;
@@ -125,7 +128,7 @@ class DefinitionTrashItemHandler implements
                 ->setLocale($locale)
                 ->setTitle($translationData['title'] ?? '')
                 ->setContent($translationData['content'] ?? '')
-                ->setCreated(new \DateTime($translationData['created']));
+                ->setCreated(new \DateTime($translationData['created'] ?? ''));
 
             if (null !== $translationData['creatorId']) {
                 $definition->setCreator($this->userRepository->find($translationData['creatorId']));

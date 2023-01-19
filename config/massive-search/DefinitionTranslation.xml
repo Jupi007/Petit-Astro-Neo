@@ -7,7 +7,7 @@
     <title property="title" />
     <description property="content" />
     <locale property="locale" />
-    <url expr="object.getRoute().getPath()" />
+    <url expr="object.getRoute()?.getPath()" />
 
     <fields>
       <field name="title" type="string" />

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Pagination;
+namespace App\Repository\Pagination;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * @template-covariant T
+ * @template T
  */
 trait PaginateTrait
 {

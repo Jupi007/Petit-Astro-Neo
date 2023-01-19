@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\DefinitionTranslation;
-use App\Pagination\PaginateTrait;
-use App\Pagination\Paginator;
+use App\Repository\Pagination\PaginateTrait;
+use App\Repository\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -9,7 +9,7 @@ use App\Repository\DefinitionRepository;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
 
-class DefinitionsSelectionContentType extends SimpleContentType
+class DefinitionSelectionContentType extends SimpleContentType
 {
     public function __construct(
         private readonly DefinitionRepository $definitionRepository,

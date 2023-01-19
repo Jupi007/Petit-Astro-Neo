@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Contract\Localizable;
+use App\Entity\Contract\LocalizableInterface;
+use App\Entity\Contract\PersistableEntityInterface;
+use App\Entity\Trait\LocalizableTrait;
+use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\DefinitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,220 +17,115 @@ use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
 #[ORM\Entity(repositoryClass: DefinitionRepository::class)]
-class Definition implements Localizable, RoutableInterface
+class Definition implements PersistableEntityInterface, LocalizableInterface, RoutableInterface
 {
+    /** @use LocalizableTrait<DefinitionTranslation> */
+    use LocalizableTrait;
+    use PersistableEntityTrait;
+
     final public const RESOURCE_KEY = 'definitions';
+    final public const RESOURCE_ICON = 'fa-book';
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    /**
-     * @var Collection<string, DefinitionTranslation>
-     */
-    #[ORM\OneToMany(targetEntity: DefinitionTranslation::class, mappedBy: 'definition', cascade: ['persist'], indexBy: 'locale')]
+    /** @var Collection<string, DefinitionTranslation> */
+    #[ORM\OneToMany(
+        targetEntity: DefinitionTranslation::class,
+        mappedBy: 'definition',
+        cascade: ['persist'],
+        indexBy: 'locale',
+        orphanRemoval: true,
+    )]
     private Collection $translations;
-
-    private string $locale;
 
     public function __construct()
     {
         $this->translations = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    private function createTranslation(): DefinitionTranslation
     {
-        return $this->id;
-    }
-
-    public function getLocale(): string
-    {
-        return $this->locale;
-    }
-
-    public function setLocale(string $locale): self
-    {
-        $this->locale = $locale;
-
-        return $this;
-    }
-
-    /**
-     * @return DefinitionTranslation[]
-     */
-    public function getTranslations(): array
-    {
-        return $this->translations->toArray();
-    }
-
-    protected function getTranslation(string $locale): ?DefinitionTranslation
-    {
-        if (!$this->translations->containsKey($locale)) {
-            return null;
-        }
-
-        return $this->translations->get($locale);
-    }
-
-    protected function createTranslation(string $locale): DefinitionTranslation
-    {
-        $translation = new DefinitionTranslation($this, $locale);
-        $this->translations->set($locale, $translation);
-
-        return $translation;
+        return new DefinitionTranslation($this, $this->locale);
     }
 
     public function getTitle(): ?string
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            return null;
-        }
-
-        return $translation->getTitle();
+        return $this->getTranslation()?->getTitle();
     }
 
     public function setTitle(string $title): self
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            $translation = $this->createTranslation($this->locale);
-        }
-
-        $translation->setTitle($title);
+        $this->getTranslation(createIfNull: true)->setTitle($title);
 
         return $this;
     }
 
     public function getContent(): ?string
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            return null;
-        }
-
-        return $translation->getContent();
+        return $this->getTranslation()?->getContent();
     }
 
     public function setContent(string $content): self
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            $translation = $this->createTranslation($this->locale);
-        }
-
-        $translation->setContent($content);
+        $this->getTranslation(createIfNull: true)->setContent($content);
 
         return $this;
     }
 
     public function getCreator(): ?UserInterface
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            return null;
-        }
-
-        return $translation->getCreator();
+        return $this->getTranslation()?->getCreator();
     }
 
     public function setCreator(?UserInterface $creator): self
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            $translation = $this->createTranslation($this->locale);
-        }
-
-        $translation->setCreator($creator);
+        $this->getTranslation(createIfNull: true)->setCreator($creator);
 
         return $this;
     }
 
     public function getChanger(): ?UserInterface
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            return null;
-        }
-
-        return $translation->getChanger();
+        return $this->getTranslation()?->getChanger();
     }
 
     public function setChanger(?UserInterface $changer): self
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            $translation = $this->createTranslation($this->locale);
-        }
-
-        $translation->setChanger($changer);
+        $this->getTranslation(createIfNull: true)->setChanger($changer);
 
         return $this;
     }
 
     public function getCreated(): ?\DateTime
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            return null;
-        }
-
-        return $translation->getCreated();
+        return $this->getTranslation()?->getCreated();
     }
 
     public function setCreated(\DateTime $created): self
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            $translation = $this->createTranslation($this->locale);
-        }
-
-        $translation->setCreated($created);
+        $this->getTranslation(createIfNull: true)->setCreated($created);
 
         return $this;
     }
 
     public function getChanged(): ?\DateTime
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            return null;
-        }
-
-        return $translation->getChanged();
+        return $this->getTranslation()?->getChanged();
     }
 
     public function setChanged(\DateTime $changed): self
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            $translation = $this->createTranslation($this->locale);
-        }
-
-        $translation->setChanged($changed);
+        $this->getTranslation(createIfNull: true)->setChanged($changed);
 
         return $this;
     }
 
     public function getRoute(): ?RouteInterface
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            return null;
-        }
-
-        return $translation->getRoute();
+        return $this->getTranslation()?->getRoute();
     }
 
     public function setRoute(RouteInterface $route): self
     {
-        $translation = $this->getTranslation($this->locale);
-        if (!$translation instanceof DefinitionTranslation) {
-            $translation = $this->createTranslation($this->locale);
-        }
-
-        $translation->setRoute($route);
+        $this->getTranslation(createIfNull: true)->setRoute($route);
 
         return $this;
     }
