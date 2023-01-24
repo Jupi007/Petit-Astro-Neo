@@ -1,19 +1,17 @@
 version: '3'
 
 services:
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   database:
     image: mariadb
     environment:
       MARIADB_DATABASE: ${MARIADB_DATABASE:-su_myapp}
-      # You should definitely change the password in production
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-root}
       MARIADB_ROOT_HOST: '%'
     volumes:
-      - db-data:/var/lib/mariadb
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/mariadb:rw
-###< doctrine/doctrine-bundle ###
+      - db-data:/var/lib/mysql
+      - ./var/docker/db/data:/var/lib/mysql:rw
+  ###< doctrine/doctrine-bundle ###
 
   # http://127.0.0.1:8081/
   adminer:
@@ -27,6 +25,5 @@ services:
       - 8081:8080
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  db-data:
-###< doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
+  db-data: ###< doctrine/doctrine-bundle ###
