@@ -28,7 +28,7 @@ class PublicationTranslation implements PersistableEntityInterface, TranslationI
 
     /** @var mixed[] */
     #[ORM\Column(type: Types::JSON, nullable: true)]
-    private array $content = [];
+    private array $blocks = [];
 
     #[ORM\ManyToOne(targetEntity: RouteInterface::class, cascade: ['all'], inversedBy: 'target')]
     #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
@@ -68,15 +68,15 @@ class PublicationTranslation implements PersistableEntityInterface, TranslationI
     }
 
     /** @return mixed[] */
-    public function getContent(): array
+    public function getBlocks(): array
     {
-        return $this->content;
+        return $this->blocks;
     }
 
-    /** @param mixed[] $content */
-    public function setContent(array $content): self
+    /** @param mixed[] $blocks */
+    public function setBlocks(array $blocks): self
     {
-        $this->content = $content;
+        $this->blocks = $blocks;
 
         return $this;
     }

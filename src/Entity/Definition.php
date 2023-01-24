@@ -58,14 +58,14 @@ class Definition implements PersistableEntityInterface, LocalizableInterface, Ro
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getDescription(): ?string
     {
-        return $this->getTranslation()?->getContent();
+        return $this->getTranslation()?->getDescription();
     }
 
-    public function setContent(string $content): self
+    public function setDescription(string $description): self
     {
-        $this->getTranslation(createIfNull: true)->setContent($content);
+        $this->getTranslation(createIfNull: true)->setDescription($description);
 
         return $this;
     }

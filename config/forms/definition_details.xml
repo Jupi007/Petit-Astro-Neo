@@ -27,7 +27,7 @@
       </params>
     </property>
 
-    <property name="content" type="text_editor" mandatory="true">
+    <property name="description" type="text_editor" mandatory="true">
       <meta>
         <title>app.admin.definition</title>
       </meta>

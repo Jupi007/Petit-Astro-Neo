@@ -145,7 +145,7 @@ class PublicationAdmin extends Admin
         }
 
         $editDetailsFormView = $this->viewBuilderFactory
-            ->createFormViewBuilder(
+            ->createPreviewFormViewBuilder(
                 name: static::EDIT_FORM_VIEW . '.details',
                 path: '/details',
             )

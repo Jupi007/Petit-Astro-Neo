@@ -66,7 +66,7 @@ class DefinitionManager
         $definition
             ->setLocale($locale ?? '')
             ->setTitle($data['title'] ?? '')
-            ->setContent($data['content'] ?? '');
+            ->setDescription($data['description'] ?? '');
     }
 
     private function generateDefinitionRoute(Definition $definition, Request $request): void

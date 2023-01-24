@@ -21,7 +21,7 @@ use Sulu\Component\Security\Authentication\UserRepositoryInterface;
  * @phpstan-type TrashData array<string, array{
  *    title: string|null,
  *    subtitle: string|null,
- *    content: string|null,
+ *    blocks: string|null,
  *    created: string|null,
  *    creatorId: int|null,
  *    routePath: string|null
@@ -95,7 +95,7 @@ class PublicationTrashItemHandler implements
             $data[$locale] = [
                 'title' => $publication->getTitle(),
                 'subtitle' => $publication->getSubtitle(),
-                'content' => (string) \json_encode($publication->getContent()),
+                'blocks' => (string) \json_encode($publication->getBlocks()),
                 'created' => $publication->getCreated()?->format('c'),
                 'creatorId' => $publication->getCreator()?->getId(),
                 'routePath' => $publication->getRoute()?->getPath(),
@@ -130,7 +130,7 @@ class PublicationTrashItemHandler implements
                 ->setLocale($locale)
                 ->setTitle($translationData['title'] ?? '')
                 ->setSubtitle($translationData['subtitle'] ?? '')
-                ->setContent((array) \json_decode($translationData['content'] ?? ''))
+                ->setBlocks((array) \json_decode($translationData['blocks'] ?? ''))
                 ->setCreated(new \DateTime($translationData['created'] ?? ''));
 
             if (null !== $translationData['creatorId']) {

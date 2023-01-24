@@ -36,6 +36,8 @@ trait LocalizableTrait
     /** @return ($createIfNull is true ? T : ?T) */
     private function getTranslation(bool $createIfNull = false)
     {
+        $a = $this->translations->containsKey($this->locale);
+
         if ($this->translations->containsKey($this->locale)) {
             return $this->translations->get($this->locale);
         } elseif (!$createIfNull) {

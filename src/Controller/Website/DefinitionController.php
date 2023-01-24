@@ -14,7 +14,7 @@ class DefinitionController extends AbstractController
     public function index(Definition $definition): Response
     {
         return $this->render('definition/definition.html.twig', [
-            'definition' => $definition,
+            'content' => $definition,
         ]);
     }
 }

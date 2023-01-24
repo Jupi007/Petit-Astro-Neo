@@ -47,9 +47,20 @@ class PublicationRepository extends ServiceEntityRepository implements DataProvi
         $this->getEntityManager()->flush();
     }
 
-    public function findById(int $id, string $locale): ?Publication
+    public function findByIdLocalized(int $id, string $locale): ?Publication
     {
-        $publication = $this->find($id);
+        $publication = $this->createQueryBuilder('p')
+                      ->andWhere('p.id = :id')
+                      ->setParameter('id', $id)
+
+                      ->leftJoin('p.translations', 't')
+                      ->addSelect('t')
+                      ->andWhere('t.locale = :locale')
+                      ->setParameter('locale', $locale)
+
+                      ->getQuery()
+                      ->getOneOrNullResult();
+
         if (!$publication instanceof Publication) {
             return null;
         }

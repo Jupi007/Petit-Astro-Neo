@@ -47,10 +47,10 @@ class PublicationRepresentation
 
     /** @return mixed[] */
     #[VirtualProperty]
-    #[SerializedName('content')]
-    public function getContent(): ?array
+    #[SerializedName('blocks')]
+    public function getBlocks(): ?array
     {
-        return $this->publication->getContent();
+        return $this->publication->getBlocks();
     }
 
     #[VirtualProperty]

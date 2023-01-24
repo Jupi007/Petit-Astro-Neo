@@ -71,15 +71,15 @@ class Publication implements PersistableEntityInterface, LocalizableInterface, R
     }
 
     /** @return mixed[] */
-    public function getContent(): ?array
+    public function getBlocks(): ?array
     {
-        return $this->getTranslation()?->getContent();
+        return $this->getTranslation()?->getBlocks();
     }
 
-    /** @param mixed[] $content */
-    public function setContent(array $content): self
+    /** @param mixed[] $blocks */
+    public function setBlocks(array $blocks): self
     {
-        $this->getTranslation(createIfNull: true)->setContent($content);
+        $this->getTranslation(createIfNull: true)->setBlocks($blocks);
 
         return $this;
     }

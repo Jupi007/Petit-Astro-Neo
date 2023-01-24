@@ -51,6 +51,13 @@ services:
     tags:
       - { name: sulu.content.type, alias: "definition_selection" }
 
+  App\Preview\PublicationPreviewObjectProvider:
+    tags:
+      - {
+          name: sulu_preview.object_provider,
+          provider-key: !php/const App\Entity\Publication::RESOURCE_KEY,
+        }
+
   App\SmartContent\DataProvider\DefinitionDataProvider:
     tags:
       - {

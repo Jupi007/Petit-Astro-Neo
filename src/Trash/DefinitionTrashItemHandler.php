@@ -20,7 +20,7 @@ use Sulu\Component\Security\Authentication\UserRepositoryInterface;
 /**
  * @phpstan-type TrashData array<string, array{
  *    title: string|null,
- *    content: string|null,
+ *    description: string|null,
  *    created: string|null,
  *    creatorId: int|null,
  *    routePath: string|null
@@ -93,7 +93,7 @@ class DefinitionTrashItemHandler implements
 
             $data[$locale] = [
                 'title' => $definition->getTitle(),
-                'content' => $definition->getContent(),
+                'description' => $definition->getDescription(),
                 'created' => $definition->getCreated()?->format('c'),
                 'creatorId' => $definition->getCreator()?->getId(),
                 'routePath' => $definition->getRoute()?->getPath(),
@@ -127,7 +127,7 @@ class DefinitionTrashItemHandler implements
             $definition
                 ->setLocale($locale)
                 ->setTitle($translationData['title'] ?? '')
-                ->setContent($translationData['content'] ?? '')
+                ->setDescription($translationData['description'] ?? '')
                 ->setCreated(new \DateTime($translationData['created'] ?? ''));
 
             if (null !== $translationData['creatorId']) {

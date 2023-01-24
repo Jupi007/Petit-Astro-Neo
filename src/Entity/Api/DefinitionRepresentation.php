@@ -39,10 +39,10 @@ class DefinitionRepresentation
     }
 
     #[VirtualProperty]
-    #[SerializedName('content')]
-    public function getContent(): ?string
+    #[SerializedName('description')]
+    public function getDescription(): ?string
     {
-        return $this->definition->getContent();
+        return $this->definition->getDescription();
     }
 
     #[VirtualProperty]

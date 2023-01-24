@@ -5,13 +5,13 @@
     <index value="definition" />
 
     <title property="title" />
-    <description property="content" />
+    <description property="description" />
     <locale property="locale" />
     <url expr="object.getRoute()?.getPath()" />
 
     <fields>
       <field name="title" type="string" />
-      <field name="content" type="string" />
+      <field name="description" type="string" />
     </fields>
   </mapping>
 </massive-search-mapping>

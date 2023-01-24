@@ -24,7 +24,7 @@ class DefinitionTranslation implements PersistableEntityInterface, TranslationIn
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $content = null;
+    private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: RouteInterface::class, cascade: ['all'], inversedBy: 'target')]
     #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
@@ -61,14 +61,14 @@ class DefinitionTranslation implements PersistableEntityInterface, TranslationIn
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getDescription(): ?string
     {
-        return $this->content;
+        return $this->description;
     }
 
-    public function setContent(string $content): self
+    public function setDescription(string $description): self
     {
-        $this->content = $content;
+        $this->description = $description;
 
         return $this;
     }

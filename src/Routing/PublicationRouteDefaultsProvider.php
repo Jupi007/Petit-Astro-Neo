@@ -30,7 +30,7 @@ class PublicationRouteDefaultsProvider implements RouteDefaultsProviderInterface
     {
         return [
             '_controller' => 'App\Controller\Website\PublicationController::index',
-            'publication' => $object ?: $this->repository->findById((int) $id, $locale),
+            'publication' => $object ?: $this->repository->findByIdLocalized((int) $id, $locale),
         ];
     }
 

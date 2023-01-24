@@ -42,9 +42,12 @@
       </meta>
 
       <properties>
-        <block name="content">
+        <block name="blocks">
           <types>
             <xi:include href="../templates/includes/blocks/rich-text.xml" />
+            <xi:include href="../templates/includes/blocks/figure.xml" />
+            <xi:include href="../templates/includes/blocks/quote.xml" />
+            <xi:include href="../templates/includes/blocks/button.xml" />
           </types>
         </block>
       </properties>

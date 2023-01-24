@@ -67,7 +67,7 @@ class PublicationManager
             ->setLocale($locale ?? '')
             ->setTitle($data['title'] ?? '')
             ->setSubtitle($data['subtitle'] ?? '')
-            ->setContent($data['content'] ?? []);
+            ->setBlocks($data['blocks'] ?? []);
     }
 
     private function generatePublicationRoute(Publication $publication, Request $request): void
