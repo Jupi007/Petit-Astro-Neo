@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8c91e26587d54bcbefb36decbb147d4",
+    "content-hash": "46544e230ac78fb73e7463a24334915a",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5634,6 +5634,105 @@
             "time": "2022-09-30T11:52:24+00:00"
         },
         {
+            "name": "sulu/content-bundle",
+            "version": "0.6.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sulu/SuluContentBundle.git",
+                "reference": "b7b899abaf3f34cfdcd6fc33810e5c0640724efb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sulu/SuluContentBundle/zipball/b7b899abaf3f34cfdcd6fc33810e5c0640724efb",
+                "reference": "b7b899abaf3f34cfdcd6fc33810e5c0640724efb",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/collections": "^1.0",
+                "doctrine/doctrine-bundle": "^1.10 || ^2.0",
+                "doctrine/inflector": "^1.4.1 || ^2.0.1",
+                "doctrine/orm": "^2.5.3",
+                "doctrine/persistence": "^1.3 || ^2.0",
+                "friendsofsymfony/rest-bundle": "^2.6 || ^3.0",
+                "massive/search-bundle": "^2.4",
+                "php": "^7.2 || ^8.0",
+                "ramsey/uuid": "^3.8 || ^4.0",
+                "sulu/sulu": "^2.1 || ^2.6@dev",
+                "symfony/config": "^4.4 || ^5.4 || ^6.0",
+                "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0",
+                "symfony/event-dispatcher": "^4.4 || ^5.4 || ^6.0",
+                "symfony/http-foundation": "^4.4 || ^5.4 || ^6.0",
+                "symfony/http-kernel": "^4.4 || ^5.4 || ^6.0",
+                "symfony/options-resolver": "^4.4 || ^5.4 || ^6.0",
+                "symfony/property-access": "^4.4 || ^5.4 || ^6.0",
+                "symfony/security-core": "^4.4 || ^5.4 || ^6.0",
+                "symfony/serializer": "^4.4 || ^5.4 || ^6.0",
+                "symfony/translation-contracts": "^1.0 || ^2.0 || ^3.0",
+                "symfony/workflow": "^4.4 || ^5.4 || ^6.0",
+                "webmozart/assert": "^1.3"
+            },
+            "conflict": {
+                "doctrine/persistence": "1.3.2"
+            },
+            "require-dev": {
+                "coduo/php-matcher": "^3.2 || ^4.0 || ^5.0 || ^6.0",
+                "doctrine/data-fixtures": "^1.3.3",
+                "doctrine/doctrine-fixtures-bundle": "^2.0 || ^3.0",
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "handcraftedinthealps/code-coverage-checker": "^0.2.1",
+                "handcraftedinthealps/zendsearch": "^2.0",
+                "jackalope/jackalope-doctrine-dbal": "^1.3.4",
+                "jangregor/phpstan-prophecy": "^0.8",
+                "matthiasnoback/symfony-config-test": "^4.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+                "phpspec/prophecy": "^1.14",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-doctrine": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-symfony": "^0.12",
+                "phpstan/phpstan-webmozart-assert": "^0.12",
+                "qossmic/deptrac-shim": "^0.11.1 || ^0.23.0",
+                "sulu/automation-bundle": "^2.0@dev",
+                "symfony/browser-kit": "^4.4 || ^5.4 || ^6.0",
+                "symfony/console": "^4.4 || ^5.4 || ^6.0",
+                "symfony/dotenv": "^4.4 || ^5.4 || ^6.0",
+                "symfony/framework-bundle": "^4.4 || ^5.4 || ^6.0",
+                "symfony/monolog-bundle": "^3.1",
+                "symfony/phpunit-bridge": "^5.4 || ^6.0",
+                "symfony/string": "^4.4 || ^5.4 || ^6.0",
+                "thecodingmachine/phpstan-strict-rules": "^0.12"
+            },
+            "type": "sulu-bundle",
+            "extra": {
+                "public-dir": "Tests/Application/public"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sulu\\Bundle\\ContentBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SuluContentBundle",
+                    "homepage": "https://github.com/sulu/SuluContentBundle/contributors"
+                }
+            ],
+            "description": "Experimental content implementation for sulu.",
+            "homepage": "https://github.com/sulu/SuluContentBundle",
+            "support": {
+                "issues": "https://github.com/sulu/SuluContentBundle/issues",
+                "source": "https://github.com/sulu/SuluContentBundle/tree/0.6"
+            },
+            "time": "2022-10-18T16:19:17+00:00"
+        },
+        {
             "name": "sulu/headless-bundle",
             "version": "0.9.0",
             "source": {
@@ -11135,6 +11234,90 @@
             "time": "2022-10-18T15:21:06+00:00"
         },
         {
+            "name": "symfony/workflow",
+            "version": "v6.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/workflow.git",
+                "reference": "cea2c95c2dd7d9a7675a9b7374e4ae274d4d3d39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/workflow/zipball/cea2c95c2dd7d9a7675a9b7374e4ae274d4d3d39",
+                "reference": "cea2c95c2dd7d9a7675a9b7374e4ae274d4d3d39",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "conflict": {
+                "symfony/event-dispatcher": "<5.4"
+            },
+            "require-dev": {
+                "psr/log": "^1|^2|^3",
+                "symfony/dependency-injection": "^5.4|^6.0",
+                "symfony/event-dispatcher": "^5.4|^6.0",
+                "symfony/expression-language": "^5.4|^6.0",
+                "symfony/security-core": "^5.4|^6.0",
+                "symfony/validator": "^5.4|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Workflow\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Grégoire Pineau",
+                    "email": "lyrixx@lyrixx.info"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides tools for managing a workflow or finite state machine",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "petrinet",
+                "place",
+                "state",
+                "statemachine",
+                "transition",
+                "workflow"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/workflow/tree/v6.2.5"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-01-20T18:34:10+00:00"
+        },
+        {
             "name": "symfony/yaml",
             "version": "v6.2.2",
             "source": {
@@ -14880,7 +15063,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "sulu/content-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
