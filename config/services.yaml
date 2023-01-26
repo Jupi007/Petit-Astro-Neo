@@ -36,13 +36,6 @@ services:
           alias: !php/const App\Entity\Definition::RESOURCE_KEY,
         }
 
-  App\Link\PublicationLinkProvider:
-    tags:
-      - {
-          name: sulu.link.provider,
-          alias: !php/const App\Entity\Publication::RESOURCE_KEY,
-        }
-
   App\ValueResolver\LocalizedEntityValueResolver:
     tags:
       - { name: controller.argument_value_resolver, priority: 111 }
@@ -51,27 +44,12 @@ services:
     tags:
       - { name: sulu.content.type, alias: "definition_selection" }
 
-  App\Preview\PublicationPreviewObjectProvider:
-    tags:
-      - {
-          name: sulu_preview.object_provider,
-          provider-key: !php/const App\Entity\Publication::RESOURCE_KEY,
-        }
-
   App\SmartContent\DataProvider\DefinitionDataProvider:
     tags:
       - {
           name: sulu.smart_content.data_provider,
           alias: !php/const App\Entity\Definition::RESOURCE_KEY,
         }
-
-  App\SmartContent\DataProvider\PublicationDataProvider:
-    tags:
-      - {
-          name: sulu.smart_content.data_provider,
-          alias: !php/const App\Entity\Publication::RESOURCE_KEY,
-        }
-
   Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
     public: true
   Sulu\Bundle\WebsiteBundle\Controller\DefaultController:
