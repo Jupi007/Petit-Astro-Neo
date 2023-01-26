@@ -35,7 +35,6 @@ use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -84,15 +83,8 @@ class PublicationController extends AbstractRestController implements ClassResou
     }
 
     #[Rest\Get(path: '/{id}', name: 'app.admin.get_publication')]
-    public function getAction(Request $request, int $id): Response
+    public function getAction(Publication $publication, Request $request): Response
     {
-        /** @var Publication|null $publication */
-        $publication = $this->entityManager->getRepository(Publication::class)->findOneBy(['id' => $id]);
-
-        if (!$publication) {
-            throw new NotFoundHttpException();
-        }
-
         $dimensionAttributes = $this->getDimensionAttributes($request);
         $dimensionContent = $this->contentManager->resolve($publication, $dimensionAttributes);
 
@@ -134,15 +126,8 @@ class PublicationController extends AbstractRestController implements ClassResou
     }
 
     #[Rest\Post(path: '/{id}', name: 'app.admin.post_trigger_publication')]
-    public function postTriggerAction(string $id, Request $request): Response
+    public function postTriggerAction(Publication $publication, Request $request): Response
     {
-        /** @var Publication|null $publication */
-        $publication = $this->entityManager->getRepository(Publication::class)->findOneBy(['id' => $id]);
-
-        if (!$publication) {
-            throw new NotFoundHttpException();
-        }
-
         $dimensionAttributes = $this->getDimensionAttributes($request); // ["locale" => "en", "stage" => "draft"]
         $action = $request->query->get('action');
 
@@ -199,15 +184,8 @@ class PublicationController extends AbstractRestController implements ClassResou
     }
 
     #[Rest\Put(path: '/{id}', name: 'app.admin.put_publication')]
-    public function putAction(Request $request, int $id): Response
+    public function putAction(Publication $publication, Request $request): Response
     {
-        /** @var Publication|null $publication */
-        $publication = $this->entityManager->getRepository(Publication::class)->findOneBy(['id' => $id]);
-
-        if (!$publication) {
-            throw new NotFoundHttpException();
-        }
-
         $data = $this->getData($request);
         $dimensionAttributes = $this->getDimensionAttributes($request); // ["locale" => "en", "stage" => "draft"]
 
@@ -245,11 +223,8 @@ class PublicationController extends AbstractRestController implements ClassResou
     }
 
     #[Rest\Delete(path: '/{id}', name: 'app.admin.delete_publication')]
-    public function deleteAction(int $id): Response
+    public function deleteAction(Publication $publication): Response
     {
-        /** @var Publication $publication */
-        $publication = $this->entityManager->getReference(Publication::class, $id);
-
         $this->entityManager->remove($publication);
         $this->entityManager->flush();
 
