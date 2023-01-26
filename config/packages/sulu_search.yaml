@@ -1,6 +1,6 @@
 sulu_search:
   indexes:
-    definition:
+    !php/const App\Entity\Definition::RESOURCE_KEY:
       name: app.admin.lexicon
       icon: !php/const App\Entity\Definition::RESOURCE_ICON
       security_context: !php/const App\Admin\DefinitionAdmin::SECURITY_CONTEXT
@@ -12,4 +12,5 @@ sulu_search:
           locale: locale
   website:
     indexes:
-      - definition
+      !php/const App\Entity\Definition::RESOURCE_KEY: !php/const App\Entity\Definition::RESOURCE_KEY
+      !php/const App\Entity\Publication::RESOURCE_KEY: publications_published

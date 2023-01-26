@@ -29,6 +29,11 @@ services:
     Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface:
       tags: [sulu_route.defaults_provider]
 
+  App\Controller\Admin\PublicationController:
+    public: true
+    tags:
+      - { name: controller.service_arguments }
+
   App\Link\DefinitionLinkProvider:
     tags:
       - {

@@ -26,6 +26,11 @@ class DefinitionController extends AbstractController implements SecuredControll
     ) {
     }
 
+    public function getSecurityContext(): string
+    {
+        return DefinitionAdmin::SECURITY_CONTEXT;
+    }
+
     #[Rest\Get(name: 'app.admin.get_definition_list')]
     public function getList(Request $request): View
     {
@@ -69,11 +74,6 @@ class DefinitionController extends AbstractController implements SecuredControll
         $this->manager->remove($definition);
 
         return View::create(null);
-    }
-
-    public function getSecurityContext(): string
-    {
-        return DefinitionAdmin::SECURITY_CONTEXT;
     }
 
     public function getLocale(Request $request): string

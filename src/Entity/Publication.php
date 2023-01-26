@@ -18,8 +18,9 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
     use ContentRichEntityTrait;
     use PersistableEntityTrait;
 
-    public const RESOURCE_KEY = 'publications';
-    public const TEMPLATE_TYPE = 'publication';
+    final public const RESOURCE_KEY = 'publications';
+    final public const RESOURCE_ICON = 'su-news';
+    final public const TEMPLATE_TYPE = 'publication';
 
     /** @var ArrayCollection<int, PublicationDimensionContent> */
     #[ORM\OneToMany(

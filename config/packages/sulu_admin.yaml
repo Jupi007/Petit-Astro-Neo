@@ -1,16 +1,22 @@
 sulu_admin:
   email: "%env(SULU_ADMIN_EMAIL)%"
+
   forms:
     directories:
       - "%kernel.project_dir%/config/forms"
   lists:
     directories:
       - "%kernel.project_dir%/config/lists"
+
   resources:
-    definitions:
+    !php/const App\Entity\Definition::RESOURCE_KEY:
       routes:
         list: app.admin.get_definition_list
         detail: app.admin.get_definition
+    !php/const App\Entity\Publication::RESOURCE_KEY:
+      routes:
+        list: app.admin.get_publication_list
+        detail: app.admin.get_publication
 
   field_type_options:
     selection:
@@ -28,7 +34,7 @@ sulu_admin:
               - title
           list_overlay:
             adapter: table
-            list_key: definitions
+            list_key: !php/const App\Entity\Definition::RESOURCE_KEY
             display_properties:
               - title
             label: "app.admin.definition_select"
@@ -42,3 +48,12 @@ sulu_core:
   translations:
     - fr
     - en
+
+  content:
+    structure:
+      paths:
+        !php/const App\Entity\Publication::TEMPLATE_TYPE:
+          path: "%kernel.project_dir%/config/templates/publications"
+          type: "publication"
+      default_type:
+        !php/const App\Entity\Publication::TEMPLATE_TYPE: "default"
