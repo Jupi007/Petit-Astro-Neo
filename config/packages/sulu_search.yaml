@@ -10,16 +10,6 @@ sulu_search:
         result_to_view:
           id: id
           locale: locale
-    publication:
-      name: app.admin.publications
-      icon: !php/const App\Entity\Publication::RESOURCE_ICON
-      security_context: !php/const App\Admin\PublicationAdmin::SECURITY_CONTEXT
-      contexts: []
-      view:
-        name: !php/const App\Admin\PublicationAdmin::EDIT_FORM_VIEW
-        result_to_view:
-          id: id
-          locale: locale
   website:
     indexes:
       - definition
