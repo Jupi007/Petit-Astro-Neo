@@ -45,7 +45,7 @@ class DefinitionManager
         $this->mapRequestToDefinition($definition, $request);
         $this->generateDefinitionRoute($definition, $request);
         $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
-        $this->repository->save($definition);
+        $this->repository->save($definition, flush: true);
 
         return $definition;
     }
@@ -55,7 +55,7 @@ class DefinitionManager
         $this->trashManager->store(Definition::RESOURCE_KEY, $definition);
         $this->domainEventCollector->collect(new RemovedDefinitionActivityEvent($definition));
         $this->removeRoutes($definition);
-        $this->repository->remove($definition);
+        $this->repository->remove($definition, flush: true);
     }
 
     private function mapRequestToDefinition(Definition $definition, Request $request): void
