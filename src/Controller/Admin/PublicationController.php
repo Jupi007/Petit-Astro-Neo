@@ -15,23 +15,14 @@ namespace App\Controller\Admin;
 
 use App\Admin\PublicationAdmin;
 use App\Entity\Publication;
-use App\Entity\PublicationDimensionContent;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Manager\PublicationManager;
+use App\Repository\PublicationRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
-use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
 use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\Exception\RestException;
-use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilder;
-use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
-use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptorInterface;
-use Sulu\Component\Rest\ListBuilder\Metadata\FieldDescriptorFactoryInterface;
-use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
-use Sulu\Component\Rest\RestHelperInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,12 +35,8 @@ class PublicationController extends AbstractRestController implements ClassResou
     public function __construct(
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,
-        private readonly FieldDescriptorFactoryInterface $fieldDescriptorFactory,
-        private readonly DoctrineListBuilderFactoryInterface $listBuilderFactory,
-        private readonly RestHelperInterface $restHelper,
-        private readonly ContentManagerInterface $contentManager,
-        private readonly ContentIndexerInterface $contentIndexer,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly PublicationRepository $publicationRepository,
+        private readonly PublicationManager $publicationManager,
     ) {
         parent::__construct($viewHandler, $tokenStorage);
     }
@@ -60,211 +47,119 @@ class PublicationController extends AbstractRestController implements ClassResou
     }
 
     #[Rest\Get(name: 'app.admin.get_publication_list')]
-    public function cgetAction(Request $request): Response
+    public function cget(Request $request): View
     {
-        /** @var DoctrineFieldDescriptorInterface[] $fieldDescriptors */
-        $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors(Publication::RESOURCE_KEY);
-        /** @var DoctrineListBuilder $listBuilder */
-        $listBuilder = $this->listBuilderFactory->create(Publication::class);
-        $listBuilder->addSelectField($fieldDescriptors['locale']);
-        $listBuilder->addSelectField($fieldDescriptors['ghostLocale']);
-        $listBuilder->setParameter('locale', $request->query->get('locale'));
-        $this->restHelper->initializeListBuilder($listBuilder, $fieldDescriptors);
-
-        $listRepresentation = new PaginatedRepresentation(
-            $listBuilder->execute(),
-            Publication::RESOURCE_KEY,
-            (int) $listBuilder->getCurrentPage(),
-            (int) $listBuilder->getLimit(),
-            $listBuilder->count(),
+        $listRepresentation = $this->publicationRepository->createDoctrineListRepresentation(
+            $this->getLocale($request),
         );
 
-        return $this->handleView($this->view($listRepresentation));
+        return View::create($listRepresentation->toArray());
     }
 
     #[Rest\Get(path: '/{id}', name: 'app.admin.get_publication')]
-    public function getAction(Publication $publication, Request $request): Response
+    public function get(Publication $publication, Request $request): View
     {
         $dimensionAttributes = $this->getDimensionAttributes($request);
-        $dimensionContent = $this->contentManager->resolve($publication, $dimensionAttributes);
 
-        return $this->handleView($this->view($this->normalize($publication, $dimensionContent)));
+        return View::create($this->normalize($publication, $dimensionAttributes));
     }
 
-    #[Rest\Post(name: 'app.admin.post_definition')]
-    public function postAction(Request $request): Response
+    #[Rest\Post(name: 'app.admin.post_publication')]
+    public function post(Request $request): View
     {
-        $publication = new Publication();
-
         $data = $this->getData($request);
-        $dimensionAttributes = $this->getDimensionAttributes($request); // ["locale" => "en", "stage" => "draft"]
+        $dimensionAttributes = $this->getDimensionAttributes($request);
 
-        $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
+        $publication = $this->publicationManager->create($data, $dimensionAttributes);
 
-        $this->entityManager->persist($publication);
-        $this->entityManager->flush();
-
-        if ('publish' === $request->query->get('action')) {
-            $dimensionContent = $this->contentManager->applyTransition(
-                $publication,
-                $dimensionAttributes,
-                WorkflowInterface::WORKFLOW_TRANSITION_PUBLISH,
-            );
-
-            $this->entityManager->flush();
-
-            // Index live dimension content
-            // $this->contentIndexer->index($publication, \array_merge($dimensionAttributes, [
-            //     'stage' => DimensionContentInterface::STAGE_LIVE,
-            // ]));
+        if ('publish' === $this->getAction($request)) {
+            $this->publicationManager->publish($publication, $dimensionAttributes);
         }
 
-        // Index draft dimension content
-        // $this->contentIndexer->indexDimensionContent($dimensionContent);
-
-        return $this->handleView($this->view($this->normalize($publication, $dimensionContent), 201));
+        return View::create(
+            $this->normalize($publication, $dimensionAttributes),
+            Response::HTTP_CREATED,
+        );
     }
 
     #[Rest\Post(path: '/{id}', name: 'app.admin.post_trigger_publication')]
-    public function postTriggerAction(Publication $publication, Request $request): Response
+    public function postTrigger(Publication $publication, Request $request): View
     {
-        $dimensionAttributes = $this->getDimensionAttributes($request); // ["locale" => "en", "stage" => "draft"]
-        $action = $request->query->get('action');
+        $dimensionAttributes = $this->getDimensionAttributes($request);
+        $action = $this->getAction($request);
 
         switch ($action) {
             case 'copy-locale':
-                $dimensionContent = $this->contentManager->copy(
+                $this->publicationManager->copyLocale(
                     $publication,
-                    [
-                        'stage' => DimensionContentInterface::STAGE_DRAFT,
-                        'locale' => $request->query->get('src'),
-                    ],
-                    $publication,
-                    [
-                        'stage' => DimensionContentInterface::STAGE_DRAFT,
-                        'locale' => $request->query->get('dest'),
-                    ],
+                    (string) $request->query->get('src'),
+                    (string) $request->query->get('dest'),
                 );
-
-                $this->entityManager->flush();
-
-                return $this->handleView($this->view($this->normalize($publication, $dimensionContent)));
+                break;
             case 'unpublish':
-                $dimensionContent = $this->contentManager->applyTransition(
-                    $publication,
-                    $dimensionAttributes,
-                    WorkflowInterface::WORKFLOW_TRANSITION_UNPUBLISH,
-                );
-
-                $this->entityManager->flush();
-
-                // Deindex live dimension content
-                // $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $id, \array_merge(
-                //     $dimensionAttributes,
-                //     ['stage' => DimensionContentInterface::STAGE_LIVE],
-                // ));
-
-                return $this->handleView($this->view($this->normalize($publication, $dimensionContent)));
+                $this->publicationManager->unpublish($publication, $dimensionAttributes);
+                break;
             case 'remove-draft':
-                $dimensionContent = $this->contentManager->applyTransition(
-                    $publication,
-                    $dimensionAttributes,
-                    WorkflowInterface::WORKFLOW_TRANSITION_REMOVE_DRAFT,
-                );
-
-                $this->entityManager->flush();
-
-                // Index draft dimension content
-                // $this->contentIndexer->indexDimensionContent($dimensionContent);
-
-                return $this->handleView($this->view($this->normalize($publication, $dimensionContent)));
+                $this->publicationManager->removeDraft($publication, $dimensionAttributes);
+                break;
             default:
-                throw new RestException('Unrecognized action: ' . $action);
+                throw new RestException(\sprintf('Unrecognized action: %s', $action));
         }
+
+        return View::create($this->normalize($publication, $dimensionAttributes));
     }
 
     #[Rest\Put(path: '/{id}', name: 'app.admin.put_publication')]
-    public function putAction(Publication $publication, Request $request): Response
+    public function put(Publication $publication, Request $request): View
     {
         $data = $this->getData($request);
-        $dimensionAttributes = $this->getDimensionAttributes($request); // ["locale" => "en", "stage" => "draft"]
+        $dimensionAttributes = $this->getDimensionAttributes($request);
 
-        /** @var PublicationDimensionContent $dimensionContent */
-        $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
-        if (WorkflowInterface::WORKFLOW_PLACE_PUBLISHED === $dimensionContent->getWorkflowPlace()) {
-            $dimensionContent = $this->contentManager->applyTransition(
-                $publication,
-                $dimensionAttributes,
-                WorkflowInterface::WORKFLOW_TRANSITION_CREATE_DRAFT,
-            );
+        $this->publicationManager->update($publication, $data, $dimensionAttributes);
+
+        if ('publish' === $this->getAction($request)) {
+            $this->publicationManager->publish($publication, $dimensionAttributes);
         }
 
-        $this->entityManager->flush();
-
-        if ('publish' === $request->query->get('action')) {
-            $dimensionContent = $this->contentManager->applyTransition(
-                $publication,
-                $dimensionAttributes,
-                WorkflowInterface::WORKFLOW_TRANSITION_PUBLISH,
-            );
-
-            $this->entityManager->flush();
-
-            // Index live dimension content
-            // $this->contentIndexer->index($publication, \array_merge($dimensionAttributes, [
-            //     'stage' => DimensionContentInterface::STAGE_LIVE,
-            // ]));
-        }
-
-        // Index draft dimension content
-        // $this->contentIndexer->indexDimensionContent($dimensionContent);
-
-        return $this->handleView($this->view($this->normalize($publication, $dimensionContent)));
+        return View::create($this->normalize($publication, $dimensionAttributes));
     }
 
     #[Rest\Delete(path: '/{id}', name: 'app.admin.delete_publication')]
-    public function deleteAction(Publication $publication): Response
+    public function delete(Publication $publication): View
     {
-        $this->entityManager->remove($publication);
-        $this->entityManager->flush();
+        $this->publicationManager->remove($publication);
 
-        // Remove all documents with given id from index
-        // $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $id);
-
-        return new Response('', 204);
+        return View::create(null);
     }
 
-    /**
-     * Will return e.g. ['locale' => 'en'].
-     *
-     * @return array<string, mixed>
-     */
-    protected function getDimensionAttributes(Request $request): array
+    /** @return array<string, mixed> */
+    private function getDimensionAttributes(Request $request): array
     {
         return $request->query->all();
     }
 
-    /**
-     * Will return e.g. ['title' => 'Test', 'template' => 'publication-2', ...].
-     *
-     * @return array<string, mixed>
-     */
-    protected function getData(Request $request): array
+    /** @return array<string, mixed> */
+    private function getData(Request $request): array
     {
         $data = $request->request->all();
 
         return $data;
     }
 
+    private function getAction(Request $request): ?string
+    {
+        return $request->query->get('action', null);
+    }
+
     /**
-     * Resolve will convert the resolved DimensionContentInterface object into a normalized array.
+     * @param array<string, mixed> $dimensionAttributes
      *
      * @return mixed[]
      */
-    protected function normalize(Publication $publication, DimensionContentInterface $dimensionContent): array
+    private function normalize(Publication $publication, array $dimensionAttributes): array
     {
-        $normalizedContent = $this->contentManager->normalize($dimensionContent);
+        $dimensionContent = $this->publicationManager->resolve($publication, $dimensionAttributes);
 
-        return $normalizedContent;
+        return $this->publicationManager->normalize($dimensionContent);
     }
 }

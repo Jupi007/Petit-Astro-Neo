@@ -6,7 +6,7 @@ namespace App\Controller\Website;
 
 use Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController;
 use Sulu\Bundle\WebsiteBundle\Controller\DefaultController;
-use Sulu\Component\Content\Compat\PageInterface;
+use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +33,7 @@ class BicephalWebsiteController extends AbstractController implements ServiceSub
 
     public function indexAction(
         Request $request,
-        PageInterface $structure,
+        StructureInterface $structure,
         bool $preview = false,
         bool $partial = false,
     ): Response {

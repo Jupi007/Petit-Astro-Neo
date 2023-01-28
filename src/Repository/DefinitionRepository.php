@@ -35,22 +35,16 @@ class DefinitionRepository extends ServiceEntityRepository implements DataProvid
         parent::__construct($registry, Definition::class);
     }
 
-    public function save(Definition $definition, bool $flush = false): void
+    public function save(Definition $definition): void
     {
         $this->getEntityManager()->persist($definition);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
-    public function remove(Definition $definition, bool $flush = false): void
+    public function remove(Definition $definition): void
     {
         $this->getEntityManager()->remove($definition);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function createDoctrineListRepresentation(string $locale): PaginatedRepresentation

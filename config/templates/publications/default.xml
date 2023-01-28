@@ -5,7 +5,7 @@
     <key>default</key>
 
     <view>publications/default</view>
-    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <controller>App\Controller\Website\BicephalWebsiteController::indexAction</controller>
     <cacheLifetime>604800</cacheLifetime>
 
     <meta>
