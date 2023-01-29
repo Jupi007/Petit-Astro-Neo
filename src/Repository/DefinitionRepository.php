@@ -47,7 +47,7 @@ class DefinitionRepository extends ServiceEntityRepository implements DataProvid
         $this->getEntityManager()->flush();
     }
 
-    public function createDoctrineListRepresentation(string $locale): PaginatedRepresentation
+    public function createDoctrineListRepresentation(?string $locale): PaginatedRepresentation
     {
         return $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
             Definition::RESOURCE_KEY,

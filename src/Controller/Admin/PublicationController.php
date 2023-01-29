@@ -2,43 +2,31 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of Sulu.
- *
- * (c) Sulu GmbH
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller\Admin;
 
 use App\Admin\PublicationAdmin;
+use App\Controller\Trait\LocalizedControllerTrait;
 use App\Entity\Publication;
 use App\Manager\PublicationManager;
 use App\Repository\PublicationRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandlerInterface;
-use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
-use Sulu\Component\Rest\AbstractRestController;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Security\SecuredControllerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-#[Route('/admin/api/publications')]
-class PublicationController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
+#[Route('/admin/api/publications', name: 'app.admin.')]
+class PublicationController extends AbstractController implements SecuredControllerInterface
 {
+    use LocalizedControllerTrait;
+
     public function __construct(
-        ViewHandlerInterface $viewHandler,
-        TokenStorageInterface $tokenStorage,
         private readonly PublicationRepository $publicationRepository,
         private readonly PublicationManager $publicationManager,
     ) {
-        parent::__construct($viewHandler, $tokenStorage);
     }
 
     public function getSecurityContext(): string
@@ -46,7 +34,7 @@ class PublicationController extends AbstractRestController implements ClassResou
         return PublicationAdmin::SECURITY_CONTEXT;
     }
 
-    #[Rest\Get(name: 'app.admin.get_publication_list')]
+    #[Rest\Get(name: 'get_publication_list')]
     public function cget(Request $request): View
     {
         $listRepresentation = $this->publicationRepository->createDoctrineListRepresentation(
@@ -56,7 +44,7 @@ class PublicationController extends AbstractRestController implements ClassResou
         return View::create($listRepresentation->toArray());
     }
 
-    #[Rest\Get(path: '/{id}', name: 'app.admin.get_publication')]
+    #[Rest\Get(path: '/{id}', name: 'get_publication')]
     public function get(Publication $publication, Request $request): View
     {
         $dimensionAttributes = $this->getDimensionAttributes($request);
@@ -64,7 +52,7 @@ class PublicationController extends AbstractRestController implements ClassResou
         return View::create($this->normalize($publication, $dimensionAttributes));
     }
 
-    #[Rest\Post(name: 'app.admin.post_publication')]
+    #[Rest\Post(name: 'post_publication')]
     public function post(Request $request): View
     {
         $data = $this->getData($request);
@@ -82,7 +70,7 @@ class PublicationController extends AbstractRestController implements ClassResou
         );
     }
 
-    #[Rest\Post(path: '/{id}', name: 'app.admin.post_trigger_publication')]
+    #[Rest\Post(path: '/{id}', name: 'post_trigger_publication')]
     public function postTrigger(Publication $publication, Request $request): View
     {
         $dimensionAttributes = $this->getDimensionAttributes($request);
@@ -109,7 +97,7 @@ class PublicationController extends AbstractRestController implements ClassResou
         return View::create($this->normalize($publication, $dimensionAttributes));
     }
 
-    #[Rest\Put(path: '/{id}', name: 'app.admin.put_publication')]
+    #[Rest\Put(path: '/{id}', name: 'put_publication')]
     public function put(Publication $publication, Request $request): View
     {
         $data = $this->getData($request);
@@ -124,7 +112,7 @@ class PublicationController extends AbstractRestController implements ClassResou
         return View::create($this->normalize($publication, $dimensionAttributes));
     }
 
-    #[Rest\Delete(path: '/{id}', name: 'app.admin.delete_publication')]
+    #[Rest\Delete(path: '/{id}', name: 'delete_publication')]
     public function delete(Publication $publication): View
     {
         $this->publicationManager->remove($publication);
