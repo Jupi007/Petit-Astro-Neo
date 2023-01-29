@@ -36,10 +36,6 @@ services:
           alias: !php/const App\Entity\Definition::RESOURCE_KEY,
         }
 
-  App\ValueResolver\LocalizedEntityValueResolver:
-    tags:
-      - { name: controller.argument_value_resolver, priority: 111 }
-
   App\ContentType\DefinitionSelectionContentType:
     tags:
       - { name: sulu.content.type, alias: "definition_selection" }
@@ -50,6 +46,11 @@ services:
           name: sulu.smart_content.data_provider,
           alias: !php/const App\Entity\Definition::RESOURCE_KEY,
         }
+
+  App\ValueResolver\LocalizedEntityValueResolver:
+    tags:
+      - { name: controller.argument_value_resolver, priority: 111 }
+
   Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
     public: true
   Sulu\Bundle\WebsiteBundle\Controller\DefaultController:
