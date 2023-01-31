@@ -7,10 +7,14 @@ namespace App\ValueResolver;
 use App\Entity\Contract\LocalizableInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
+#[AutoconfigureTag('controller.argument_value_resolver', [
+    'priority' => 111,
+])]
 class LocalizedEntityValueResolver implements ValueResolverInterface
 {
     private readonly EntityValueResolver $entityValueResolver;

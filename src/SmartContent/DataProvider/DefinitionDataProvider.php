@@ -10,7 +10,11 @@ use App\Repository\DefinitionRepository;
 use App\SmartContent\DataItem\DefinitionDataItem;
 use Sulu\Component\Serializer\ArraySerializerInterface;
 use Sulu\Component\SmartContent\Orm\BaseDataProvider;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+#[AutoconfigureTag('sulu.smart_content.data_provider', [
+    'alias' => Definition::RESOURCE_KEY,
+])]
 class DefinitionDataProvider extends BaseDataProvider
 {
     public function __construct(

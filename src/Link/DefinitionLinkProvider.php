@@ -9,8 +9,12 @@ use App\Repository\DefinitionRepository;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfigurationBuilder;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[AutoconfigureTag('sulu.link.provider', [
+    'alias' => Definition::RESOURCE_KEY,
+])]
 class DefinitionLinkProvider implements LinkProviderInterface
 {
     public function __construct(
@@ -27,7 +31,7 @@ class DefinitionLinkProvider implements LinkProviderInterface
             ->setListAdapter('table')
             ->setDisplayProperties(['title'])
             ->setOverlayTitle($this->translator->trans('app.admin.single_definition_selection_overlay_title', [], 'admin'))
-            ->setEmptyText($this->translator->trans('app.admin.no_definition_selected', [], 'admin'))
+            ->setEmptyText($this->translator->trans('app.admin.no_definition_selection', [], 'admin'))
             ->setIcon(Definition::RESOURCE_ICON)
             ->getLinkConfiguration();
     }

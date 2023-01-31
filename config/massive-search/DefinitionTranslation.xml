@@ -2,7 +2,7 @@
 <massive-search-mapping xmlns="http://massiveart.io/schema/dic/massive-search-mapping">
   <mapping class="App\Entity\DefinitionTranslation">
     <id property="id" />
-    <index value="definition" />
+    <index value="definitions" />
 
     <title property="title" />
     <description property="description" />

@@ -20,7 +20,7 @@ sulu_admin:
 
   field_type_options:
     selection:
-      definition_selection:
+      definitions_selection:
         default_type: list_overlay
         resource_key: !php/const App\Entity\Definition::RESOURCE_KEY
         view:
@@ -37,7 +37,7 @@ sulu_admin:
             list_key: !php/const App\Entity\Definition::RESOURCE_KEY
             display_properties:
               - title
-            label: "app.admin.definition_select"
+            label: "app.admin.definition_selection"
             icon: !php/const App\Entity\Definition::RESOURCE_ICON
             overlay_title: "app.admin.definition_selection_overlay_title"
 
