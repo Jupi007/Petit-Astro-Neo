@@ -39,7 +39,7 @@ class PublicationAdmin extends Admin
     {
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
             $navigationItem = new NavigationItem('app.admin.publications');
-            $navigationItem->setPosition(30);
+            $navigationItem->setPosition(40);
             $navigationItem->setIcon(Publication::RESOURCE_ICON);
             $navigationItem->setView(static::LIST_VIEW);
 
