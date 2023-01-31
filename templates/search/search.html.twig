@@ -46,6 +46,12 @@
                 description: page.content.excerptDescription,
               } %}
             {% endif %}
+          {% elseif hit.document.class == 'App\\Entity\\PublicationDimensionContent' %}
+            {% include "includes/common/_card.html.twig" with {
+              url: hit.document.url,
+              title: hit.document.title,
+              description: 'Publication',
+            } %}
           {% elseif hit.document.class == 'App\\Entity\\DefinitionTranslation' %}
               {# TODO Add specific definition card #}
               {% include "includes/common/_card.html.twig" with {
