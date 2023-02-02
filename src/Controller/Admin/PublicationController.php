@@ -11,6 +11,7 @@ use App\Manager\PublicationManager;
 use App\Repository\PublicationRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +27,7 @@ class PublicationController extends AbstractController implements SecuredControl
     public function __construct(
         private readonly PublicationRepository $publicationRepository,
         private readonly PublicationManager $publicationManager,
+        private readonly ContentManagerInterface $contentManager,
     ) {
     }
 
@@ -144,10 +146,10 @@ class PublicationController extends AbstractController implements SecuredControl
      *
      * @return mixed[]
      */
-    private function normalize(Publication $publication, array $dimensionAttributes): array
+    public function normalize(Publication $publication, array $dimensionAttributes): array
     {
-        $dimensionContent = $this->publicationManager->resolve($publication, $dimensionAttributes);
-
-        return $this->publicationManager->normalize($dimensionContent);
+        return $this->contentManager->normalize(
+            $this->contentManager->resolve($publication, $dimensionAttributes),
+        );
     }
 }

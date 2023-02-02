@@ -147,16 +147,4 @@ class PublicationManager
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
     }
-
-    /** @param array<string, mixed> $dimensionAttributes */
-    public function resolve(Publication $publication, array $dimensionAttributes): DimensionContentInterface
-    {
-        return $this->contentManager->resolve($publication, $dimensionAttributes);
-    }
-
-    /** @return mixed[] */
-    public function normalize(DimensionContentInterface $dimensionContent): array
-    {
-        return $this->contentManager->normalize($dimensionContent);
-    }
 }
