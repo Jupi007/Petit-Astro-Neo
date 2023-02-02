@@ -6,7 +6,9 @@ namespace App\Trash;
 
 use App\Admin\DefinitionAdmin;
 use App\Entity\Definition;
+use App\Event\Definition\RestoredDefinitionActivityEvent;
 use App\Repository\DefinitionRepository;
+use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
@@ -37,6 +39,7 @@ class DefinitionTrashItemHandler implements
         private readonly RouteManagerInterface $routeManager,
         private readonly UserRepositoryInterface $userRepository,
         private readonly DefinitionRepository $definitionRepository,
+        private readonly DomainEventCollectorInterface $domainEventCollector,
     ) {
     }
 
@@ -61,6 +64,7 @@ class DefinitionTrashItemHandler implements
     public function restore(TrashItemInterface $trashItem, array $restoreFormData = []): object
     {
         $definition = $this->trashItemToDefinition($trashItem);
+        $this->domainEventCollector->collect(new RestoredDefinitionActivityEvent($definition));
         $this->doctrineRestoreHelper->persistAndFlushWithId($definition, (int) $trashItem->getResourceId());
 
         $this->restoreDefinitionRoutes($definition, $trashItem);

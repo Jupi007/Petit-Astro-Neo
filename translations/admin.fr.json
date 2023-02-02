@@ -20,7 +20,12 @@
   "sulu_activity.description.definitions.created": "{userFullName} a cr\u00e9\u00e9 la d\u00e9finition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.modified": "{userFullName} a modifi\u00e9 la d\u00e9finition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.removed": "{userFullName} a supprim\u00e9 la d\u00e9finition \"{resourceTitle}\"",
+  "sulu_activity.description.definitions.restored": "{userFullName} a restor\u00e9 la d\u00e9finition \"{resourceTitle}\"",
   "sulu_activity.description.publications.created": "{userFullName} a cr\u00e9\u00e9 la publication \"{resourceTitle}\"",
+  "sulu_activity.description.publications.draft_removed": "{userFullName} a annul\u00e9 le brouillon de la publication \"{resourceTitle}\"",
   "sulu_activity.description.publications.modified": "{userFullName} a modifi\u00e9 la publication \"{resourceTitle}\"",
-  "sulu_activity.description.publications.removed": "{userFullName} a supprim\u00e9 la publication \"{resourceTitle}\""
+  "sulu_activity.description.publications.published": "{userFullName} a publi\u00e9 la publication \"{resourceTitle}\"",
+  "sulu_activity.description.publications.unpublished": "{userFullName} a d\u00e9publi\u00e9 la publication \"{resourceTitle}\"",
+  "sulu_activity.description.publications.removed": "{userFullName} a supprim\u00e9 la publication \"{resourceTitle}\"",
+  "sulu_activity.description.publications.translation_copied": "{userFullName} a copi\u00e9 la traduction \"{context_sourceLocale}\" de la publication \"{resourceTitle}\" dans \"{resourceLocale}\""
 }

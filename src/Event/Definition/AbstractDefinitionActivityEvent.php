@@ -26,17 +26,14 @@ abstract class AbstractDefinitionActivityEvent extends AbstractActivityEvent
         return (string) $this->definition->getId();
     }
 
-    /**
-     * @return array<string, ?string>
-     */
-    public function getEventPayload(): array
-    {
-        return ['name' => $this->definition->getTitle()];
-    }
-
     public function getResourceTitle(): ?string
     {
         return $this->definition->getTitle();
+    }
+
+    public function getResourceTitleLocale(): string
+    {
+        return $this->definition->getLocale();
     }
 
     public function getResourceSecurityContext(): ?string

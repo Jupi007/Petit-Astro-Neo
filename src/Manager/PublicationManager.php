@@ -6,7 +6,15 @@ namespace App\Manager;
 
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
+use App\Event\Publication\CreatedPublicationActivityEvent;
+use App\Event\Publication\DraftRemovedPublicationActivityEvent;
+use App\Event\Publication\ModifiedPublicationActivityEvent;
+use App\Event\Publication\PublishedPublicationActivityEvent;
+use App\Event\Publication\RemovedPublicationActivityEvent;
+use App\Event\Publication\TranslationCopiedPublicationActivityEvent;
+use App\Event\Publication\UnpublishedPublicationActivityEvent;
 use App\Repository\PublicationRepository;
+use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -18,6 +26,7 @@ class PublicationManager
         private readonly PublicationRepository $publicationRepository,
         private readonly ContentManagerInterface $contentManager,
         private readonly ContentIndexerInterface $contentIndexer,
+        private readonly DomainEventCollectorInterface $domainEventCollector,
     ) {
     }
 
@@ -30,6 +39,7 @@ class PublicationManager
         $publication = new Publication();
 
         $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
+        $this->domainEventCollector->collect(new CreatedPublicationActivityEvent($publication));
         $this->publicationRepository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
@@ -45,6 +55,7 @@ class PublicationManager
     {
         /** @var PublicationDimensionContent $dimensionContent */
         $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
+        $this->domainEventCollector->collect(new ModifiedPublicationActivityEvent($publication));
 
         if (WorkflowInterface::WORKFLOW_PLACE_PUBLISHED === $dimensionContent->getWorkflowPlace()) {
             $dimensionContent = $this->contentManager->applyTransition(
@@ -52,23 +63,12 @@ class PublicationManager
                 $dimensionAttributes,
                 WorkflowInterface::WORKFLOW_TRANSITION_CREATE_DRAFT,
             );
+            $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
         }
 
         $this->publicationRepository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
-    }
-
-    /** @param array<string, mixed> $dimensionAttributes */
-    public function resolve(Publication $publication, array $dimensionAttributes): DimensionContentInterface
-    {
-        return $this->contentManager->resolve($publication, $dimensionAttributes);
-    }
-
-    /** @return mixed[] */
-    public function normalize(DimensionContentInterface $dimensionContent): array
-    {
-        return $this->contentManager->normalize($dimensionContent);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -79,6 +79,7 @@ class PublicationManager
             $dimensionAttributes,
             WorkflowInterface::WORKFLOW_TRANSITION_PUBLISH,
         );
+        $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
 
         $this->publicationRepository->save($publication);
 
@@ -95,6 +96,7 @@ class PublicationManager
             $dimensionAttributes,
             WorkflowInterface::WORKFLOW_TRANSITION_UNPUBLISH,
         );
+        $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
 
         $this->publicationRepository->save($publication);
 
@@ -118,6 +120,7 @@ class PublicationManager
                 'locale' => $destLocale,
             ],
         );
+        $this->domainEventCollector->collect(new TranslationCopiedPublicationActivityEvent($publication, $srcLocale, $destLocale));
 
         $this->publicationRepository->save($publication);
     }
@@ -130,6 +133,7 @@ class PublicationManager
             $dimensionAttributes,
             WorkflowInterface::WORKFLOW_TRANSITION_REMOVE_DRAFT,
         );
+        $this->domainEventCollector->collect(new DraftRemovedPublicationActivityEvent($publication));
 
         $this->publicationRepository->save($publication);
 
@@ -138,8 +142,21 @@ class PublicationManager
 
     public function remove(Publication $publication): void
     {
+        $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
         $this->publicationRepository->remove($publication);
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
+    }
+
+    /** @param array<string, mixed> $dimensionAttributes */
+    public function resolve(Publication $publication, array $dimensionAttributes): DimensionContentInterface
+    {
+        return $this->contentManager->resolve($publication, $dimensionAttributes);
+    }
+
+    /** @return mixed[] */
+    public function normalize(DimensionContentInterface $dimensionContent): array
+    {
+        return $this->contentManager->normalize($dimensionContent);
     }
 }
