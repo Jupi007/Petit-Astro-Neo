@@ -51,6 +51,7 @@ class PublicationTeaserProvider extends ContentTeaserProvider
         );
     }
 
+    /** @param array{article: string|null} $data */
     protected function getDescription(DimensionContentInterface $dimensionContent, array $data): ?string
     {
         $article = \strip_tags($data['article'] ?? '');
