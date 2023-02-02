@@ -7,6 +7,7 @@ namespace App\Manager;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Repository\PublicationRepository;
+use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
@@ -16,6 +17,7 @@ class PublicationManager
     public function __construct(
         private readonly PublicationRepository $publicationRepository,
         private readonly ContentManagerInterface $contentManager,
+        private readonly ContentIndexerInterface $contentIndexer,
     ) {
     }
 
@@ -27,11 +29,10 @@ class PublicationManager
     {
         $publication = new Publication();
 
-        $this->contentManager->persist($publication, $data, $dimensionAttributes);
+        $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
         $this->publicationRepository->save($publication);
 
-        // Index draft dimension content
-        // $this->contentIndexer->indexDimensionContent($dimensionContent);
+        $this->contentIndexer->indexDimensionContent($dimensionContent);
 
         return $publication;
     }
@@ -55,8 +56,7 @@ class PublicationManager
 
         $this->publicationRepository->save($publication);
 
-        // Index draft dimension content
-        // $this->contentIndexer->indexDimensionContent($dimensionContent);
+        $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -82,10 +82,9 @@ class PublicationManager
 
         $this->publicationRepository->save($publication);
 
-        // Index live dimension content
-        // $this->contentIndexer->index($publication, \array_merge($dimensionAttributes, [
-            //     'stage' => DimensionContentInterface::STAGE_LIVE,
-        // ]));
+        $this->contentIndexer->index($publication, \array_merge($dimensionAttributes, [
+            'stage' => DimensionContentInterface::STAGE_LIVE,
+        ]));
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -99,11 +98,10 @@ class PublicationManager
 
         $this->publicationRepository->save($publication);
 
-        // Deindex live dimension content
-        // $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $id, \array_merge(
-        //     $dimensionAttributes,
-        //     ['stage' => DimensionContentInterface::STAGE_LIVE],
-        // ));
+        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId(), \array_merge(
+            $dimensionAttributes,
+            ['stage' => DimensionContentInterface::STAGE_LIVE],
+        ));
     }
 
     public function copyLocale(Publication $publication, string $srcLocale, string $destLocale): void
@@ -127,7 +125,7 @@ class PublicationManager
     /** @param array<string, mixed> $dimensionAttributes */
     public function removeDraft(Publication $publication, array $dimensionAttributes): void
     {
-        $this->contentManager->applyTransition(
+        $dimensionContent = $this->contentManager->applyTransition(
             $publication,
             $dimensionAttributes,
             WorkflowInterface::WORKFLOW_TRANSITION_REMOVE_DRAFT,
@@ -135,15 +133,13 @@ class PublicationManager
 
         $this->publicationRepository->save($publication);
 
-        // Index draft dimension content
-        // $this->contentIndexer->indexDimensionContent($dimensionContent);
+        $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
 
     public function remove(Publication $publication): void
     {
         $this->publicationRepository->remove($publication);
 
-        // Remove all documents with given id from index
-        // $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $id);
+        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
     }
 }
