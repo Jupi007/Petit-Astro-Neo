@@ -8,11 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 trait LocalizedControllerTrait
 {
-    public function getLocale(Request $request): ?string
+    public function getLocale(Request $request): string
     {
         return $request->query->get(
             key: 'locale',
-            default: null,
+            default: '',
         );
     }
 }

@@ -39,7 +39,7 @@ class PublicationRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function createDoctrineListRepresentation(?string $locale): PaginatedRepresentation
+    public function createDoctrineListRepresentation(string $locale): PaginatedRepresentation
     {
         return $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
             Publication::RESOURCE_KEY,

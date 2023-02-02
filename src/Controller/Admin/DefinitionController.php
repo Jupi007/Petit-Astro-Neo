@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/** @phpstan-import-type DefinitionData from DefinitionManager */
 #[Route('/admin/api/definitions', name: 'app.admin.')]
 class DefinitionController extends AbstractController implements SecuredControllerInterface
 {
@@ -37,7 +38,9 @@ class DefinitionController extends AbstractController implements SecuredControll
     #[Rest\Get(name: 'get_definition_list')]
     public function getList(Request $request): View
     {
-        $listRepresentation = $this->repository->createDoctrineListRepresentation($this->getLocale($request));
+        $listRepresentation = $this->repository->createDoctrineListRepresentation(
+            $this->getLocale($request),
+        );
 
         return View::create($listRepresentation->toArray());
     }
@@ -45,7 +48,13 @@ class DefinitionController extends AbstractController implements SecuredControll
     #[Rest\Post(name: 'post_definition')]
     public function post(Request $request): View
     {
-        $definition = $this->manager->createFromRequest($request);
+        /** @var DefinitionData */
+        $data = $request->toArray();
+
+        $definition = $this->manager->create(
+            $data,
+            $this->getLocale($request),
+        );
 
         return View::create(
             new DefinitionRepresentation($definition),
@@ -64,7 +73,14 @@ class DefinitionController extends AbstractController implements SecuredControll
     #[Rest\Put(path: '/{id}', name: 'put_definition')]
     public function put(Definition $definition, Request $request): View
     {
-        $definition = $this->manager->updateFromRequest($definition, $request);
+        /** @var DefinitionData */
+        $data = $request->toArray();
+
+        $definition = $this->manager->update(
+            $definition,
+            $data,
+            $this->getLocale($request),
+        );
 
         return View::create(
             new DefinitionRepresentation($definition),

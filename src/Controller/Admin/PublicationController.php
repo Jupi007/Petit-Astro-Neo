@@ -35,7 +35,7 @@ class PublicationController extends AbstractController implements SecuredControl
     }
 
     #[Rest\Get(name: 'get_publication_list')]
-    public function cget(Request $request): View
+    public function getList(Request $request): View
     {
         $listRepresentation = $this->publicationRepository->createDoctrineListRepresentation(
             $this->getLocale($request),

@@ -13,8 +13,12 @@ use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterfa
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
+/** @phpstan-type DefinitionData array{
+ *      title: string|null,
+ *      description: string|null,
+ *      routePath: string|null,
+ * } */
 class DefinitionManager
 {
     public function __construct(
@@ -26,24 +30,26 @@ class DefinitionManager
     ) {
     }
 
-    public function createFromRequest(Request $request): Definition
+    /** @param DefinitionData $data */
+    public function create(array $data, string $locale): Definition
     {
         $definition = new Definition();
 
-        $this->mapRequestToDefinition($definition, $request);
+        $this->mapDataToDefinition($definition, $data, $locale);
         $this->domainEventCollector->collect(new CreatedDefinitionActivityEvent($definition));
         $this->repository->save($definition);
 
-        $this->generateDefinitionRoute($definition, $request);
+        $this->generateDefinitionRoute($definition, $data);
         $this->repository->save($definition);
 
         return $definition;
     }
 
-    public function updateFromRequest(Definition $definition, Request $request): Definition
+    /** @param DefinitionData $data */
+    public function update(Definition $definition, array $data, string $locale): Definition
     {
-        $this->mapRequestToDefinition($definition, $request);
-        $this->generateDefinitionRoute($definition, $request);
+        $this->mapDataToDefinition($definition, $data, $locale);
+        $this->generateDefinitionRoute($definition, $data);
         $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
         $this->repository->save($definition);
 
@@ -58,25 +64,24 @@ class DefinitionManager
         $this->repository->remove($definition);
     }
 
-    private function mapRequestToDefinition(Definition $definition, Request $request): void
+    /** @param DefinitionData $data */
+    private function mapDataToDefinition(Definition $definition, array $data, string $locale): void
     {
-        $data = $request->toArray();
-        $locale = $request->query->get('locale');
-
         $definition
-            ->setLocale($locale ?? '')
+            ->setLocale($locale)
             ->setTitle($data['title'] ?? '')
             ->setDescription($data['description'] ?? '');
     }
 
-    private function generateDefinitionRoute(Definition $definition, Request $request): void
+    /** @param DefinitionData $data */
+    private function generateDefinitionRoute(Definition $definition, array $data): void
     {
-        $route = (string) $request->toArray()['routePath'];
+        $routePath = $data['routePath'] ?? '';
 
         if (null === $definition->getRoute()) {
-            $this->routeManager->create($definition, $route);
-        } elseif ($definition->getRoute()->getPath() !== $route) {
-            $this->routeManager->update($definition, $route);
+            $this->routeManager->create($definition, $routePath);
+        } elseif ($definition->getRoute()->getPath() !== $routePath) {
+            $this->routeManager->update($definition, $routePath);
         }
     }
 
