@@ -1,24 +1,24 @@
 <div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
 	{% set gridItems %}
-		{% for page in content.pages %}
+		{% for publication in content.publications %}
 			{% include "includes/common/_card.html.twig" with {
-				url: sulu_content_path(page.url),
-				image: page.excerpt.images[0]|default(page.coverImage|default),
-				title: page.excerptTitle|default(page.title),
-				description: page.excerptDescription,
+				url: sulu_content_path(publication.url),
+				image: publication.excerpt.images[0]|default(publication.coverImage|default),
+				title: publication.excerptTitle|default(publication.title),
+				description: publication.excerptDescription,
 			} %}
 		{% endfor %}
 	{% endset %}
 
 	{% include "includes/common/_card_grid_container.html.twig" with {
 		'content': gridItems,
-		'id': 'smart-pages-' ~ id,
+		'id': 'smart-publications-' ~ id,
 	} %}
 	
 	{% include "includes/common/_smart_content_pagination.html.twig" with {
-		'pagesView': view.pages,
+		'pagesView': view.publications,
 		'rootPath': sulu_content_path(parentContent.url),
-		'id': 'smart-pages-' ~ id,
+		'id': 'smart-publications-' ~ id,
 	} %}
 </div>
 

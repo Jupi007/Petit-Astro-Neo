@@ -36,6 +36,7 @@
                         <xi:include href="../includes/blocks/quote.xml" />
                         <xi:include href="../includes/blocks/button.xml" />
                         <xi:include href="../includes/blocks/pages-smart-content.xml" />
+                        <xi:include href="../includes/blocks/publications-smart-content.xml" />
                         <xi:include href="../includes/blocks/definitions-smart-content.xml" />
                     </types>
                 </block>

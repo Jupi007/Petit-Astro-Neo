@@ -1,0 +1,19 @@
+<type name="publications_smart_content"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Publication</title>
+        <title lang="fr">Publication</title>
+    </meta>
+
+    <properties>
+        <property name="publications" type="smart_content">
+            <params>
+                <param name="provider" value="publications"/>
+                <param name="max_per_page" value="12"/>
+            </params>
+        </property>
+    </properties>
+</type>
