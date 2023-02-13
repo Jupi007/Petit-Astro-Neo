@@ -183,7 +183,8 @@
             "symfony/flex": true,
             "symfony/runtime": true,
             "symfony/thanks": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true
         },
         "optimize-autoloader": true,
         "sort-packages": true
