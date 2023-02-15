@@ -1,10 +1,10 @@
-{% set currentPageIndex = pagesView.page %}
+{% set currentPageIndex = view.page %}
 	
-{% if currentPageIndex - 1 >= 1 or pagesView.hasNextPage %}
+{% if currentPageIndex - 1 >= 1 or view.hasNextPage %}
   {% set blockContent %}
-    <div class="flex flex-row">
+    <div class="flex flex-row" id="{{ id }}-bottom">
       {% if currentPageIndex - 1 >= 1 %}
-        {% set href = rootPath ~ '?p=' ~ (currentPageIndex - 1) ~ '#' ~ id %}
+        {% set href = rootPath ~ '?p=' ~ (currentPageIndex - 1) ~ '#' ~ id ~ '-bottom' %}
           <div class="w-full text-start my-5">
             {% include "includes/common/_button.html.twig" with {
               'href': href,
@@ -14,7 +14,7 @@
           </div>
       {% endif %}
   
-      {% if pagesView.hasNextPage %}
+      {% if view.hasNextPage %}
         {% set href = rootPath ~ '?p=' ~ (currentPageIndex + 1) ~ '#' ~ id %}
         <div class="w-full text-end my-5">
           {% include "includes/common/_button.html.twig" with {

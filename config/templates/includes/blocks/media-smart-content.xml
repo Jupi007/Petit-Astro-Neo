@@ -1,0 +1,19 @@
+<type name="media_smart_content"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Media</title>
+        <title lang="fr">Média</title>
+    </meta>
+
+    <properties>
+        <property name="media" type="smart_content">
+            <params>
+                <param name="provider" value="media"/>
+                <param name="max_per_page" value="24"/>
+            </params>
+        </property>
+    </properties>
+</type>

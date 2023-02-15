@@ -16,7 +16,7 @@
 	} %}
 	
 	{% include "includes/common/_smart_content_pagination.html.twig" with {
-		'pagesView': view.pages,
+		'view': view.pages,
 		'rootPath': sulu_content_path(parentContent.url),
 		'id': 'smart-pages-' ~ id,
 	} %}
