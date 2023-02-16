@@ -163,6 +163,19 @@
     "sulu/content-bundle": {
         "version": "0.6.x-dev"
     },
+    "sulu/form-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.4",
+            "ref": "a0aabdf6ea613c7ecce4f195b233564102161feb"
+        },
+        "files": [
+            "config/packages/sulu_form.yaml",
+            "config/routes/sulu_form_admin.yaml"
+        ]
+    },
     "sulu/headless-bundle": {
         "version": "0.9",
         "recipe": {
