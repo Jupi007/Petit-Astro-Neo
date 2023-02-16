@@ -63,10 +63,10 @@
             </meta>
           </param>
 
-          <param name="publications">
+          <param name="article">
             <meta>
-              <title lang="en">Publications</title>
-              <title lang="fr">Publications</title>
+              <title lang="en">Article</title>
+              <title lang="fr">Article</title>
             </meta>
           </param>
 
