@@ -52,6 +52,7 @@
                         <xi:include href="../includes/blocks/publications-smart-content.xml" />
                         <xi:include href="../includes/blocks/definitions-smart-content.xml" />
                         <xi:include href="../includes/blocks/media-smart-content.xml" />
+                        <xi:include href="../includes/blocks/form.xml" />
                     </types>
                 </block>
             </properties>

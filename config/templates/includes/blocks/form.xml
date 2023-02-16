@@ -1,0 +1,23 @@
+<type name="form"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Formulary</title>
+        <title lang="fr">Formulaire</title>
+    </meta>
+
+    <properties>
+        <property name="form" type="single_form_selection">
+            <meta>
+                <title lang="en">Formulary</title>
+                <title lang="fr">Formulaire</title>
+            </meta>
+
+            <params>
+                <param name="resourceKey" value="page"/>
+            </params>
+        </property>
+    </properties>
+</type>
