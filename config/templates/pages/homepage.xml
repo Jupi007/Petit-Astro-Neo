@@ -6,7 +6,7 @@
     <key>homepage</key>
 
     <view>pages/homepage</view>
-    <controller>App\Controller\Website\BicephalWebsiteController::indexAction</controller>
+    <controller>Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController::indexAction</controller>
     <cacheLifetime>86400</cacheLifetime>
 
     <meta>

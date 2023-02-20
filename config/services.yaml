@@ -26,11 +26,6 @@ services:
       tags:
         - "massive_search.metadata.provider"
 
-  Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController:
-    public: true
-  Sulu\Bundle\WebsiteBundle\Controller\DefaultController:
-    public: true
-
   Sulu\Twig\Extensions\ImageExtension:
     arguments:
       $defaultAttributes:
