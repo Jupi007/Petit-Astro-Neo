@@ -1,5 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: '#^Parameter \#2 \$structure of method Sulu\\Bundle\\HeadlessBundle\\Controller\\HeadlessWebsiteController\:\:indexAction\(\) expects Sulu\\Component\\Content\\Compat\\PageInterface, Sulu\\Component\\Content\\Compat\\StructureInterface given\.$#'
-			path: src/Controller/Website/BicephalWebsiteController.php
