@@ -8,6 +8,7 @@ use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\PublicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityTrait;
@@ -31,8 +32,25 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
     )]
     protected $dimensionContents;
 
+    /** @var ArrayCollection<int, PublicationTypo> */
+    #[ORM\OneToMany(mappedBy: 'publication', targetEntity: PublicationTypo::class, orphanRemoval: true)]
+    private Collection $typos;
+
+    public function __construct()
+    {
+        $this->typos = new ArrayCollection();
+    }
+
     public function createDimensionContent(): PublicationDimensionContent
     {
         return new PublicationDimensionContent($this);
+    }
+
+    /**
+     * @return Collection<int, PublicationTypo>
+     */
+    public function getTypos(): Collection
+    {
+        return $this->typos;
     }
 }

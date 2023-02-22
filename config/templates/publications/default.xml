@@ -5,7 +5,7 @@
     <key>default</key>
 
     <view>publications/default</view>
-    <controller>App\Controller\Website\BicephalWebsiteController::indexAction</controller>
+    <controller>App\Controller\Website\PublicationController::indexAction</controller>
     <cacheLifetime>604800</cacheLifetime>
 
     <meta>

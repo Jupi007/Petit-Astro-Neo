@@ -145,6 +145,8 @@ class PublicationManager
         $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
         $this->publicationRepository->remove($publication);
 
+        // TODO: trash support
+
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
     }
 }
