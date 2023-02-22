@@ -31,7 +31,7 @@ class PublicationController extends WebsiteController
         }
 
         $attributes = [
-            'typoForm' => $typoForm,
+            'typoForm' => $typoForm->createView(),
         ];
 
         return $this->renderStructure($structure, $attributes, $preview, $partial);
