@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 return [
+    Sulu\Bundle\FormBundle\SuluFormBundle::class => ['all' => true],
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
@@ -49,5 +52,4 @@ return [
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     Sulu\Bundle\HeadlessBundle\SuluHeadlessBundle::class => ['all' => true],
     Sulu\Bundle\ContentBundle\SuluContentBundle::class => ['all' => true],
-    Sulu\Bundle\FormBundle\SuluFormBundle::class => ['all' => true],
 ];
