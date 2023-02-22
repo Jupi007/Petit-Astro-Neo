@@ -28,6 +28,8 @@ class PublicationController extends WebsiteController
 
         if ($typoForm->isSubmitted() && $typoForm->isValid()) {
             $typo = $typoForm->getData();
+
+            return $this->redirect('?send=true');
         }
 
         $attributes = [

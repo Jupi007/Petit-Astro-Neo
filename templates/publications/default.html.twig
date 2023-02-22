@@ -15,6 +15,10 @@
 
     <h2>Form</h2>
 
-    {{ form(typoForm) }}
+    {% if app.request.get('send') != 'true' %}
+        {{ form(typoForm) }}
+    {% else %}
+        Merci !
+    {% endif %}
 </div>
 {% endblock %}
