@@ -8,6 +8,7 @@ use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Entity\PublicationTypo;
 use App\Form\PublicationTypoType;
+use App\Manager\PublicationTypoManager;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
 use Sulu\Bundle\WebsiteBundle\Controller\WebsiteController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PublicationController extends WebsiteController
 {
+    public function __construct(
+        private readonly PublicationTypoManager $manager,
+    ) {
+    }
+
     public function indexAction(
         Request $request,
         ContentStructureBridge $structure,
@@ -27,7 +33,9 @@ class PublicationController extends WebsiteController
         $typoForm->handleRequest($request);
 
         if ($typoForm->isSubmitted() && $typoForm->isValid()) {
+            /** @var PublicationTypo */
             $typo = $typoForm->getData();
+            $this->manager->create($typo);
 
             return $this->redirect('?send=true');
         }
