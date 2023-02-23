@@ -5,7 +5,7 @@
     "scripts": {
         "preinstall": "node ../../vendor/sulu/sulu/preinstall.js",
         "postinstall": "node ../../vendor/sulu/sulu/postinstall.js",
-        "build": "webpack --mode production",
+        "build": "webpack --mode production --progress",
         "watch": "webpack --mode development --watch"
     },
     "dependencies": {

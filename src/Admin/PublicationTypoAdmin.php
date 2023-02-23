@@ -8,6 +8,7 @@ use App\Entity\PublicationTypo;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
+use Sulu\Bundle\AdminBundle\Admin\View\ListItemAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
@@ -56,6 +57,9 @@ class PublicationTypoAdmin extends Admin
                 ->addToolbarActions([
                     new ToolbarAction('sulu_admin.delete'),
                     new ToolbarAction('sulu_admin.export'),
+                ])
+                ->addItemActions([
+                    new ListItemAction('app.publication_typo_overlay'),
                 ]),
             );
 
@@ -72,6 +76,9 @@ class PublicationTypoAdmin extends Admin
                 ->addToolbarActions([
                     new ToolbarAction('sulu_admin.delete'),
                     new ToolbarAction('sulu_admin.export'),
+                ])
+                ->addItemActions([
+                    new ListItemAction('app.publication_typo_overlay'),
                 ])
                 ->addRouterAttributesToListRequest(['id' => 'publicationId'])
                 ->setParent(PublicationAdmin::EDIT_FORM_VIEW),
