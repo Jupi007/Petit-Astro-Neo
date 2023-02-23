@@ -20,6 +20,8 @@ class PublicationAdmin extends Admin
 {
     final public const SECURITY_CONTEXT = 'app.settings.publications';
 
+    final public const NAVIGATION_ITEM = 'app.admin.publications';
+
     final public const LIST_KEY = 'publications';
     final public const FORM_KEY = 'publication_details';
 
@@ -37,20 +39,23 @@ class PublicationAdmin extends Admin
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
-            $navigationItem = new NavigationItem('app.admin.publications');
-            $navigationItem->setPosition(40);
-            $navigationItem->setIcon(Publication::RESOURCE_ICON);
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+            $navigationParent = new NavigationItem(static::NAVIGATION_ITEM);
+            $navigationParent->setPosition(40);
+            $navigationParent->setIcon(Publication::RESOURCE_ICON);
+
+            $navigationItem = new NavigationItem(static::NAVIGATION_ITEM);
+            $navigationItem->setPosition(10);
             $navigationItem->setView(static::LIST_VIEW);
 
-            $navigationItemCollection->add($navigationItem);
+            $navigationParent->addChild($navigationItem);
+            $navigationItemCollection->add($navigationParent);
         }
     }
 
     public function configureViews(ViewCollection $viewCollection): void
     {
         $locales = $this->localizationManager->getLocales();
-        $resourceKey = Publication::RESOURCE_KEY;
 
         $formToolbarActions = [];
         $listToolbarActions = [];
@@ -74,29 +79,38 @@ class PublicationAdmin extends Admin
 
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
             $viewCollection->add(
-                $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, '/' . $resourceKey . '/:locale')
-                    ->setResourceKey($resourceKey)
-                    ->setListKey($resourceKey)
-                    ->setTitle('app.admin.publications')
-                    ->addListAdapters(['table'])
-                    ->addLocales($locales)
-                    ->setDefaultLocale($locales[0])
-                    ->setAddView(static::ADD_FORM_VIEW)
-                    ->setEditView(static::EDIT_FORM_VIEW)
-                    ->addToolbarActions($listToolbarActions),
+                $this->viewBuilderFactory->createListViewBuilder(
+                    static::LIST_VIEW,
+                    '/' . Publication::RESOURCE_KEY . '/:locale',
+                )
+                ->setResourceKey(Publication::RESOURCE_KEY)
+                ->setListKey(static::LIST_KEY)
+                ->setTitle('app.admin.publications')
+                ->addListAdapters(['table'])
+                ->addLocales($locales)
+                ->setDefaultLocale($locales[0])
+                ->setAddView(static::ADD_FORM_VIEW)
+                ->setEditView(static::EDIT_FORM_VIEW)
+                ->addToolbarActions($listToolbarActions),
             );
             $viewCollection->add(
-                $this->viewBuilderFactory->createResourceTabViewBuilder(static::ADD_FORM_VIEW, '/' . $resourceKey . '/:locale/add')
-                    ->setResourceKey($resourceKey)
-                    ->addLocales($locales)
-                    ->setBackView(static::LIST_VIEW),
+                $this->viewBuilderFactory->createResourceTabViewBuilder(
+                    static::ADD_FORM_VIEW,
+                    '/' . Publication::RESOURCE_KEY . '/:locale/add',
+                )
+                ->setResourceKey(Publication::RESOURCE_KEY)
+                ->addLocales($locales)
+                ->setBackView(static::LIST_VIEW),
             );
             $viewCollection->add(
-                $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_FORM_VIEW, '/' . $resourceKey . '/:locale/:id')
-                    ->setResourceKey($resourceKey)
-                    ->addLocales($locales)
-                    ->setBackView(static::LIST_VIEW)
-                    ->setTitleProperty('name'),
+                $this->viewBuilderFactory->createResourceTabViewBuilder(
+                    static::EDIT_FORM_VIEW,
+                    '/' . Publication::RESOURCE_KEY . '/:locale/:id',
+                )
+                ->setResourceKey(Publication::RESOURCE_KEY)
+                ->addLocales($locales)
+                ->setBackView(static::LIST_VIEW)
+                ->setTitleProperty('name'),
             );
 
             $viewBuilders = $this->contentViewBuilderFactory->createViews(

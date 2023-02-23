@@ -2,6 +2,8 @@
   "app.admin.subtitle": "Subtitle",
   "app.admin.publications": "Publications",
   "app.admin.publication": "Publication",
+  "app.admin.publication_typos": "Typos",
+  "app.admin.publication_typo": "Typo",
   "app.admin.articles": "Articles",
   "app.admin.article": "Article",
   "app.admin.briefs": "Briefs",

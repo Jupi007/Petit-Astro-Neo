@@ -17,6 +17,10 @@ sulu_admin:
       routes:
         list: app.admin.get_publication_list
         detail: app.admin.get_publication
+    !php/const App\Entity\PublicationTypo::RESOURCE_KEY:
+      routes:
+        list: app.admin.get_publication_typo_list
+        detail: app.admin.get_publication_typo
 
   field_type_options:
     selection:

@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PublicationTypoRepository::class)]
 class PublicationTypo
 {
+    final public const RESOURCE_KEY = 'publication_typos';
+    final public const RESOURCE_ICON = 'su-unpublish';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
