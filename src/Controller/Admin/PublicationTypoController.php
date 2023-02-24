@@ -36,6 +36,7 @@ class PublicationTypoController extends AbstractController implements SecuredCon
     public function getList(Request $request): View
     {
         $listRepresentation = $this->repository->createDoctrineListRepresentation(
+            $this->getLocale($request),
             $request->query->get('publicationId'),
         );
 

@@ -9,6 +9,20 @@
         </join>
     </joins>
 
+    <joins name="publicationDimensionContent">
+        <join>
+            <entity-name>App\Entity\Publication</entity-name>
+            <field-name>App\Entity\PublicationTypo.publication</field-name>
+        </join>
+
+        <join>
+            <entity-name>publicationDimensionContent</entity-name>
+            <field-name>App\Entity\Publication.dimensionContents</field-name>
+            <method>LEFT</method>
+            <condition>publicationDimensionContent.locale = :locale AND publicationDimensionContent.stage = 'draft'</condition>
+        </join>
+    </joins>
+
     <properties>
         <property name="id" translation="sulu_admin.id">
             <field-name>id</field-name>
@@ -25,6 +39,13 @@
             <entity-name>App\Entity\Publication</entity-name>
 
             <joins ref="publication"/>
+        </property>
+
+        <property name="publicationTitle" visibility="yes" searchability="yes" translation="app.admin.publication">
+            <field-name>title</field-name>
+            <entity-name>publicationDimensionContent</entity-name>
+
+            <joins ref="publicationDimensionContent"/>
         </property>
     </properties>
 </list>

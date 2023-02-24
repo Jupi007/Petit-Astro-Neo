@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>publication_typos_publication</key>
+
+    <properties>
+        <property name="id" translation="sulu_admin.id">
+            <field-name>id</field-name>
+            <entity-name>App\Entity\PublicationTypo</entity-name>
+        </property>
+
+        <property name="description" visibility="always" searchability="yes" translation="sulu_admin.description">
+            <field-name>description</field-name>
+            <entity-name>App\Entity\PublicationTypo</entity-name>
+        </property>
+    </properties>
+</list>

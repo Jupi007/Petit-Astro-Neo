@@ -20,6 +20,8 @@ class DefinitionAdmin extends Admin
 {
     final public const SECURITY_CONTEXT = 'app.settings.definitions';
 
+    final public const NAVIGATION_ITEM = 'app.admin.lexicon';
+
     final public const LIST_KEY = 'definitions';
     final public const FORM_KEY = 'definition_details';
 
@@ -38,7 +40,7 @@ class DefinitionAdmin extends Admin
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
         if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
-            $item = new NavigationItem('app.admin.lexicon');
+            $item = new NavigationItem(static::NAVIGATION_ITEM);
             $item->setPosition(40);
             $item->setIcon(Definition::RESOURCE_ICON);
             $item->setView(static::LIST_VIEW);
