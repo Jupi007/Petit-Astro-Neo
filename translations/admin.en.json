@@ -20,6 +20,7 @@
   "app.admin.no_publication_selected": "No publication selected",
   "sulu_activity.resource.definitions": "Definition",
   "sulu_activity.resource.publications": "Publication",
+  "sulu_activity.resource.publication_typos": "Typo",
   "sulu_activity.description.definitions.created": "{userFullName} has created the definition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.modified": "{userFullName} has changed the definition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.removed": "{userFullName} has removed the definition \"{resourceTitle}\"",
@@ -30,5 +31,6 @@
   "sulu_activity.description.publications.published": "{userFullName} has published the publication \"{resourceTitle}\"",
   "sulu_activity.description.publications.unpublished": "{userFullName} has unpublished the publication \"{resourceTitle}\"",
   "sulu_activity.description.publications.removed": "{userFullName} has removed the publication \"{resourceTitle}\"",
-  "sulu_activity.description.publications.translation_copied": "{userFullName} has copied the \"{context_sourceLocale}\" translation of the publication \"{resourceTitle}\" into \"{resourceLocale}\""
+  "sulu_activity.description.publications.translation_copied": "{userFullName} has copied the \"{context_sourceLocale}\" translation of the publication \"{resourceTitle}\" into \"{resourceLocale}\"",
+  "sulu_activity.description.publication_typos.removed": "{userFullName} has removed a typo"
 }

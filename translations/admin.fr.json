@@ -19,6 +19,7 @@
   "app.admin.no_publication_selected": "Aucune publication s\u00e9lectionn\u00e9",
   "sulu_activity.resource.definitions": "D\u00e9finition",
   "sulu_activity.resource.publications": "Publication",
+  "sulu_activity.resource.publication_typos": "Faute",
   "sulu_activity.description.definitions.created": "{userFullName} a cr\u00e9\u00e9 la d\u00e9finition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.modified": "{userFullName} a modifi\u00e9 la d\u00e9finition \"{resourceTitle}\"",
   "sulu_activity.description.definitions.removed": "{userFullName} a supprim\u00e9 la d\u00e9finition \"{resourceTitle}\"",
@@ -29,5 +30,6 @@
   "sulu_activity.description.publications.published": "{userFullName} a publi\u00e9 la publication \"{resourceTitle}\"",
   "sulu_activity.description.publications.unpublished": "{userFullName} a d\u00e9publi\u00e9 la publication \"{resourceTitle}\"",
   "sulu_activity.description.publications.removed": "{userFullName} a supprim\u00e9 la publication \"{resourceTitle}\"",
-  "sulu_activity.description.publications.translation_copied": "{userFullName} a copi\u00e9 la traduction \"{context_sourceLocale}\" de la publication \"{resourceTitle}\" dans \"{resourceLocale}\""
+  "sulu_activity.description.publications.translation_copied": "{userFullName} a copi\u00e9 la traduction \"{context_sourceLocale}\" de la publication \"{resourceTitle}\" dans \"{resourceLocale}\"",
+  "sulu_activity.description.publication_typos.removed": "{userFullName} a supprim\u00e9 une faute"
 }
