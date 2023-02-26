@@ -18,11 +18,30 @@ use Sulu\Bundle\HttpCacheBundle\Cache\SuluHttpCache;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\ErrorHandler\ErrorHandler;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class Kernel extends SuluKernel implements HttpCacheProvider
 {
     private ?HttpKernelInterface $httpCache = null;
+
+    public function boot(): void
+    {
+        parent::boot();
+
+        // https://github.com/symfony/symfony/issues/35575
+        if ($_SERVER['APP_DEBUG']) {
+            $showDeprecations = $_ENV['APP_DEPRECATIONS'] ?? $_SERVER['APP_DEPRECATIONS'] ?? false;
+            $showDeprecations = \filter_var($showDeprecations, \FILTER_VALIDATE_BOOLEAN);
+
+            if (!$showDeprecations) {
+                ErrorHandler::register(null, false)->setLoggers([
+                    \E_DEPRECATED => [null],
+                    \E_USER_DEPRECATED => [null],
+                ]);
+            }
+        }
+    }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
