@@ -1,0 +1,22 @@
+{% if app.user %}
+    {% set media = null %}
+    {% if app.user.contact.avatar is not null %}
+        {% set media = sulu_resolve_media(app.user.contact.avatar, app.request.locale) %}
+    {% endif %}
+
+    <a href="{{ path('sulu_community.profile') }}">
+        {% if media is not null %}
+            <img src="{{ media.thumbnails['figure'] }}"/>
+        {% endif %}
+
+        {{ app.user.username|default('Profile') }}
+    </a>
+
+    <a href="{{ path('sulu_community.logout') }}">
+        Logout
+    </a>
+{% else %}
+    <a href="{{ path('sulu_community.login') }}">
+        Login
+    </a>
+{% endif %}

@@ -1,7 +1,7 @@
 sulu_tag_api:
     resource: "@SuluTagBundle/Resources/config/routing_api.yml"
     type: rest
-    prefix:   /admin/api
+    prefix: /admin/api
 
 sulu_admin:
     resource: "@SuluAdminBundle/Resources/config/routing.yml"

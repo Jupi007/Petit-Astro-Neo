@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <webspace xmlns="http://schemas.sulu.io/webspace/webspace"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://schemas.sulu.io/webspace/webspace http://schemas.sulu.io/webspace/webspace-1.1.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.sulu.io/webspace/webspace http://schemas.sulu.io/webspace/webspace-1.1.xsd">
     <name>Le Petit Astro</name>
     <key>petit-astro</key>
 
@@ -9,6 +8,10 @@
         <localization language="fr" default="true"/>
         <localization language="en"/>
     </localizations>
+
+    <security>
+        <system>Website</system>
+    </security>
 
     <default-templates>
         <default-template type="page">default</default-template>

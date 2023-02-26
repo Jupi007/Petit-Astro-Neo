@@ -160,6 +160,9 @@
             "config/packages/stof_doctrine_extensions.yaml"
         ]
     },
+    "sulu/community-bundle": {
+        "version": "3.0.x-dev"
+    },
     "sulu/content-bundle": {
         "version": "0.6.x-dev"
     },

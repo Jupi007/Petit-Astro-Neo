@@ -20,7 +20,7 @@
     </a>
     <h1 class="text-4xl">
       {{ headerTitle }}
-      {% if headerSubtitle != null %}
+      {% if headerSubtitle|default != null %}
         <br>
         <small class="italic text-3xl">{{ headerSubtitle }}</small>
       {% endif %}

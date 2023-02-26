@@ -1,0 +1,14 @@
+sulu_community:
+  webspaces:
+    petit-astro:
+      from: "%env(SULU_ADMIN_EMAIL)%"
+
+      login:
+        embed_template: community/login-embed.html.twig
+        template: community/login.html.twig
+
+      registration:
+        type: App\Form\RegistrationType
+
+      profile:
+        type: App\Form\ProfileType

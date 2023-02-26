@@ -24,6 +24,12 @@
         "docs": "https://docs.sulu.io/",
         "chat": "https://sulu.io/services-and-support#chat"
     },
+    "repositories": [
+        {
+            "url": "git@github.com:dev-newvisibility/SuluCommunityBundle.git",
+            "type": "vcs"
+        }
+    ],
     "require": {
         "php": "^8.2",
         "ext-ctype": "*",
@@ -41,6 +47,7 @@
         "scheb/2fa-email": "^6.1",
         "scheb/2fa-trusted-device": "^6.1",
         "sulu/content-bundle": "0.x-dev",
+        "sulu/community-bundle": "3.0.x-dev",
         "sulu/form-bundle": "2.5.x-dev",
         "sulu/headless-bundle": "^0.9.0",
         "sulu/sulu": "2.5.7",

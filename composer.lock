@@ -4,8 +4,65 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb487dc5f6b2f1b09285161672c9f837",
+    "content-hash": "2aaa57bd1fdec67554ab49b11c094591",
     "packages": [
+        {
+            "name": "beberlei/doctrineextensions",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/DoctrineExtensions.git",
+                "reference": "008f162f191584a6c37c03a803f718802ba9dd9a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/008f162f191584a6c37c03a803f718802ba9dd9a",
+                "reference": "008f162f191584a6c37c03a803f718802ba9dd9a",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.7",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.14",
+                "nesbot/carbon": "*",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "symfony/yaml": "^4.2 || ^5.0",
+                "zf1/zend-date": "^1.12",
+                "zf1/zend-registry": "^1.12"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DoctrineExtensions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Steve Lacey",
+                    "email": "steve@steve.ly"
+                }
+            ],
+            "description": "A set of extensions to Doctrine 2 that add support for additional query functions available in MySQL, Oracle, PostgreSQL and SQLite.",
+            "keywords": [
+                "database",
+                "doctrine",
+                "orm"
+            ],
+            "support": {
+                "source": "https://github.com/beberlei/DoctrineExtensions/tree/v1.3.0"
+            },
+            "time": "2020-11-29T07:37:23+00:00"
+        },
         {
             "name": "behat/transliterator",
             "version": "v1.5.0",
@@ -5344,7 +5401,7 @@
         },
         {
             "name": "scheb/2fa-bundle",
-            "version": "v6.6.0",
+            "version": "v6.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/2fa-bundle.git",
@@ -5405,13 +5462,13 @@
                 "two-step"
             ],
             "support": {
-                "source": "https://github.com/scheb/2fa-bundle/tree/v6.6.0"
+                "source": "https://github.com/scheb/2fa-bundle/tree/v6.7.0"
             },
             "time": "2023-01-26T18:47:22+00:00"
         },
         {
             "name": "scheb/2fa-email",
-            "version": "v6.6.0",
+            "version": "v6.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/2fa-email.git",
@@ -5454,27 +5511,27 @@
                 "two-step"
             ],
             "support": {
-                "source": "https://github.com/scheb/2fa-email/tree/v6.6.0"
+                "source": "https://github.com/scheb/2fa-email/tree/v6.7.0"
             },
             "time": "2022-12-10T15:20:09+00:00"
         },
         {
             "name": "scheb/2fa-trusted-device",
-            "version": "v6.6.0",
+            "version": "v6.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/2fa-trusted-device.git",
-                "reference": "b918e67c58d105c0753f59e0b1c7ca4621358f82"
+                "reference": "a61d855c10e6ce40d15b01832e4b32ecb111a23d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scheb/2fa-trusted-device/zipball/b918e67c58d105c0753f59e0b1c7ca4621358f82",
-                "reference": "b918e67c58d105c0753f59e0b1c7ca4621358f82",
+                "url": "https://api.github.com/repos/scheb/2fa-trusted-device/zipball/a61d855c10e6ce40d15b01832e4b32ecb111a23d",
+                "reference": "a61d855c10e6ce40d15b01832e4b32ecb111a23d",
                 "shasum": ""
             },
             "require": {
                 "lcobucci/clock": "^2.0 || ^3.0",
-                "lcobucci/jwt": "^4.0",
+                "lcobucci/jwt": "^4.1",
                 "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
                 "scheb/2fa-bundle": "self.version"
             },
@@ -5505,9 +5562,9 @@
                 "two-step"
             ],
             "support": {
-                "source": "https://github.com/scheb/2fa-trusted-device/tree/v6.6.0"
+                "source": "https://github.com/scheb/2fa-trusted-device/tree/v6.7.0"
             },
-            "time": "2023-01-21T11:16:02+00:00"
+            "time": "2023-02-25T09:22:53+00:00"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
@@ -5582,6 +5639,151 @@
                 "source": "https://github.com/stof/StofDoctrineExtensionsBundle/tree/v1.7.1"
             },
             "time": "2022-09-30T11:52:24+00:00"
+        },
+        {
+            "name": "sulu/community-bundle",
+            "version": "3.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dev-newvisibility/SuluCommunityBundle.git",
+                "reference": "7e942e8da814367ea7523c7ccf42237b09581d22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dev-newvisibility/SuluCommunityBundle/zipball/7e942e8da814367ea7523c7ccf42237b09581d22",
+                "reference": "7e942e8da814367ea7523c7ccf42237b09581d22",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/doctrineextensions": "^1.0",
+                "doctrine/doctrine-bundle": "^1.10 || ^2.0",
+                "doctrine/orm": "^2.5.3",
+                "doctrine/persistence": "^1.3 || ^2.0",
+                "jms/serializer-bundle": "^3.3 || ^4.0",
+                "massive/build-bundle": "^0.3 || ^0.4 || ^0.5",
+                "php": "^8.0 || ^8.1",
+                "sulu/sulu": "^2.5.0 || ^2.6@dev",
+                "symfony/config": "^5.4 || ^6.0",
+                "symfony/console": "^5.4 || ^6.0",
+                "symfony/dependency-injection": "^5.4 || ^6.0",
+                "symfony/event-dispatcher": "^5.4 || ^6.0",
+                "symfony/form": "^5.4 || ^6.0",
+                "symfony/framework-bundle": "^5.4 || ^6.0",
+                "symfony/http-foundation": "^5.4 || ^6.0",
+                "symfony/http-kernel": "^5.4 || ^6.0",
+                "symfony/intl": "^5.4 || ^6.0",
+                "symfony/mailer": "^5.4 || ^6.0",
+                "symfony/routing": "^5.4 || ^6.0",
+                "symfony/security-bundle": "^5.4 || ^6.0"
+            },
+            "require-dev": {
+                "doctrine/data-fixtures": "^1.3.3",
+                "handcraftedinthealps/zendsearch": "^2.0",
+                "jackalope/jackalope-doctrine-dbal": "^1.3.4",
+                "jangregor/phpstan-prophecy": "^1.0",
+                "massive/search-bundle": "^2.0",
+                "php-cs-fixer/shim": "^3.9",
+                "phpspec/prophecy": "^1.16",
+                "phpstan/phpstan": "1.0",
+                "phpstan/phpstan-doctrine": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan-symfony": "^1.0",
+                "phpunit/phpunit": "^8.2",
+                "symfony/browser-kit": "^5.4 || ^6.0",
+                "symfony/css-selector": "^5.4 || ^6.0",
+                "symfony/dotenv": "^5.4 || ^6.0",
+                "symfony/monolog-bundle": "^3.1",
+                "symfony/phpunit-bridge": "^5.4 || ^6.0",
+                "symfony/stopwatch": "^5.4 || ^6.0",
+                "symfony/var-dumper": "^5.4 || ^6.0",
+                "thecodingmachine/phpstan-strict-rules": "^1.0"
+            },
+            "default-branch": true,
+            "type": "sulu-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Sulu\\Bundle\\CommunityBundle\\": ""
+                }
+            },
+            "scripts": {
+                "bootstrap-test-environment": [
+                    "Tests/Application/bin/adminconsole doctrine:database:drop --if-exists --force --env test",
+                    "Tests/Application/bin/adminconsole doctrine:database:create --env test",
+                    "Tests/Application/bin/adminconsole doctrine:schema:update --force --env test"
+                ],
+                "lint": [
+                    "@phpstan",
+                    "@php-cs",
+                    "@lint-yaml",
+                    "@lint-twig",
+                    "@lint-container",
+                    "@lint-composer",
+                    "@lint-doctrine"
+                ],
+                "test": [
+                    "@phpunit"
+                ],
+                "phpunit": [
+                    "vendor/bin/phpunit"
+                ],
+                "phpstan": [
+                    "Tests/Application/bin/adminconsole cache:warmup --env=dev",
+                    "vendor/bin/phpstan analyse"
+                ],
+                "php-cs": [
+                    "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run"
+                ],
+                "php-cs-fix": [
+                    "vendor/bin/php-cs-fixer fix"
+                ],
+                "lint-yaml": [
+                    "Tests/Application/bin/adminconsole lint:yaml Resources/config Tests/Application/config"
+                ],
+                "lint-twig": [
+                    "Tests/Application/bin/adminconsole lint:twig Resources/views"
+                ],
+                "lint-composer": [
+                    "@composer validate --strict"
+                ],
+                "lint-container": [
+                    "Tests/Application/bin/adminconsole lint:container --env dev",
+                    "Tests/Application/bin/websiteconsole lint:container --env dev",
+                    "Tests/Application/bin/adminconsole lint:container --env test",
+                    "Tests/Application/bin/websiteconsole lint:container --env test",
+                    "Tests/Application/bin/adminconsole lint:container --env stage",
+                    "Tests/Application/bin/websiteconsole lint:container --env stage",
+                    "Tests/Application/bin/adminconsole lint:container --env prod",
+                    "Tests/Application/bin/websiteconsole lint:container --env prod"
+                ],
+                "lint-doctrine": [
+                    "Tests/Application/bin/adminconsole doctrine:schema:validate --skip-sync",
+                    "Tests/Application/bin/adminconsole doctrine:ensure-production-settings --env prod"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sulu Community",
+                    "homepage": "https://github.com/sulu/SuluCommunityBundle/contributors"
+                }
+            ],
+            "description": "Sulu Bundle for building a community",
+            "homepage": "https://github.com/sulu/SuluCommunityBundle",
+            "keywords": [
+                "double opt-in",
+                "login",
+                "password forget",
+                "password reset",
+                "profile",
+                "registration",
+                "single opt-in"
+            ],
+            "support": {
+                "source": "https://github.com/dev-newvisibility/SuluCommunityBundle/tree/3.0"
+            },
+            "time": "2022-12-14T06:32:38+00:00"
         },
         {
             "name": "sulu/content-bundle",
@@ -12612,16 +12814,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.1",
+            "version": "1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1cd5fc530a8b68702f3733ad64294b2a39564198"
+                "reference": "5419375b5891add97dc74be71e6c1c34baaddf64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1cd5fc530a8b68702f3733ad64294b2a39564198",
-                "reference": "1cd5fc530a8b68702f3733ad64294b2a39564198",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5419375b5891add97dc74be71e6c1c34baaddf64",
+                "reference": "5419375b5891add97dc74be71e6c1c34baaddf64",
                 "shasum": ""
             },
             "require": {
@@ -12651,7 +12853,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.10.1"
+                "source": "https://github.com/phpstan/phpstan/tree/1.10.3"
             },
             "funding": [
                 {
@@ -12667,7 +12869,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-21T21:57:23+00:00"
+            "time": "2023-02-25T14:47:13+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -12741,16 +12943,16 @@
         },
         {
             "name": "phpstan/phpstan-phpunit",
-            "version": "1.3.7",
+            "version": "1.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "7e43c8f77c7e419730ead01c8dc787c6bcbe0e15"
+                "reference": "4a19a3cb5b2d28b143f350e45e9f6e17e2cb81b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/7e43c8f77c7e419730ead01c8dc787c6bcbe0e15",
-                "reference": "7e43c8f77c7e419730ead01c8dc787c6bcbe0e15",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/4a19a3cb5b2d28b143f350e45e9f6e17e2cb81b5",
+                "reference": "4a19a3cb5b2d28b143f350e45e9f6e17e2cb81b5",
                 "shasum": ""
             },
             "require": {
@@ -12787,9 +12989,9 @@
             "description": "PHPUnit extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-phpunit/issues",
-                "source": "https://github.com/phpstan/phpstan-phpunit/tree/1.3.7"
+                "source": "https://github.com/phpstan/phpstan-phpunit/tree/1.3.8"
             },
-            "time": "2023-02-21T18:40:15+00:00"
+            "time": "2023-02-25T15:14:31+00:00"
         },
         {
             "name": "phpstan/phpstan-symfony",
@@ -12915,23 +13117,23 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.24",
+            "version": "9.2.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2cf940ebc6355a9d430462811b5aaa308b174bed"
+                "reference": "0e2b40518197a8c0d4b08bc34dfff1c99c508954"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2cf940ebc6355a9d430462811b5aaa308b174bed",
-                "reference": "2cf940ebc6355a9d430462811b5aaa308b174bed",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/0e2b40518197a8c0d4b08bc34dfff1c99c508954",
+                "reference": "0e2b40518197a8c0d4b08bc34dfff1c99c508954",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "ext-xmlwriter": "*",
-                "nikic/php-parser": "^4.14",
+                "nikic/php-parser": "^4.15",
                 "php": ">=7.3",
                 "phpunit/php-file-iterator": "^3.0.3",
                 "phpunit/php-text-template": "^2.0.2",
@@ -12980,7 +13182,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.24"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.25"
             },
             "funding": [
                 {
@@ -12988,7 +13190,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-26T08:26:55+00:00"
+            "time": "2023-02-25T05:32:00+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -13335,21 +13537,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.15.17",
+            "version": "0.15.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "7f6ee7974175138864d3b50c28ea73a7b0fd4e2d"
+                "reference": "2c4708affb035af01f6b4a3b4a82f75cc306b039"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/7f6ee7974175138864d3b50c28ea73a7b0fd4e2d",
-                "reference": "7f6ee7974175138864d3b50c28ea73a7b0fd4e2d",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/2c4708affb035af01f6b4a3b4a82f75cc306b039",
+                "reference": "2c4708affb035af01f6b4a3b4a82f75cc306b039",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.9.14"
+                "phpstan/phpstan": "^1.10.1"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -13378,7 +13580,7 @@
             "description": "Instant Upgrade and Automated Refactoring of any PHP code",
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.15.17"
+                "source": "https://github.com/rectorphp/rector/tree/0.15.18"
             },
             "funding": [
                 {
@@ -13386,7 +13588,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-17T20:34:07+00:00"
+            "time": "2023-02-22T12:06:55+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -15118,6 +15320,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "sulu/content-bundle": 20,
+        "sulu/community-bundle": 20,
         "sulu/form-bundle": 20
     },
     "prefer-stable": false,
