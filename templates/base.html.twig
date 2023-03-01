@@ -1,39 +1,19 @@
-<!DOCTYPE html>
-<html lang="{{ app.request.locale|split('_')[0] }}">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'skeleton.html.twig' %}
 
-    <link rel="icon"
-          type="image/svg+xml"
-          href="{{ asset('build/website/images/favicon.svg') }}">
-    <link rel="icon"
-          type="image/png"
-          href="{{ asset('build/website/images/favicon.png') }}">
+{% block body %}
+  <div class="fixed w-screen h-screen z-[-1] opacity-15 dark:opacity-10 bg-center dark:invert"
+      style="background-image: url('{{ asset('build/website/images/dot.svg') }}')">
+  </div>
 
-    {% block meta %}
-      {% include "@SuluWebsite/Extension/seo.html.twig" with {
-      "seo": extension.seo|default([]),
-      "content": content|default([]),
-      "localizations": localizations|default([]),
-      "shadowBaseLocale": shadowBaseLocale|default(),
-      } %}
-    {% endblock %}
+  {% include "includes/_navigation.html.twig" %}
+  
+  {{ render_esi(controller('Sulu\\Bundle\\CommunityBundle\\Controller\\LoginController::embedAction', {
+    '_portal' : request.portalKey|default('default_portal_key'),
+    '_locale' : app.request.locale
+  })) }}
 
-    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
-    {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
-  </head>
-	
-  <body class="relative dark:bg-zinc-800 dark:text-white accent-slate-500">
-    <div class="fixed w-screen h-screen z-[-1] opacity-[.15] dark:opacity-10 bg-center dark:invert"
-         style="background-image: url('{{ asset('build/website/images/dot.svg') }}')">
-    </div>
-    {% include "includes/_navigation.html.twig" %}
-
-    <div class="ml-24 min-h-screen flex flex-col">
-      {% include "includes/_header.html.twig" %}
-      {% include "includes/_main.html.twig" with { 'content': block('content') } %}
-    </div>
-  </body>
-</html>
+  <div class="ml-24 min-h-screen flex flex-col">
+    {% include "includes/_header.html.twig" %}
+    {% include "includes/_main.html.twig" with { 'content': block('content') } %}
+  </div>
+{% endblock %}

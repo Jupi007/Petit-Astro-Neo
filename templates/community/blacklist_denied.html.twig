@@ -1,0 +1,10 @@
+{% extends 'base_fullart.html.twig' %}
+
+{% set title = 'Blacklisting' %}
+
+{% block content %}
+{% include "includes/common/_alert.html.twig" with {
+  'style': 'success',
+  'label': 'User "' ~ user.email ~ '" denied.'
+} only %}
+{% endblock %}

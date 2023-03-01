@@ -1,5 +1,6 @@
 const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -19,6 +20,22 @@ module.exports = {
     extend: {
       fontFamily: {
         'colombia': ['colombia'],
+      },
+      colors: {
+        'accent': colors.slate[500],
+        'outline': colors.zinc[200],
+        'outline-invert': colors.zinc[700],
+      },
+      opacity: {
+        '2.5': '.025',
+        '15': '0.15',
+        '35': '0.35',
+      },
+      boxShadow: {
+        'fake-border': '0 0 0 1px',
+      },
+      dropShadow: {
+        'vertical': '0 0 5px black',
       },
       outlineWidth: {
         DEFAULT: '2px',

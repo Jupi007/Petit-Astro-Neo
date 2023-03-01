@@ -1,0 +1,29 @@
+{% extends 'base_fullart.html.twig' %}
+
+{% set title = "Registration" %}
+
+{% block content %}
+    {% if app.request.get('send') == 'true' %}
+        {% include "includes/common/_alert.html.twig" with {
+          'style': 'success',
+          'label': 'To complete the registration click on the link in the received email.'
+        } only %}
+    {% else %}
+      {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        {% include "includes/common/_button.html.twig" with {
+          'type': 'submit',
+          'label': 'Submit',
+          'small': true,
+          'class': 'mx-auto',
+        } only %}
+      {{ form_end(form) }}
+
+      <p class="text-center mt-6">
+        <a href="{{ path('sulu_community.login') }}" class="opacity-60 hover:opacity-75 transition-opacity">
+          Already registered?
+        </a>
+      </p>
+    {% endif %}
+{% endblock %}

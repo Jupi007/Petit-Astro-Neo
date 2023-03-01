@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +20,21 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('avatar', FileType::class, [
+                'mapped' => false,
+                'property_path' => 'contact.avatar',
+                'required' => false,
+            ])
+            ->add('firstName', TextType::class, [
+                'property_path' => 'contact.firstName',
+            ])
+            ->add('lastName', TextType::class, [
+                'property_path' => 'contact.lastName',
+            ])
+            ->add('username', TextType::class)
+            ->add('mainEmail', EmailType::class, [
+                'property_path' => 'contact.mainEmail',
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],
@@ -28,26 +42,10 @@ class ProfileType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
-            ->add('username', TextType::class)
-            ->add('firstName', TextType::class, [
-                'property_path' => 'contact.firstName',
-            ])
-            ->add('lastName', TextType::class, [
-                'property_path' => 'contact.lastName',
-            ])
-            ->add('mainEmail', EmailType::class, [
-                'property_path' => 'contact.mainEmail',
-            ])
-            ->add('avatar', FileType::class, [
-                'mapped' => false,
-                'property_path' => 'contact.avatar',
-                'required' => false,
-            ])
             ->add('note', TextareaType::class, [
                 'property_path' => 'contact.note',
                 'required' => false,
-            ])
-            ->add('submit', SubmitType::class);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

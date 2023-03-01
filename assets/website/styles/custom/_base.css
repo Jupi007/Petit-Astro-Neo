@@ -1,3 +1,7 @@
 [id] {
   scroll-margin-top: 2rem;
 }
+
+:focus-visible {
+  outline: 2px solid theme('colors.accent');
+}

@@ -1,0 +1,53 @@
+{% extends 'base_fullart.html.twig' %}
+
+{% set title = "Login" %}
+
+{% block content %}
+    {% if error %}
+        {% include "includes/common/_alert.html.twig" with {
+          'style': 'error',
+          'label': error.messageKey|trans(error.messageData, 'security')
+        } only %}
+    {% endif %}
+
+    <form action="{{ path('sulu_community.login') }}" method="post" class="flex flex-col gap-6">
+        <div class="flex flex-col gap-1">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" 
+                class="block w-full p-2 outline-1 border border-outline dark:border-outline-invert focus:border-accent bg-black/2.5 dark:bg-white/5"
+            />
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password" 
+                class="block w-full p-2 outline-1 border border-outline dark:border-outline-invert focus:border-accent bg-black/2.5 dark:bg-white/5"
+            />
+            <p class="text-right italic">
+                <a href="{{ path('sulu_community.password_forget') }}" class="opacity-60 hover:opacity-75 transition-opacity">
+                    Password Forget?
+                </a>
+            </p>
+        </div>
+
+        <div>
+            <input type="checkbox" id="remember_me" name="_remember_me" checked />
+            <label for="remember_me">Keep me logged in</label>
+        </div>
+
+        <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer')|default('/') }}" />
+
+        {% include "includes/common/_button.html.twig" with {
+            'type': 'submit',
+            'label': 'Login',
+            'small': true,
+            'class': 'w-fit mx-auto',
+        } only %}
+    </form>
+
+    <p class="text-center mt-6">
+        <a href="{{ path('sulu_community.registration') }}" class="opacity-60 hover:opacity-75 transition-opacity">
+            Not yet registered?
+        </a>
+    </p>
+{% endblock %}

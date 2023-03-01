@@ -1,0 +1,17 @@
+{% extends 'base_fullart.html.twig' %}
+
+{% set title = 'Confirmation' %}
+
+{% block content %}
+  {% if success %}
+    {% include "includes/common/_alert.html.twig" with {
+      'style': 'success',
+      'label': 'You successfully activated your user.'
+    } only %}
+  {% else %}
+    {% include "includes/common/_alert.html.twig" with {
+      'style': 'error',
+      'label': 'Invalid token.'
+    } only %}
+  {% endif %}
+{% endblock %}

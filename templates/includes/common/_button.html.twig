@@ -1,4 +1,32 @@
-<a href="{{ href }}"
-   class="inline-block font-medium rounded no-underline border border-zinc-200 dark:border-zinc-700 hover:bg-black/5 dark:hover:bg-white/5 transition-colors {{ small|default(false) ? 'text-xs px-3 py-2' : 'px-4 py-2' }}">
-  {{ label|raw }}
-</a>
+{% set type = type|default('link') %}
+{% set style = style|default %}
+{% set border = border ?? true %}
+
+{% set class = class|default('') ~ ' w-fit inline-block font-medium no-underline border transition-colors' %}
+{% set class = class ~ (small ?? false ? ' text-xs px-3 py-2' : ' px-4 py-2') %}
+
+{% if style == 'error' %}
+  {% set class = class ~ ' text-red-700 dark:text-red-500 hover:bg-red-500/5 dark:hover:bg-red-500/10' %}
+{% else %}
+  {% set class = class ~ ' hover:bg-black/5 dark:hover:bg-white/5' %}
+{% endif %}
+
+{% if border %}
+  {% if style == 'error' %}
+    {% set class = class ~ ' border-red-100 dark:border-red-500/35' %}
+  {% else %}
+    {% set class = class ~ ' border-outline dark:border-outline-invert' %}
+  {% endif %}
+{% else %}
+  {% set class = class ~ ' border-transparent' %}
+{% endif %}
+
+{% if type == 'link' %}
+  <a href="{{ href }}" class="{{ class }}">
+    {{ label|raw }}
+  </a>
+{% elseif type == 'submit' %}
+  <button type="submit" class="{{ class }}">
+    {{ label|raw }}
+  </button>
+{% endif %}

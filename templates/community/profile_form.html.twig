@@ -1,0 +1,57 @@
+{% extends 'base_fullart.html.twig' %}
+
+{% set title = app.user.username %}
+{% set subtitle = 'Profile' %}
+
+{% set media = null %}
+{% if app.user.contact.avatar is not null %}
+  {% set media = sulu_resolve_media(app.user.contact.avatar, app.request.locale) %}
+{% endif %}
+
+{% set contentClass = 'pt-32 mt-20' %}
+
+{% block content %}
+  {{ form_start(form) }}
+    <div class="absolute -top-20 left-0 right-0">
+      <label class="block w-fit mx-auto" for="profile_avatar">
+        {% set class = 'w-48 h-48 p-4 rounded-full bg-white dark:bg-zinc-800 border border-outline dark:border-outline-invert cursor-pointer' %}
+        {% if media is not null %}
+          {{ get_image(media, {
+            src: 'avatar_large',
+            srcset: 'avatar_large@2x 2x',
+            class: class,
+          }) }}
+        {% else %}
+          <img src="{{ asset('build/website/images/user.svg') }}" alt="" class="block dark:hidden {{ class }}">
+          <img src="{{ asset('build/website/images/user-dark.svg') }}" alt="" class="hidden dark:block {{ class }}">
+        {% endif %}
+      </label>
+    </div>
+    
+
+    {% if app.request.get('send') == 'true' %}
+      {% include "includes/common/_alert.html.twig" with {
+        'style': 'success',
+        'label': 'Profile was saved!'
+      } only %}
+    {% endif %}
+    
+    {{ form_widget(form) }}
+
+    <div class="flex justify-center gap-2">
+      {% include "includes/common/_button.html.twig" with {
+        'type': 'link',
+        'href': path('sulu_community.logout'),
+        'label': 'Logout',
+        'small': true,
+        'border': false,
+        'style': 'error',
+      } only %}
+      {% include "includes/common/_button.html.twig" with {
+        'type': 'submit',
+        'label': 'Submit',
+        'small': true,
+      } only %}
+    </div>
+  {{ form_end(form) }}
+{% endblock %}

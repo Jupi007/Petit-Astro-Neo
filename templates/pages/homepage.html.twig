@@ -7,9 +7,5 @@
 {% set headerLinkLabel = 'Lire' %}
 
 {% block content %}
-{{ render_esi(controller('Sulu\\Bundle\\CommunityBundle\\Controller\\LoginController::embedAction', {
-  '_portal' : request.portalKey|default('default_portal_key'),
-  '_locale' : app.request.locale
-})) }}
   {% include "includes/_blocks.html.twig" %}
 {% endblock %}

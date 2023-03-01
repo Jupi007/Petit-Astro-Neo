@@ -4,7 +4,7 @@
 			{{ get_image(media, {
         src: 'figure',
         srcset: 'figure@2x 2x',
-        class: 'aspect-video object-cover shadow-[0_0_0_1px] shadow-zinc-200 dark:shadow-zinc-700',
+        class: 'aspect-video object-cover shadow-[0_0_0_1px] shadow-outline dark:shadow-outline-invert',
       }) }}
 		{% endfor %}
 	{% endset %}
@@ -12,11 +12,11 @@
 	{% include "includes/common/_card_grid_container.html.twig" with {
 		'content': gridItems,
 		'id': 'smart-media-' ~ id,
-	} %}
+	} only %}
 	
 	{% include "includes/common/_smart_content_pagination.html.twig" with {
 		'view': view.media,
 		'rootPath': sulu_content_path(parentContent.url),
 		'id': 'smart-media-' ~ id,
-	} %}
+	} only %}
 </div>
