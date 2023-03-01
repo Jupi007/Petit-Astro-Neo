@@ -1,0 +1,5 @@
+app:
+  route:
+    publications: "publications"
+    lexicon: "lexique"
+

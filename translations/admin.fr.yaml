@@ -1,0 +1,42 @@
+app.admin:
+  subtitle: "Sous titre"
+  publications: "Publications"
+  publication: "Publication"
+  publication_typos: "Fautes"
+  publication_typo: "Faute"
+  articles: "Articles"
+  article: "Article"
+  briefs: "Brèves"
+  brief: "Brève"
+  lexicon: "Lexique"
+  definition: "D\u00e9finition"
+  definitions: "D\u00e9finitions"
+  definition_selection: "{count} {count plural =1 {d\u00e9finition} other {d\u00e9finitions}} s\u00e9lectionn\u00e9s"
+  definition_selection_overlay_title: "Choisir les d\u00e9finitions"
+  publication_selection_overlay_title: "Choisir les publication"
+  single_definition_selection_overlay_title: "Choisir une d\u00e9finition"
+  no_definition_selection: "Aucune d\u00e9finition s\u00e9lectionn\u00e9"
+  no_publication_selected: "Aucune publication s\u00e9lectionn\u00e9"
+
+sulu_activity:
+  resource:
+    definitions: "D\u00e9finition"
+    publications: "Publication"
+    publication_typos: "Faute"
+  description:
+    definitions:
+      created: "{userFullName} a cr\u00e9\u00e9 la d\u00e9finition \"{resourceTitle}\""
+      modified: "{userFullName} a modifi\u00e9 la d\u00e9finition \"{resourceTitle}\""
+      removed: "{userFullName} a supprim\u00e9 la d\u00e9finition \"{resourceTitle}\""
+      restored: "{userFullName} a restor\u00e9 la d\u00e9finition \"{resourceTitle}\""
+    publications:
+      created: "{userFullName} a cr\u00e9\u00e9 la publication \"{resourceTitle}\""
+      draft_removed: "{userFullName} a annul\u00e9 le brouillon de la publication \"{resourceTitle}\""
+      modified: "{userFullName} a modifi\u00e9 la publication \"{resourceTitle}\""
+      published: "{userFullName} a publi\u00e9 la publication \"{resourceTitle}\""
+      unpublished: "{userFullName} a d\u00e9publi\u00e9 la publication \"{resourceTitle}\""
+      removed: "{userFullName} a supprim\u00e9 la publication \"{resourceTitle}\""
+      translation_copied: "{userFullName} a copi\u00e9 la traduction \"{context_sourceLocale}\" de la publication \"{resourceTitle}\" dans \"{resourceLocale}\""
+    publication_typos:
+      removed: "{userFullName} a supprim\u00e9 une faute"
+

@@ -1,0 +1,43 @@
+app.admin:
+  subtitle: "Subtitle"
+  publications: "Publications"
+  publication: "Publication"
+  publication_typos: "Typos"
+  publication_typo: "Typo"
+  articles: "Articles"
+  article: "Article"
+  briefs: "Briefs"
+  brief: "Brief"
+  lexicon: "Lexicon"
+  definition: "Definition"
+  definitions: "Definitions"
+  definition_selection: "{count} {count plural =1 {definition} other {definitions}} selected"
+  definition_selection_overlay_title: "Select definitions"
+  publication_selection_overlay_title: "Select publications"
+  single_definition_selection_overlay_title: "Select definition"
+  single_publication_selection_overlay_title: "Select publication"
+  no_definition_selection: "No definition selected"
+  no_publication_selected: "No publication selected"
+
+sulu_activity:
+  resource:
+    definitions": "Definition"
+    publications": "Publication"
+    publication_typos": "Typo"
+  description:
+    definitions:
+      created": "{userFullName} has created the definition \"{resourceTitle}\""
+      modified": "{userFullName} has changed the definition \"{resourceTitle}\""
+      removed": "{userFullName} has removed the definition \"{resourceTitle}\""
+      restored": "{userFullName} has restored the definition \"{resourceTitle}\""
+    publications:
+      created": "{userFullName} has created the publication \"{resourceTitle}\""
+      draft_removed": "{userFullName} has discarded the draft of the publication \"{resourceTitle}\""
+      modified": "{userFullName} has changed the publication \"{resourceTitle}\""
+      published": "{userFullName} has published the publication \"{resourceTitle}\""
+      unpublished": "{userFullName} has unpublished the publication \"{resourceTitle}\""
+      removed": "{userFullName} has removed the publication \"{resourceTitle}\""
+      translation_copied": "{userFullName} has copied the \"{context_sourceLocale}\" translation of the publication \"{resourceTitle}\" into \"{resourceLocale}\""
+    publication_typos:
+      removed": "{userFullName} has removed a typo"
+
