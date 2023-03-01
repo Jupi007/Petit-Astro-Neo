@@ -1,7 +1,10 @@
 {% extends 'base_fullart.html.twig' %}
 
-{% set title = "Maintenance" %}
+{% set title = 'app.community.maintenance.title'|trans %}
 
 {% block content %}
-    <p>Les fonctions communautaires sont en cours de maintenance.</p>
+    {% include "includes/common/_alert.html.twig" with {
+      'style': 'warning',
+      'label': 'app.community.maintenance.message'|trans,
+    } only %}
 {% endblock %}

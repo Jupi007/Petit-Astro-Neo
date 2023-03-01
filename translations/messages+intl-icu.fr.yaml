@@ -1,0 +1,76 @@
+app:
+  submit: "Envoyer"
+  login: "Connexion"
+  logout: "Déconnexion"
+  registration: "Inscription"
+  invalid_token_message: "Jeton invalide."
+  back: "Retour"
+  back_home: "Retour à l'accueil"
+  previous_page: "Page précédente"
+  next_page: "Page suivante"
+  homepage: "Accueil"
+  search: "Recherche"
+  search_placeholder: "Système solaire..."
+  search_result_title: >-
+    {results, plural,
+        =0    {Pas de résultat pour "{query}"}
+        one   {1 résultat pour "{query}"}
+        other {# résultats pour "{query}"}
+    }
+  last_publication: "Dernière publication"
+  read: "Lire"
+  publication: "Publication"
+  definition: "Définition"
+
+  form:
+    password_label: "Mot de passe :"
+    password_repeat_label: "Confirmez le mot de passe :"
+
+  route:
+    publications: "publications"
+    lexicon: "lexique"
+
+  community:
+    login:
+      password_forget: "Mot de passe oublié ?"
+      remember_me: "Se souvenir de moi"
+      registration: "Pas encore inscrit ?"
+    
+    registration:
+      title: "Inscription"
+      login: "Déjà inscrit ?"
+      success_message: "Pour compléter l'inscription, cliquez sur le lien figurant dans l'e-mail reçu."
+
+    profile:
+      title: "Profil"
+      success_message: "Le profil a été sauvegardé."
+      avatar_label: "Avatar :"
+      first_name_label: "Prénom :"
+      last_name_label: "Nom :"
+      username_label: "Nom d'utilisateur :"
+      email_label: "Adresse email :"
+      note_label: "Note :"
+
+    blacklisting:
+      title: 'Liste noire'
+      confirmed_message: "Confirmation de l'utilisateur \"{email}\"."
+      denied_message: "Bloquage de l'utilisateur \"{email}\"."
+
+    maintenance:
+      title: "Maintenance"
+      message: "Les fonctions communautaires sont en cours de maintenance."
+
+    confirmation:
+      confirmation: "Confirmation"
+      message: "Vous avez activé avec succès votre utilisateur."
+
+    password_forget:
+      title: "Mot de passe oublié"
+      success_message: "Cliquez sur le lien figurant dans votre courriel pour réinitialiser votre mot de passe."
+      email_username_label: "Email ou nom d'utilisateur :"
+
+    password_reset:
+      title: "Réinitialisation du mot de passe"
+      success_message: "Mot de passe modifié avec succès."
+
+    email_confirmation_message: "L'e-mail a été modifié avec succès."

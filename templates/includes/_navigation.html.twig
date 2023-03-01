@@ -3,7 +3,7 @@
     <div class="h-full mb-[-1px] overflow-y-auto">
       {% include 'includes/navigation/_item.html.twig' with {
         url: sulu_content_root_path(),
-        label: 'Homepage',
+        label: 'app.homepage'|trans,
         iconSrc: asset('build/website/images/home.svg'),
       } %}
 	
@@ -19,7 +19,7 @@
     
     {% include 'includes/navigation/_item.html.twig' with {
       url: path('sulu_search.website_search'),
-      label: 'Search',
+      label: 'app.search'|trans,
       iconSrc: asset('build/website/images/looking-glass.svg'),
       last: true
     } %}

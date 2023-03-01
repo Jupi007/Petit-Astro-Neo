@@ -1,0 +1,77 @@
+app:
+  submit: "Submit"
+  login: "Login"
+  logout: "Logout"
+  registration: "Inscription"
+  invalid_token_message: "Invalid token."
+  back: "Back"
+  back_home: "Back to homepage"
+  previous_page: "Previous page"
+  next_page: "Next page"
+  homepage: "Homepage"
+  search: "Search"
+  search_placeholder: "Solar system..."
+  search_result_title: >-
+    {results, plural,
+        =0    {No results for "{query}"}
+        one   {1 result for "{query}"}
+        other {# results for "{query}"}
+    }
+  last_publication: "Last publication"
+  read: "Read"
+  publication: "Publication"
+  definition: "Definition"
+
+  form:
+    password_label: "Password:"
+    password_repeat_label: "Repeat password:"
+
+  route:
+    publications: "publications"
+    lexicon: "lexicon"
+
+  community:
+    login:
+      password_forget: "Password Forget?"
+      remember_me: "Keep me logged in"
+      registration: "Not yet registered?"
+    
+    registration:
+      title: "Registration"
+      login: "Already registered?"
+      success_message: "To complete the registration click on the link in the received email."
+
+    profile:
+      title: "Profile"
+      success_message: "Profile was saved."
+      avatar_label: "Avatar:"
+      first_name_label: "First name:"
+      last_name_label: "Last name:"
+      username_label: "Username:"
+      email_label: "Email:"
+      note_label: "Note:"
+
+    blacklisting:
+      title: 'Blacklisting'
+      confirmed_message: "User \"{email}\" confirmed."
+      denied_message: "User \"{email}\" denied."
+
+    maintenance:
+      title: "Maintenance"
+      message: "Community functions are being maintained."
+
+    confirmation:
+      confirmation: 'Confirmation'
+      message: "You successfully activated your user."
+
+    password_forget:
+      title: "Password forget"
+      success_message: "Click on the link in your email to reset your password."
+      email_username_label: "Email ou username:"
+
+    password_reset:
+      title: "Password reset"
+      success_message: "Password successfully changed."
+
+    email_confirmation_message: "Email was successfully changed."
+

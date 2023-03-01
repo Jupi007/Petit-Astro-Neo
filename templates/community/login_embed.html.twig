@@ -26,11 +26,11 @@
 {% else %}
     <div class="{{ class }} px-2 py-1">
         <a href="{{ path('sulu_community.login') }}" class="hover:opacity-80 transition-opacity">
-            Login
+            {{ 'app.login'|trans }}
         </a>
         -
         <a href="{{ path('sulu_community.registration') }}" class="hover:opacity-80 transition-opacity">
-            Registration
+            {{ 'app.registration'|trans }}
         </a>
     </div>
 {% endif %}

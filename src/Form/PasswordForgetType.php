@@ -16,6 +16,7 @@ class PasswordForgetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('email_username', TextType::class, [
+            'label' => 'app.community.password_forget.email_username_label',
             'constraints' => new Exist([
                 'columns' => ['email', 'username'],
                 'entity' => $options['user_class'],

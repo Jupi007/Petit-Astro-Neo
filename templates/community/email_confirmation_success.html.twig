@@ -1,17 +1,17 @@
 {% extends 'base_fullart.html.twig' %}
 
-{% set title = 'Profile' %}
+{% set title = 'app.community.profile.title'|trans %}
 
 {% block content %}
   {% if success %}
     {% include "includes/common/_alert.html.twig" with {
       'style': 'success',
-      'label': 'Email was successfully changed.'
+      'label': 'app.community.email_confirmation.message'|trans
     } only %}
   {% else %}
     {% include "includes/common/_alert.html.twig" with {
       'style': 'error',
-      'label': 'Invalid token.'
+      'label': 'app.invalid_token_message'|trans
     } only %}
   {% endif %}
 {% endblock %}

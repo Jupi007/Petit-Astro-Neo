@@ -1,17 +1,17 @@
 {% extends 'base_fullart.html.twig' %}
 
-{% set title = 'Confirmation' %}
+{% set title = 'app.community.confirmation.title'|trans %}
 
 {% block content %}
   {% if success %}
     {% include "includes/common/_alert.html.twig" with {
       'style': 'success',
-      'label': 'You successfully activated your user.'
+      'label': 'app.community.confirmation.message'|trans
     } only %}
   {% else %}
     {% include "includes/common/_alert.html.twig" with {
       'style': 'error',
-      'label': 'Invalid token.'
+      'label': 'app.invalid_token_message'|trans
     } only %}
   {% endif %}
 {% endblock %}

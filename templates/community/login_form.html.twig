@@ -1,6 +1,6 @@
 {% extends 'base_fullart.html.twig' %}
 
-{% set title = "Login" %}
+{% set title = 'app.login'|trans %}
 
 {% block content %}
     {% if error %}
@@ -25,21 +25,23 @@
             />
             <p class="text-right italic">
                 <a href="{{ path('sulu_community.password_forget') }}" class="opacity-60 hover:opacity-75 transition-opacity">
-                    Password Forget?
+                    {{ 'app.community.login.password_forget'|trans }}
                 </a>
             </p>
         </div>
 
         <div>
             <input type="checkbox" id="remember_me" name="_remember_me" checked />
-            <label for="remember_me">Keep me logged in</label>
+            <label for="remember_me">
+                {{ 'app.community.login.remember_me'|trans }}
+            </label>
         </div>
 
         <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer')|default('/') }}" />
 
         {% include "includes/common/_button.html.twig" with {
             'type': 'submit',
-            'label': 'Login',
+            'label': 'app.login'|trans,
             'small': true,
             'class': 'w-fit mx-auto',
         } only %}
@@ -47,7 +49,7 @@
 
     <p class="text-center mt-6">
         <a href="{{ path('sulu_community.registration') }}" class="opacity-60 hover:opacity-75 transition-opacity">
-            Not yet registered?
+            {{ 'app.community.login.registration'|trans }}
         </a>
     </p>
 {% endblock %}

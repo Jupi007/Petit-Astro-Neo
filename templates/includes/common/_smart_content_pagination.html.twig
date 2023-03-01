@@ -8,7 +8,7 @@
           <div class="w-full text-start my-5">
             {% include "includes/common/_button.html.twig" with {
               'href': href,
-              'label': '&laquo; Page précédente',
+              'label': '&laquo; ' ~ 'app.previous_page'|trans,
               'small': true,
             } only %}
           </div>
@@ -19,7 +19,7 @@
         <div class="w-full text-end my-5">
           {% include "includes/common/_button.html.twig" with {
             'href': href,
-            'label': 'Page suivante &raquo;',
+            'label': 'app.next_page'|trans ~ ' &raquo;',
             'small': true,
           } only %}
         </div>

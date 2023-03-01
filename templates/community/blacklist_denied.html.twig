@@ -1,10 +1,10 @@
 {% extends 'base_fullart.html.twig' %}
 
-{% set title = 'Blacklisting' %}
+{% set title = 'app.community.blacklisting.title'|trans %}
 
 {% block content %}
 {% include "includes/common/_alert.html.twig" with {
   'style': 'success',
-  'label': 'User "' ~ user.email ~ '" denied.'
+  'label': 'app.community.blacklisting.denied_message'|trans({'email': user.email})
 } only %}
 {% endblock %}

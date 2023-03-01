@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% set headerTitle = 'Recherche' %}
+{% set headerTitle = 'app.search'|trans %}
 {% set headerSubtitle = null %}
 
 {% block content %}
@@ -10,7 +10,7 @@
           class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
       <input name="q"
              type="text"
-             placeholder="Système solaire..."
+             placeholder="{{ 'app.search_placeholder'|trans }}"
              value="{{ query }}"
              class="flex-grow px-6 py-4 bg-transparent outline-none"/>
       <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
@@ -18,8 +18,10 @@
 
     {% if query != "" %}
       <h2 class="font-medium italic text-center">
-        {{ hits|length }}
-        résultat{{ hits|length > 1 ? 's' : '' }} pour "{{ query }}"
+        {{ 'app.search_result_title'|trans({
+          'results': hits|length,
+          'query': query
+        }) }}
       </h2>
     {% endif %}
   {% endset %}
@@ -50,14 +52,14 @@
             {% include "includes/common/_card.html.twig" with {
               url: hit.document.url,
               title: hit.document.title,
-              description: 'Publication',
+              description: 'app.publication'|trans,
             } only %}
           {% elseif hit.document.class == 'App\\Entity\\DefinitionTranslation' %}
               {# TODO Add specific definition card #}
               {% include "includes/common/_card.html.twig" with {
                 url: hit.document.url,
                 title: hit.document.title,
-                description: 'Définition',
+                description: 'definition'|trans,
               } only %}
           {% endif %}
         {% endfor %}

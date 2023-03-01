@@ -1,7 +1,7 @@
 {% extends 'base_fullart.html.twig' %}
 
 {% set title = app.user.username %}
-{% set subtitle = 'Profile' %}
+{% set subtitle = 'app.community.profile.title'|trans %}
 
 {% set media = null %}
 {% if app.user.contact.avatar is not null %}
@@ -32,7 +32,7 @@
     {% if app.request.get('send') == 'true' %}
       {% include "includes/common/_alert.html.twig" with {
         'style': 'success',
-        'label': 'Profile was saved!'
+        'label': 'app.community.profile.success_message'|trans
       } only %}
     {% endif %}
     
@@ -42,14 +42,14 @@
       {% include "includes/common/_button.html.twig" with {
         'type': 'link',
         'href': path('sulu_community.logout'),
-        'label': 'Logout',
+        'label': 'app.logout'|trans,
         'small': true,
         'border': false,
         'style': 'error',
       } only %}
       {% include "includes/common/_button.html.twig" with {
         'type': 'submit',
-        'label': 'Submit',
+        'label': 'app.submit'|trans,
         'small': true,
       } only %}
     </div>

@@ -21,28 +21,39 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('avatar', FileType::class, [
+                'label' => 'app.community.profile.avatar_label',
                 'mapped' => false,
                 'property_path' => 'contact.avatar',
                 'required' => false,
             ])
             ->add('firstName', TextType::class, [
+                'label' => 'app.community.profile.first_name_label',
                 'property_path' => 'contact.firstName',
             ])
             ->add('lastName', TextType::class, [
+                'label' => 'app.community.profile.last_name_label',
                 'property_path' => 'contact.lastName',
             ])
-            ->add('username', TextType::class)
+            ->add('username', TextType::class, [
+                'label' => 'app.community.profile.username_label',
+            ])
             ->add('mainEmail', EmailType::class, [
+                'label' => 'app.community.profile.email_label',
                 'property_path' => 'contact.mainEmail',
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options' => [
+                    'label' => 'app.form.password_label',
+                ],
+                'second_options' => [
+                    'label' => 'app.form.password_repeat_label',
+                ],
                 'mapped' => false,
                 'required' => false,
             ])
             ->add('note', TextareaType::class, [
+                'label' => 'app.community.profile.note_label',
                 'property_path' => 'contact.note',
                 'required' => false,
             ]);
