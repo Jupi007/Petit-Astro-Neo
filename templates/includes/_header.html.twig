@@ -8,11 +8,19 @@
   {% set headerHeight = 'min-h-[100vh]' %}
 {% endif %}
 
-<div class="relative overflow-hidden w-full dark:border-b border-outline-invert"
-     x-data="{ scrollPosition: window.pageYOffset }"
-     @scroll.window="scrollPosition = window.pageYOffset">
+<div
+  class="relative overflow-hidden w-full dark:border-b border-outline-invert"
+  x-data="{
+    scrollPosition: window.pageYOffset,
+    updateScrollPosition() {
+      this.scrollPosition = window.pageYOffset;
+      requestAnimationFrame(() => this.updateScrollPosition());
+    }
+  }"
+  x-init="requestAnimationFrame(() => updateScrollPosition())"
+>
   <div class="relative w-full {{ headerHeight }} flex flex-col gap-12 py-10 px-8 items-center justify-center bg-gradient-to-b from-black/0 via-black/15 to-black/0 text-white text-center font-light font-colombia"
-       x-bind:style="{ top: scrollPosition / 2 + 'px' }">
+       x-bind:style="{ transform: 'translate3d(0,' + scrollPosition / 2 + 'px,0)' }">
     {% include "includes/common/_logo.html.twig" only %}
 
     <h1 class="text-4xl drop-shadow-vertical">
@@ -30,20 +38,18 @@
     {% endif %}
   </div>
 
-  {% set class = 'absolute z-[-1] h-full w-full object-cover bg-slate-600' %}
+  {% set class = 'fixed inset-0 z-[-1] w-full h-full object-cover bg-slate-600' %}
 
   {% if headerImage|default %}
     {{ get_image(headerImage, {
       src: 'figure',
       srcset: 'figure@2x 2x',
       class: class,
-      'x-bind:style': "{ top: scrollPosition / 1.5 + 'px' }",
     }) }}
   {% else %}
     <img src="{{ asset('build/website/images/NGC_1952.jpg') }}"
          alt="NGC_1952"
          class="{{ class }}"
-         x-bind:style="{ top: scrollPosition / 1.5 + 'px' }"
          loading="lazy"/>
   {% endif %}
 </div>
