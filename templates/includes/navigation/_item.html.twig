@@ -1,7 +1,10 @@
 <li>
-  <a href="{{ url }}"
-     title="{{ label }}"
-     class="flex flex-col items-center justify-center gap-2 w-24 h-24 p-1 {{ last|default(false) ? 'border-t' : 'border-b' }} border-outline-invert -outline-offset-2 transition-colors hover:bg-white/5">
+  <a
+    href="{{ url }}"
+    title="{{ label }}"
+    class="flex flex-col items-center justify-center gap-2 w-24 h-24 p-1 {{ last|default(false) ? 'border-t' : 'border-b' }} border-outline-invert -outline-offset-2 transition-colors hover:bg-white/5"
+    @click="hideMenu()"
+  >
 	
     <img src="{{ iconSrc }}"
          alt="{{ label }} icon"
