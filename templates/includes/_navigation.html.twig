@@ -48,10 +48,10 @@
       class="absolute left-full flex flex-col items-center justify-center gap-2 md:left-0 bottom-0 w-16 h-16 bg-zinc-900 text-white border-t border-r border-outline-invert transition-[left]"
       @click="toggleMenu()"
     >
-      {% set class = 'h-[0.2rem] w-8 rounded-full bg-white transition' %}
+      {% set class = 'h-[0.08rem] w-8 rounded-full bg-white transition' %}
       <div
         class="{{ class }}"
-        :class="isMenuOpen ? 'rotate-45 translate-y-[0.7rem]' : ''"
+        :class="isMenuOpen ? 'rotate-45 translate-y-[0.575rem]' : ''"
       ></div>
       <div
         class="{{ class }}"
@@ -59,7 +59,7 @@
       ></div>
       <div
         class="{{ class }}"
-        :class="isMenuOpen ? '-rotate-45 translate-y-[-0.7rem]' : ''"
+        :class="isMenuOpen ? '-rotate-45 translate-y-[-0.575rem]' : ''"
       ></div>
     </button>
   </div>
