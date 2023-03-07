@@ -8,15 +8,17 @@
       class="fixed z-[-1] h-screen w-screen object-cover bg-slate-600"
       loading="lazy"/>
 
-  <div class="flex min-h-screen px-8 py-12 bg-black/15">
+  <div class="flex min-h-screen px-2 py-12 bg-black/15">
     <div class="m-auto flex flex-col justify-center items-center gap-8">
-      {% include "includes/common/_logo.html.twig" only %}
+      {% include "includes/common/_logo.html.twig" with {
+        'class': 'mx-4',
+      } only %}
 
       <a href="{{ sulu_content_root_path() }}" class="block font-colombia text-xl text-white drop-shadow-vertical group">
         <span class="inline-block group-hover:-translate-x-1 transition-transform">←</span> {{ 'app.back_home'|trans }}
       </a>
 
-      <div class="relative w-[28rem] p-8 rounded-md border border-outline dark:border-outline-invert bg-white dark:bg-zinc-800 shadow-md shadow-black/50 {{ contentClass }}">
+      <div class="relative max-w-[28rem] w-full p-8 rounded-md border border-outline dark:border-outline-invert bg-white dark:bg-zinc-800 shadow-md shadow-black/50 {{ contentClass }}">
         {% if title|default %}
           <h1 class="mb-6 text-2xl text-center font-colombia first-letter:uppercase">
             {{ title }}

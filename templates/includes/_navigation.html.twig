@@ -1,5 +1,6 @@
 <div
   x-data="{
+    previousWindowWidth: window.innerWidth,
     isMenuOpen: false,
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
@@ -7,8 +8,14 @@
     hideMenu() {
       this.isMenuOpen = false;
     },
+    maybeHideMenu() {
+      if (this.previousWindowWidth !== window.innerWidth) {
+        this.previousWindowWidth = window.innerWidth;
+        this.hideMenu();
+      }
+    }
   }"
-  @resize.window.throttle="hideMenu()"
+  @resize.window.throttle="maybeHideMenu()"
 >
   <div
     class="fixed top-0 left-0 bottom-0 z-20 transition-transform -translate-x-24 md:translate-x-0"

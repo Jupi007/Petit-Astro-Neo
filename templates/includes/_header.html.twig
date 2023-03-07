@@ -12,12 +12,8 @@
   class="relative overflow-hidden w-full dark:border-b border-outline-invert"
   x-data="{
     scrollPosition: window.pageYOffset,
-    updateScrollPosition() {
-      this.scrollPosition = window.pageYOffset;
-      requestAnimationFrame(() => this.updateScrollPosition());
-    }
   }"
-  x-init="requestAnimationFrame(() => updateScrollPosition())"
+  @scroll.window="requestAnimationFrame(() => scrollPosition = window.pageYOffset)"
 >
   <div class="relative w-full {{ headerHeight }} flex flex-col gap-12 py-10 px-8 items-center justify-center bg-gradient-to-b from-black/0 via-black/15 to-black/0 text-white text-center font-light font-colombia"
        x-bind:style="{ transform: 'translate3d(0,' + scrollPosition / 2 + 'px,0)' }">
