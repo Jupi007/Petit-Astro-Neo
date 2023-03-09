@@ -18,7 +18,7 @@
   @resize.window.throttle="maybeHideMenu()"
 >
   <div
-    class="fixed top-0 left-0 bottom-0 z-20 transition-transform -translate-x-24 md:translate-x-0"
+    class="fixed top-0 left-0 bottom-0 z-20 transition-transform md:translate-x-0"
     :class="isMenuOpen ? 'translate-x-0' : '-translate-x-24'"
     @click.outside="hideMenu()"
   >
@@ -77,8 +77,11 @@
   </div>
 
   <div
-    class="absolute inset-0 z-10 bg-black/50 transition-opacity"
-    :class="isMenuOpen ? 'overflow-hidden z-[1] opacity-1' : 'z-[-1] opacity-0'"
+    class="absolute inset-0 bg-black/50 transition-opacity"
+    :class="{
+      'overflow-hidden z-10 opacity-100': isMenuOpen,
+      '-z-10 opacity-0': !isMenuOpen,
+    }"
   >
   </div>
 </div>
