@@ -2,11 +2,33 @@
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
 		{% set gridItems %}
 			{% for media in content.media %}
-				{{ get_image(media, {
-					src: 'figure',
-					srcset: 'figure@2x 2x',
-					class: 'aspect-video object-cover shadow-[0_0_0_1px] shadow-outline dark:shadow-outline-invert',
-				}) }}
+				<div
+					x-data="{ fullscreen: false }"
+					x-on:click="fullscreen = true"
+					class="cursor-zoom-in"
+				>
+					{{ get_image(media, {
+						src: 'figure',
+						srcset: 'figure@2x 2x',
+						class: 'aspect-video object-cover shadow-[0_0_0_1px] shadow-outline dark:shadow-outline-invert',
+					}) }}
+					
+					<template x-teleport="body">
+            <div
+							x-show="fullscreen"
+							x-transition:enter.duration.250ms
+							x-transition:leave.duration.150ms
+							x-on:click="fullscreen = false"
+							class="fixed inset-0 z-20 flex items-center justify-center md:p-6 bg-black/50 cursor-zoom-out"
+						>
+							{{ get_image(media, {
+								src: 'figure',
+								srcset: 'figure@2x 2x',
+								class: 'w-auto max-h-full m-auto',
+							}) }}
+            </div>
+        	</template>
+				</div>
 			{% endfor %}
 		{% endset %}
 	
