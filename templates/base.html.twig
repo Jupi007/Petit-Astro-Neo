@@ -3,10 +3,15 @@
 {% block body %}
   {% include "includes/_navigation.html.twig" %}
   
-  {{ render_esi(controller('Sulu\\Bundle\\CommunityBundle\\Controller\\LoginController::embedAction', {
-    '_portal' : request.portalKey|default('default_portal_key'),
-    '_locale' : app.request.locale
-  })) }}
+  <turbo-frame
+    id="login-embed"
+    data-turbo-permanent
+    target="_top"
+    src="{{ fragment_uri(controller('Sulu\\Bundle\\CommunityBundle\\Controller\\LoginController::embedAction', {
+      '_portal' : request.portalKey|default('default_portal_key'),
+      '_locale' : app.request.locale
+    })) }}"
+  > </turbo-frame>
 
   <div class="min-h-screen flex flex-col md:ml-24 transition-[margin]">
     {% include "includes/_header.html.twig" %}

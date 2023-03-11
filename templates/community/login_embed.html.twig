@@ -1,36 +1,38 @@
 {% set class = 'fixed z-[1] right-0 bg-zinc-900 text-white border-l border-b border-outline-invert font-colombia' %}
 
-{% if app.user %}
-    {% set media = null %}
-    {% if app.user.contact.avatar is not null %}
-        {% set media = sulu_resolve_media(app.user.contact.avatar, app.request.locale) %}
+<turbo-frame id="login-embed">
+    {% if app.user %}
+        {% set media = null %}
+        {% if app.user.contact.avatar is not null %}
+            {% set media = sulu_resolve_media(app.user.contact.avatar, app.request.locale) %}
+        {% endif %}
+        <div class="{{ class }}">
+            <a
+                href="{{ path('sulu_community.profile') }}"
+                class="block w-20 h-20 p-2 -outline-offset-2 transition-colors hover:bg-white/5"
+                title="{{ app.user.username|default('Profile') }}"
+            >
+                {% if media is not null %}
+                    {{ get_image(media, {
+                        src: 'avatar_small',
+                        srcset: 'avatar_small@2x 2x',
+                        class: 'rounded-full',
+                    }) }}
+                {% else %}
+                    <img src="{{ asset('build/website/images/user-dark.svg') }}" alt="" class="rounded-full">
+                {% endif %}
+            </a>
+        </div>
+        
+    {% else %}
+        <div class="{{ class }} px-2 py-1">
+            <a href="{{ path('sulu_community.login') }}" class="hover:opacity-80 transition-opacity">
+                {{ 'app.login'|trans }}
+            </a>
+            -
+            <a href="{{ path('sulu_community.registration') }}" class="hover:opacity-80 transition-opacity">
+                {{ 'app.registration'|trans }}
+            </a>
+        </div>
     {% endif %}
-    <div class="{{ class }}">
-        <a
-            href="{{ path('sulu_community.profile') }}"
-            class="block w-20 h-20 p-2 -outline-offset-2 transition-colors hover:bg-white/5"
-            title="{{ app.user.username|default('Profile') }}"
-        >
-            {% if media is not null %}
-                {{ get_image(media, {
-                    src: 'avatar_small',
-                    srcset: 'avatar_small@2x 2x',
-                    class: 'rounded-full',
-                }) }}
-            {% else %}
-                <img src="{{ asset('build/website/images/user-dark.svg') }}" alt="" class="rounded-full">
-            {% endif %}
-        </a>
-    </div>
-    
-{% else %}
-    <div class="{{ class }} px-2 py-1">
-        <a href="{{ path('sulu_community.login') }}" class="hover:opacity-80 transition-opacity">
-            {{ 'app.login'|trans }}
-        </a>
-        -
-        <a href="{{ path('sulu_community.registration') }}" class="hover:opacity-80 transition-opacity">
-            {{ 'app.registration'|trans }}
-        </a>
-    </div>
-{% endif %}
+</turbo-frame>
