@@ -4,37 +4,91 @@
 {% set headerSubtitle = null %}
 
 {% block content %}
-  <turbo-frame id="search-frame">
-    {% set searchForm %}
-      <form action="{{ path('sulu_search.website_search') }}"
-            method="GET"
-            class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
-        <input name="q"
-              type="text"
-              placeholder="{{ 'app.search_placeholder'|trans }}"
-              value="{{ query }}"
-              class="flex-grow px-6 py-4 bg-transparent outline-none"/>
-        <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
-      </form>
+  <turbo-frame id="search-frame" target="_top">
+    <div
+      class="flex flex-col gap-8">
+      {% set searchForm %}
+        <form action="{{ path('sulu_search.website_search') }}"
+              method="GET"
+              data-turbo-frame="search-frame"
+              class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
+          <input name="q"
+                type="text"
+                placeholder="{{ 'app.search_placeholder'|trans }}"
+                value="{{ query }}"
+                class="flex-grow px-6 py-4 bg-transparent outline-none"/>
+          <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
+        </form>
 
-      {% if query != "" %}
-        <h2 class="font-medium italic text-center">
-          {{ 'app.search_result_title'|trans({
-            'results': hits|length,
-            'query': query
-          }) }}
-        </h2>
-      {% endif %}
-    {% endset %}
+        {% if query != "" %}
+          <h2 class="font-medium italic text-center">
+            {{ 'app.search_result_title'|trans({
+              'results': hits|length,
+              'query': query
+            }) }}
+          </h2>
+        {% endif %}
+      {% endset %}
 
-    {% include "includes/common/_page_container.html.twig" with { 'content': searchForm } only %}
+      {% include "includes/common/_page_container.html.twig" with { 'content': searchForm } only %}
 
-    {% if query != "" and hits|length > 0 %}
-      <div class="my-8">
-        {% set gridItems %}
-          {% for i, hit in hits %}
-            {% if hit.document.class == 'Sulu\\Bundle\\PageBundle\\Document\\PageDocument' %}
-              {% set page = sulu_content_load(hit.id, {
+      {% if query != "" and hits|length > 0 %}
+        {% set pageHits = [] %}
+        {% set publicationHits = [] %}
+        {% set definitionHits = [] %}
+
+        {% for i, hit in hits %}
+          {% if hit.document.class == 'Sulu\\Bundle\\PageBundle\\Document\\PageDocument' %}
+            {% set pageHits = pageHits|merge([hit]) %}
+          {% elseif hit.document.class == 'App\\Entity\\PublicationDimensionContent' %}
+            {% set publicationHits = publicationHits|merge([hit]) %}
+          {% elseif hit.document.class == 'App\\Entity\\DefinitionTranslation' %}
+            {% set definitionHits = definitionHits|merge([hit]) %}
+          {% endif %}
+        {% endfor %}
+
+        {% if publicationHits|length > 0 %}
+          {% set publicationGridContent %}
+            {% for publicationHit in publicationHits %}
+              {% include "includes/common/_card.html.twig" with {
+                url: publicationHit.document.url,
+                title: publicationHit.document.title,
+                description: 'app.publication'|trans,
+              } only %}
+            {% endfor %}
+          {% endset %}
+
+          {% include "includes/common/_card_grid_container.html.twig" with {
+            'content': publicationGridContent,
+          } only %}
+        {% endif %}
+
+        {% if definitionHits|length > 0 %}
+          {% set definitionContent %}
+            <ul class="list-disc list-inside">
+              {% for definitionHit in definitionHits %}
+                <li>
+                  <a
+                    href="{{ definitionHit.document.url }}"
+                    class="font-bold underline"
+                  >
+                    {{ definitionHit.document.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endset %}
+
+          {% include "includes/common/_page_container.html.twig" with {
+            'content': definitionContent,
+            'class': 'py-4 shadow-fake-border shadow-outline dark:shadow-outline-invert'
+          } only %}
+        {% endif %}
+
+        {% if pageHits|length > 0 %}
+          {% set pageGridContent %}
+            {% for pageHit in pageHits %}
+              {% set page = sulu_content_load(pageHit.id, {
                 'title': 'title',
                 'coverImage': 'coverImage',
                 'excerptImages': 'excerpt.images',
@@ -43,33 +97,20 @@
               }) %}
               {% if null != page %}
                 {% include "includes/common/_card.html.twig" with {
-                  url: hit.document.url,
+                  url: pageHit.document.url,
                   image: page.content.excerptImages[0]|default(page.content.coverImage|default),
                   title: page.content.excerptTitle|default(page.content.title),
                   description: page.content.excerptDescription,
                 } only %}
               {% endif %}
-            {% elseif hit.document.class == 'App\\Entity\\PublicationDimensionContent' %}
-              {% include "includes/common/_card.html.twig" with {
-                url: hit.document.url,
-                title: hit.document.title,
-                description: 'app.publication'|trans,
-              } only %}
-            {% elseif hit.document.class == 'App\\Entity\\DefinitionTranslation' %}
-                {# TODO Add specific definition card #}
-                {% include "includes/common/_card.html.twig" with {
-                  url: hit.document.url,
-                  title: hit.document.title,
-                  description: 'definition'|trans,
-                } only %}
-            {% endif %}
-          {% endfor %}
-        {% endset %}
-        
-        {% include "includes/common/_card_grid_container.html.twig" with {
-          'content': gridItems,
-        } only %}
-      </div>
-    {% endif %}
+            {% endfor %}
+          {% endset %}
+
+          {% include "includes/common/_card_grid_container.html.twig" with {
+            'content': pageGridContent,
+          } only %}
+        {% endif %}
+      {% endif %}
+    </div>
   </turbo-frame>
 {% endblock %}
