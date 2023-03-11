@@ -1,24 +1,26 @@
-<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
-	{% set gridItems %}
-		{% for page in content.pages %}
-			{% include "includes/common/_card.html.twig" with {
-				url: sulu_content_path(page.url),
-				image: page.excerpt.images[0]|default(page.coverImage|default),
-				title: page.excerptTitle|default(page.title),
-				description: page.excerptDescription,
-			} only %}
-		{% endfor %}
-	{% endset %}
-
-	{% include "includes/common/_card_grid_container.html.twig" with {
-		'content': gridItems,
-		'id': 'smart-pages-' ~ id,
-	} only %}
+<turbo-frame id="smart-pages-frame-{{ id }}">
+	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
+		{% set gridItems %}
+			{% for page in content.pages %}
+				{% include "includes/common/_card.html.twig" with {
+					url: sulu_content_path(page.url),
+					image: page.excerpt.images[0]|default(page.coverImage|default),
+					title: page.excerptTitle|default(page.title),
+					description: page.excerptDescription,
+				} only %}
+			{% endfor %}
+		{% endset %}
 	
-	{% include "includes/common/_smart_content_pagination.html.twig" with {
-		'view': view.pages,
-		'rootPath': sulu_content_path(parentContent.url),
-		'id': 'smart-pages-' ~ id,
-	} only %}
-</div>
+		{% include "includes/common/_card_grid_container.html.twig" with {
+			'content': gridItems,
+			'id': 'smart-pages-' ~ id,
+		} only %}
+		
+		{% include "includes/common/_smart_content_pagination.html.twig" with {
+			'view': view.pages,
+			'rootPath': sulu_content_path(parentContent.url),
+			'id': 'smart-pages-' ~ id,
+		} only %}
+	</div>
+</turbo-frame>
 
