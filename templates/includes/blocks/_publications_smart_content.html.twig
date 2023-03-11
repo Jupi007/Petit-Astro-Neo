@@ -1,4 +1,4 @@
-<turbo-frame id="smart-publications-frame-{{ id }}">
+<turbo-frame id="smart-publications-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
 		{% set gridItems %}
 			{% for publication in content.publications %}
@@ -7,6 +7,7 @@
 					image: publication.excerpt.images[0]|default(publication.coverImage|default),
 					title: publication.excerptTitle|default(publication.title),
 					description: publication.excerptDescription,
+					dataTurboFrame: '_top',
 				} only %}
 			{% endfor %}
 		{% endset %}
@@ -20,6 +21,7 @@
 			'view': view.publications,
 			'rootPath': sulu_content_path(parentContent.url),
 			'id': 'smart-publications-' ~ id,
+			'turboFrameId': 'smart-publications-frame-' ~ id,
 		} only %}
 	</div>	
 </turbo-frame>

@@ -1,4 +1,4 @@
-<turbo-frame id="smart-media-frame-{{ id }}">
+<turbo-frame id="smart-media-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
 		{% set gridItems %}
 			{% for media in content.media %}

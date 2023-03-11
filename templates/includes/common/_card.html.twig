@@ -1,5 +1,9 @@
 <article class="shadow-fake-border shadow-outline dark:shadow-outline-invert">
-  <a href="{{ url }}" class="h-full flex flex-col bg-black/2.5 hover:bg-black/5 dark:bg-black/10 dark:hover:bg-white/2.5 transition-colors">
+  <a
+    href="{{ url }}"
+    class="h-full flex flex-col bg-black/2.5 hover:bg-black/5 dark:bg-black/10 dark:hover:bg-white/2.5 transition-colors"
+    {% if dataTurboFrame|default %}data-turbo-frame="{{ dataTurboFrame }}"{% endif %}
+  >
     {% set class = 'aspect-video object-cover' %}
     {% if image|default(null) %}
       {{ get_image(image, {
