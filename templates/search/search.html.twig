@@ -4,70 +4,72 @@
 {% set headerSubtitle = null %}
 
 {% block content %}
-  {% set searchForm %}
-    <form action="{{ path('sulu_search.website_search') }}"
-          method="GET"
-          class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
-      <input name="q"
-             type="text"
-             placeholder="{{ 'app.search_placeholder'|trans }}"
-             value="{{ query }}"
-             class="flex-grow px-6 py-4 bg-transparent outline-none"/>
-      <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
-    </form>
+  <turbo-frame id="search-frame">
+    {% set searchForm %}
+      <form action="{{ path('sulu_search.website_search') }}"
+            method="GET"
+            class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
+        <input name="q"
+              type="text"
+              placeholder="{{ 'app.search_placeholder'|trans }}"
+              value="{{ query }}"
+              class="flex-grow px-6 py-4 bg-transparent outline-none"/>
+        <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
+      </form>
 
-    {% if query != "" %}
-      <h2 class="font-medium italic text-center">
-        {{ 'app.search_result_title'|trans({
-          'results': hits|length,
-          'query': query
-        }) }}
-      </h2>
-    {% endif %}
-  {% endset %}
+      {% if query != "" %}
+        <h2 class="font-medium italic text-center">
+          {{ 'app.search_result_title'|trans({
+            'results': hits|length,
+            'query': query
+          }) }}
+        </h2>
+      {% endif %}
+    {% endset %}
 
-  {% include "includes/common/_page_container.html.twig" with { 'content': searchForm } only %}
+    {% include "includes/common/_page_container.html.twig" with { 'content': searchForm } only %}
 
-  {% if query != "" and hits|length > 0 %}
-    <div class="my-8">
-      {% set gridItems %}
-        {% for i, hit in hits %}
-          {% if hit.document.class == 'Sulu\\Bundle\\PageBundle\\Document\\PageDocument' %}
-            {% set page = sulu_content_load(hit.id, {
-              'title': 'title',
-              'coverImage': 'coverImage',
-              'excerptImages': 'excerpt.images',
-              'excerptTitle': 'excerpt.title',
-              'excerptDescription': 'excerpt.description',
-            }) %}
-            {% if null != page %}
-              {% include "includes/common/_card.html.twig" with {
-                url: hit.document.url,
-                image: page.content.excerptImages[0]|default(page.content.coverImage|default),
-                title: page.content.excerptTitle|default(page.content.title),
-                description: page.content.excerptDescription,
-              } only %}
-            {% endif %}
-          {% elseif hit.document.class == 'App\\Entity\\PublicationDimensionContent' %}
-            {% include "includes/common/_card.html.twig" with {
-              url: hit.document.url,
-              title: hit.document.title,
-              description: 'app.publication'|trans,
-            } only %}
-          {% elseif hit.document.class == 'App\\Entity\\DefinitionTranslation' %}
-              {# TODO Add specific definition card #}
+    {% if query != "" and hits|length > 0 %}
+      <div class="my-8">
+        {% set gridItems %}
+          {% for i, hit in hits %}
+            {% if hit.document.class == 'Sulu\\Bundle\\PageBundle\\Document\\PageDocument' %}
+              {% set page = sulu_content_load(hit.id, {
+                'title': 'title',
+                'coverImage': 'coverImage',
+                'excerptImages': 'excerpt.images',
+                'excerptTitle': 'excerpt.title',
+                'excerptDescription': 'excerpt.description',
+              }) %}
+              {% if null != page %}
+                {% include "includes/common/_card.html.twig" with {
+                  url: hit.document.url,
+                  image: page.content.excerptImages[0]|default(page.content.coverImage|default),
+                  title: page.content.excerptTitle|default(page.content.title),
+                  description: page.content.excerptDescription,
+                } only %}
+              {% endif %}
+            {% elseif hit.document.class == 'App\\Entity\\PublicationDimensionContent' %}
               {% include "includes/common/_card.html.twig" with {
                 url: hit.document.url,
                 title: hit.document.title,
-                description: 'definition'|trans,
+                description: 'app.publication'|trans,
               } only %}
-          {% endif %}
-        {% endfor %}
-      {% endset %}
-      
-      {% include "includes/common/_card_grid_container.html.twig" with {
-        'content': gridItems,
-      } only %}
-    </div>
-  {% endif %}
+            {% elseif hit.document.class == 'App\\Entity\\DefinitionTranslation' %}
+                {# TODO Add specific definition card #}
+                {% include "includes/common/_card.html.twig" with {
+                  url: hit.document.url,
+                  title: hit.document.title,
+                  description: 'definition'|trans,
+                } only %}
+            {% endif %}
+          {% endfor %}
+        {% endset %}
+        
+        {% include "includes/common/_card_grid_container.html.twig" with {
+          'content': gridItems,
+        } only %}
+      </div>
+    {% endif %}
+  </turbo-frame>
 {% endblock %}
