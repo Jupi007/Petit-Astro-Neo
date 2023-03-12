@@ -65,7 +65,7 @@
 
         {% if definitionHits|length > 0 %}
           {% set definitionContent %}
-            <ul class="list-disc list-inside">
+            <ul class="grid md:grid-cols-2 gap-x-6 list-disc list-inside">
               {% for definitionHit in definitionHits %}
                 <li>
                   <a
