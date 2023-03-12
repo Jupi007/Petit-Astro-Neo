@@ -37,7 +37,7 @@
             </label>
         </div>
 
-        <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer')|default('/') }}" />
+        {# <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer')|default('/') }}" /> #}
 
         {% include "includes/common/_button.html.twig" with {
             'type': 'submit',
