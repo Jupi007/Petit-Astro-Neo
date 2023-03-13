@@ -1,0 +1,15 @@
+<type name="definitions"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Definitions</title>
+        <title lang="fr">Définitions</title>
+    </meta>
+
+    <properties>
+        <property name="definitions" type="definitions_selection" mandatory="true">
+        </property>
+    </properties>
+</type>

@@ -1,18 +1,16 @@
-{% set headerHeight = '' %}
+{% set coverSize = coverSize|default(content.coverSize|default('small')) %}
 
-{% if content.coverSize|default('small') == 'small' %}
+{% if coverSize == 'small' %}
   {% set headerHeight = 'min-h-[22rem]' %}
-{% elseif content.coverSize == 'medium' %}
+{% elseif coverSize == 'medium' %}
   {% set headerHeight = 'min-h-[75vh]' %}
-{% elseif content.coverSize == 'full' %}
+{% elseif coverSize == 'full' %}
   {% set headerHeight = 'min-h-[100vh]' %}
 {% endif %}
 
 <div
   class="relative overflow-hidden w-full dark:border-b border-outline-invert"
-  x-data="{
-    scrollPosition: window.pageYOffset,
-  }"
+  x-data="{ scrollPosition: window.pageYOffset }"
   @scroll.window="requestAnimationFrame(() => scrollPosition = window.pageYOffset)"
 >
   <div class="relative w-full {{ headerHeight }} flex flex-col gap-12 py-10 px-8 items-center justify-center bg-gradient-to-b from-black/0 via-black/15 to-black/0 text-white text-center font-light font-colombia"

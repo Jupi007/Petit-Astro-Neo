@@ -3,24 +3,23 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
 
-    <key>default</key>
+    <key>article</key>
 
-    <view>pages/default</view>
-    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <view>publications/article</view>
+    <controller>App\Controller\Website\PublicationController::indexAction</controller>
     <cacheLifetime>604800</cacheLifetime>
 
     <meta>
-        <title lang="en">Default</title>
-        <title lang="fr">Défaut</title>
+        <title lang="en">Article</title>
+        <title lang="fr">Article</title>
     </meta>
 
     <properties>
-
         <xi:include href="../includes/title.xml"/>
         <xi:include href="../includes/subtitle.xml"/>
-        <xi:include href="../includes/page-url.xml"/>
+        <xi:include href="../includes/content-url.xml"/>
 
-        <xi:include href="../includes/cover-image.xml"/>
+        <xi:include href="../includes/content-cover-image.xml"/>
 
         <section name="blocks">
             <meta>
@@ -35,11 +34,7 @@
                         <xi:include href="../includes/blocks/figure.xml" />
                         <xi:include href="../includes/blocks/quote.xml" />
                         <xi:include href="../includes/blocks/button.xml" />
-                        <xi:include href="../includes/blocks/pages-smart-content.xml" />
-                        <xi:include href="../includes/blocks/publications-smart-content.xml" />
-                        <xi:include href="../includes/blocks/definitions-smart-content.xml" />
-                        <xi:include href="../includes/blocks/media-smart-content.xml" />
-                        <xi:include href="../includes/blocks/form.xml" />
+                        <xi:include href="../includes/blocks/definitions.xml" />
                     </types>
                 </block>
             </properties>

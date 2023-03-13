@@ -2,9 +2,10 @@
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
 		{% set gridItems %}
 			{% for publication in content.publications %}
+				{% set media = sulu_resolve_media(publication.coverImage.id|default(publication.excerptImage), app.request.locale) %}
 				{% include "includes/common/_card.html.twig" with {
 					url: sulu_content_path(publication.url),
-					image: publication.excerpt.images[0]|default(publication.coverImage|default),
+					image: media,
 					title: publication.excerptTitle|default(publication.title),
 					description: publication.excerptDescription,
 					dataTurboFrame: '_top',

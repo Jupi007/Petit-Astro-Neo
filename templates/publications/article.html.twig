@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% set headerTitle = content.title %}
+{% set headerSubtitle = null %}
+{% set coverSize = 'full' %}
+{% set headerImage = content.coverImage|default %}
+
+{% block content %}
+    <div class="prose dark:prose-invert">
+        <h1>
+            {{ content.title }}
+        </h1>
+
+        <div>
+            {{ content.url }}
+        </div>
+
+        <h2>Form</h2>
+
+        {% if app.request.get('send') != 'true' %}
+            {{ form(typoForm) }}
+        {% else %}
+            Merci !
+        {% endif %}
+    </div>
+{% endblock %}

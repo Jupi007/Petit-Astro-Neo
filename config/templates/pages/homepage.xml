@@ -6,7 +6,7 @@
     <key>homepage</key>
 
     <view>pages/homepage</view>
-    <controller>Sulu\Bundle\HeadlessBundle\Controller\HeadlessWebsiteController::indexAction</controller>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
     <cacheLifetime>86400</cacheLifetime>
 
     <meta>
@@ -18,7 +18,7 @@
 
         <xi:include href="../includes/title.xml"/>
         <xi:include href="../includes/subtitle.xml"/>
-        <xi:include href="../includes/url.xml"/>
+        <xi:include href="../includes/page-url.xml"/>
 
         <xi:include href="../includes/cover-image.xml"/>
 

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<section name="cover"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Cover</title>
+        <title lang="fr">Couverture</title>
+    </meta>
+
+    <properties>
+        <property name="coverImage" type="single_media_selection">
+            <meta>
+                <title lang="en">Image</title>
+                <title lang="fr">Image</title>
+            </meta>
+
+            <params>
+                <param name="types" value="image" />
+            </params>
+
+            <!-- https://github.com/sulu/SuluContentBundle/issues/186 -->
+            <!-- <tag name="sulu.search.field" role="image" index="false" /> -->
+        </property>
+    </properties>
+</section>
