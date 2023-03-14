@@ -1,10 +1,5 @@
 sulu_route:
   mappings:
-    App\Entity\Definition:
-      generator: schema
-      resource_key: !php/const App\Entity\Definition::RESOURCE_KEY
-      options:
-        route_schema: /{translator.trans('app.route.lexicon')}/{object['title']}
     App\Entity\Publication:
       generator: schema
       resource_key: !php/const App\Entity\Publication::RESOURCE_KEY

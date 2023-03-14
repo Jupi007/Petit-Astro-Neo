@@ -12,12 +12,10 @@ use App\Repository\DefinitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Sulu\Bundle\RouteBundle\Model\RoutableInterface;
-use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
 #[ORM\Entity(repositoryClass: DefinitionRepository::class)]
-class Definition implements PersistableEntityInterface, LocalizableInterface, RoutableInterface
+class Definition implements PersistableEntityInterface, LocalizableInterface
 {
     /** @use LocalizableTrait<DefinitionTranslation> */
     use LocalizableTrait;
@@ -114,18 +112,6 @@ class Definition implements PersistableEntityInterface, LocalizableInterface, Ro
     public function setChanged(\DateTime $changed): self
     {
         $this->getTranslation(createIfNull: true)->setChanged($changed);
-
-        return $this;
-    }
-
-    public function getRoute(): ?RouteInterface
-    {
-        return $this->getTranslation()?->getRoute();
-    }
-
-    public function setRoute(RouteInterface $route): self
-    {
-        $this->getTranslation(createIfNull: true)->setRoute($route);
 
         return $this;
     }
