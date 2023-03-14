@@ -1,17 +1,15 @@
 <article x-data="{ expanded: false }">
-  <h1 class="text-base font-semibold underline m-0">
-    <span
-      @click="expanded = ! expanded"
-      class="cursor-pointer"
-    >
-      {{ definition.title }}
-    </span>
+  <h1
+    @click="expanded = ! expanded"
+    class="text-base font-semibold underline m-0 cursor-pointer"
+  >
+    {{ definition.title }}
   </h1>
   <div
     x-show="expanded"
-    x-collapse
+    {{ collapseMin|default == null ? 'x-collapse' : 'x-collapse.min.' ~ collapseMin }}
     x-cloak
-    class="overflow-hidden"
+    class="overflow-hidden prose dark:prose-invert"
   >
     {{ definition.description|raw }}
   </div>

@@ -25,6 +25,7 @@ app:
   publication_page:
     report_typo: "Report a typo"
     typo_thanks: "Thanks a lot!"
+    lexicon_title: "Lexicon of terms"
 
   form:
     password_label: "Password:"

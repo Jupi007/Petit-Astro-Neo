@@ -2,29 +2,51 @@
 
 {% if titleSort %}
   {% set letter = null %}
+  {% set letterItems = [] %}
   <dl class="flex flex-col gap-7">
     {% for definition in content.definitions %}
       {% set definition = definition.resource %}
+
+      {% if loop.last %}
+        {% set letterItems = letterItems|merge([definition]) %}
+      {% endif %}
+
+      {% if (definition.title|first|lower != letter or loop.last) and not loop.first %}
+        {% set definitionContent %}
+          {% set definitionGridContent %}
+            {% for item in letterItems %}
+              {% include "includes/common/_definition.html.twig" with {
+                'definition': item,
+              } only %}
+            {% endfor %}
+          {% endset %}
+
+          {% include "includes/common/_definition_grid.html.twig" with {
+            'content': definitionGridContent,
+          } only %}
+        {% endset %}
+
+        {% include "includes/common/_page_container.html.twig" with {'content': definitionContent} only %}
+        
+        {% set letterItems = [] %}
+      {% endif %}
+
       {% if definition.title|first|lower != letter %}
         {% set letter = definition.title|first|lower %}
-        {% set letterFirstItem = true %}
         {% if not loop.first %}</div>{% endif %}
+
         <div class="flex flex-col gap-2">
         <dt
           class="shadow-fake-border shadow-outline dark:shadow-outline-invert py-1 px-2 mb-2 bg-black/2.5
           dark:bg-black/10 text-center text-xl font-bold"
-        >{{ letter|upper }}</dt>
+        >
+          {{ letter|upper }}
+        </dt>
       {% endif %}
 
-      {% set definitionContent %}
-        <dd class="{{ letterFirstItem ? '' : 'pt-2 border-t border-outline/50 dark:border-outline-invert/50' }}">
-          {% include "includes/common/_definition.html.twig" with {'definition': definition} only %}
-        </dd>
-      {% endset %}
-		  {% include "includes/common/_page_container.html.twig" with {'content': definitionContent} only %}
+      {% set letterItems = letterItems|merge([definition]) %}
 
       {% if loop.last %}</div>{% endif %}
-      {% set letterFirstItem = false %}
     {% endfor %}
   </dl>
 {% else %}

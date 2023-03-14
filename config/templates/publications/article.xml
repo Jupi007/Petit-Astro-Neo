@@ -39,5 +39,7 @@
                 </block>
             </properties>
         </section>
+
+        <xi:include href="../includes/lexicon.xml" />
     </properties>
 </template>
