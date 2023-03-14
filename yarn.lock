@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@alpinejs/collapse@^3.12.0":
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/@alpinejs/collapse/-/collapse-3.12.0.tgz#80381aa7890568f0ba506246add9b2abd6b824a4"
+  integrity sha512-/LKUr6lZD9yYSkTcwm/8eaTd/S2S4NPY9mQJHBy3TTTNai9rLzV15oHcLW0MxausaCOT5jQtQHWFTWelldZOSw==
+
 "@alpinejs/focus@^3.12.0":
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/@alpinejs/focus/-/focus-3.12.0.tgz#d287e48653a4fe38b12110b7fc2101ecc5008816"

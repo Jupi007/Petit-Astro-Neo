@@ -65,15 +65,12 @@
 
         {% if definitionHits|length > 0 %}
           {% set definitionContent %}
-            <ul class="grid md:grid-cols-2 gap-x-6 list-disc list-inside">
+            <ul class="grid md:grid-cols-2 gap-x-6 gap-y-2">
               {% for definitionHit in definitionHits %}
-                <li>
-                  <a
-                    href="{{ definitionHit.document.url }}"
-                    class="font-bold underline"
-                  >
-                    {{ definitionHit.document.title }}
-                  </a>
+                <li class="prose dark:prose-invert">
+                  {% include "includes/common/_definition.html.twig" with {
+                    'definition': definitionHit.document,
+                  } only %}
                 </li>
               {% endfor %}
             </ul>

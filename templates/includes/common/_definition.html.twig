@@ -1,0 +1,18 @@
+<article x-data="{ expanded: false }">
+  <h1 class="text-base font-semibold underline m-0">
+    <span
+      @click="expanded = ! expanded"
+      class="cursor-pointer"
+    >
+      {{ definition.title }}
+    </span>
+  </h1>
+  <div
+    x-show="expanded"
+    x-collapse
+    x-cloak
+    class="overflow-hidden"
+  >
+    {{ definition.description|raw }}
+  </div>
+</article>

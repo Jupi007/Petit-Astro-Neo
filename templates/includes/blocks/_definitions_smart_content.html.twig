@@ -4,22 +4,21 @@
   {% set letter = null %}
   <dl class="flex flex-col gap-7">
     {% for definition in content.definitions %}
-      {% if definition.resource.title|first|lower != letter %}
-        {% set letter = definition.resource.title|first|lower %}
+      {% set definition = definition.resource %}
+      {% if definition.title|first|lower != letter %}
+        {% set letter = definition.title|first|lower %}
         {% set letterFirstItem = true %}
         {% if not loop.first %}</div>{% endif %}
         <div class="flex flex-col gap-2">
         <dt
           class="shadow-fake-border shadow-outline dark:shadow-outline-invert py-1 px-2 mb-2 bg-black/2.5
-          dark:bg-black/10 text-center text-lg font-bold"
+          dark:bg-black/10 text-center text-xl font-bold"
         >{{ letter|upper }}</dt>
       {% endif %}
 
       {% set definitionContent %}
         <dd class="{{ letterFirstItem ? '' : 'pt-2 border-t border-outline/50 dark:border-outline-invert/50' }}">
-          <a href="{{ definition.resource.route.path }}">
-            {{ definition.resource.title }}
-          </a>
+          {% include "includes/common/_definition.html.twig" with {'definition': definition} only %}
         </dd>
       {% endset %}
 		  {% include "includes/common/_page_container.html.twig" with {'content': definitionContent} only %}
@@ -32,7 +31,7 @@
   <ul>
     {% for definition in content.definitions %}
       <li>
-        <a href="{{ definition.resource.route.path }}">{{ definition.resource.title }}</a>
+        {% include "includes/common/_definition.html.twig" with {'definition': definition} only %}
       </li>
     {% endfor %}
   </ul>
