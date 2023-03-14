@@ -19,6 +19,8 @@
 							x-transition:enter.duration.250ms
 							x-transition:leave.duration.150ms
 							x-on:click="fullscreen = false"
+							@keyup.escape.window="fullscreen = false"
+							x-trap.inert.noscroll="fullscreen"
 							class="fixed inset-0 z-20 flex items-center justify-center md:p-6 bg-black/50 cursor-zoom-out"
 						>
 							{{ get_image(media, {

@@ -15,75 +15,75 @@
       }
     }
   }"
+  class="fixed top-0 left-0 bottom-0 z-20 transition-transform md:translate-x-0"
+  :class="isMenuOpen ? 'translate-x-0' : '-translate-x-24'"
+  @keyup.escape.window="hideMenu()"
   @resize.window.throttle="maybeHideMenu()"
+  x-trap.inert.noscroll="isMenuOpen"
 >
-  <div
-    class="fixed top-0 left-0 bottom-0 z-20 transition-transform md:translate-x-0"
-    :class="isMenuOpen ? 'translate-x-0' : '-translate-x-24'"
-    @click.outside="hideMenu()"
+  <nav
+    class="relative z-10 h-full bg-zinc-900 text-white md:border-r border-outline-invert font-colombia"
+    :class="isMenuOpen ? 'border-r' : ''"
   >
-    <nav
-      class="relative z-10 h-full bg-zinc-900 text-white md:border-r border-outline-invert font-colombia"
-      :class="isMenuOpen ? 'border-r' : ''"
-    >
-      <ul class="flex flex-col h-full">
-        <div class="h-full mb-[-1px] overflow-y-auto">
-          {% include 'includes/navigation/_item.html.twig' with {
-            url: sulu_content_root_path(),
-            label: 'app.homepage'|trans,
-            iconSrc: asset('build/website/images/home.svg'),
-          } %}
-      
-          {% for item in sulu_navigation_root_tree('main', 1, true) %}
-            {% set menuIcon = item.excerpt.menu_icon %}
-            {% include 'includes/navigation/_item.html.twig' with {
-              url: sulu_content_path(item.url, item.webspaceKey),
-              label: item.title,
-              iconSrc: menuIcon != null ? asset('build/website/images/' ~ menuIcon ~ '.svg') : null
-            } %}
-          {% endfor %}
-        </div>
-        
+    <ul class="flex flex-col h-full">
+      <div class="h-full mb-[-1px] overflow-y-auto">
         {% include 'includes/navigation/_item.html.twig' with {
-          url: path('sulu_search.website_search'),
-          label: 'app.search'|trans,
-          iconSrc: asset('build/website/images/looking-glass.svg'),
-          last: true
+          url: sulu_content_root_path(),
+          label: 'app.homepage'|trans,
+          iconSrc: asset('build/website/images/home.svg'),
         } %}
-      </ul>
-    </nav>
-    <button
-      class="absolute left-full md:left-0 bottom-0 bg-zinc-900 border-t border-r border-outline-invert transition-[left] -outline-offset-2"
-      @click="toggleMenu()"
-    >
-      <div 
-        class="flex flex-col items-center justify-center gap-2 w-16 h-16 transition-colors hover:bg-white/5"
-      >
-        {% set class = 'h-[2px] w-8 rounded-full bg-white transition' %}
-        <div
-          class="{{ class }}"
-          :class="isMenuOpen ? 'rotate-45 translate-y-[0.625rem]' : ''"
-        ></div>
-        <div
-          class="{{ class }}"
-          :class="isMenuOpen ? 'opacity-0' : ''"
-        ></div>
-        <div
-          class="{{ class }}"
-          :class="isMenuOpen ? '-rotate-45 translate-y-[-0.625rem]' : ''"
-        ></div>
+    
+        {% for item in sulu_navigation_root_tree('main', 1, true) %}
+          {% set menuIcon = item.excerpt.menu_icon %}
+          {% include 'includes/navigation/_item.html.twig' with {
+            url: sulu_content_path(item.url, item.webspaceKey),
+            label: item.title,
+            iconSrc: menuIcon != null ? asset('build/website/images/' ~ menuIcon ~ '.svg') : null
+          } %}
+        {% endfor %}
       </div>
-    </button>
-  </div>
-
-  <div
-    class="absolute inset-0 bg-black/50 transition-opacity -z-10 opacity-0"
-    :class="{
-      'overflow-hidden z-10 opacity-100': isMenuOpen,
-      '-z-10 opacity-0': !isMenuOpen,
-    }"
+      
+      {% include 'includes/navigation/_item.html.twig' with {
+        url: path('sulu_search.website_search'),
+        label: 'app.search'|trans,
+        iconSrc: asset('build/website/images/looking-glass.svg'),
+        last: true
+      } %}
+    </ul>
+  </nav>
+  <button
+    class="absolute left-full md:left-0 bottom-0 bg-zinc-900 border-t border-r border-outline-invert transition-[left] -outline-offset-2"
+    @click="toggleMenu()"
   >
-  </div>
+    <div 
+      class="flex flex-col items-center justify-center gap-2 w-16 h-16 transition-colors hover:bg-white/5"
+    >
+      {% set class = 'h-[2px] w-8 rounded-full bg-white transition' %}
+      <div
+        class="{{ class }}"
+        :class="isMenuOpen ? 'rotate-45 translate-y-[0.625rem]' : ''"
+      ></div>
+      <div
+        class="{{ class }}"
+        :class="isMenuOpen ? 'opacity-0' : ''"
+      ></div>
+      <div
+        class="{{ class }}"
+        :class="isMenuOpen ? '-rotate-45 translate-y-[-0.625rem]' : ''"
+      ></div>
+    </div>
+  </button>
+
+  <template x-teleport="body">
+    <div
+      class="absolute inset-0 bg-black/50 transition-opacity -z-10 opacity-0"
+      :class="{
+        'overflow-hidden z-10 opacity-100': isMenuOpen,
+        '-z-10 opacity-0': !isMenuOpen,
+      }"
+      @click="hideMenu()"
+    ></div>
+  </template>
 </div>
 
 
