@@ -2,25 +2,52 @@
 
 {% set headerTitle = content.title %}
 {% set headerSubtitle = null %}
-{% set coverSize = 'full' %}
+{% set coverSize = coverSize|default('full') %}
 {% set headerImage = content.coverImage|default %}
 
 {% block content %}
-    <div class="prose dark:prose-invert">
-        <h1>
-            {{ content.title }}
-        </h1>
+  {% include "includes/_blocks.html.twig" %}
 
-        <div>
-            {{ content.url }}
-        </div>
-
-        <h2>Form</h2>
-
+  {% set typoFormContent %}
+    <turbo-frame id="typo-form" x-data="{ expanded: false }">
+      <h2 class="text-base text-end font-semibold underline m-0">
+        <span
+        @click="expanded = ! expanded"
+        class="cursor-pointer"
+        >
+          {{ 'app.publication_page.report_typo'|trans }}
+        </span>
+      </h2>
+      <div
+        x-show="expanded"
+        x-collapse
+        x-cloak
+        class="overflow-hidden"
+      >
         {% if app.request.get('send') != 'true' %}
-            {{ form(typoForm) }}
+          {{ form_start(typoForm) }}
+            {{ form_widget(typoForm) }}
+  
+            {% include "includes/common/_button.html.twig" with {
+              'type': 'submit',
+              'label': 'app.submit'|trans,
+              'small': true,
+              'class': 'mx-auto',
+            } only %}
+          {{ form_end(typoForm) }}
         {% else %}
-            Merci !
+          {% include "includes/common/_alert.html.twig" with {
+            'style': 'success',
+            'label': 'app.publication_page.typo_thanks'|trans,
+            'class': 'mt-4'
+          } only %}
         {% endif %}
-    </div>
+      </div>
+    </turbo-frame>
+  {% endset %}
+
+  {% include "includes/common/_page_container.html.twig" with {
+    'content': typoFormContent,
+    'class': 'my-4'
+  } only %}
 {% endblock %}

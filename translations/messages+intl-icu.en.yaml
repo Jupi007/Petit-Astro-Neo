@@ -22,6 +22,10 @@ app:
   publication: "Publication"
   definition: "Definition"
 
+  publication_page:
+    report_typo: "Report a typo"
+    typo_thanks: "Thanks a lot!"
+
   form:
     password_label: "Password:"
     password_repeat_label: "Repeat password:"
@@ -35,7 +39,7 @@ app:
       password_forget: "Password Forget?"
       remember_me: "Keep me logged in"
       registration: "Not yet registered?"
-    
+
     registration:
       title: "Registration"
       login: "Already registered?"
@@ -52,16 +56,16 @@ app:
       note_label: "Note:"
 
     blacklisting:
-      title: 'Blacklisting'
-      confirmed_message: "User \"{email}\" confirmed."
-      denied_message: "User \"{email}\" denied."
+      title: "Blacklisting"
+      confirmed_message: 'User "{email}" confirmed.'
+      denied_message: 'User "{email}" denied.'
 
     maintenance:
       title: "Maintenance"
       message: "Community functions are being maintained."
 
     confirmation:
-      confirmation: 'Confirmation'
+      confirmation: "Confirmation"
       message: "You successfully activated your user."
 
     password_forget:
@@ -74,4 +78,3 @@ app:
       success_message: "Password successfully changed."
 
     email_confirmation_message: "Email was successfully changed."
-

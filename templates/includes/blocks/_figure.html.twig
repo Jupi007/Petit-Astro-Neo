@@ -3,11 +3,14 @@
 		{{ get_image(content.image, {
 			src: 'figure',
 			srcset: 'figure@2x 2x',
-			class: 'max-h-[80vh] w-auto mx-auto'
+			class: 'max-h-[80vh] w-auto mx-auto my-0'
 		}) }}
 	{% endset %}
 
-	{% include "includes/common/_figure_container.html.twig" with {'content': imageContent} only %}
+	{% include "includes/common/_figure_container.html.twig" with {
+		'content': imageContent,
+		'class': 'p-4 md:p-8'
+	} only %}
 
 	{% if content.caption %}
 		{% set captionContent %}

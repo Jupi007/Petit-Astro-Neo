@@ -22,6 +22,10 @@ app:
   publication: "Publication"
   definition: "Définition"
 
+  publication_page:
+    report_typo: "Signaler une faute"
+    typo_thanks: "Merci beaucoup !"
+
   form:
     password_label: "Mot de passe :"
     password_repeat_label: "Confirmez le mot de passe :"
@@ -35,7 +39,7 @@ app:
       password_forget: "Mot de passe oublié ?"
       remember_me: "Se souvenir de moi"
       registration: "Pas encore inscrit ?"
-    
+
     registration:
       title: "Inscription"
       login: "Déjà inscrit ?"
@@ -52,9 +56,9 @@ app:
       note_label: "Note :"
 
     blacklisting:
-      title: 'Liste noire'
-      confirmed_message: "Confirmation de l'utilisateur \"{email}\"."
-      denied_message: "Bloquage de l'utilisateur \"{email}\"."
+      title: "Liste noire"
+      confirmed_message: 'Confirmation de l''utilisateur "{email}".'
+      denied_message: 'Bloquage de l''utilisateur "{email}".'
 
     maintenance:
       title: "Maintenance"

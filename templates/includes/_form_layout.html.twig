@@ -11,7 +11,7 @@
 {%- endblock form_widget_compound -%}
 
 {%- block form_row -%}
-  {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('flex flex-col gap-1')) }) -%}
+  {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('flex flex-col gap-1 px-px')) }) -%}
   {{- parent() -}}
 {%- endblock form_row -%}
 
@@ -30,7 +30,7 @@
 {%- endblock form_label -%}
 
 {%- block form_help -%}
-  {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('block opacity-60 text-right italic')) }) -%}
+  {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('block opacity-60 text-end italic')) }) -%}
   {{- parent() -}}
 {%- endblock form_help -%}
 
