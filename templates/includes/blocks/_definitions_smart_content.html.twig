@@ -52,6 +52,7 @@
 {% else %}
   <ul>
     {% for definition in content.definitions %}
+      {% set definition = definition.resource %}
       <li>
         {% include "includes/common/_definition.html.twig" with {'definition': definition} only %}
       </li>
