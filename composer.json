@@ -50,7 +50,7 @@
         "sulu/community-bundle": "3.0.x-dev",
         "sulu/form-bundle": "2.5.x-dev",
         "sulu/headless-bundle": "^0.9.0",
-        "sulu/sulu": "2.5.7",
+        "sulu/sulu": "2.5.8",
         "sulu/web-twig": "^2.5",
         "symfony/config": "^6.0",
         "symfony/dotenv": "^6.0",

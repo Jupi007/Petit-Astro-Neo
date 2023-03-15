@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2aaa57bd1fdec67554ab49b11c094591",
+    "content-hash": "0a081416511bb5109a4172ff16fe98b6",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -2628,16 +2628,16 @@
         },
         {
             "name": "handcraftedinthealps/goodby-csv",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/handcraftedinthealps/goodby-csv.git",
-                "reference": "5a520c76c6d945abc06173954f0ade67cf2abc30"
+                "reference": "6dc287cb3c3b8d055a0a4889661ef2aeb0bbdfa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/handcraftedinthealps/goodby-csv/zipball/5a520c76c6d945abc06173954f0ade67cf2abc30",
-                "reference": "5a520c76c6d945abc06173954f0ade67cf2abc30",
+                "url": "https://api.github.com/repos/handcraftedinthealps/goodby-csv/zipball/6dc287cb3c3b8d055a0a4889661ef2aeb0bbdfa8",
+                "reference": "6dc287cb3c3b8d055a0a4889661ef2aeb0bbdfa8",
                 "shasum": ""
             },
             "require": {
@@ -2650,6 +2650,7 @@
             "require-dev": {
                 "mikey179/vfsstream": "^1.1",
                 "mockery/mockery": "^1.0",
+                "phpspec/prophecy": "^1.14",
                 "phpunit/phpunit": "^8.5",
                 "rector/rector": "^0.12.5",
                 "suin/php-expose": "^1.0"
@@ -2658,7 +2659,12 @@
             "autoload": {
                 "psr-0": {
                     "Goodby\\CSV": "src/"
-                }
+                },
+                "exclude-from-classmap": [
+                    "/src/Goodby/CSV/Export/Tests/",
+                    "/src/Goodby/CSV/Import/Tests/",
+                    "/src/Goodby/CSV/TestHelper/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2691,9 +2697,9 @@
                 "import"
             ],
             "support": {
-                "source": "https://github.com/handcraftedinthealps/goodby-csv/tree/1.4.1"
+                "source": "https://github.com/handcraftedinthealps/goodby-csv/tree/1.4.2"
             },
-            "time": "2022-07-08T11:57:03+00:00"
+            "time": "2023-03-15T19:52:06+00:00"
         },
         {
             "name": "handcraftedinthealps/rest-routing-bundle",
@@ -6051,16 +6057,16 @@
         },
         {
             "name": "sulu/sulu",
-            "version": "2.5.7",
+            "version": "2.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sulu/sulu.git",
-                "reference": "0d92f0a3e837809333077fcedc2bd43f2752d7e2"
+                "reference": "3c005731b12b7d06ecfa71d849b6cf7a4f4d383d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sulu/sulu/zipball/0d92f0a3e837809333077fcedc2bd43f2752d7e2",
-                "reference": "0d92f0a3e837809333077fcedc2bd43f2752d7e2",
+                "url": "https://api.github.com/repos/sulu/sulu/zipball/3c005731b12b7d06ecfa71d849b6cf7a4f4d383d",
+                "reference": "3c005731b12b7d06ecfa71d849b6cf7a4f4d383d",
                 "shasum": ""
             },
             "require": {
@@ -6113,6 +6119,7 @@
                 "symfony/console": "^5.4 || ^6.0",
                 "symfony/css-selector": "^5.4 || ^6.0",
                 "symfony/dependency-injection": "^5.4 || ^6.0",
+                "symfony/deprecation-contracts": "^2.1 || ^3.0",
                 "symfony/dom-crawler": "^5.4 || ^6.0",
                 "symfony/event-dispatcher": "^5.4 || ^6.0",
                 "symfony/event-dispatcher-contracts": "^2.1 || ^3.0",
@@ -6279,7 +6286,7 @@
                 "issues": "https://github.com/sulu/skeleton/issues",
                 "source": "https://github.com/sulu/skeleton"
             },
-            "time": "2023-02-15T12:25:30+00:00"
+            "time": "2023-03-14T21:14:18+00:00"
         },
         {
             "name": "sulu/web-twig",
@@ -12873,16 +12880,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "1.3.35",
+            "version": "1.3.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "3dbb999bd56cc21d6733bab60898ebdf388245b5"
+                "reference": "8c22f2499444897941f9162c25f8538217c16f15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/3dbb999bd56cc21d6733bab60898ebdf388245b5",
-                "reference": "3dbb999bd56cc21d6733bab60898ebdf388245b5",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/8c22f2499444897941f9162c25f8538217c16f15",
+                "reference": "8c22f2499444897941f9162c25f8538217c16f15",
                 "shasum": ""
             },
             "require": {
@@ -12937,9 +12944,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.35"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.36"
             },
-            "time": "2023-03-10T14:43:05+00:00"
+            "time": "2023-03-15T15:10:43+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
