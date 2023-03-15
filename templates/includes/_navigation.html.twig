@@ -33,7 +33,7 @@
           iconSrc: asset('build/website/images/home.svg'),
         } %}
     
-        {% for item in sulu_navigation_root_tree('main', 1, true) %}
+        {% for item in sulu_navigation_root_flat('main', 1, true) %}
           {% set menuIcon = item.excerpt.menu_icon %}
           {% include 'includes/navigation/_item.html.twig' with {
             url: sulu_content_path(item.url, item.webspaceKey),
