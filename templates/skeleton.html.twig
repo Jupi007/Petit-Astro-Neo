@@ -15,12 +15,7 @@
           href="{{ asset('build/website/images/favicon.png') }}">
 
     {% block meta %}
-      {% include "@SuluWebsite/Extension/seo.html.twig" with {
-        "seo": extension.seo|default([]),
-        "content": content|default([]),
-        "localizations": localizations|default([]),
-        "shadowBaseLocale": shadowBaseLocale|default(),
-      } %}
+      {% include 'includes/_meta.html.twig' %}
     {% endblock %}
 
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
