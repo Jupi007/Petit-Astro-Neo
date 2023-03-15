@@ -86,7 +86,11 @@ class DefinitionRepository extends ServiceEntityRepository implements DataProvid
      */
     protected function appendJoins(QueryBuilder $queryBuilder, $alias, $locale): void
     {
-        // join and select entities that are used for creating data items or resource items in the DataProvider here
+        $queryBuilder
+            ->leftJoin($alias . '.translations', 't')
+            ->andWhere('t.locale = :locale')
+            ->addSelect('t')
+            ->setParameter('locale', $locale);
     }
 
     /**
