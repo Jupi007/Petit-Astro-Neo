@@ -11,3 +11,7 @@ picture {
   width: 100%;
   height: 100%;
 }
+
+hr {
+  @apply border-outline dark:border-outline-invert;
+}
