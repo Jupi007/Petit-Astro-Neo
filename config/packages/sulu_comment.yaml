@@ -1,0 +1,18 @@
+sulu_comment:
+  default_templates:
+    comments: 'comments/comments.html.twig'
+    comment: 'comments/comment.html.twig'
+  nested_comments: true
+  types:
+    publication:
+      templates:
+        comments: 'comments/comments.html.twig'
+        comment: 'comments/comment.html.twig'
+      nested_comments: true
+  objects:
+    comment:
+      model: Sulu\Bundle\CommentBundle\Entity\Comment
+      repository: Sulu\Bundle\CommentBundle\Entity\CommentRepository
+    thread:
+      model: Sulu\Bundle\CommentBundle\Entity\Thread
+      repository: Sulu\Bundle\CommentBundle\Entity\ThreadRepository

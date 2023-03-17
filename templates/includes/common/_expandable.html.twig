@@ -1,0 +1,13 @@
+<div x-data="{ expanded: false }">
+  <div @click="expanded = ! expanded" class="cursor-pointer">
+    {{ titleContent|raw }}
+  </div>
+  <div
+    x-show="expanded"
+    {{ collapseMin|default == null ? 'x-collapse' : 'x-collapse.min.' ~ collapseMin }}
+    x-cloak
+    class="overflow-hidden"
+  >
+    {{ bodyContent|raw }}
+  </div>
+</div>

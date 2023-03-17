@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     Sulu\Bundle\FormBundle\SuluFormBundle::class => ['all' => true],
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
@@ -53,4 +51,6 @@ return [
     Sulu\Bundle\HeadlessBundle\SuluHeadlessBundle::class => ['all' => true],
     Sulu\Bundle\ContentBundle\SuluContentBundle::class => ['all' => true],
     Sulu\Bundle\CommunityBundle\SuluCommunityBundle::class => ['all' => true],
+    Sulu\Bundle\CommentBundle\SuluCommentBundle::class => ['all' => true],
+    Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
 ];

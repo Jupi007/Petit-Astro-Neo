@@ -16,6 +16,7 @@ security:
     # Website
     - { path: "/profile", roles: ROLE_USER }
     - { path: "/completion", roles: ROLE_USER }
+    - { path: "/threads", roles: ROLE_USER }
     # Admin
     - { path: ^/admin/reset, roles: PUBLIC_ACCESS }
     - { path: ^/admin/security/reset, roles: PUBLIC_ACCESS }

@@ -160,6 +160,9 @@
             "config/packages/stof_doctrine_extensions.yaml"
         ]
     },
+    "sulu/comment-bundle": {
+        "version": "2.x-dev"
+    },
     "sulu/community-bundle": {
         "version": "3.0.x-dev"
     },
@@ -418,5 +421,8 @@
         "files": [
             "config/packages/workflow.yaml"
         ]
+    },
+    "twig/extra-bundle": {
+        "version": "v3.5.1"
     }
 }

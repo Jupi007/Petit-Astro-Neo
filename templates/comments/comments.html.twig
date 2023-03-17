@@ -1,0 +1,39 @@
+{% set nested = nested|default(false) %}
+
+{% if not nested %}
+<section class="flex flex-col gap-4 py-4 px-6">
+  <h1 class="text-2xl text-center font-colombia">
+    {{ 'app.comment.title'|trans({
+      totalComments: totalComments,
+    }) }}
+  </h1>
+{% endif %}
+
+  {% for comment in comments %}
+    {% include commentTemplate with {
+      threadId: threadId,
+      comment: comment,
+      referrer: referrer,
+      nestedComments: nestedComments,
+      commentTemplate: commentTemplate,
+      commentsTemplate: commentsTemplate,
+      nested: nested,
+    } only %}
+    {% if not loop.last and not nested %}<hr>{% endif %}
+  {% else %}
+    {% if not nested %}
+      <p>{{ 'app.comment.no_comments'|trans }}</p>
+    {% endif %}
+  {% endfor %}
+
+{% if not nested %}
+  {% if form|default and is_granted('ROLE_USER') %}
+    <hr>
+    
+    <h2 class="text-xl text-center font-colombia">
+      {{ 'app.comment.add_title'|trans }}
+    </h2>
+    {{ form(form) }}
+  {% endif %}
+</section>
+{% endif %}

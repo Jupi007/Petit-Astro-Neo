@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a081416511bb5109a4172ff16fe98b6",
+    "content-hash": "b02a8b7a40a5394d46a549fbebc5084c",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -3467,16 +3467,16 @@
         },
         {
             "name": "massive/build-bundle",
-            "version": "0.5.4",
+            "version": "0.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/massiveart/MassiveBuildBundle.git",
-                "reference": "e9b85c6a97779a90f8058a56b5f9e8873ab87d12"
+                "reference": "57b3cf7039d312d77f5ab82a0ccea9e8f0a8874c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/massiveart/MassiveBuildBundle/zipball/e9b85c6a97779a90f8058a56b5f9e8873ab87d12",
-                "reference": "e9b85c6a97779a90f8058a56b5f9e8873ab87d12",
+                "url": "https://api.github.com/repos/massiveart/MassiveBuildBundle/zipball/57b3cf7039d312d77f5ab82a0ccea9e8f0a8874c",
+                "reference": "57b3cf7039d312d77f5ab82a0ccea9e8f0a8874c",
                 "shasum": ""
             },
             "require": {
@@ -3488,6 +3488,7 @@
             },
             "require-dev": {
                 "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+                "phpspec/prophecy": "^1.14",
                 "symfony/phpunit-bridge": "^5.0.4 || ^6.0"
             },
             "type": "library",
@@ -3513,9 +3514,9 @@
             "homepage": "https://github.com/massiveart/MassiveBuildBundle",
             "support": {
                 "issues": "https://github.com/massiveart/MassiveBuildBundle/issues",
-                "source": "https://github.com/massiveart/MassiveBuildBundle/tree/0.5.4"
+                "source": "https://github.com/massiveart/MassiveBuildBundle/tree/0.5.5"
             },
-            "time": "2022-04-21T07:12:35+00:00"
+            "time": "2023-03-15T21:20:33+00:00"
         },
         {
             "name": "massive/search-bundle",
@@ -3670,16 +3671,16 @@
         },
         {
             "name": "matomo/device-detector",
-            "version": "6.1.0",
+            "version": "6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/device-detector.git",
-                "reference": "bcbf10f2e0e158b338c6c5db9e89862313405215"
+                "reference": "a549e24350ff63e15dc691b6b21b73909b4fa9bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/bcbf10f2e0e158b338c6c5db9e89862313405215",
-                "reference": "bcbf10f2e0e158b338c6c5db9e89862313405215",
+                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/a549e24350ff63e15dc691b6b21b73909b4fa9bd",
+                "reference": "a549e24350ff63e15dc691b6b21b73909b4fa9bd",
                 "shasum": ""
             },
             "require": {
@@ -3735,7 +3736,7 @@
                 "source": "https://github.com/matomo-org/matomo",
                 "wiki": "https://dev.matomo.org/"
             },
-            "time": "2023-02-22T10:17:31+00:00"
+            "time": "2023-03-16T08:19:16+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5645,6 +5646,121 @@
                 "source": "https://github.com/stof/StofDoctrineExtensionsBundle/tree/v1.7.1"
             },
             "time": "2022-09-30T11:52:24+00:00"
+        },
+        {
+            "name": "sulu/comment-bundle",
+            "version": "2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "../SuluCommentBundle",
+                "reference": "620026c19d258477fd3f707221c5fba58253097c"
+            },
+            "require": {
+                "friendsofsymfony/rest-bundle": "^2.6 || ^3.0",
+                "php": "^7.2 | ^8.0",
+                "sulu/sulu": "^2.0.4",
+                "symfony/config": "^4.3 || ^5.0 || ^6.0",
+                "symfony/dependency-injection": "^4.3 || ^5.0 || ^6.0",
+                "symfony/framework-bundle": "^4.3 || ^5.0 || ^6.0",
+                "symfony/http-foundation": "^4.3 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.3 || ^5.0 || ^6.0"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "^1.10 || ^2.0",
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "handcraftedinthealps/zendsearch": "^2.0",
+                "jackalope/jackalope-doctrine-dbal": "^1.3.4",
+                "jangregor/phpstan-prophecy": "^0.5.1",
+                "massive/search-bundle": "^2.0.0",
+                "php-ffmpeg/php-ffmpeg": "^0.13 || ^0.14",
+                "phpspec/prophecy": "^1.17",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-doctrine": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-symfony": "^0.12",
+                "phpunit/phpunit": "^8.0",
+                "symfony/browser-kit": "^4.3",
+                "symfony/dotenv": "^4.3",
+                "symfony/form": "^4.3",
+                "symfony/monolog-bundle": "^3.1",
+                "symfony/security-bundle": "^4.3",
+                "symfony/stopwatch": "^4.3",
+                "thecodingmachine/phpstan-strict-rules": "^0.12.2"
+            },
+            "default-branch": true,
+            "type": "sulu-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Sulu\\Bundle\\CommentBundle\\": ""
+                }
+            },
+            "scripts": {
+                "bootstrap-test-environment": [
+                    "Tests/Application/bin/adminconsole doctrine:database:drop --if-exists --force --env test",
+                    "Tests/Application/bin/adminconsole doctrine:database:create --env test",
+                    "Tests/Application/bin/adminconsole doctrine:schema:update --force --env test"
+                ],
+                "lint": [
+                    "@phpstan",
+                    "@php-cs",
+                    "@lint-yaml",
+                    "@lint-twig",
+                    "@lint-container",
+                    "@lint-composer",
+                    "@lint-doctrine"
+                ],
+                "test": [
+                    "@phpunit"
+                ],
+                "phpunit": [
+                    "vendor/bin/phpunit"
+                ],
+                "phpstan": [
+                    "Tests/Application/bin/adminconsole cache:warmup --env=dev",
+                    "vendor/bin/phpstan analyse"
+                ],
+                "php-cs": [
+                    "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run"
+                ],
+                "php-cs-fix": [
+                    "vendor/bin/php-cs-fixer fix"
+                ],
+                "lint-yaml": [
+                    "Tests/Application/bin/adminconsole lint:yaml Resources/config Tests/Application/config"
+                ],
+                "lint-twig": [
+                    "Tests/Application/bin/adminconsole lint:twig Resources/views"
+                ],
+                "lint-composer": [
+                    "@composer validate --strict"
+                ],
+                "lint-container": [
+                    "Tests/Application/bin/adminconsole lint:container --env dev",
+                    "Tests/Application/bin/websiteconsole lint:container --env dev",
+                    "Tests/Application/bin/adminconsole lint:container --env test",
+                    "Tests/Application/bin/websiteconsole lint:container --env test",
+                    "Tests/Application/bin/adminconsole lint:container --env stage",
+                    "Tests/Application/bin/websiteconsole lint:container --env stage",
+                    "Tests/Application/bin/adminconsole lint:container --env prod",
+                    "Tests/Application/bin/websiteconsole lint:container --env prod"
+                ],
+                "lint-doctrine": [
+                    "Tests/Application/bin/adminconsole doctrine:schema:validate --skip-sync",
+                    "Tests/Application/bin/adminconsole doctrine:ensure-production-settings --env prod"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sulu Comment",
+                    "homepage": "https://github.com/sulu/SuluCommentBundle/contributors"
+                }
+            ],
+            "description": "Sulu Bundle for adding comments on entities",
+            "homepage": "https://github.com/sulu/SuluCommentBundle",
+            "time": "2023-03-17T13:02:40+00:00"
         },
         {
             "name": "sulu/community-bundle",
@@ -11700,6 +11816,154 @@
             "time": "2023-02-06T10:44:46+00:00"
         },
         {
+            "name": "twig/extra-bundle",
+            "version": "v3.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/twig-extra-bundle.git",
+                "reference": "a961e553a624eebdbd423ad5ab931497ca6d87cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/a961e553a624eebdbd423ad5ab931497ca6d87cd",
+                "reference": "a961e553a624eebdbd423ad5ab931497ca6d87cd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
+                "symfony/twig-bundle": "^4.4|^5.0|^6.0",
+                "twig/twig": "^2.7|^3.0"
+            },
+            "require-dev": {
+                "league/commonmark": "^1.0|^2.0",
+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0",
+                "twig/cache-extra": "^3.0",
+                "twig/cssinliner-extra": "^2.12|^3.0",
+                "twig/html-extra": "^2.12|^3.0",
+                "twig/inky-extra": "^2.12|^3.0",
+                "twig/intl-extra": "^2.12|^3.0",
+                "twig/markdown-extra": "^2.12|^3.0",
+                "twig/string-extra": "^2.12|^3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Twig\\Extra\\TwigExtraBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "A Symfony bundle for extra Twig extensions",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "bundle",
+                "extra",
+                "twig"
+            ],
+            "support": {
+                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.5.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-02-08T07:44:55+00:00"
+        },
+        {
+            "name": "twig/intl-extra",
+            "version": "v3.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/intl-extra.git",
+                "reference": "c3ebfac1624228c0556de57a34af6b7d83a1a408"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/c3ebfac1624228c0556de57a34af6b7d83a1a408",
+                "reference": "c3ebfac1624228c0556de57a34af6b7d83a1a408",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "symfony/intl": "^4.4|^5.0|^6.0",
+                "twig/twig": "^2.7|^3.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Twig\\Extra\\Intl\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "A Twig extension for Intl",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "intl",
+                "twig"
+            ],
+            "support": {
+                "source": "https://github.com/twigphp/intl-extra/tree/v3.5.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-02-08T07:44:55+00:00"
+        },
+        {
             "name": "twig/twig",
             "version": "v3.5.1",
             "source": {
@@ -12821,16 +13085,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.6",
+            "version": "1.10.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "50d089a3e0904b0fe7e2cf2d4fd37d427d64235a"
+                "reference": "b10ceb526d9607903c5b2673f1fc8775dbe48975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/50d089a3e0904b0fe7e2cf2d4fd37d427d64235a",
-                "reference": "50d089a3e0904b0fe7e2cf2d4fd37d427d64235a",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b10ceb526d9607903c5b2673f1fc8775dbe48975",
+                "reference": "b10ceb526d9607903c5b2673f1fc8775dbe48975",
                 "shasum": ""
             },
             "require": {
@@ -12859,8 +13123,11 @@
                 "static analysis"
             ],
             "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.10.6"
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
             },
             "funding": [
                 {
@@ -12876,7 +13143,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-09T16:55:12+00:00"
+            "time": "2023-03-16T15:24:20+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -15332,8 +15599,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "sulu/content-bundle": 20,
+        "sulu/comment-bundle": 20,
         "sulu/community-bundle": 20,
+        "sulu/content-bundle": 20,
         "sulu/form-bundle": 20
     },
     "prefer-stable": false,

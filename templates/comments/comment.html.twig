@@ -1,0 +1,44 @@
+{% set nested = nested|default(false) %}
+
+<div class="flex flex-col gap-4 p-4 {{ nested ? 'border' : '' }} border-outline dark:border-outline-invert">
+  <div>
+    <p>{{ comment.message|nl2br }}</p>
+    <h3 class="mt-1 text-sm italic opacity-60">
+      {{ 'app.comment.signing'|trans({
+        username: comment.creator.fullName|default('app.comment.unknow_user'|trans),
+        datetime: comment.created|format_datetime('short', 'short'),
+      }) }}
+    </h3>
+  </div>
+
+  {% if comment.publishedChildren|length > 0 %}
+    <div class="flex flex-col gap-4">
+      {% include commentsTemplate with {
+        threadId: threadId,
+        comments: comment.publishedChildren,
+        referrer: referrer,
+        nestedComments: nestedComments,
+        commentTemplate: commentTemplate,
+        commentsTemplate: commentsTemplate,
+        nested: true,
+      } only %}
+    </div>
+  {% endif %}
+
+  {% if nestedComments and not nested and is_granted('ROLE_USER') %}
+    {% set titleContent %}
+      <div class="text-end text-sm font-bold underline">
+        {{ 'app.comment.answer'|trans }}
+      </div>
+    {% endset %}
+
+    {% set bodyContent %}
+      {{ form(sulu_create_comment_form(threadId, referrer, comment.id)) }}
+    {% endset %}
+
+    {% include "includes/common/_expandable.html.twig" with {
+      'titleContent': titleContent,
+      'bodyContent': bodyContent,
+    } only %}
+  {% endif %}
+</div>

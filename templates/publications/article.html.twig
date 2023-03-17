@@ -9,25 +9,18 @@
   {% include "includes/_blocks.html.twig" %}
 
   {% set typoFormContent %}
-    <turbo-frame id="typo-form" x-data="{ expanded: false }">
-      <h2 class="text-base text-end font-semibold underline m-0">
-        <span
-        @click="expanded = ! expanded"
-        class="cursor-pointer"
-        >
+    <turbo-frame id="typo-form">
+      {% set titleContent %}
+        <h2 class="text-base text-end font-semibold underline m-0">
           {{ 'app.publication_page.report_typo'|trans }}
-        </span>
-      </h2>
-      <div
-        x-show="expanded"
-        x-collapse
-        x-cloak
-        class="overflow-hidden"
-      >
+        </h2>
+      {% endset %}
+
+      {% set bodyContent %}
         {% if app.request.get('send') != 'true' %}
           {{ form_start(typoForm) }}
             {{ form_widget(typoForm) }}
-  
+
             {% include "includes/common/_button.html.twig" with {
               'type': 'submit',
               'label': 'app.submit'|trans,
@@ -42,7 +35,12 @@
             'class': 'mt-4'
           } only %}
         {% endif %}
-      </div>
+      {% endset %}
+
+      {% include "includes/common/_expandable.html.twig" with {
+        'titleContent': titleContent,
+        'bodyContent': bodyContent,
+      } only %}
     </turbo-frame>
   {% endset %}
 
@@ -76,4 +74,17 @@
       'class': 'my-6 py-6 border-t border-outline dark:border-outline-invert'
     } only %}
   {% endif %}
+  
+  <div class="border-t border-outline dark:border-outline-invert">
+    <turbo-frame
+      id="publication-{{ uuid }}-frame"
+      data-turbo-permanent
+    >
+      {{ render(path('sulu_comment.get_threads_comments', {
+        threadId: 'publication-' ~ uuid, 
+        referrer: app.request.uri, 
+        _format: 'html'
+      })) }}
+    </turbo-frame>
+  </div>
 {% endblock %}

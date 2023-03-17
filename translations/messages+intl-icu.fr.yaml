@@ -27,6 +27,18 @@ app:
     typo_thanks: "Merci beaucoup !"
     lexicon_title: "Lexique des termes"
 
+  comment:
+    title: >-
+      {totalComments, plural,
+        =0    {Commentaires}
+        other {Commentaires (#)}
+      }
+    add_title: "Ajouter un commentaire"
+    no_comments: "Pas encore de commentaire."
+    signing: "{username} le {datetime}"
+    answer: "Répondre"
+    unknow_user: "Anonyme"
+
   form:
     password_label: "Mot de passe :"
     password_repeat_label: "Confirmez le mot de passe :"

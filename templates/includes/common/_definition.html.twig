@@ -1,16 +1,18 @@
-<article x-data="{ expanded: false }">
-  <h1
-    @click="expanded = ! expanded"
-    class="text-base font-semibold underline m-0 cursor-pointer"
-  >
+{% set titleContent %}
+  <h1 class="text-base font-semibold underline m-0 cursor-pointer" >
     {{ definition.title }}
   </h1>
-  <div
-    x-show="expanded"
-    {{ collapseMin|default == null ? 'x-collapse' : 'x-collapse.min.' ~ collapseMin }}
-    x-cloak
-    class="overflow-hidden prose dark:prose-invert"
-  >
+{% endset %}
+
+{% set content %}
+  <div class="overflow-hidden prose dark:prose-invert" >
     {{ definition.description|raw }}
   </div>
+{% endset %}
+
+<article>
+  {% include "includes/common/_expandable.html.twig" with {
+    'titleContent': titleContent,
+    'content': content,
+  } only %}
 </article>
