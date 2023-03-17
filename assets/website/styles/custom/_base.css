@@ -15,3 +15,7 @@ picture {
 hr {
   @apply border-outline dark:border-outline-invert;
 }
+
+textarea {
+  @apply min-h-[10rem];
+}
