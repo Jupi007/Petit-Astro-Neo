@@ -1,7 +1,7 @@
 {% use 'form_div_layout.html.twig' %}
 
 {% block form_start -%}
-  {% set attr = attr|merge({class: (attr.class|default('') ~ ' flex flex-col gap-6')|trim}) %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' flex flex-col gap-6 p-px')|trim}) %}
   {{- parent() -}}
 {%- endblock form_start %}
 
@@ -11,7 +11,7 @@
 {%- endblock form_widget_compound -%}
 
 {%- block form_row -%}
-  {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('flex flex-col gap-1 px-px')) }) -%}
+  {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('flex flex-col gap-1')) }) -%}
   {{- parent() -}}
 {%- endblock form_row -%}
 

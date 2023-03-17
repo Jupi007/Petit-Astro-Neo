@@ -38,6 +38,7 @@ app:
     signing: "{username} on {datetime}"
     answer: "Answer"
     unknow_user: "Unknow User"
+    login: "You must be logged in to comment."
 
   form:
     password_label: "Password:"

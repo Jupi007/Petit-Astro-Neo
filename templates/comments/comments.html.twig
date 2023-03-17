@@ -27,13 +27,18 @@
   {% endfor %}
 
 {% if not nested %}
-  {% if form|default and is_granted('ROLE_USER') %}
+  {% if form|default %}
     <hr>
-    
-    <h2 class="text-xl text-center font-colombia">
-      {{ 'app.comment.add_title'|trans }}
-    </h2>
-    {{ form(form) }}
+    {% if is_granted('ROLE_USER') %}
+      <h2 class="text-xl text-center font-colombia">
+        {{ 'app.comment.add_title'|trans }}
+      </h2>
+      {{ form(form) }}
+    {% else %}
+      <p class="text-center">
+        {{ 'app.comment.login'|trans }}
+      </p>
+    {% endif %}
   {% endif %}
 </section>
 {% endif %}

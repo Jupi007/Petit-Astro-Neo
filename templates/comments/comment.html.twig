@@ -1,6 +1,6 @@
 {% set nested = nested|default(false) %}
 
-<div class="flex flex-col gap-4 p-4 {{ nested ? 'border' : '' }} border-outline dark:border-outline-invert">
+<div class="flex flex-col gap-4 {{ nested ? 'border p-4' : '' }} border-outline dark:border-outline-invert">
   <div>
     <p>{{ comment.message|nl2br }}</p>
     <h3 class="mt-1 text-sm italic opacity-60">

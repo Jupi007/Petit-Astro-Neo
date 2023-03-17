@@ -38,6 +38,7 @@ app:
     signing: "{username} le {datetime}"
     answer: "Répondre"
     unknow_user: "Anonyme"
+    login: "Vous devez être connecté pour commenter."
 
   form:
     password_label: "Mot de passe :"
