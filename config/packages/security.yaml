@@ -59,6 +59,7 @@ security:
       form_login:
         login_path: sulu_community.login
         check_path: sulu_community.login
+        enable_csrf: true
       logout:
         path: sulu_community.logout
         target: /
