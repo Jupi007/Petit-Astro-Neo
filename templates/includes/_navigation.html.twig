@@ -27,7 +27,7 @@
   >
     <ul class="flex flex-col h-full">
       <div class="h-full mb-[-1px] overflow-y-auto">
-        {% include 'includes/navigation/_item.html.twig' with {
+        {% include 'includes/navigation/_link.html.twig' with {
           url: sulu_content_root_path(),
           label: 'app.homepage'|trans,
           iconSrc: asset('build/website/images/home.svg'),
@@ -35,20 +35,36 @@
     
         {% for item in sulu_navigation_root_flat('main', 1, true) %}
           {% set menuIcon = item.excerpt.menu_icon %}
-          {% include 'includes/navigation/_item.html.twig' with {
+          {% include 'includes/navigation/_link.html.twig' with {
             url: sulu_content_path(item.url, item.webspaceKey),
             label: item.title,
             iconSrc: menuIcon != null ? asset('build/website/images/' ~ menuIcon ~ '.svg') : null
           } %}
         {% endfor %}
       </div>
-      
-      {% include 'includes/navigation/_item.html.twig' with {
-        url: path('sulu_search.website_search'),
-        label: 'app.search'|trans,
-        iconSrc: asset('build/website/images/looking-glass.svg'),
-        last: true
-      } %}
+
+      <div>
+        <li class="flex flex-row items-center justify-center gap-2 w-24 h-12 p-1 border-t border-outline-invert">
+          {% for localization in localizations %}
+            <a
+              href="{{ localization.url }}"
+              title="{{ localization.locale }}"
+              class="{{ localization.locale == app.request.locale ? 'underline' : '' }} hover:opacity-80 transition-opacity"
+              data-turbo="false"
+              @click="hideMenu()"
+            >
+                {{ localization.locale|upper }}
+            </a>
+          {% endfor %}
+        </li>
+        
+        {% include 'includes/navigation/_link.html.twig' with {
+          url: path('sulu_search.website_search'),
+          label: 'app.search'|trans,
+          iconSrc: asset('build/website/images/looking-glass.svg'),
+          last: true
+        } %}
+      </div>
     </ul>
   </nav>
   <button
