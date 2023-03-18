@@ -17,5 +17,5 @@ hr {
 }
 
 textarea {
-  @apply min-h-[10rem];
+  @apply min-h-[5rem] h-40;
 }
