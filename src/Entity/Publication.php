@@ -13,9 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityTrait;
 
+/** @implements ContentRichEntityInterface<PublicationDimensionContent> */
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
 class Publication implements PersistableEntityInterface, ContentRichEntityInterface
 {
+    /** @template-use ContentRichEntityTrait<PublicationDimensionContent> */
     use ContentRichEntityTrait;
     use PersistableEntityTrait;
 
@@ -46,9 +48,7 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
         return new PublicationDimensionContent($this);
     }
 
-    /**
-     * @return Collection<int, PublicationTypo>
-     */
+    /** @return Collection<int, PublicationTypo> */
     public function getTypos(): Collection
     {
         return $this->typos;

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Sitemap;
 
 use App\Entity\Publication;
+use App\Entity\PublicationDimensionContent;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Sitemap\ContentSitemapProvider;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
+/** @extends ContentSitemapProvider<PublicationDimensionContent, Publication> */
 class PublicationSitemapProvider extends ContentSitemapProvider
 {
     /** @param class-string<RouteInterface> $suluRouteClass*/

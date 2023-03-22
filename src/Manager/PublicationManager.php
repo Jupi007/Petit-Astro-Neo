@@ -91,19 +91,22 @@ class PublicationManager
     /** @param array<string, mixed> $dimensionAttributes */
     public function unpublish(Publication $publication, array $dimensionAttributes): void
     {
+        if (null === $publication->getId()) {
+            throw new \LogicException('You cannot unpublish a non-persisted publication.');
+        }
+
         $this->contentManager->applyTransition(
             $publication,
             $dimensionAttributes,
             WorkflowInterface::WORKFLOW_TRANSITION_UNPUBLISH,
         );
-        $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
-
-        $this->publicationRepository->save($publication);
-
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId(), \array_merge(
             $dimensionAttributes,
             ['stage' => DimensionContentInterface::STAGE_LIVE],
         ));
+        $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
+
+        $this->publicationRepository->save($publication);
     }
 
     public function copyLocale(Publication $publication, string $srcLocale, string $destLocale): void
@@ -142,11 +145,15 @@ class PublicationManager
 
     public function remove(Publication $publication): void
     {
+        if (null === $publication->getId()) {
+            throw new \LogicException('You cannot remove a non-persisted publication.');
+        }
+
+        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
+
         $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
         $this->publicationRepository->remove($publication);
 
         // TODO: trash support
-
-        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
     }
 }
