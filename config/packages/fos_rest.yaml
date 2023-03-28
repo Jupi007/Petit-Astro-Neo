@@ -3,3 +3,6 @@ fos_rest:
         - { path: ^/admin/* }
     view:
         view_response_listener: true
+    exception:
+        codes:
+            App\Exception\NewsletterRegistrationEmailNotUniqueException: 409

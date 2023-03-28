@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd">
+
+  <key>newsletter_registration_details</key>
+
+  <properties>
+    <property name="email" type="email" disabledCondition="id != null OR contact != null">
+      <meta>
+        <title>sulu_contact.email</title>
+      </meta>
+
+      <params>
+        <param name="headline" value="true"/>
+      </params>
+    </property>
+
+    <property name="locale" type="single_select" disabledCondition="contact != null">
+      <meta>
+        <title>app.admin.locale</title>
+      </meta>
+      <params>
+        <param name="values" type="expression" value="service('sulu_security.system_language_select_helper').getValues()" />
+      </params>
+    </property>
+
+    <property name="contact" type="single_contact_selection" disabledCondition="id != null">
+      <meta>
+        <title>sulu_activity.resource.contacts</title>
+      </meta>
+    </property>
+  </properties>
+</form>

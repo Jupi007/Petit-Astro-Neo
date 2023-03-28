@@ -13,6 +13,10 @@ sulu_admin:
       routes:
         list: app.admin.get_definition_list
         detail: app.admin.get_definition
+    !php/const App\Entity\NewsletterRegistration::RESOURCE_KEY:
+      routes:
+        list: app.admin.get_newsletter_registration_list
+        detail: app.admin.get_newsletter_registration
     !php/const App\Entity\Publication::RESOURCE_KEY:
       routes:
         list: app.admin.get_publication_list
@@ -44,20 +48,3 @@ sulu_admin:
             label: "app.admin.definition_selection"
             icon: !php/const App\Entity\Definition::RESOURCE_ICON
             overlay_title: "app.admin.definition_selection_overlay_title"
-
-sulu_core:
-  locales:
-    fr: Français
-    en: English
-  translations:
-    - fr
-    - en
-
-  content:
-    structure:
-      paths:
-        !php/const App\Entity\Publication::TEMPLATE_TYPE:
-          path: "%kernel.project_dir%/config/templates/publications"
-          type: !php/const App\Entity\Publication::TEMPLATE_TYPE
-      default_type:
-        !php/const App\Entity\Publication::TEMPLATE_TYPE: "article"

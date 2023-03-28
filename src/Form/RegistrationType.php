@@ -7,6 +7,7 @@ namespace App\Form;
 use Sulu\Bundle\ContactBundle\Entity\Contact;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -32,6 +33,11 @@ class RegistrationType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'app.community.profile.email_label',
+            ])
+            ->add('newsletter', CheckboxType::class, [
+                'label' => 'app.community.registration.opt_in_newsletter',
+                'property_path' => 'contact.newsletter',
+                'required' => false,
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,

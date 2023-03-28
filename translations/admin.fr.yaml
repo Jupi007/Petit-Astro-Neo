@@ -1,4 +1,5 @@
 app.admin:
+  locale: "Localisation"
   subtitle: "Sous titre"
   publications: "Publications"
   publication: "Publication"
@@ -9,34 +10,43 @@ app.admin:
   briefs: "Brèves"
   brief: "Brève"
   lexicon: "Lexique"
-  definition: "D\u00e9finition"
-  definitions: "D\u00e9finitions"
-  definition_selection: "{count} {count plural =1 {d\u00e9finition} other {d\u00e9finitions}} s\u00e9lectionn\u00e9s"
-  definition_selection_overlay_title: "Choisir les d\u00e9finitions"
+  definition: "Définition"
+  definitions: "Définitions"
+  definition_selection: "{count} {count plural =1 {définition} other {définitions}} sélectionnés"
+  definition_selection_overlay_title: "Choisir les définitions"
   publication_selection_overlay_title: "Choisir les publication"
-  single_definition_selection_overlay_title: "Choisir une d\u00e9finition"
-  no_definition_selection: "Aucune d\u00e9finition s\u00e9lectionn\u00e9"
-  no_publication_selected: "Aucune publication s\u00e9lectionn\u00e9"
+  single_definition_selection_overlay_title: "Choisir une définition"
+  no_definition_selection: "Aucune définition sélectionné"
+  no_publication_selected: "Aucune publication sélectionné"
+  newsletter: "Infolettre"
+  newsletter_registration: "Inscription à l'infolettre"
+  newsletter_registrations: "Inscriptions à l'infolettre"
+  newsletter_email_not_unique: 'L''adresse email "{email}" existe déjà dans la base de données de l''infolettre !'
 
 sulu_activity:
   resource:
-    definitions: "D\u00e9finition"
+    definitions: "Définition"
+    newsletter_registrations: "Inscription à l'infolettre"
     publications: "Publication"
     publication_typos: "Faute"
   description:
     definitions:
-      created: "{userFullName} a cr\u00e9\u00e9 la d\u00e9finition \"{resourceTitle}\""
-      modified: "{userFullName} a modifi\u00e9 la d\u00e9finition \"{resourceTitle}\""
-      removed: "{userFullName} a supprim\u00e9 la d\u00e9finition \"{resourceTitle}\""
-      restored: "{userFullName} a restor\u00e9 la d\u00e9finition \"{resourceTitle}\""
+      created: '{userFullName} a créé la définition "{resourceTitle}"'
+      modified: '{userFullName} a modifié la définition "{resourceTitle}"'
+      removed: '{userFullName} a supprimé la définition "{resourceTitle}"'
+      restored: '{userFullName} a restoré la définition "{resourceTitle}"'
+    newsletter_registrations:
+      created: '{userFullName} a créé l''inscription à l''infolettre "{resourceTitle}"'
+      modified: '{userFullName} a modifié l''inscription à l''infolettre "{resourceTitle}"'
+      removed: '{userFullName} a supprimé l''inscription à l''infolettre "{resourceTitle}"'
+      restored: '{userFullName} a restoré l''inscription à l''infolettre "{resourceTitle}"'
     publications:
-      created: "{userFullName} a cr\u00e9\u00e9 la publication \"{resourceTitle}\""
-      draft_removed: "{userFullName} a annul\u00e9 le brouillon de la publication \"{resourceTitle}\""
-      modified: "{userFullName} a modifi\u00e9 la publication \"{resourceTitle}\""
-      published: "{userFullName} a publi\u00e9 la publication \"{resourceTitle}\""
-      unpublished: "{userFullName} a d\u00e9publi\u00e9 la publication \"{resourceTitle}\""
-      removed: "{userFullName} a supprim\u00e9 la publication \"{resourceTitle}\""
-      translation_copied: "{userFullName} a copi\u00e9 la traduction \"{context_sourceLocale}\" de la publication \"{resourceTitle}\" dans \"{resourceLocale}\""
+      created: '{userFullName} a créé la publication "{resourceTitle}"'
+      draft_removed: '{userFullName} a annulé le brouillon de la publication "{resourceTitle}"'
+      modified: '{userFullName} a modifié la publication "{resourceTitle}"'
+      published: '{userFullName} a publié la publication "{resourceTitle}"'
+      unpublished: '{userFullName} a dépublié la publication "{resourceTitle}"'
+      removed: '{userFullName} a supprimé la publication "{resourceTitle}"'
+      translation_copied: '{userFullName} a copié la traduction "{context_sourceLocale}" de la publication "{resourceTitle}" dans "{resourceLocale}"'
     publication_typos:
-      removed: "{userFullName} a supprim\u00e9 une faute"
-
+      removed: "{userFullName} a supprimé une faute"

@@ -58,6 +58,7 @@ app:
       title: "Inscription"
       login: "Déjà inscrit ?"
       success_message: "Pour compléter l'inscription, cliquez sur le lien figurant dans l'e-mail reçu."
+      opt_in_newsletter: "S’inscrire à l’infolettre"
 
     profile:
       title: "Profil"
@@ -68,6 +69,7 @@ app:
       username_label: "Nom d'utilisateur :"
       email_label: "Adresse email :"
       note_label: "Note :"
+      prefered_language: "Langue préférée :"
 
     blacklisting:
       title: "Liste noire"

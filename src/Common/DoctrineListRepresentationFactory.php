@@ -32,6 +32,7 @@ class DoctrineListRepresentationFactory
         array $filters = [],
         array $parameters = [],
         array $includedFields = [],
+        ?callable $itemsCallback = null,
     ): PaginatedRepresentation {
         /** @var DoctrineFieldDescriptor[] $fieldDescriptors */
         $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors($resourceKey);
@@ -52,7 +53,9 @@ class DoctrineListRepresentationFactory
             $listBuilder->addSelectField($fieldDescriptors[$field]);
         }
 
-        $items = $listBuilder->execute();
+        $items = null !== $itemsCallback ?
+            $itemsCallback($listBuilder->execute()) :
+            $listBuilder->execute();
 
         // sort the items to reflect the order of the given ids if the list was requested to include specific ids
         $requestedIds = $this->listRestHelper->getIds();

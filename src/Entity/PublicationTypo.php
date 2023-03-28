@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Contract\PersistableEntityInterface;
+use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\PublicationTypoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PublicationTypoRepository::class)]
-class PublicationTypo
+class PublicationTypo implements PersistableEntityInterface
 {
+    use PersistableEntityTrait;
+
     final public const RESOURCE_KEY = 'publication_typos';
     final public const RESOURCE_ICON = 'su-unpublish';
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
@@ -27,11 +26,6 @@ class PublicationTypo
         #[ORM\JoinColumn(nullable: false)]
         private Publication $publication,
     ) {
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getDescription(): ?string

@@ -1,0 +1,16 @@
+sulu_core:
+  locales:
+    fr: Français
+    en: English
+  translations:
+    - fr
+    - en
+
+  content:
+    structure:
+      paths:
+        !php/const App\Entity\Publication::TEMPLATE_TYPE:
+          path: "%kernel.project_dir%/config/templates/publications"
+          type: !php/const App\Entity\Publication::TEMPLATE_TYPE
+      default_type:
+        !php/const App\Entity\Publication::TEMPLATE_TYPE: "article"

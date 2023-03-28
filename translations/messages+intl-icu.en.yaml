@@ -2,7 +2,7 @@ app:
   submit: "Submit"
   login: "Login"
   logout: "Logout"
-  registration: "Inscription"
+  registration: "Registration"
   invalid_token_message: "Invalid token."
   back: "Back"
   back_home: "Back to homepage"
@@ -58,6 +58,7 @@ app:
       title: "Registration"
       login: "Already registered?"
       success_message: "To complete the registration click on the link in the received email."
+      opt_in_newsletter: "Subscribe to the newsletter"
 
     profile:
       title: "Profile"
@@ -68,6 +69,7 @@ app:
       username_label: "Username:"
       email_label: "Email:"
       note_label: "Note:"
+      prefered_language: "Prefered language:"
 
     blacklisting:
       title: "Blacklisting"

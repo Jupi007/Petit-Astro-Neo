@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Form\Type\WebspaceLocaleChoiceType;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -41,6 +43,14 @@ class ProfileType extends AbstractType
                 'label' => 'app.community.profile.email_label',
                 'property_path' => 'contact.mainEmail',
             ])
+            ->add('newsletter', CheckboxType::class, [
+                'label' => 'app.community.registration.opt_in_newsletter',
+                'property_path' => 'contact.newsletter',
+                'required' => false,
+            ])
+            ->add('locale', WebspaceLocaleChoiceType::class, [
+                'label' => 'app.community.profile.prefered_language',
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
@@ -52,11 +62,12 @@ class ProfileType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
-            ->add('note', TextareaType::class, [
-                'label' => 'app.community.profile.note_label',
-                'property_path' => 'contact.note',
-                'required' => false,
-            ]);
+            // ->add('note', TextareaType::class, [
+            //     'label' => 'app.community.profile.note_label',
+            //     'property_path' => 'contact.note',
+            //     'required' => false,
+            // ])
+;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
