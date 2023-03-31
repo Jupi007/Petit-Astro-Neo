@@ -7,7 +7,9 @@ namespace App\Trash;
 use App\Admin\DefinitionAdmin;
 use App\Entity\Definition;
 use App\Event\Definition\RestoredDefinitionActivityEvent;
+use App\Repository\DefinitionRepository;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
+use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfigurationProviderInterface;
@@ -23,6 +25,7 @@ use Sulu\Component\Security\Authentication\UserRepositoryInterface;
  *    description: string|null,
  *    created: string|null,
  *    creatorId: int|null,
+ *    routePath: string|null
  * }>
  */
 class DefinitionTrashItemHandler implements
@@ -33,7 +36,9 @@ class DefinitionTrashItemHandler implements
     public function __construct(
         private readonly TrashItemRepositoryInterface $trashItemRepository,
         private readonly DoctrineRestoreHelperInterface $doctrineRestoreHelper,
+        private readonly RouteManagerInterface $routeManager,
         private readonly UserRepositoryInterface $userRepository,
+        private readonly DefinitionRepository $definitionRepository,
         private readonly DomainEventCollectorInterface $domainEventCollector,
     ) {
     }
@@ -61,6 +66,9 @@ class DefinitionTrashItemHandler implements
         $definition = $this->trashItemToDefinition($trashItem);
         $this->domainEventCollector->collect(new RestoredDefinitionActivityEvent($definition));
         $this->doctrineRestoreHelper->persistAndFlushWithId($definition, (int) $trashItem->getResourceId());
+
+        $this->restoreDefinitionRoutes($definition, $trashItem);
+        $this->definitionRepository->save($definition);
 
         return $definition;
     }
@@ -92,6 +100,7 @@ class DefinitionTrashItemHandler implements
                 'description' => $definition->getDescription(),
                 'created' => $definition->getCreated()?->format('c'),
                 'creatorId' => $definition->getCreator()?->getId(),
+                'routePath' => $definition->getRoute()?->getPath(),
             ];
         }
 
@@ -131,5 +140,18 @@ class DefinitionTrashItemHandler implements
         }
 
         return $definition;
+    }
+
+    public function restoreDefinitionRoutes(Definition $definition, TrashItemInterface $trashItem): void
+    {
+        /** @var TrashData */
+        $data = $trashItem->getRestoreData();
+
+        foreach ($data as $locale => $translationData) {
+            if (null !== $translationData['routePath']) {
+                $definition->setLocale($locale);
+                $this->routeManager->create($definition, $translationData['routePath']);
+            }
+        }
     }
 }

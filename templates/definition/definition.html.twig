@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% set headerTitle = content.title %}
+{% set headerSubtitle = null %}
+
+{% block content %}
+<div class="prose dark:prose-invert">
+    <h1>
+      Hello {{ content.title }} Definition
+    </h1>
+</div>
+{% endblock %}

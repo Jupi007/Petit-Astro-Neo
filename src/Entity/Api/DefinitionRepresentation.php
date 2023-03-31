@@ -44,4 +44,11 @@ class DefinitionRepresentation
     {
         return $this->definition->getDescription();
     }
+
+    #[VirtualProperty]
+    #[SerializedName('routePath')]
+    public function getRoutePath(): ?string
+    {
+        return $this->definition->getRoute()?->getPath();
+    }
 }
