@@ -40,7 +40,7 @@ class PublicationManager
 
         $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
         $this->domainEventCollector->collect(new CreatedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication);
+        $this->publicationRepository->save($publication, flush: true);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
 
@@ -66,7 +66,7 @@ class PublicationManager
             $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
         }
 
-        $this->publicationRepository->save($publication);
+        $this->publicationRepository->save($publication, flush: true);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
@@ -81,7 +81,7 @@ class PublicationManager
         );
         $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
 
-        $this->publicationRepository->save($publication);
+        $this->publicationRepository->save($publication, flush: true);
 
         $this->contentIndexer->index($publication, \array_merge($dimensionAttributes, [
             'stage' => DimensionContentInterface::STAGE_LIVE,
@@ -106,7 +106,7 @@ class PublicationManager
         ));
         $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
 
-        $this->publicationRepository->save($publication);
+        $this->publicationRepository->save($publication, flush: true);
     }
 
     public function copyLocale(Publication $publication, string $srcLocale, string $destLocale): void
@@ -125,7 +125,7 @@ class PublicationManager
         );
         $this->domainEventCollector->collect(new TranslationCopiedPublicationActivityEvent($publication, $srcLocale, $destLocale));
 
-        $this->publicationRepository->save($publication);
+        $this->publicationRepository->save($publication, flush: true);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -138,7 +138,7 @@ class PublicationManager
         );
         $this->domainEventCollector->collect(new DraftRemovedPublicationActivityEvent($publication));
 
-        $this->publicationRepository->save($publication);
+        $this->publicationRepository->save($publication, flush: true);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
@@ -152,7 +152,7 @@ class PublicationManager
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
 
         $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
-        $this->publicationRepository->remove($publication);
+        $this->publicationRepository->remove($publication, flush: true);
 
         // TODO: trash support
     }

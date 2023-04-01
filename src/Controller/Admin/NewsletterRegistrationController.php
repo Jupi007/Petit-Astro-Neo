@@ -11,12 +11,11 @@ use App\Entity\Api\NewsletterRegistrationRepresentation;
 use App\Entity\NewsletterRegistration;
 use App\Manager\NewsletterRegistrationManager;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,8 +43,8 @@ class NewsletterRegistrationController extends AbstractController implements Sec
         return NewsletterRegistrationAdmin::SECURITY_CONTEXT;
     }
 
-    #[Rest\Get(name: 'get_newsletter_registration_list')]
-    public function getList(): View
+    #[Route(name: 'get_newsletter_registration_list', methods: ['GET'])]
+    public function getList(): JsonResponse
     {
         $listRepresentation = $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
             resourceKey: NewsletterRegistration::RESOURCE_KEY,
@@ -71,11 +70,21 @@ class NewsletterRegistrationController extends AbstractController implements Sec
             },
         );
 
-        return View::create($listRepresentation);
+        return $this->json($listRepresentation->toArray());
     }
 
-    #[Rest\Post(name: 'post_newsletter_registration')]
-    public function post(Request $request): View
+    #[Route(path: '/{id}', name: 'get_newsletter_registration', methods: ['GET'])]
+    public function get(NewsletterRegistration $registration): JsonResponse
+    {
+        $user = $this->findOneUserByEmail($registration->getEmail());
+
+        return $this->json(
+            new NewsletterRegistrationRepresentation($registration, $user),
+        );
+    }
+
+    #[Route(name: 'post_newsletter_registration', methods: ['POST'])]
+    public function post(Request $request): JsonResponse
     {
         /** @var NewsletterRegistrationData */
         $data = $request->toArray();
@@ -101,26 +110,15 @@ class NewsletterRegistrationController extends AbstractController implements Sec
         }
 
         $this->manager->create($registration);
-        $this->entityManager->flush();
 
-        return View::create(
-            new NewsletterRegistrationRepresentation($registration, $user),
-            Response::HTTP_CREATED,
+        return $this->json(
+            data: new NewsletterRegistrationRepresentation($registration, $user),
+            status: Response::HTTP_CREATED,
         );
     }
 
-    #[Rest\Get(path: '/{id}', name: 'get_newsletter_registration')]
-    public function get(NewsletterRegistration $registration): View
-    {
-        $user = $this->findOneUserByEmail($registration->getEmail());
-
-        return View::create(
-            new NewsletterRegistrationRepresentation($registration, $user),
-        );
-    }
-
-    #[Rest\Put(path: '/{id}', name: 'put_newsletter_registration')]
-    public function put(NewsletterRegistration $registration, Request $request): View
+    #[Route(path: '/{id}', name: 'put_newsletter_registration', methods: ['PUT'])]
+    public function put(NewsletterRegistration $registration, Request $request): JsonResponse
     {
         /** @var NewsletterRegistrationData */
         $data = $request->toArray();
@@ -132,20 +130,21 @@ class NewsletterRegistrationController extends AbstractController implements Sec
         }
 
         $this->manager->update($registration);
-        $this->entityManager->flush();
 
-        return View::create(
+        return $this->json(
             new NewsletterRegistrationRepresentation($registration, $user),
         );
     }
 
-    #[Rest\Delete(path: '/{id}', name: 'delete_newsletter_registration')]
-    public function delete(NewsletterRegistration $registration): View
+    #[Route(path: '/{id}', name: 'delete_newsletter_registration', methods: ['DELETE'])]
+    public function delete(NewsletterRegistration $registration): JsonResponse
     {
         $this->manager->remove($registration);
-        $this->entityManager->flush();
 
-        return View::create(null);
+        return $this->json(
+            data: null,
+            status: Response::HTTP_NO_CONTENT,
+        );
     }
 
     private function findOneUserByEmail(?string $email): ?User

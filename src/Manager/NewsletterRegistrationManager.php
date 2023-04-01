@@ -35,7 +35,7 @@ class NewsletterRegistrationManager
             $this->domainEventCollector->collect(new CreatedNewsletterRegistrationActivityEvent($registration));
         }
 
-        $this->repository->save($registration);
+        $this->repository->save($registration, flush: true);
 
         return $registration;
     }
@@ -46,7 +46,7 @@ class NewsletterRegistrationManager
             $this->domainEventCollector->collect(new ModifiedNewsletterRegistrationActivityEvent($registration));
         }
 
-        $this->repository->save($registration);
+        $this->repository->save($registration, flush: true);
 
         return $registration;
     }
@@ -58,6 +58,6 @@ class NewsletterRegistrationManager
             $this->domainEventCollector->collect(new RemovedNewsletterRegistrationActivityEvent($registration));
         }
 
-        $this->repository->remove($registration);
+        $this->repository->remove($registration, flush: true);
     }
 }

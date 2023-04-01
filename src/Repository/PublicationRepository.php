@@ -27,16 +27,22 @@ class PublicationRepository extends ServiceEntityRepository
         parent::__construct($registry, Publication::class);
     }
 
-    public function save(Publication $definition): void
+    public function save(Publication $publication, bool $flush = false): void
     {
-        $this->getEntityManager()->persist($definition);
-        $this->getEntityManager()->flush();
+        $this->getEntityManager()->persist($publication);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
-    public function remove(Publication $definition): void
+    public function remove(Publication $publication, bool $flush = false): void
     {
-        $this->getEntityManager()->remove($definition);
-        $this->getEntityManager()->flush();
+        $this->getEntityManager()->remove($publication);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function createDoctrineListRepresentation(?string $locale): PaginatedRepresentation

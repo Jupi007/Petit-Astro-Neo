@@ -9,12 +9,11 @@ use App\Controller\Trait\LocalizedControllerTrait;
 use App\Entity\Publication;
 use App\Manager\PublicationManager;
 use App\Repository\PublicationRepository;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,26 +35,26 @@ class PublicationController extends AbstractController implements SecuredControl
         return PublicationAdmin::SECURITY_CONTEXT;
     }
 
-    #[Rest\Get(name: 'get_publication_list')]
-    public function getList(Request $request): View
+    #[Route(name: 'get_publication_list', methods: ['GET'])]
+    public function getList(Request $request): JsonResponse
     {
         $listRepresentation = $this->publicationRepository->createDoctrineListRepresentation(
             $this->getLocale($request),
         );
 
-        return View::create($listRepresentation->toArray());
+        return $this->json($listRepresentation->toArray());
     }
 
-    #[Rest\Get(path: '/{id}', name: 'get_publication')]
-    public function get(Publication $publication, Request $request): View
+    #[Route(path: '/{id}', name: 'get_publication', methods: ['GET'])]
+    public function get(Publication $publication, Request $request): JsonResponse
     {
         $dimensionAttributes = $this->getDimensionAttributes($request);
 
-        return View::create($this->normalize($publication, $dimensionAttributes));
+        return $this->json($this->normalize($publication, $dimensionAttributes));
     }
 
-    #[Rest\Post(name: 'post_publication')]
-    public function post(Request $request): View
+    #[Route(name: 'post_publication', methods: ['POST'])]
+    public function post(Request $request): JsonResponse
     {
         $data = $this->getData($request);
         $dimensionAttributes = $this->getDimensionAttributes($request);
@@ -66,14 +65,14 @@ class PublicationController extends AbstractController implements SecuredControl
             $this->publicationManager->publish($publication, $dimensionAttributes);
         }
 
-        return View::create(
-            $this->normalize($publication, $dimensionAttributes),
-            Response::HTTP_CREATED,
+        return $this->json(
+            data: $this->normalize($publication, $dimensionAttributes),
+            status: Response::HTTP_CREATED,
         );
     }
 
-    #[Rest\Post(path: '/{id}', name: 'post_trigger_publication')]
-    public function postTrigger(Publication $publication, Request $request): View
+    #[Route(path: '/{id}', name: 'post_trigger_publication', methods: ['POST'])]
+    public function postTrigger(Publication $publication, Request $request): JsonResponse
     {
         $dimensionAttributes = $this->getDimensionAttributes($request);
         $action = $this->getAction($request);
@@ -96,11 +95,11 @@ class PublicationController extends AbstractController implements SecuredControl
                 throw new RestException(\sprintf('Unrecognized action: %s', $action));
         }
 
-        return View::create($this->normalize($publication, $dimensionAttributes));
+        return $this->json($this->normalize($publication, $dimensionAttributes));
     }
 
-    #[Rest\Put(path: '/{id}', name: 'put_publication')]
-    public function put(Publication $publication, Request $request): View
+    #[Route(path: '/{id}', name: 'put_publication', methods: ['PUT'])]
+    public function put(Publication $publication, Request $request): JsonResponse
     {
         $data = $this->getData($request);
         $dimensionAttributes = $this->getDimensionAttributes($request);
@@ -111,15 +110,18 @@ class PublicationController extends AbstractController implements SecuredControl
             $this->publicationManager->publish($publication, $dimensionAttributes);
         }
 
-        return View::create($this->normalize($publication, $dimensionAttributes));
+        return $this->json($this->normalize($publication, $dimensionAttributes));
     }
 
-    #[Rest\Delete(path: '/{id}', name: 'delete_publication')]
-    public function delete(Publication $publication): View
+    #[Route(path: '/{id}', name: 'delete_publication', methods: ['DELETE'])]
+    public function delete(Publication $publication): JsonResponse
     {
         $this->publicationManager->remove($publication);
 
-        return View::create(null);
+        return $this->json(
+            data: null,
+            status: Response::HTTP_NO_CONTENT,
+        );
     }
 
     /** @return array<string, mixed> */

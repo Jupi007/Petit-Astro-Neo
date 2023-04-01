@@ -43,6 +43,14 @@ class DefinitionController extends AbstractController implements SecuredControll
         return $this->json($listRepresentation->toArray());
     }
 
+    #[Route(path: '/{id}', name: 'get_definition', methods: ['GET'])]
+    public function get(Definition $definition): JsonResponse
+    {
+        return $this->json(
+            new DefinitionRepresentation($definition),
+        );
+    }
+
     #[Route(name: 'post_definition', methods: ['POST'])]
     public function post(Request $request): JsonResponse
     {
@@ -54,14 +62,6 @@ class DefinitionController extends AbstractController implements SecuredControll
         return $this->json(
             data: new DefinitionRepresentation($definition),
             status: Response::HTTP_CREATED,
-        );
-    }
-
-    #[Route(path: '/{id}', name: 'get_definition', methods: ['GET'])]
-    public function get(Definition $definition): JsonResponse
-    {
-        return $this->json(
-            new DefinitionRepresentation($definition),
         );
     }
 

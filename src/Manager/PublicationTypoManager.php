@@ -19,12 +19,12 @@ class PublicationTypoManager
 
     public function create(PublicationTypo $typo): void
     {
-        $this->repository->save($typo);
+        $this->repository->save($typo, flush: true);
     }
 
     public function remove(PublicationTypo $typo): void
     {
         $this->domainEventCollector->collect(new RemovedPublicationTypoActivityEvent($typo));
-        $this->repository->remove($typo);
+        $this->repository->remove($typo, flush: true);
     }
 }

@@ -9,11 +9,11 @@ use App\Controller\Trait\LocalizedControllerTrait;
 use App\Entity\PublicationTypo;
 use App\Manager\PublicationTypoManager;
 use App\Repository\PublicationTypoRepository;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/api/publication-typos', name: 'app.admin.')]
@@ -32,30 +32,33 @@ class PublicationTypoController extends AbstractController implements SecuredCon
         return PublicationAdmin::SECURITY_CONTEXT;
     }
 
-    #[Rest\Get(name: 'get_publication_typo_list')]
-    public function getList(Request $request): View
+    #[Route(name: 'get_publication_typo_list', methods: ['GET'])]
+    public function getList(Request $request): JsonResponse
     {
         $listRepresentation = $this->repository->createDoctrineListRepresentation(
             $this->getLocale($request),
             $request->query->get('publicationId'),
         );
 
-        return View::create($listRepresentation->toArray());
+        return $this->json($listRepresentation->toArray());
     }
 
-    #[Rest\Get(path: '/{id}', name: 'get_publication_typo')]
-    public function get(PublicationTypo $publicationTypo): View
+    #[Route(path: '/{id}', name: 'get_publication_typo', methods: ['GET'])]
+    public function get(PublicationTypo $publicationTypo): JsonResponse
     {
-        return View::create(
+        return $this->json(
             $publicationTypo,
         );
     }
 
-    #[Rest\Delete(path: '/{id}', name: 'delete_publication_typo')]
-    public function delete(PublicationTypo $publicationTypo): View
+    #[Route(path: '/{id}', name: 'delete_publication_typo', methods: ['DELETE'])]
+    public function delete(PublicationTypo $publicationTypo): JsonResponse
     {
         $this->manager->remove($publicationTypo);
 
-        return View::create(null);
+        return $this->json(
+            data: null,
+            status: Response::HTTP_NO_CONTENT,
+        );
     }
 }
