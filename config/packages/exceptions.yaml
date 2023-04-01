@@ -1,2 +1,4 @@
 framework:
-  exceptions: ~
+  exceptions:
+    App\Exception\NewsletterRegistrationEmailNotUniqueException:
+      status_code: 409

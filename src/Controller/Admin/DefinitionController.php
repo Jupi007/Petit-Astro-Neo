@@ -10,15 +10,13 @@ use App\Entity\Api\DefinitionRepresentation;
 use App\Entity\Definition;
 use App\Manager\DefinitionManager;
 use App\Repository\DefinitionRepository;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/** @phpstan-import-type DefinitionData from DefinitionManager */
 #[Route('/admin/api/definitions', name: 'app.admin.')]
 class DefinitionController extends AbstractController implements SecuredControllerInterface
 {
@@ -35,63 +33,81 @@ class DefinitionController extends AbstractController implements SecuredControll
         return DefinitionAdmin::SECURITY_CONTEXT;
     }
 
-    #[Rest\Get(name: 'get_definition_list')]
-    public function getList(Request $request): View
+    #[Route(name: 'get_definition_list', methods: ['GET'])]
+    public function getList(Request $request): JsonResponse
     {
         $listRepresentation = $this->repository->createDoctrineListRepresentation(
             $this->getLocale($request),
         );
 
-        return View::create($listRepresentation->toArray());
+        return $this->json($listRepresentation->toArray());
     }
 
-    #[Rest\Post(name: 'post_definition')]
-    public function post(Request $request): View
+    #[Route(name: 'post_definition', methods: ['POST'])]
+    public function post(Request $request): JsonResponse
     {
-        /** @var DefinitionData */
-        $data = $request->toArray();
+        $definition = new Definition();
 
-        $definition = $this->manager->create(
-            $data,
-            $this->getLocale($request),
-        );
+        $this->mapRequestToDefinition($definition, $request);
+        $this->manager->create($definition, $this->getRoutePath($request));
 
-        return View::create(
-            new DefinitionRepresentation($definition),
-            Response::HTTP_CREATED,
+        return $this->json(
+            data: new DefinitionRepresentation($definition),
+            status: Response::HTTP_CREATED,
         );
     }
 
-    #[Rest\Get(path: '/{id}', name: 'get_definition')]
-    public function get(Definition $definition): View
+    #[Route(path: '/{id}', name: 'get_definition', methods: ['GET'])]
+    public function get(Definition $definition): JsonResponse
     {
-        return View::create(
+        return $this->json(
             new DefinitionRepresentation($definition),
         );
     }
 
-    #[Rest\Put(path: '/{id}', name: 'put_definition')]
-    public function put(Definition $definition, Request $request): View
+    #[Route(path: '/{id}', name: 'put_definition', methods: ['PUT'])]
+    public function put(Definition $definition, Request $request): JsonResponse
     {
-        /** @var DefinitionData */
-        $data = $request->toArray();
+        $this->mapRequestToDefinition($definition, $request);
+        $this->manager->update($definition, $this->getRoutePath($request));
 
-        $definition = $this->manager->update(
-            $definition,
-            $data,
-            $this->getLocale($request),
-        );
-
-        return View::create(
+        return $this->json(
             new DefinitionRepresentation($definition),
         );
     }
 
-    #[Rest\Delete(path: '/{id}', name: 'delete_definition')]
-    public function delete(Definition $definition): View
+    #[Route(path: '/{id}', name: 'delete_definition', methods: ['DELETE'])]
+    public function delete(Definition $definition): JsonResponse
     {
         $this->manager->remove($definition);
 
-        return View::create(null);
+        return $this->json(
+            data: null,
+            status: Response::HTTP_NO_CONTENT,
+        );
+    }
+
+    private function mapRequestToDefinition(Definition $definition, Request $request): void
+    {
+        /** @var array{
+         *   title: string|null,
+         *   description: string|null,
+         * } */
+        $data = $request->toArray();
+
+        $definition
+            ->setLocale($this->getLocale($request))
+            ->setTitle($data['title'] ?? '')
+            ->setDescription($data['description'] ?? '');
+    }
+
+    private function getRoutePath(Request $request): string
+    {
+        /** @var array{
+         *   routePath: string|null,
+         * } */
+        $data = $request->toArray();
+
+        return $data['routePath'] ?? '';
     }
 }

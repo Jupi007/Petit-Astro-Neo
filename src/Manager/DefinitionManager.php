@@ -14,11 +14,6 @@ use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
 
-/** @phpstan-type DefinitionData array{
- *      title: string|null,
- *      description: string|null,
- *      routePath: string|null,
- * } */
 class DefinitionManager
 {
     public function __construct(
@@ -30,28 +25,21 @@ class DefinitionManager
     ) {
     }
 
-    /** @param DefinitionData $data */
-    public function create(array $data, string $locale): Definition
+    public function create(Definition $definition, string $routePath): Definition
     {
-        $definition = new Definition();
-
-        $this->mapDataToDefinition($definition, $data, $locale);
+        $this->repository->save($definition, flush: true);
+        $this->routeManager->create($definition, $routePath);
         $this->domainEventCollector->collect(new CreatedDefinitionActivityEvent($definition));
-        $this->repository->save($definition);
-
-        $this->generateDefinitionRoute($definition, $data);
-        $this->repository->save($definition);
+        $this->repository->save($definition, flush: true);
 
         return $definition;
     }
 
-    /** @param DefinitionData $data */
-    public function update(Definition $definition, array $data, string $locale): Definition
+    public function update(Definition $definition, string $routePath): Definition
     {
-        $this->mapDataToDefinition($definition, $data, $locale);
-        $this->generateDefinitionRoute($definition, $data);
+        $this->routeManager->update($definition, $routePath);
         $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
-        $this->repository->save($definition);
+        $this->repository->save($definition, flush: true);
 
         return $definition;
     }
@@ -61,28 +49,7 @@ class DefinitionManager
         $this->trashManager->store(Definition::RESOURCE_KEY, $definition);
         $this->domainEventCollector->collect(new RemovedDefinitionActivityEvent($definition));
         $this->removeRoutes($definition);
-        $this->repository->remove($definition);
-    }
-
-    /** @param DefinitionData $data */
-    private function mapDataToDefinition(Definition $definition, array $data, string $locale): void
-    {
-        $definition
-            ->setLocale($locale)
-            ->setTitle($data['title'] ?? '')
-            ->setDescription($data['description'] ?? '');
-    }
-
-    /** @param DefinitionData $data */
-    private function generateDefinitionRoute(Definition $definition, array $data): void
-    {
-        $routePath = $data['routePath'] ?? '';
-
-        if (null === $definition->getRoute()) {
-            $this->routeManager->create($definition, $routePath);
-        } elseif ($definition->getRoute()->getPath() !== $routePath) {
-            $this->routeManager->update($definition, $routePath);
-        }
+        $this->repository->remove($definition, flush: true);
     }
 
     private function removeRoutes(Definition $definition): void

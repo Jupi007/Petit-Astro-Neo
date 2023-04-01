@@ -23,9 +23,7 @@ class DefinitionSelectionContentType extends SimpleContentType
         );
     }
 
-    /**
-     * @return Definition[]
-     */
+    /** @return Definition[] */
     public function getContentData(PropertyInterface $property): array
     {
         $definitions = $this->definitionRepository->findBy([
