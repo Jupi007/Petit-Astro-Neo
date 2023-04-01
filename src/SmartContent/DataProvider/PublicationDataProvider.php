@@ -49,6 +49,8 @@ class PublicationDataProvider extends ContentDataProvider
     }
 
     /**
+     * Return template types.
+     *
      * @return array<int, array<string, string>>
      */
     private function getTypes(): array

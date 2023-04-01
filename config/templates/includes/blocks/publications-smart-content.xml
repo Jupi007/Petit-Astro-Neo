@@ -13,6 +13,15 @@
             <params>
                 <param name="provider" value="publications"/>
                 <param name="max_per_page" value="12"/>
+
+                <param name="properties" type="collection">
+                    <param name="title" value="title"/>
+                    <param name="excerptTitle" value="excerpt.title"/>
+                    <param name="coverImage" value="coverImage"/>
+                    <param name="excerptDescription" value="excerpt.description"/>
+                    <param name="excerptTags" value="excerpt.tags"/>
+                    <param name="more" value="excerpt.more"/>
+                </param>
             </params>
         </property>
     </properties>
