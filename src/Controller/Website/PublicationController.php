@@ -10,15 +10,18 @@ use App\Entity\PublicationTypo;
 use App\Form\PublicationTypoType;
 use App\Manager\PublicationTypoManager;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
-use Sulu\Bundle\WebsiteBundle\Controller\WebsiteController;
+use Sulu\Bundle\HeadlessBundle\Content\StructureResolverInterface;
+use Sulu\Component\Content\Compat\PageInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PublicationController extends WebsiteController
+class PublicationController extends AbstractHeadlessWebsiteController
 {
     public function __construct(
+        StructureResolverInterface $structureResolver,
         private readonly PublicationTypoManager $manager,
     ) {
+        parent::__construct($structureResolver);
     }
 
     public function indexAction(
@@ -44,7 +47,8 @@ class PublicationController extends WebsiteController
             'typoForm' => $typoForm->createView(),
         ];
 
-        return $this->renderStructure($structure, $attributes, $preview, $partial);
+        /** @var PageInterface $structure */
+        return $this->abstractIndexAction($request, $structure, $preview, $partial, $attributes);
     }
 
     private function getPublication(ContentStructureBridge $structure): Publication
