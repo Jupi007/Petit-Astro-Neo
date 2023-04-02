@@ -27,26 +27,26 @@ class AbstractHeadlessWebsiteController extends WebsiteController
      * implement that interface. Therefore we need to define the type via phpdoc to satisfy phpstan.
      *
      * @param PageInterface $structure
-     * @param mixed[] $structureAttributes
+     * @param mixed[] $attributes
      */
     protected function abstractIndexAction(
         Request $request,
         StructureInterface $structure,
         bool $preview = false,
         bool $partial = false,
-        array $structureAttributes = [],
+        array $attributes = [],
     ): Response {
         if ('json' !== $request->getRequestFormat()) {
             return $this->renderStructure(
                 $structure,
-                $structureAttributes,
+                $attributes,
                 $preview,
                 $partial,
             );
         }
 
         $headlessData = $this->resolveStructure($structure);
-        $response = new Response($this->serializeData($headlessData));
+        $response = $this->json($headlessData);
         $response->headers->set('Content-Type', 'application/json');
 
         $cacheLifetimeEnhancer = $this->getCacheTimeLifeEnhancer();
@@ -61,11 +61,5 @@ class AbstractHeadlessWebsiteController extends WebsiteController
     private function resolveStructure(StructureInterface $structure): array
     {
         return $this->structureResolver->resolve($structure, $structure->getLanguageCode());
-    }
-
-    /** @param mixed[] $data */
-    private function serializeData(array $data): string
-    {
-        return \json_encode($data, \JSON_THROW_ON_ERROR);
     }
 }
