@@ -4,7 +4,7 @@
   </h1>
 {% endset %}
 
-{% set content %}
+{% set bodyContent %}
   <div class="overflow-hidden prose dark:prose-invert" >
     {{ definition.description|raw }}
   </div>
@@ -13,6 +13,6 @@
 <article>
   {% include "includes/common/_expandable.html.twig" with {
     'titleContent': titleContent,
-    'content': content,
+    'bodyContent': bodyContent,
   } only %}
 </article>
