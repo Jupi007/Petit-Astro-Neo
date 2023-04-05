@@ -16,7 +16,10 @@ class PublicationTypoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('description', TextareaType::class);
+            ->add('description', TextareaType::class)
+            ->add('send', SubmitType::class, [
+                'label' => 'app.submit',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

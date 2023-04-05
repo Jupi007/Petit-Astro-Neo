@@ -18,16 +18,7 @@
 
       {% set bodyContent %}
         {% if app.request.get('send') != 'true' %}
-          {{ form_start(typoForm) }}
-            {{ form_widget(typoForm) }}
-
-            {% include "includes/common/_button.html.twig" with {
-              'type': 'submit',
-              'label': 'app.submit'|trans,
-              'small': true,
-              'class': 'mx-auto',
-            } only %}
-          {{ form_end(typoForm) }}
+          {{ form(typoForm) }}
         {% else %}
           {% include "includes/common/_alert.html.twig" with {
             'style': 'success',
