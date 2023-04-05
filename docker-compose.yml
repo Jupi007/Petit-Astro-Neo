@@ -16,7 +16,6 @@ services:
   # http://127.0.0.1:8081/
   adminer:
     image: adminer
-    container_name: adminer
     environment:
       ADMINER_DEFAULT_SERVER: database
     depends_on:
