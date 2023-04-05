@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Admin\PublicationAdmin;
-use App\Controller\Trait\LocalizedControllerTrait;
+use App\Controller\Trait\LocaleGetterTrait;
 use App\Entity\PublicationTypo;
 use App\Manager\PublicationTypoManager;
 use App\Repository\PublicationTypoRepository;
@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/api/publication-typos', name: 'app.admin.')]
 class PublicationTypoController extends AbstractController implements SecuredControllerInterface
 {
-    use LocalizedControllerTrait;
+    use LocaleGetterTrait;
 
     public function __construct(
         private readonly PublicationTypoManager $manager,

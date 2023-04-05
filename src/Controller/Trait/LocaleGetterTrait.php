@@ -6,7 +6,7 @@ namespace App\Controller\Trait;
 
 use Symfony\Component\HttpFoundation\Request;
 
-trait LocalizedControllerTrait
+trait LocaleGetterTrait
 {
     public function getLocale(Request $request): string
     {

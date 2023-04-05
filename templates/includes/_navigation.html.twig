@@ -45,6 +45,8 @@
 
       <div>
         <li class="flex flex-row items-center justify-center gap-2 w-24 h-12 p-1 border-t border-outline-invert">
+          {# overwrite localizations because ContentBundle doesn't provide valid ones #}
+          {% set localizations = localizationsOverwrite|default(localizations) %}
           {% for localization in localizations %}
             <a
               href="{{ localization.url }}"

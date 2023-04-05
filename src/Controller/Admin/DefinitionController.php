@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Admin\DefinitionAdmin;
-use App\Controller\Trait\LocalizedControllerTrait;
+use App\Controller\Trait\LocaleGetterTrait;
 use App\Entity\Api\DefinitionRepresentation;
 use App\Entity\Definition;
 use App\Manager\DefinitionManager;
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/api/definitions', name: 'app.admin.')]
 class DefinitionController extends AbstractController implements SecuredControllerInterface
 {
-    use LocalizedControllerTrait;
+    use LocaleGetterTrait;
 
     public function __construct(
         private readonly DefinitionManager $manager,

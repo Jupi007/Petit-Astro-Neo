@@ -6,7 +6,7 @@ namespace App\Controller\Admin;
 
 use App\Admin\NewsletterRegistrationAdmin;
 use App\Common\DoctrineListRepresentationFactory;
-use App\Controller\Trait\LocalizedControllerTrait;
+use App\Controller\Trait\LocaleGetterTrait;
 use App\Entity\Api\NewsletterRegistrationRepresentation;
 use App\Entity\NewsletterRegistration;
 use App\Manager\NewsletterRegistrationManager;
@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/api/newsletter-registrations', name: 'app.admin.')]
 class NewsletterRegistrationController extends AbstractController implements SecuredControllerInterface
 {
-    use LocalizedControllerTrait;
+    use LocaleGetterTrait;
 
     public function __construct(
         private readonly NewsletterRegistrationManager $manager,

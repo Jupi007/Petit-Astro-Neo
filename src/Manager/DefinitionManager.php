@@ -28,7 +28,7 @@ class DefinitionManager
     public function create(Definition $definition, string $routePath): Definition
     {
         $this->repository->save($definition, flush: true);
-        $this->routeManager->create($definition, $routePath);
+        $this->createOrUpdateRoute($definition, $routePath);
         $this->domainEventCollector->collect(new CreatedDefinitionActivityEvent($definition));
         $this->repository->save($definition, flush: true);
 
@@ -37,7 +37,7 @@ class DefinitionManager
 
     public function update(Definition $definition, string $routePath): Definition
     {
-        $this->routeManager->update($definition, $routePath);
+        $this->createOrUpdateRoute($definition, $routePath);
         $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
         $this->repository->save($definition, flush: true);
 
@@ -50,6 +50,16 @@ class DefinitionManager
         $this->domainEventCollector->collect(new RemovedDefinitionActivityEvent($definition));
         $this->removeRoutes($definition);
         $this->repository->remove($definition, flush: true);
+    }
+
+    private function createOrUpdateRoute(Definition $definition, string $routePath): void
+    {
+        $this->routeManager->createOrUpdateByAttributes(
+            Definition::class,
+            (string) $definition->getId(),
+            $definition->getLocale(),
+            $routePath,
+        );
     }
 
     private function removeRoutes(Definition $definition): void
