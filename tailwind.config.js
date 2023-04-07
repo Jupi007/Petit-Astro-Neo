@@ -26,6 +26,9 @@ module.exports = {
         'outline': colors.zinc[200],
         'outline-invert': colors.zinc[700],
       },
+      listStyleType: {
+        cross: '"✘ "',
+      },
       opacity: {
         '2.5': '.025',
         '15': '0.15',

@@ -36,11 +36,13 @@
 
 {%- block form_errors -%}
   {%- if errors|length > 0 -%}
-  <ul>
-    {%- for error in errors -%}
-    <li class="{{ error_item_class|default('text-red-700 dark:text-red-600 list-disc list-inside') }}">{{ error.message }}</li>
-    {%- endfor -%}
-  </ul>
+  <div class="not-prose">
+    <ul>
+      {%- for error in errors -%}
+      <li class="{{ error_item_class|default('text-red-700 dark:text-red-600 list-cross list-inside') }}">{{ error.message }}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
   {%- endif -%}
 {%- endblock form_errors -%}
 
