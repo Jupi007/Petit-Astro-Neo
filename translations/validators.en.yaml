@@ -1,0 +1,2 @@
+validators:
+  unique_newsletter_email: "This email address is already present in newsletter database."

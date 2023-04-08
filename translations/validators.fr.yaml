@@ -1,0 +1,2 @@
+validators:
+  unique_newsletter_email: "Cette adresse email existe déjà dans la base de données de l'infolettre."

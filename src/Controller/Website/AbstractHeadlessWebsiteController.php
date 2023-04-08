@@ -8,6 +8,7 @@ use Sulu\Bundle\HeadlessBundle\Content\StructureResolverInterface;
 use Sulu\Bundle\WebsiteBundle\Controller\WebsiteController;
 use Sulu\Component\Content\Compat\PageInterface;
 use Sulu\Component\Content\Compat\StructureInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,12 +38,23 @@ class AbstractHeadlessWebsiteController extends WebsiteController
         array $attributes = [],
     ): Response {
         if ('json' !== $request->getRequestFormat()) {
-            return $this->renderStructure(
+            $response = $this->renderStructure(
                 $structure,
                 $attributes,
                 $preview,
                 $partial,
             );
+
+            if (200 === $response->getStatusCode()) {
+                foreach ($attributes as $v) {
+                    if ($v instanceof FormInterface && $v->isSubmitted() && !$v->isValid()) {
+                        $response->setStatusCode(422);
+                        break;
+                    }
+                }
+            }
+
+            return $response;
         }
 
         $headlessData = $this->resolveStructure($structure);

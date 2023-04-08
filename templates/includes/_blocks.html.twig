@@ -2,6 +2,7 @@
 	<div class="prose dark:prose-invert max-w-none">
 		{% for block in content.blocks %}
 			{% include 'includes/blocks/_' ~ block.type ~ '.html.twig' with {
+        '_parent': _context,
         'id': loop.index,
         'content': block,
         'parentContent': content,

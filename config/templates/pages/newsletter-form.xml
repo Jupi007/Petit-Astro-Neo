@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>newsletter-form</key>
+
+    <view>pages/newsletter_form</view>
+    <controller>App\Controller\Website\NewsletterWebsiteController::indexAction</controller>
+    <cacheLifetime>604800</cacheLifetime>
+
+    <meta>
+        <title lang="en">Newsletter</title>
+        <title lang="fr">Infolettre</title>
+    </meta>
+
+    <properties>
+
+        <xi:include href="../includes/title.xml"/>
+        <xi:include href="../includes/subtitle.xml"/>
+        <xi:include href="../includes/page-url.xml"/>
+
+        <xi:include href="../includes/cover-image.xml"/>
+
+        <section name="blocks">
+            <meta>
+                <title lang="en">Page</title>
+                <title lang="fr">Page</title>
+            </meta>
+
+            <properties>
+                <block name="blocks">
+                    <types>
+                        <type name="newsletter_form">
+                            <meta>
+                                <title lang="en">Newsletter form</title>
+                                <title lang="fr">Formulaire de l'infolettre</title>
+                            </meta>
+
+                            <!-- Required to pass template validation but not used anywhere -->
+                            <properties>
+                                <property type="text_line" name="newsletter" visibleCondition="false"></property>
+                            </properties>
+                        </type>
+
+                        <xi:include href="../includes/blocks/rich-text.xml" />
+                        <xi:include href="../includes/blocks/figure.xml" />
+                        <xi:include href="../includes/blocks/quote.xml" />
+                        <xi:include href="../includes/blocks/button.xml" />
+                    </types>
+                </block>
+            </properties>
+        </section>
+    </properties>
+</template>
