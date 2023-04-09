@@ -12,6 +12,7 @@ enum ActivityEventType: string
     case Restored = 'restored';
     case Published = 'published';
     case Unpublished = 'unpublished';
+    case Notified = 'notified';
     case DraftRemoved = 'draft_removed';
     case TranslationAdded = 'translation_added';
     case TranslationCopied = 'translation_copied';

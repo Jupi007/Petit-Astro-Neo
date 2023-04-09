@@ -22,6 +22,9 @@ app.admin:
   newsletter_registration: "Inscription à l'infolettre"
   newsletter_registrations: "Inscriptions à l'infolettre"
   newsletter_email_not_unique: 'L''adresse email "{email}" existe déjà dans la base de données de l''infolettre !'
+  notify: "Notifier"
+  notify_warning_title: "Envoyer les notifications ?"
+  notify_warning_text: "Voulez-vous vraiment envoyer les messages de notification ?"
 
 sulu_activity:
   resource:
@@ -46,6 +49,7 @@ sulu_activity:
       modified: '{userFullName} a modifié la publication "{resourceTitle}"'
       published: '{userFullName} a publié la publication "{resourceTitle}"'
       unpublished: '{userFullName} a dépublié la publication "{resourceTitle}"'
+      notified: '{userFullName} a envoyé les notifications pour la publication "{resourceTitle}"'
       removed: '{userFullName} a supprimé la publication "{resourceTitle}"'
       translation_copied: '{userFullName} a copié la traduction "{context_sourceLocale}" de la publication "{resourceTitle}" dans "{resourceLocale}"'
     publication_typos:

@@ -91,6 +91,9 @@ class PublicationController extends AbstractController implements SecuredControl
             case 'remove-draft':
                 $this->publicationManager->removeDraft($publication, $dimensionAttributes);
                 break;
+            case 'notify':
+                $this->publicationManager->notify($publication);
+                break;
             default:
                 throw new RestException(\sprintf('Unrecognized action: %s', $action));
         }
@@ -150,8 +153,12 @@ class PublicationController extends AbstractController implements SecuredControl
      */
     public function normalize(Publication $publication, array $dimensionAttributes): array
     {
-        return $this->contentManager->normalize(
+        $data = $this->contentManager->normalize(
             $this->contentManager->resolve($publication, $dimensionAttributes),
         );
+
+        return \array_merge($data, [
+            'notified' => $publication->isNotified(),
+        ]);
     }
 }

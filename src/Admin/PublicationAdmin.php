@@ -8,6 +8,7 @@ use App\Entity\Publication;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
+use Sulu\Bundle\AdminBundle\Admin\View\FormViewBuilderInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
@@ -123,6 +124,12 @@ class PublicationAdmin extends Admin
             foreach ($viewBuilders as $viewBuilder) {
                 $viewCollection->add($viewBuilder);
             }
+
+            /** @var FormViewBuilderInterface */
+            $editFormView = $viewCollection->get(static::EDIT_FORM_VIEW . '.content');
+            $editFormView->addToolbarActions([
+                new ToolbarAction('app.notify'),
+            ]);
         }
     }
 

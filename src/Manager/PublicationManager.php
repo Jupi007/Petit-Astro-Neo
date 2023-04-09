@@ -9,6 +9,7 @@ use App\Entity\PublicationDimensionContent;
 use App\Event\Publication\CreatedPublicationActivityEvent;
 use App\Event\Publication\DraftRemovedPublicationActivityEvent;
 use App\Event\Publication\ModifiedPublicationActivityEvent;
+use App\Event\Publication\NotifiedPublicationActivityEvent;
 use App\Event\Publication\PublishedPublicationActivityEvent;
 use App\Event\Publication\RemovedPublicationActivityEvent;
 use App\Event\Publication\TranslationCopiedPublicationActivityEvent;
@@ -105,6 +106,14 @@ class PublicationManager
             ['stage' => DimensionContentInterface::STAGE_LIVE],
         ));
         $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
+
+        $this->publicationRepository->save($publication, flush: true);
+    }
+
+    public function notify(Publication $publication): void
+    {
+        $publication->setNotified(true);
+        $this->domainEventCollector->collect(new NotifiedPublicationActivityEvent($publication));
 
         $this->publicationRepository->save($publication, flush: true);
     }

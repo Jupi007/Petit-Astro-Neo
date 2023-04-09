@@ -1,8 +1,8 @@
-import React from 'react';
 import { action, observable } from 'mobx';
+import React from 'react';
+import Overlay from 'sulu-admin-bundle/components/Overlay';
 import { translate } from 'sulu-admin-bundle/utils';
 import { AbstractListItemAction } from 'sulu-admin-bundle/views';
-import Overlay from 'sulu-admin-bundle/components/Overlay';
 
 export default class PublicationTypoOverlayAction extends AbstractListItemAction {
   @observable showOverlay = false;

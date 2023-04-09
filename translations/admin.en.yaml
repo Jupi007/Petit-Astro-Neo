@@ -23,6 +23,9 @@ app.admin:
   newsletter_registration: "Newsletter registration"
   newsletter_registrations: "Newsletter registrations"
   newsletter_email_not_unique: 'The email "{email}" already exists in newsletter database!'
+  notify: "Notify"
+  notify_warning_title: "Send notifications?"
+  notify_warning_text: "Do you really want to send notifications messages?"
 
 sulu_activity:
   resource:
@@ -47,6 +50,7 @@ sulu_activity:
       modified: '{userFullName} has changed the publication "{resourceTitle}"'
       published: '{userFullName} has published the publication "{resourceTitle}"'
       unpublished: '{userFullName} has unpublished the publication "{resourceTitle}"'
+      notified: '{userFullName} sent notifications for the publication "{resourceTitle}"'
       removed: '{userFullName} has removed the publication "{resourceTitle}"'
       translation_copied: '{userFullName} has copied the "{context_sourceLocale}" translation of the publication "{resourceTitle}" into "{resourceLocale}"'
     publication_typos:

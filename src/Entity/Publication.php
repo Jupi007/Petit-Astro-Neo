@@ -9,6 +9,7 @@ use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\PublicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityTrait;
@@ -38,6 +39,9 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
     #[ORM\OneToMany(mappedBy: 'publication', targetEntity: PublicationTypo::class, orphanRemoval: true)]
     private Collection $typos;
 
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private bool $notified = false;
+
     public function __construct()
     {
         $this->typos = new ArrayCollection();
@@ -52,5 +56,17 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
     public function getTypos(): Collection
     {
         return $this->typos;
+    }
+
+    public function isNotified(): ?bool
+    {
+        return $this->notified;
+    }
+
+    public function setNotified(bool $notified): self
+    {
+        $this->notified = $notified;
+
+        return $this;
     }
 }
