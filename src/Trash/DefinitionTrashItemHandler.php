@@ -24,7 +24,9 @@ use Sulu\Component\Security\Authentication\UserRepositoryInterface;
  *    title: string|null,
  *    description: string|null,
  *    created: string|null,
+ *    changed: string|null,
  *    creatorId: int|null,
+ *    changerId: int|null,
  *    routePath: string|null
  * }>
  */
@@ -99,7 +101,9 @@ class DefinitionTrashItemHandler implements
                 'title' => $definition->getTitle(),
                 'description' => $definition->getDescription(),
                 'created' => $definition->getCreated()?->format('c'),
+                'changed' => $definition->getChanged()?->format('c'),
                 'creatorId' => $definition->getCreator()?->getId(),
+                'changerId' => $definition->getChanger()?->getId(),
                 'routePath' => $definition->getRoute()?->getPath(),
             ];
         }
@@ -132,10 +136,15 @@ class DefinitionTrashItemHandler implements
                 ->setLocale($locale)
                 ->setTitle($translationData['title'] ?? '')
                 ->setDescription($translationData['description'] ?? '')
-                ->setCreated(new \DateTime($translationData['created'] ?? ''));
+                ->setCreated(new \DateTime($translationData['created'] ?? ''))
+                ->setChanged(new \DateTime($translationData['changed'] ?? ''));
 
             if (null !== $translationData['creatorId']) {
                 $definition->setCreator($this->userRepository->find($translationData['creatorId']));
+            }
+
+            if (null !== $translationData['changerId']) {
+                $definition->setChanger($this->userRepository->find($translationData['changerId']));
             }
         }
 
