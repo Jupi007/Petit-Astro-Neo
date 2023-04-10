@@ -2,3 +2,4 @@ fos_rest:
   exception:
     codes:
       App\Exception\NewsletterRegistrationEmailNotUniqueException: 409
+      App\Exception\PublicationNotFoundException: 404

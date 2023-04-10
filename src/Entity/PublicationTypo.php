@@ -9,11 +9,14 @@ use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\PublicationTypoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Sulu\Component\Persistence\Model\TimestampableInterface;
+use Sulu\Component\Persistence\Model\TimestampableTrait;
 
 #[ORM\Entity(repositoryClass: PublicationTypoRepository::class)]
-class PublicationTypo implements PersistableEntityInterface
+class PublicationTypo implements PersistableEntityInterface, TimestampableInterface
 {
     use PersistableEntityTrait;
+    use TimestampableTrait;
 
     final public const RESOURCE_KEY = 'publication_typos';
     final public const RESOURCE_ICON = 'su-unpublish';

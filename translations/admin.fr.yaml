@@ -25,6 +25,7 @@ app.admin:
   notify: "Notifier"
   notify_warning_title: "Envoyer les notifications ?"
   notify_warning_text: "Voulez-vous vraiment envoyer les messages de notification ?"
+  publication_not_found: "La publication n’existe pas ou plus."
 
 sulu_activity:
   resource:
