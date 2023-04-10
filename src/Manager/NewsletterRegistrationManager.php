@@ -21,7 +21,7 @@ class NewsletterRegistrationManager
         private readonly DomainEventCollectorInterface $domainEventCollector,
         #[Autowire('%sulu.context%')]
         private readonly string $suluContext,
-        // private readonly TrashManagerInterface $trashManager,
+        private readonly TrashManagerInterface $trashManager,
     ) {
     }
 
@@ -53,7 +53,7 @@ class NewsletterRegistrationManager
 
     public function remove(NewsletterRegistration $registration): void
     {
-        // $this->trashManager->store(NewsletterRegistration::RESOURCE_KEY, $registration);
+        $this->trashManager->store(NewsletterRegistration::RESOURCE_KEY, $registration);
         if ('admin' === $this->suluContext) {
             $this->domainEventCollector->collect(new RemovedNewsletterRegistrationActivityEvent($registration));
         }
