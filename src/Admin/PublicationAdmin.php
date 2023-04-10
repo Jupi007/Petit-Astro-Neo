@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Admin;
 
 use App\Entity\Publication;
+use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
@@ -35,6 +36,7 @@ class PublicationAdmin extends Admin
         private readonly ContentViewBuilderFactoryInterface $contentViewBuilderFactory,
         private readonly SecurityCheckerInterface $securityChecker,
         private readonly LocalizationManagerInterface $localizationManager,
+        private readonly ActivityViewBuilderFactoryInterface $activityViewBuilderFactory,
     ) {
     }
 
@@ -130,6 +132,19 @@ class PublicationAdmin extends Admin
             $editFormView->addToolbarActions([
                 new ToolbarAction('app.notify'),
             ]);
+
+            if ($this->activityViewBuilderFactory->hasActivityListPermission()) {
+                $viewCollection->add(
+                    $this->activityViewBuilderFactory
+                        ->createActivityListViewBuilder(
+                            name: static::EDIT_FORM_VIEW . '.activity',
+                            path: '/activity',
+                            resourceKey: Publication::RESOURCE_KEY,
+                        )
+                        ->setTabOrder(70)
+                        ->setParent(static::EDIT_FORM_VIEW),
+                );
+            }
         }
     }
 
