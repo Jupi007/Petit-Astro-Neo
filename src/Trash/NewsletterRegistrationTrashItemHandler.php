@@ -18,6 +18,7 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerIn
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * @phpstan-type TrashData array{
@@ -29,7 +30,7 @@ use Sulu\Component\Security\Authentication\UserRepositoryInterface;
  *    changerId: int|null,
  * }
  */
-class NewsletterRegistrationItemHandler implements
+class NewsletterRegistrationTrashItemHandler implements
     StoreTrashItemHandlerInterface,
     RestoreTrashItemHandlerInterface,
     RestoreConfigurationProviderInterface
@@ -58,22 +59,21 @@ class NewsletterRegistrationItemHandler implements
 
     public function store(object $resource, array $options = []): TrashItemInterface
     {
-        /** @var NewsletterRegistration */
-        $registration = $resource;
+        Assert::isInstanceOf($resource, NewsletterRegistration::class);
 
         $data = [
-            'email' => $registration->getEmail(),
-            'locale' => $registration->getLocale(),
-            'created' => $registration->getCreated()->format('c'),
-            'changed' => $registration->getChanged()->format('c'),
-            'creatorId' => $registration->getCreator()?->getId(),
-            'changerId' => $registration->getChanger()?->getId(),
+            'email' => $resource->getEmail(),
+            'locale' => $resource->getLocale(),
+            'created' => $resource->getCreated()->format('c'),
+            'changed' => $resource->getChanged()->format('c'),
+            'creatorId' => $resource->getCreator()?->getId(),
+            'changerId' => $resource->getChanger()?->getId(),
         ];
 
         return $this->trashItemRepository->create(
             resourceKey: NewsletterRegistration::RESOURCE_KEY,
-            resourceId: (string) $registration->getId(),
-            resourceTitle: $registration->getEmail(),
+            resourceId: (string) $resource->getId(),
+            resourceTitle: $resource->getEmail(),
             restoreData: $data,
             restoreType: null,
             restoreOptions: $options,

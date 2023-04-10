@@ -27,7 +27,7 @@ use Webmozart\Assert\Assert;
  *    changed: string|null,
  * }
  */
-class PublicationTypoItemHandler implements
+class PublicationTypoTrashItemHandler implements
     StoreTrashItemHandlerInterface,
     RestoreTrashItemHandlerInterface,
     RestoreConfigurationProviderInterface
@@ -57,6 +57,7 @@ class PublicationTypoItemHandler implements
     {
         Assert::isInstanceOf($resource, PublicationTypo::class);
 
+        /** @var TrashData $data */
         $data = [
             'description' => $resource->getDescription(),
             'publicationId' => $resource->getPublication()->getId(),

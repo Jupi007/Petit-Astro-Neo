@@ -18,6 +18,7 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerIn
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * @phpstan-type TrashData array<string, array{
@@ -45,16 +46,28 @@ class DefinitionTrashItemHandler implements
     ) {
     }
 
+    public static function getResourceKey(): string
+    {
+        return Definition::RESOURCE_KEY;
+    }
+
+    public function getConfiguration(): RestoreConfiguration
+    {
+        return new RestoreConfiguration(
+            view: DefinitionAdmin::EDIT_FORM_VIEW,
+            resultToView: ['id' => 'id'],
+        );
+    }
+
     public function store(object $resource, array $options = []): TrashItemInterface
     {
-        /** @var Definition */
-        $definition = $resource;
+        Assert::isInstanceOf($resource, Definition::class);
 
         return $this->trashItemRepository->create(
             resourceKey: Definition::RESOURCE_KEY,
-            resourceId: (string) $definition->getId(),
-            resourceTitle: $this->definitionToTrashTitles($definition),
-            restoreData: $this->definitionToTrashData($definition),
+            resourceId: (string) $resource->getId(),
+            resourceTitle: $this->definitionToTrashTitles($resource),
+            restoreData: $this->definitionToTrashData($resource),
             restoreType: null,
             restoreOptions: $options,
             resourceSecurityContext: DefinitionAdmin::SECURITY_CONTEXT,
@@ -73,19 +86,6 @@ class DefinitionTrashItemHandler implements
         $this->definitionRepository->save($definition);
 
         return $definition;
-    }
-
-    public function getConfiguration(): RestoreConfiguration
-    {
-        return new RestoreConfiguration(
-            view: DefinitionAdmin::EDIT_FORM_VIEW,
-            resultToView: ['id' => 'id'],
-        );
-    }
-
-    public static function getResourceKey(): string
-    {
-        return Definition::RESOURCE_KEY;
     }
 
     /** @return TrashData */
