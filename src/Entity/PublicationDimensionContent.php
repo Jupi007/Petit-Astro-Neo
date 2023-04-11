@@ -8,8 +8,6 @@ use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\AuthorInterface;
-use Sulu\Bundle\ContentBundle\Content\Domain\Model\AuthorTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ExcerptInterface;
@@ -24,12 +22,14 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowTrait;
+use Sulu\Component\Persistence\Model\AuditableInterface;
+use Sulu\Component\Persistence\Model\AuditableTrait;
 
 /** @implements DimensionContentInterface<Publication> */
 #[ORM\Entity]
-class PublicationDimensionContent implements PersistableEntityInterface, DimensionContentInterface, ExcerptInterface, SeoInterface, TemplateInterface, RoutableInterface, WorkflowInterface, AuthorInterface, WebspaceInterface
+class PublicationDimensionContent implements PersistableEntityInterface, DimensionContentInterface, ExcerptInterface, SeoInterface, TemplateInterface, RoutableInterface, WorkflowInterface, AuditableInterface, WebspaceInterface
 {
-    use AuthorTrait;
+    use AuditableTrait;
     use DimensionContentTrait;
     use ExcerptTrait;
     use PersistableEntityTrait;

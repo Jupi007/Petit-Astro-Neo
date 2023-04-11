@@ -36,7 +36,12 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
     protected $dimensionContents;
 
     /** @var ArrayCollection<int, PublicationTypo> */
-    #[ORM\OneToMany(mappedBy: 'publication', targetEntity: PublicationTypo::class, orphanRemoval: true)]
+    #[ORM\OneToMany(
+        targetEntity: PublicationTypo::class,
+        mappedBy: 'publication',
+        cascade: ['persist'],
+        orphanRemoval: true,
+    )]
     private Collection $typos;
 
     #[ORM\Column(type: Types::BOOLEAN)]
@@ -58,7 +63,7 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
         return $this->typos;
     }
 
-    public function isNotified(): ?bool
+    public function isNotified(): bool
     {
         return $this->notified;
     }

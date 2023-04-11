@@ -53,5 +53,7 @@ sulu_activity:
       notified: '{userFullName} a envoyé les notifications pour la publication "{resourceTitle}"'
       removed: '{userFullName} a supprimé la publication "{resourceTitle}"'
       translation_copied: '{userFullName} a copié la traduction "{context_sourceLocale}" de la publication "{resourceTitle}" dans "{resourceLocale}"'
+      restored: '{userFullName} a restoré la publication "{resourceTitle}"'
     publication_typos:
       removed: "{userFullName} a supprimé une faute"
+      restored: "{userFullName} a restoré une faute"

@@ -20,6 +20,7 @@ use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerI
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
+use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
 
 class PublicationManager
 {
@@ -28,6 +29,7 @@ class PublicationManager
         private readonly ContentManagerInterface $contentManager,
         private readonly ContentIndexerInterface $contentIndexer,
         private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly TrashManagerInterface $trashManager,
     ) {
     }
 
@@ -158,11 +160,10 @@ class PublicationManager
             throw new \LogicException('You cannot remove a non-persisted publication.');
         }
 
+        $this->trashManager->store(Publication::RESOURCE_KEY, $publication);
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
-
         $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
-        $this->publicationRepository->remove($publication, flush: true);
 
-        // TODO: trash support
+        $this->publicationRepository->remove($publication, flush: true);
     }
 }
