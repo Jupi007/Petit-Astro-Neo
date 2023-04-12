@@ -24,11 +24,6 @@
   {{- parent() -}}
 {%- endblock widget_attributes -%}
 
-{%- block form_label -%}
-  {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block opacity-90')) }) -%}
-  {{- parent() -}}
-{%- endblock form_label -%}
-
 {%- block form_help -%}
   {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('block opacity-60 text-end italic')) }) -%}
   {{- parent() -}}
@@ -95,3 +90,16 @@
   ) }) %}
   {{- parent() -}}
 {%- endblock button_widget -%}
+
+
+{# Output label as HTML #}
+{%- block form_label -%}
+  {% set requiredClass = "before:content-['*'] before:mr-0.5 before:text-red-700 before:dark:text-red-600" %}
+  {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block opacity-90 ' ~ (required ? requiredClass : ''))) }) -%}
+  {%- if label is not same as(false) -%}
+    {%- set label -%}
+      {{ label|raw }}
+    {%- endset -%}
+    {{ parent() }}
+  {%- endif -%}
+{%- endblock form_label -%}
