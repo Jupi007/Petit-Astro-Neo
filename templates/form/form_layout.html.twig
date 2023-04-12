@@ -1,22 +1,22 @@
 {% use 'form_div_layout.html.twig' %}
 
 {% block form_start -%}
-  {% set attr = attr|merge({class: (attr.class|default('') ~ ' flex flex-col gap-6 p-px')|trim}) %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' grid grid-cols-12 gap-6 p-px')|trim}) %}
   {{- parent() -}}
 {%- endblock form_start %}
 
 {%- block form_widget_compound -%}
-  {% set attr = attr|merge({class: (attr.class|default('') ~ ' flex flex-col gap-6')|trim}) %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' contents')|trim}) %}
   {{- parent() -}}
 {%- endblock form_widget_compound -%}
 
 {%- block form_row -%}
-  {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('flex flex-col gap-1')) }) -%}
+  {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('col-span-12 flex flex-col gap-1')) }) -%}
   {{- parent() -}}
 {%- endblock form_row -%}
 
 {%- block widget_attributes -%}
-  {% set default_widget_class = 'block w-full p-3 leading-none outline-accent border border-outline dark:border-outline-invert focus:outline focus:outline-1 focus:border-accent bg-black/2.5 dark:bg-white/5' %}
+  {% set default_widget_class = 'block p-3 leading-none outline-accent border border-outline dark:border-outline-invert focus:outline focus:outline-1 focus:border-accent bg-black/2.5 dark:bg-white/2.5' %}
   {% set default_widget_disabled_class = 'text-gray-500 bg-black/5 dark:bg-white/10' %}
   {% set default_widget_errors_class = 'outline-red-700 focus:outline-red-700 dark:outline-red-600 focus:dark:outline-red-600 border-red-700 focus:border-red-700 dark:border-red-600 focus:dark:border-red-600' %}
 
@@ -36,33 +36,33 @@
 
 {%- block form_errors -%}
   {%- if errors|length > 0 -%}
-  <div class="not-prose">
-    <ul>
-      {%- for error in errors -%}
-      <li class="{{ error_item_class|default('text-red-700 dark:text-red-600 list-cross list-inside') }}">{{ error.message }}</li>
-      {%- endfor -%}
-    </ul>
-  </div>
+    <div class="not-prose">
+      <ul>
+        {%- for error in errors -%}
+          <li class="{{ error_item_class|default('text-red-700 dark:text-red-600 list-cross list-inside') }}">{{ error.message }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
   {%- endif -%}
 {%- endblock form_errors -%}
 
 {%- block choice_widget_expanded -%}
   {%- set attr = attr|merge({ class: attr.class|default('mt-2') }) -%}
   <div {{ block('widget_container_attributes') }}>
-  {%- for child in form %}
-    <div class="flex items-center">
-    {{- form_widget(child) -}}
-    {{- form_label(child, null, { translation_domain: choice_translation_domain }) -}}
-    </div>
-  {% endfor -%}
+    {%- for child in form %}
+      <div class="flex items-center">
+        {{- form_widget(child) -}}
+        {{- form_label(child, null, { translation_domain: choice_translation_domain }) -}}
+      </div>
+    {% endfor -%}
   </div>
 {%- endblock choice_widget_expanded -%}
 
 {%- block checkbox_row -%}
-  {%- set row_attr = row_attr|merge({ class: row_attr.class|default }) -%}
+  {%- set row_attr = row_attr|merge({ class: row_attr.class|default(' col-span-12') }) -%}
   {%- set widget_attr = {} -%}
   {%- if help is not empty -%}
-  {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
   {%- endif -%}
   <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
     {{- form_errors(form) -}}
@@ -85,13 +85,13 @@
 {%- endblock radio_widget -%}
 
 {%- block button_row -%} 
-  {% set row_attr = row_attr|merge({ class: row_attr.class|default('flex justify-center') }) %}
+  {% set row_attr = row_attr|merge({ class: row_attr.class|default('col-span-12 flex justify-center') }) %}
   {{- parent() -}}
 {%- endblock button_row -%}
 
 {%- block button_widget -%}
   {% set attr = attr|merge({ class: attr.class|default(
-    'w-fit px-3 py-2 inline-block border border-outline dark:border-outline-invert hover:bg-black/5 dark:hover:bg-white/5 text-xs font-medium no-underline transition-colors'
+    'w-fit h-fit px-3 py-2 inline-block border border-outline dark:border-outline-invert hover:bg-black/5 dark:hover:bg-white/5 text-xs font-medium no-underline transition-colors'
   ) }) %}
   {{- parent() -}}
 {%- endblock button_widget -%}
