@@ -38,7 +38,7 @@
     
     {{ form_widget(form) }}
 
-    <div class="flex justify-center gap-2">
+    <div class="col-span-12 flex justify-center gap-2">
       {% include "includes/common/_button.html.twig" with {
         'type': 'link',
         'href': path('sulu_community.logout'),
