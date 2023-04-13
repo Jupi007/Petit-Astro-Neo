@@ -103,3 +103,25 @@
     {{ parent() }}
   {%- endif -%}
 {%- endblock form_label -%}
+
+{# CSRF Token #}
+{%- block csrf_token_widget %}
+    {% set controller = controller('App\\Controller\\Website\\FormTokenController::tokenAction', {
+        form: form.parent.vars.name,
+        html: true,
+        _requestAnalyzer: false
+    }) %}
+
+    {% if app.request.isMethodCacheable %}
+      {# If a request is cacheable, the CSRF token must be loaded with a turbo-frame to allow for caching the response. #}
+      <turbo-frame
+        src="{{ fragment_uri(controller) }}"
+        id="{{ form.parent.vars.name }}_token_frame"
+      >
+      </turbo-frame>
+    {% else %}
+      {# If a request is not cacheable (eg. POST request), we can directly render it. #}
+      {{ render(controller) }}
+    {% endif %}
+{%- endblock csrf_token_widget -%}
+
