@@ -53,6 +53,11 @@ module.exports = {
       }),
     }
   },
+  safelist: [
+    {
+      pattern: /col-span-.+/,
+    },
+  ],
   plugins: [
     require('@tailwindcss/typography'),
   ],

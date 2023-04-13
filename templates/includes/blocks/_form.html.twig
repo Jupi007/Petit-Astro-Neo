@@ -1,7 +1,8 @@
 {% set formContent %}
   {% if content.form %}
-    {% form_theme content.form 'form/form_layout.html.twig' %}
-    {{ form(content.form) }}
+    <div class="not-prose">
+      {{ form(content.form) }}
+    </div>
 
     {% if app.request.get('send') == 'true' %}
       {{ view.form.entity.successText|raw }}
