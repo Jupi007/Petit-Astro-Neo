@@ -80,7 +80,7 @@
 {%- endblock radio_widget -%}
 
 {%- block button_row -%} 
-  {% set row_attr = row_attr|merge({ class: row_attr.class|default('flex justify-center ' ~ block('form_row_col_span')) }) %}
+  {% set row_attr = row_attr|merge({ class: row_attr.class|default('flex justify-center m-3 ' ~ block('form_row_col_span')) }) %}
   {{- parent() -}}
 {%- endblock button_row -%}
 
