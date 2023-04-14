@@ -12,9 +12,9 @@ use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
+use Sulu\Component\Localization\Manager\LocalizationManagerInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
-use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 class DefinitionAdmin extends Admin
 {
@@ -31,7 +31,7 @@ class DefinitionAdmin extends Admin
 
     public function __construct(
         private readonly ViewBuilderFactoryInterface $viewBuilderFactory,
-        private readonly WebspaceManagerInterface $webspaceManager,
+        private readonly LocalizationManagerInterface $localizationManager,
         private readonly ActivityViewBuilderFactoryInterface $activityViewBuilderFactory,
         private readonly SecurityCheckerInterface $securityChecker,
     ) {
@@ -51,7 +51,7 @@ class DefinitionAdmin extends Admin
 
     public function configureViews(ViewCollection $viewCollection): void
     {
-        $locales = $this->webspaceManager->getAllLocales();
+        $locales = $this->localizationManager->getLocales();
 
         $this->configureListView($viewCollection, $locales);
         $this->configureAddView($viewCollection, $locales);
