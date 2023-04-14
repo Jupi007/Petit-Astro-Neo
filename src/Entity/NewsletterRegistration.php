@@ -22,7 +22,7 @@ class NewsletterRegistration implements PersistableEntityInterface, AuditableInt
     use PersistableEntityTrait;
 
     final public const RESOURCE_KEY = 'newsletter_registrations';
-    final public const RESOURCE_ICON = 'su-envelope';
+    final public const RESOURCE_ICON = 'su-bell';
 
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     private Uuid $uuid;
