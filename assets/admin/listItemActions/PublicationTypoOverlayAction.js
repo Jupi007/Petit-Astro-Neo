@@ -37,7 +37,7 @@ export default class PublicationTypoOverlayAction extends AbstractListItemAction
         title={translate('app.admin.publication_typo')}
         confirmText={translate('sulu_admin.close')}
       >
-        <div style={{ padding: '1rem', whiteSpace: "pre-wrap" }} >
+        <div style={{ padding: '1rem', whiteSpace: 'pre-wrap', lineHeight: '1.5' }} >
           {this.description}
         </div>
       </Overlay>

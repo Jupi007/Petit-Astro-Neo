@@ -94,3 +94,8 @@ app:
       success_message: "Mot de passe modifié avec succès."
 
     email_confirmation_message: "L'e-mail a été modifié avec succès."
+
+  contact_form:
+    object_label: "Objet :"
+    email_label: "Email :"
+    message_label: "Message :"

@@ -109,6 +109,7 @@ class PublicationTypoAdmin extends Admin
                 'Publications' => [
                     static::SECURITY_CONTEXT => [
                         PermissionTypes::VIEW,
+                        PermissionTypes::ADD,
                         PermissionTypes::DELETE,
                     ],
                 ],
