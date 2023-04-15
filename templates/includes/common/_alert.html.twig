@@ -1,4 +1,6 @@
-{% set class = class|default('') %}
+{% set closable = closable|default(false) %}
+{% set outerClass = class|default('') %}
+{% set class = '' %}
 
 {% if style == 'success' %}
   {% set class = class ~ ' bg-green-500/5 border-green-500/30 dark:border-green-400/20 text-green-900 dark:text-green-400' %}
@@ -10,6 +12,17 @@
   {% set class = class ~ ' border-orange-100 dark:border-orange-500/35 text-orange-700 dark:text-orange-400 bg-orange-500/5 dark:bg-orange-500/10' %}
 {% endif %}
 
-<p class="border p-2 text-center font-bold {{ class }}">
-  {{ label }}
-</p>
+<div
+  class="bg-white dark:bg-zinc-800 {% if closable %}cursor-pointer{% endif %} {{ outerClass }}"
+  {%- if closable -%}
+    x-data="{ show: true }"
+    x-show="show"
+    x-on:click="show = false"
+    x-transition.duration.250ms
+    data-turbo-cache="false"
+  {%- endif -%}
+>
+  <p class="border p-2 text-center font-bold {{ class }}">
+    {{ label }}
+  </p>
+</div>

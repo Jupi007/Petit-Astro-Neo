@@ -99,3 +99,7 @@ app:
     object_label: "Objet :"
     email_label: "Email :"
     message_label: "Message :"
+    success_message: "Votre message a bien été envoyé."
+
+  newsletter_form:
+    success_message: "Votre inscription à l'infolettre a bien été enregistré."

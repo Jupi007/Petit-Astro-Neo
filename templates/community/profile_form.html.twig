@@ -11,9 +11,9 @@
 {% set contentClass = 'pt-32 mt-20' %}
 
 {% block content %}
-  {{ form_start(form) }}
+{{ form_start(form) }}
     <div class="absolute -top-20 left-0 right-0">
-      <label class="block w-fit mx-auto" for="profile_avatar">
+      <label class="block w-fit mx-auto" for="{{ form.vars.name }}_avatar">
         {% set class = 'w-48 h-48 p-4 rounded-full bg-white dark:bg-zinc-800 border border-outline dark:border-outline-invert cursor-pointer' %}
         {% if media is not null %}
           {{ get_image(media, {
@@ -28,17 +28,16 @@
       </label>
     </div>
     
-
     {% if app.request.get('send') == 'true' %}
       {% include "includes/common/_alert.html.twig" with {
         'style': 'success',
-        'label': 'app.community.profile.success_message'|trans
+        'label': 'app.community.profile.success_message'|trans,
+        'class': 'col-span-12 m-3',
       } only %}
     {% endif %}
-    
     {{ form_widget(form) }}
 
-    <div class="col-span-12 flex justify-center gap-2">
+    <div class="col-span-12 flex justify-center gap-2 m-3">
       {% include "includes/common/_button.html.twig" with {
         'type': 'link',
         'href': path('sulu_community.logout'),

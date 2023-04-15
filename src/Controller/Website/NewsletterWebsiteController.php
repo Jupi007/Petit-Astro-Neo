@@ -10,8 +10,10 @@ use App\Form\Data\NewsletterRegistrationTypeData;
 use App\Form\NewsletterRegistrationType;
 use App\Manager\NewsletterRegistrationManager;
 use Sulu\Bundle\HeadlessBundle\Content\StructureResolverInterface;
+use Sulu\Bundle\WebsiteBundle\Twig\Content\ContentPathInterface;
 use Sulu\Component\Content\Compat\PageInterface;
 use Sulu\Component\Content\Compat\StructureInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,6 +22,8 @@ class NewsletterWebsiteController extends AbstractHeadlessWebsiteController
     public function __construct(
         StructureResolverInterface $structureResolver,
         private readonly NewsletterRegistrationManager $manager,
+        #[Autowire('@sulu_website.twig.content_path')]
+        private readonly ContentPathInterface $contentPath,
     ) {
         parent::__construct($structureResolver);
     }
@@ -43,7 +47,9 @@ class NewsletterWebsiteController extends AbstractHeadlessWebsiteController
             );
             $this->manager->create($registration);
 
-            return $this->redirect('?send=true');
+            $this->addFlash('success', 'app.newsletter_form.success_message');
+
+            return $this->redirect($this->contentPath->getContentRootPath());
         }
 
         /** @var PageInterface $structure */

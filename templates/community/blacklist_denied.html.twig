@@ -3,8 +3,8 @@
 {% set title = 'app.community.blacklisting.title'|trans %}
 
 {% block content %}
-{% include "includes/common/_alert.html.twig" with {
-  'style': 'success',
-  'label': 'app.community.blacklisting.denied_message'|trans({'email': user.email})
-} only %}
+  {% include "includes/common/_alert.html.twig" with {
+    'style': 'success',
+    'label': 'app.community.blacklisting.denied_message'|trans({'email': user.email})
+  } only %}
 {% endblock %}
