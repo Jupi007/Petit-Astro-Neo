@@ -47,7 +47,7 @@ class PublicationController extends AbstractHeadlessWebsiteController
             $typo = $typoForm->getData();
             $this->manager->create($typo);
 
-            return $this->redirect('?send=true');
+            return $this->redirect('?typoSend=true');
         }
 
         $attributes = [
