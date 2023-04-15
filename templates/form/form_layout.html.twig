@@ -16,13 +16,19 @@
 {%- endblock form_row -%}
 
 {%- block widget_attributes -%}
-  {% set default_widget_class = 'block px-3 py-2 outline-accent border border-outline dark:border-outline-invert focus:outline focus:outline-1 focus:border-accent bg-black/2.5 dark:bg-white/2.5' %}
-  {% set default_widget_disabled_class = 'text-gray-500 bg-black/5 dark:bg-white/10' %}
-  {% set default_widget_errors_class = 'outline-red-700 focus:outline-red-700 dark:outline-red-600 focus:dark:outline-red-600 border-red-700 focus:border-red-700 dark:border-red-600 focus:dark:border-red-600' %}
-
-  {%- set attr = attr|merge({ class: attr.class|default(widget_class|default(default_widget_class)) ~ (disabled ? ' ' ~ widget_disabled_class|default(default_widget_disabled_class)) ~ (errors|length ? ' ' ~ widget_errors_class|default(default_widget_errors_class)) }) -%}
+  {%- set attr = attr|default({ class: block('widget_attributes_class') }) -%}
   {{- parent() -}}
 {%- endblock widget_attributes -%}
+
+{%- block widget_attributes_class -%}
+  {{ widget_class|default('block p-3 outline-accent border border-outline leading-none dark:border-outline-invert focus:outline focus:outline-1 focus:border-accent bg-black/2.5 dark:bg-white/2.5')}}
+  {% if disabled %}
+    {{ widget_disabled_class|default('text-gray-500 bg-black/5 dark:bg-white/10') }}
+  {% endif %}
+  {% if errors|length %}
+    {{ widget_errors_class|default('outline-red-700 focus:outline-red-700 dark:outline-red-600 focus:dark:outline-red-600 border-red-700 focus:border-red-700 dark:border-red-600 focus:dark:border-red-600') }}
+  {% endif %}
+{%- endblock -%}
 
 {%- block form_help -%}
   {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('block opacity-60 text-end italic')) }) -%}
@@ -78,6 +84,11 @@
   {%- set widget_class = widget_class|default('mr-2') -%}
   {{- parent() -}}
 {%- endblock radio_widget -%}
+
+{%- block textarea_widget -%}
+  {%- set attr = attr|default({class: block('widget_attributes_class') ~ ' !leading-normal !py-2'}) -%}
+  {{- parent() -}}
+{%- endblock textarea_widget -%}
 
 {%- block button_row -%} 
   {% set row_attr = row_attr|merge({ class: row_attr.class|default('flex justify-center m-3 ' ~ block('form_row_col_span')) }) %}
