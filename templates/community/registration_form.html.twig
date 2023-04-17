@@ -4,7 +4,7 @@
 
 {% block content %}
   {% if app.request.get('send') == 'true' %}
-    <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Success')">
+    <twig:Alert variant="success">
       {{ 'app.community.registration.success_message'|trans }}
     </twig:Alert>
   {% else %}

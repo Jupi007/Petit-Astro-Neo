@@ -29,7 +29,7 @@
     </div>
     
     {% if app.request.get('send') == 'true' %}
-      <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Success')" class="col-span-12 m-3">
+      <twig:Alert variant="success" class="col-span-12 m-3">
         {{ 'app.community.profile.success_message'|trans }}
       </twig:Alert>
     {% endif %}
@@ -39,7 +39,7 @@
     <div class="col-span-12 flex justify-center gap-2 m-3">
       <twig:Button
         :href="path('sulu_community.logout')"
-        :variant="constant('App\\Components\\ComponentVariant::Error')"
+        variant="error"
         :bordered="false"
         small
       >

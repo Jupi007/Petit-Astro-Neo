@@ -4,11 +4,11 @@
 
 {% block content %}
   {% if success %}
-    <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Success')">
+    <twig:Alert variant="success">
       {{ 'community.email_confirmation.message'|trans }}
     </twig:Alert>
   {% else %}
-    <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Error')">
+    <twig:Alert variant="error">
       {{ 'app.invalid_token_message'|trans }}
     </twig:Alert>
   {% endif %}

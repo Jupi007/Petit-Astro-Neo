@@ -3,7 +3,7 @@
 {% set title = 'app.community.maintenance.title'|trans %}
 
 {% block content %}
-  <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Warning')">
+  <twig:Alert variant="warning">
     {{ 'app.community.maintenance.message'|trans }}
   </twig:Alert>
 {% endblock %}

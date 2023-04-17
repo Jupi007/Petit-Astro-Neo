@@ -26,7 +26,7 @@
           'bodyContent': bodyContent,
         } only %}
       {% else %}
-        <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Success')" class="mt-4">
+        <twig:Alert variant="success" class="mt-4">
           {{ 'app.publication_page.typo_thanks'|trans }}
         </twig:Alert>
       {% endif %}
