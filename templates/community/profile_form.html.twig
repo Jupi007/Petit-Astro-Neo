@@ -38,19 +38,17 @@
     {{ form_widget(form) }}
 
     <div class="col-span-12 flex justify-center gap-2 m-3">
-      {% include "includes/common/_button.html.twig" with {
-        'type': 'link',
-        'href': path('sulu_community.logout'),
-        'label': 'app.logout'|trans,
-        'small': true,
-        'border': false,
-        'style': 'error',
-      } only %}
-      {% include "includes/common/_button.html.twig" with {
-        'type': 'submit',
-        'label': 'app.submit'|trans,
-        'small': true,
-      } only %}
+      <twig:Button
+        :href="path('sulu_community.logout')"
+        :variant="constant('App\\Components\\ComponentVariant::Error')"
+        :bordered="false"
+        small
+      >
+        {{ 'app.logout'|trans }}
+      </twig:Button>
+      <twig:Button type="submit" small>
+        {{ 'app.submit'|trans }}
+      </twig:Button>
     </div>
   {{ form_end(form) }}
 {% endblock %}

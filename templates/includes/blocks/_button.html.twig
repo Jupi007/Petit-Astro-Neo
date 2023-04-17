@@ -1,9 +1,8 @@
 {% set buttonContent %}
 	<div class="text-end my-5">
-		{% include "includes/common/_button.html.twig" with {
-			'href': content.url,
-			'label': content.label,
-		} only %}
+		<twig:Button :href="content.url">
+			{{ content.label }}
+		</twig:Button>
 	</div>
 {% endset %}
 

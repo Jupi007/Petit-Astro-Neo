@@ -39,12 +39,9 @@
 
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    {% include "includes/common/_button.html.twig" with {
-      'type': 'submit',
-      'label': 'app.login'|trans,
-      'small': true,
-      'class': 'w-fit mx-auto',
-    } only %}
+    <twig:Button type="submit" class="mx-auto" small>
+      {{ 'app.login'|trans }}
+    </twig:Button>
   </form>
 
   <p class="text-center mt-6">

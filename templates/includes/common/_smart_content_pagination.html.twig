@@ -6,22 +6,18 @@
       {% if currentPageIndex - 1 >= 1 %}
         {% set href = rootPath ~ '?p=' ~ (currentPageIndex - 1) ~ '#' ~ id ~ '-bottom' %}
           <div class="w-full text-start my-5">
-            {% include "includes/common/_button.html.twig" with {
-              'href': href,
-              'label': '&laquo; ' ~ 'app.previous_page'|trans,
-              'small': true,
-            } only %}
+            <twig:Button :href="href" small>
+              &laquo; {{ 'app.previous_page'|trans }}
+            </twig:Button>
           </div>
       {% endif %}
   
       {% if view.hasNextPage %}
         {% set href = rootPath ~ '?p=' ~ (currentPageIndex + 1) ~ '#' ~ id %}
         <div class="w-full text-end my-5">
-          {% include "includes/common/_button.html.twig" with {
-            'href': href,
-            'label': 'app.next_page'|trans ~ ' &raquo;',
-            'small': true,
-          } only %}
+          <twig:Button :href="href" small>
+            {{ 'app.next_page'|trans }} &raquo;
+          </twig:Button>
         </div>
       {% endif %}
     </div>
