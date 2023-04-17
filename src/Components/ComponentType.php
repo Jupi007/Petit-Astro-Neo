@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components;
 
-enum AlertType: string
+enum ComponentType: string
 {
     case Info = 'info';
     case Success = 'success';

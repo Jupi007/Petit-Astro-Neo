@@ -4,7 +4,7 @@
 
 {% block content %}
   <twig:Alert
-    :type="constant('App\\Components\\AlertType::Success')"
+    :type="constant('App\\Components\\ComponentType::Success')"
     :label="'app.community.blacklisting.denied_message'|trans({'email': user.email})"
   />
 {% endblock %}

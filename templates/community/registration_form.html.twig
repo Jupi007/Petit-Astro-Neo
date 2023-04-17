@@ -5,7 +5,7 @@
 {% block content %}
   {% if app.request.get('send') == 'true' %}
     <twig:Alert
-      :type="constant('App\\Components\\AlertType::Success')"
+      :type="constant('App\\Components\\ComponentType::Success')"
       :label="'app.community.registration.success_message'|trans"
     />
   {% else %}

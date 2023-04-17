@@ -30,7 +30,7 @@
     
     {% if app.request.get('send') == 'true' %}
       <twig:Alert
-        :type="constant('App\\Components\\AlertType::Success')"
+        :type="constant('App\\Components\\ComponentType::Success')"
         :label="'app.community.profile.success_message'|trans"
         class="col-span-12 m-3"
       />

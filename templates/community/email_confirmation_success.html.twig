@@ -5,12 +5,12 @@
 {% block content %}
   {% if success %}
     <twig:Alert
-      :type="constant('App\\Components\\AlertType::Success')"
+      :type="constant('App\\Components\\ComponentType::Success')"
       :label="'community.email_confirmation.message'|trans"
     />
   {% else %}
     <twig:Alert
-      :type="constant('App\\Components\\AlertType::Error')"
+      :type="constant('App\\Components\\ComponentType::Error')"
       :label="'app.invalid_token_message'|trans"
     />
   {% endif %}
