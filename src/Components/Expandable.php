@@ -9,5 +9,4 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent]
 class Expandable
 {
-    use ComponentTrait;
 }

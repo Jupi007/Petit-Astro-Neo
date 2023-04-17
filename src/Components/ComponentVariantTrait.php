@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 trait ComponentVariantTrait
 {
-    use ComponentTrait {
+    use ComponentOptionsResolverTrait {
         configureOptions as private parentConfigureOptions;
     }
 

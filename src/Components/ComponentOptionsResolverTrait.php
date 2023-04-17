@@ -7,7 +7,7 @@ namespace App\Components;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\TwigComponent\Attribute\PreMount;
 
-trait ComponentTrait
+trait ComponentOptionsResolverTrait
 {
     /**
      * @param mixed[] $data
