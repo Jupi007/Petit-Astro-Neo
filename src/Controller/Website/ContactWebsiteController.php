@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
-use App\Components\ComponentType;
+use App\Components\ComponentVariant;
 use App\Entity\ContactRequest;
 use App\Exception\NullAssertionException;
 use App\Form\ContactRequestType;
@@ -51,7 +51,7 @@ class ContactWebsiteController extends AbstractHeadlessWebsiteController
             $this->manager->create($registration);
 
             $this->addFlash(
-                ComponentType::Success->value,
+                ComponentVariant::Success->value,
                 'app.contact_form.success_message',
             );
 

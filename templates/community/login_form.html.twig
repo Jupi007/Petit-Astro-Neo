@@ -6,7 +6,7 @@
   <form action="{{ path('sulu_community.login') }}" method="post" class="flex flex-col gap-6">
     {% if error %}
       <twig:Alert
-        :type="constant('App\\Components\\ComponentType::Error')"
+        :type="constant('App\\Components\\ComponentVariant::Error')"
         :label="error.messageKey|trans(error.messageData, 'security')"
       />
     {% endif %}

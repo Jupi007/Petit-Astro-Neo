@@ -9,7 +9,7 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent]
 class Alert
 {
-    use TypedComponentTrait;
+    use ComponentVariantTrait;
 
     public string $label;
 

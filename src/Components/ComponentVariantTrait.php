@@ -7,10 +7,10 @@ namespace App\Components;
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 use Symfony\UX\TwigComponent\Attribute\PreMount;
 
-trait TypedComponentTrait
+trait ComponentVariantTrait
 {
-    #[ExposeInTemplate(getter: 'getType')]
-    public ?ComponentType $type = null;
+    #[ExposeInTemplate(getter: 'getVariant')]
+    public ?ComponentVariant $variant = null;
 
     /**
      * @param mixed[] $data
@@ -20,15 +20,15 @@ trait TypedComponentTrait
     #[PreMount]
     public function preMount(array $data): array
     {
-        if (\array_key_exists('type', $data) && \is_string($data['type'])) {
-            $data['type'] = ComponentType::from($data['type']);
+        if (\array_key_exists('variant', $data) && \is_string($data['variant'])) {
+            $data['variant'] = ComponentVariant::from($data['variant']);
         }
 
         return $data;
     }
 
-    public function getType(): ?string
+    public function getVariant(): ?string
     {
-        return $this->type?->value;
+        return $this->variant?->value;
     }
 }
