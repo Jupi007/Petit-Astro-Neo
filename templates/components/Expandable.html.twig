@@ -1,6 +1,6 @@
-<div x-data="{ expanded: false }">
+<div x-data="{ expanded: false }" {{ attributes }}>
   <div @click="expanded = ! expanded" class="cursor-pointer">
-    {{ titleContent|raw }}
+    {{ block('header') }}
   </div>
   <div
     x-show="expanded"
@@ -8,6 +8,6 @@
     x-cloak
     class="overflow-hidden"
   >
-    {{ bodyContent|raw }}
+    {{ block('content') }}
   </div>
 </div>

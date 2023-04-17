@@ -1,18 +1,13 @@
-{% set titleContent %}
-  <h1 class="text-base font-semibold underline m-0 cursor-pointer" >
-    {{ definition.title }}
-  </h1>
-{% endset %}
-
-{% set bodyContent %}
-  <div class="overflow-hidden prose dark:prose-invert" >
-    {{ definition.description|raw }}
-  </div>
-{% endset %}
-
 <article>
-  {% include "includes/common/_expandable.html.twig" with {
-    'titleContent': titleContent,
-    'bodyContent': bodyContent,
-  } only %}
+  <twig:Expandable>
+      <twig:block name="header">
+        <h1 class="text-end text-base font-semibold underline=">
+          {{ definition.title }}
+        </h1>
+      </twig:block>
+    
+      <div class="overflow-hidden prose dark:prose-invert" >
+        {{ definition.description|raw }}
+      </div>
+  </twig:Expandable>
 </article>

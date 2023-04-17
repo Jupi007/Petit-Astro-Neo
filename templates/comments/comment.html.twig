@@ -26,19 +26,14 @@
   {% endif %}
 
   {% if nestedComments and not nested and is_granted('ROLE_USER') %}
-    {% set titleContent %}
-      <div class="text-end text-sm font-bold underline">
-        {{ 'app.comment.answer'|trans }}
-      </div>
-    {% endset %}
+    <twig:Expandable>
+      <twig:block name="header">
+        <div class="text-end text-sm font-bold underline">
+          {{ 'app.comment.answer'|trans }}
+        </div>
+      </twig:block>
 
-    {% set bodyContent %}
       {{ form(sulu_create_comment_form(threadId, referrer, comment.id)) }}
-    {% endset %}
-
-    {% include "includes/common/_expandable.html.twig" with {
-      'titleContent': titleContent,
-      'bodyContent': bodyContent,
-    } only %}
+    </twig:Expandable>
   {% endif %}
 </div>
