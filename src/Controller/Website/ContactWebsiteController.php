@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
+use App\Components\AlertType;
 use App\Entity\ContactRequest;
 use App\Exception\NullAssertionException;
 use App\Form\ContactRequestType;
@@ -49,7 +50,10 @@ class ContactWebsiteController extends AbstractHeadlessWebsiteController
 
             $this->manager->create($registration);
 
-            $this->addFlash('success', 'app.contact_form.success_message');
+            $this->addFlash(
+                AlertType::Success->value,
+                'app.contact_form.success_message',
+            );
 
             return $this->redirect($this->contentPath->getContentRootPath());
         }

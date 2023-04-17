@@ -26,11 +26,11 @@
           'bodyContent': bodyContent,
         } only %}
       {% else %}
-        {% include "includes/common/_alert.html.twig" with {
-          'style': 'success',
-          'label': 'app.publication_page.typo_thanks'|trans,
-          'class': 'mt-4'
-        } only %}
+        <twig:Alert
+          :type="constant('App\\Components\\AlertType::Success')"
+          :label="'app.publication_page.typo_thanks'|trans"
+          class="mt-4"
+        />
       {% endif %}
     </turbo-frame>
   {% endset %}

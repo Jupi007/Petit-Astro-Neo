@@ -1,11 +1,11 @@
 <div class="flex flex-col gap-4 fixed right-0 bottom-0 z-30 max-w-lg w-full p-4">
   {% for type, messages in app.flashes %}
     {% for message in messages %}
-      {% include "includes/common/_alert.html.twig" with {
-        style: type,
-        label: message|trans,
-        closable: true,
-      } only %}
+      <twig:Alert
+        :type="type"
+        :label="message|trans"
+        demissible
+      />
     {% endfor %}
   {% endfor %}
 </div>

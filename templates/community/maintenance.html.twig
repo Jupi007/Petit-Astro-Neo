@@ -3,8 +3,8 @@
 {% set title = 'app.community.maintenance.title'|trans %}
 
 {% block content %}
-  {% include "includes/common/_alert.html.twig" with {
-    'style': 'warning',
-    'label': 'app.community.maintenance.message'|trans,
-  } only %}
+  <twig:Alert
+    :type="constant('App\\Components\\AlertType::Warning')"
+    :label="'app.community.maintenance.message'|trans"
+  />
 {% endblock %}

@@ -29,11 +29,11 @@
     </div>
     
     {% if app.request.get('send') == 'true' %}
-      {% include "includes/common/_alert.html.twig" with {
-        'style': 'success',
-        'label': 'app.community.profile.success_message'|trans,
-        'class': 'col-span-12 m-3',
-      } only %}
+      <twig:Alert
+        :type="constant('App\\Components\\AlertType::Success')"
+        :label="'app.community.profile.success_message'|trans"
+        class="col-span-12 m-3"
+      />
     {% endif %}
     {{ form_widget(form) }}
 

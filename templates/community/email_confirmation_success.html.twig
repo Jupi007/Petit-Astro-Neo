@@ -4,14 +4,14 @@
 
 {% block content %}
   {% if success %}
-    {% include "includes/common/_alert.html.twig" with {
-      'style': 'success',
-      'label': 'app.community.email_confirmation.message'|trans
-    } only %}
+    <twig:Alert
+      :type="constant('App\\Components\\AlertType::Success')"
+      :label="'community.email_confirmation.message'|trans"
+    />
   {% else %}
-    {% include "includes/common/_alert.html.twig" with {
-      'style': 'error',
-      'label': 'app.invalid_token_message'|trans
-    } only %}
+    <twig:Alert
+      :type="constant('App\\Components\\AlertType::Error')"
+      :label="'app.invalid_token_message'|trans"
+    />
   {% endif %}
 {% endblock %}

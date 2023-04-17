@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
+use App\Components\AlertType;
 use App\Entity\NewsletterRegistration;
 use App\Exception\NullAssertionException;
 use App\Form\Data\NewsletterRegistrationTypeData;
@@ -47,7 +48,10 @@ class NewsletterWebsiteController extends AbstractHeadlessWebsiteController
             );
             $this->manager->create($registration);
 
-            $this->addFlash('success', 'app.newsletter_form.success_message');
+            $this->addFlash(
+                AlertType::Success->value,
+                'app.newsletter_form.success_message',
+            );
 
             return $this->redirect($this->contentPath->getContentRootPath());
         }
