@@ -4,14 +4,12 @@
 
 {% block content %}
   {% if success %}
-    <twig:Alert
-      :type="constant('App\\Components\\ComponentVariant::Success')"
-      :label="'community.email_confirmation.message'|trans"
-    />
+    <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Success')">
+      {{ 'community.email_confirmation.message'|trans }}
+    </twig:Alert>
   {% else %}
-    <twig:Alert
-      :type="constant('App\\Components\\ComponentVariant::Error')"
-      :label="'app.invalid_token_message'|trans"
-    />
+    <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Error')">
+      {{ 'app.invalid_token_message'|trans }}
+    </twig:Alert>
   {% endif %}
 {% endblock %}

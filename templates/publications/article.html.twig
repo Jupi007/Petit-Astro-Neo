@@ -26,11 +26,9 @@
           'bodyContent': bodyContent,
         } only %}
       {% else %}
-        <twig:Alert
-          :type="constant('App\\Components\\ComponentVariant::Success')"
-          :label="'app.publication_page.typo_thanks'|trans"
-          class="mt-4"
-        />
+        <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Success')" class="mt-4">
+          {{ 'app.publication_page.typo_thanks'|trans }}
+        </twig:Alert>
       {% endif %}
     </turbo-frame>
   {% endset %}

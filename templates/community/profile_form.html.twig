@@ -29,12 +29,11 @@
     </div>
     
     {% if app.request.get('send') == 'true' %}
-      <twig:Alert
-        :type="constant('App\\Components\\ComponentVariant::Success')"
-        :label="'app.community.profile.success_message'|trans"
-        class="col-span-12 m-3"
-      />
+      <twig:Alert :variant="constant('App\\Components\\ComponentVariant::Success')" class="col-span-12 m-3">
+        {{ 'app.community.profile.success_message'|trans }}
+      </twig:Alert>
     {% endif %}
+
     {{ form_widget(form) }}
 
     <div class="col-span-12 flex justify-center gap-2 m-3">

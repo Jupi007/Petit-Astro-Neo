@@ -2,10 +2,11 @@
   {% for type, messages in app.flashes %}
     {% for message in messages %}
       <twig:Alert
-        :type="type"
-        :label="message|trans"
+        :variant="type"
         demissible
-      />
+      >
+        {{ message|trans }}
+      </twig:Alert>
     {% endfor %}
   {% endfor %}
 </div>

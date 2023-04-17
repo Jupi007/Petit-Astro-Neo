@@ -11,7 +11,5 @@ class Alert
 {
     use ComponentVariantTrait;
 
-    public string $label;
-
     public bool $demissible = false;
 }
