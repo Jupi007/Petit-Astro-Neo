@@ -24,7 +24,7 @@ class FormTokenController extends AbstractController
         $csrfToken = $this->csrfTokenManager->getToken($formName)->getValue();
 
         if ($request->get('html')) {
-            $response = $this->render('form/_form_token.html.twig', [
+            $response = $this->render('form/form_token_input.html.twig', [
                 'formName' => $formName,
                 'csrfToken' => $csrfToken,
             ]);
