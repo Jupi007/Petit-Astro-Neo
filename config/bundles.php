@@ -53,4 +53,5 @@ return [
     Sulu\Bundle\CommunityBundle\SuluCommunityBundle::class => ['all' => true],
     Sulu\Bundle\CommentBundle\SuluCommentBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+    Symfony\UX\TwigComponent\TwigComponentBundle::class => ['all' => true],
 ];

@@ -72,6 +72,7 @@
         "symfony/twig-bundle": "^6.0",
         "symfony/uid": "^6.0",
         "symfony/ux-turbo": "^2.6",
+        "symfony/ux-twig-component": "2.x-dev",
         "symfony/webpack-encore-bundle": "^1.16",
         "twig/extra-bundle": "^3.5",
         "twig/intl-extra": "^3.5"
