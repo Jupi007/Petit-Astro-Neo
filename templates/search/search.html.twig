@@ -66,10 +66,7 @@
         {% if definitionHits|length > 0 %}
           {% set definitionContent %}
             {% set definitionGridContent %}
-              {% for definitionHit in definitionHits %}
-                {% include "includes/common/_definition.html.twig" with {
-                  'definition': definitionHit.document,
-                } only %}
+                <twig:Definition :definition="definitionHit.document"/>
               {% endfor %}
             {% endset %}
 

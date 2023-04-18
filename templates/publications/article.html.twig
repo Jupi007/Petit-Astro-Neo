@@ -41,10 +41,7 @@
       
       {% set definitionGridContent %}
         {% for definition in content.definitions %}
-          {% include "includes/common/_definition.html.twig" with {
-            'definition': definition,
-            'collapseMin': '73px',
-          } only %}
+          <twig:Definition :definition="definition"/>
         {% endfor %}
       {% endset %}
 

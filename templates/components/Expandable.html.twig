@@ -3,10 +3,10 @@
     {{ block('header') }}
   </div>
   <div
-    x-show="expanded"
-    {{ collapseMin|default == null ? 'x-collapse' : 'x-collapse.min.' ~ collapseMin }}
-    x-cloak
     class="overflow-hidden"
+    x-show="expanded"
+    x-collapse
+    x-cloak
   >
     {{ block('content') }}
   </div>
