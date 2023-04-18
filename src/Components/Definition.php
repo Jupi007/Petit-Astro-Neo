@@ -7,7 +7,7 @@ namespace App\Components;
 use App\Entity\Definition as EntityDefinition;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent]
+#[AsTwigComponent('definition')]
 class Definition
 {
     public EntityDefinition $definition;

@@ -11,7 +11,7 @@
   {% set typoFormContent %}
     <turbo-frame id="typo-form">
       {% if app.request.get('typoSend') != 'true' %}
-        <twig:Expandable>
+        <twig:expandable>
           <twig:block name="header">
             <h2 class="m-0 text-end text-base font-semibold underline">
               {{ 'app.publication_page.report_typo'|trans }}
@@ -21,7 +21,7 @@
           {{ form(typoForm) }}
         </twig:Expandable>
       {% else %}
-        <twig:Alert variant="success" class="mt-4">
+        <twig:alert variant="success" class="mt-4">
           {{ 'app.publication_page.typo_thanks'|trans }}
         </twig:Alert>
       {% endif %}
@@ -41,7 +41,7 @@
       
       {% set definitionGridContent %}
         {% for definition in content.definitions %}
-          <twig:Definition :definition="definition"/>
+          <twig:definition :definition="definition"/>
         {% endfor %}
       {% endset %}
 

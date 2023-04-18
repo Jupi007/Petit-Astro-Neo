@@ -6,7 +6,7 @@ namespace App\Components;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent]
+#[AsTwigComponent('card')]
 class Alert
 {
     use ComponentVariantTrait;

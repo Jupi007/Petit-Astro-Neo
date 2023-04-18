@@ -5,7 +5,7 @@
 {% block content %}
   <form action="{{ path('sulu_community.login') }}" method="post" class="flex flex-col gap-6">
     {% if error %}
-      <twig:Alert variant="error">
+      <twig:alert variant="error">
         {{ error.messageKey|trans(error.messageData, 'security') }}
       </twig:Alert>
     {% endif %}
@@ -38,7 +38,7 @@
 
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <twig:Button type="submit" class="mx-auto" small>
+    <twig:button type="submit" class="mx-auto" small>
       {{ 'app.login'|trans }}
     </twig:Button>
   </form>

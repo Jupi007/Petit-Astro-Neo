@@ -29,7 +29,7 @@
     </div>
     
     {% if app.request.get('send') == 'true' %}
-      <twig:Alert variant="success" class="col-span-12 m-3">
+      <twig:alert variant="success" class="col-span-12 m-3">
         {{ 'app.community.profile.success_message'|trans }}
       </twig:Alert>
     {% endif %}
@@ -37,7 +37,7 @@
     {{ form_widget(form) }}
 
     <div class="col-span-12 flex justify-center gap-2 m-3">
-      <twig:Button
+      <twig:button
         :href="path('sulu_community.logout')"
         variant="error"
         :bordered="false"
@@ -45,7 +45,7 @@
       >
         {{ 'app.logout'|trans }}
       </twig:Button>
-      <twig:Button type="submit" small>
+      <twig:button type="submit" small>
         {{ 'app.submit'|trans }}
       </twig:Button>
     </div>

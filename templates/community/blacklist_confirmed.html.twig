@@ -3,7 +3,7 @@
 {% set title = 'app.community.blacklisting.title'|trans %}
 
 {% block content %}
-  <twig:Alert variant="success">
+  <twig:alert variant="success">
     {{ 'app.community.blacklisting.confirmed_message'|trans({'email': user.email}) }}
   </twig:Alert>
 {% endblock %}

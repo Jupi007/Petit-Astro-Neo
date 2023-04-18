@@ -15,7 +15,7 @@
         {% set definitionContent %}
           {% set definitionGridContent %}
             {% for item in letterItems %}
-              <twig:Definition :definition="item"/>
+              <twig:definition :definition="item"/>
             {% endfor %}
           {% endset %}
 
@@ -52,7 +52,7 @@
     {% for definition in content.definitions %}
       {% set definition = definition.resource %}
       <li>
-        <twig:Definition :definition="definition"/>
+        <twig:definition :definition="definition"/>
       </li>
     {% endfor %}
   </ul>

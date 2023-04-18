@@ -6,7 +6,7 @@ namespace App\Components;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent]
+#[AsTwigComponent('button')]
 class Button
 {
     use ComponentVariantTrait;

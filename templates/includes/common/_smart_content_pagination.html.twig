@@ -6,7 +6,7 @@
       {% if currentPageIndex - 1 >= 1 %}
         {% set href = rootPath ~ '?p=' ~ (currentPageIndex - 1) ~ '#' ~ id ~ '-bottom' %}
           <div class="w-full text-start my-5">
-            <twig:Button :href="href" small>
+            <twig:button :href="href" small>
               &laquo; {{ 'app.previous_page'|trans }}
             </twig:Button>
           </div>
@@ -15,7 +15,7 @@
       {% if view.hasNextPage %}
         {% set href = rootPath ~ '?p=' ~ (currentPageIndex + 1) ~ '#' ~ id %}
         <div class="w-full text-end my-5">
-          <twig:Button :href="href" small>
+          <twig:button :href="href" small>
             {{ 'app.next_page'|trans }} &raquo;
           </twig:Button>
         </div>
