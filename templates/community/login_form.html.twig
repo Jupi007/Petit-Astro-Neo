@@ -7,7 +7,7 @@
     {% if error %}
       <twig:alert variant="error">
         {{ error.messageKey|trans(error.messageData, 'security') }}
-      </twig:Alert>
+      </twig:alert>
     {% endif %}
 
     <div class="flex flex-col gap-1">
@@ -40,7 +40,7 @@
 
     <twig:button type="submit" class="mx-auto" small>
       {{ 'app.login'|trans }}
-    </twig:Button>
+    </twig:button>
   </form>
 
   <p class="text-center mt-6">

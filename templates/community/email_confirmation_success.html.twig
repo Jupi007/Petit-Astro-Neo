@@ -6,10 +6,10 @@
   {% if success %}
     <twig:alert variant="success">
       {{ 'community.email_confirmation.message'|trans }}
-    </twig:Alert>
+    </twig:alert>
   {% else %}
     <twig:alert variant="error">
       {{ 'app.invalid_token_message'|trans }}
-    </twig:Alert>
+    </twig:alert>
   {% endif %}
 {% endblock %}

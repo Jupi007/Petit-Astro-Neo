@@ -6,7 +6,7 @@
   {% if app.request.get('send') == 'true' %}
     <twig:alert variant="success">
       {{ 'app.community.registration.success_message'|trans }}
-    </twig:Alert>
+    </twig:alert>
   {% else %}
     {{ form(form) }}
 

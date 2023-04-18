@@ -31,7 +31,7 @@
     {% if app.request.get('send') == 'true' %}
       <twig:alert variant="success" class="col-span-12 m-3">
         {{ 'app.community.profile.success_message'|trans }}
-      </twig:Alert>
+      </twig:alert>
     {% endif %}
 
     {{ form_widget(form) }}
@@ -44,10 +44,10 @@
         small
       >
         {{ 'app.logout'|trans }}
-      </twig:Button>
+      </twig:button>
       <twig:button type="submit" small>
         {{ 'app.submit'|trans }}
-      </twig:Button>
+      </twig:button>
     </div>
   {{ form_end(form) }}
 {% endblock %}

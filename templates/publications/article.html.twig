@@ -19,11 +19,11 @@
           </twig:block>
           
           {{ form(typoForm) }}
-        </twig:Expandable>
+        </twig:expandable>
       {% else %}
         <twig:alert variant="success" class="mt-4">
           {{ 'app.publication_page.typo_thanks'|trans }}
-        </twig:Alert>
+        </twig:alert>
       {% endif %}
     </turbo-frame>
   {% endset %}
