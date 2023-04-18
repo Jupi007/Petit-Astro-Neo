@@ -26,7 +26,7 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
     final public const RESOURCE_ICON = 'su-news';
     final public const TEMPLATE_TYPE = 'publication';
 
-    /** @var ArrayCollection<int, PublicationDimensionContent> */
+    /** @var Collection<int, PublicationDimensionContent> */
     #[ORM\OneToMany(
         targetEntity: PublicationDimensionContent::class,
         mappedBy: 'publication',
@@ -49,6 +49,7 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
 
     public function __construct()
     {
+        $this->dimensionContents = new ArrayCollection();
         $this->typos = new ArrayCollection();
     }
 

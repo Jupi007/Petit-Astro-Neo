@@ -27,7 +27,7 @@ class DefinitionTranslation implements PersistableEntityInterface, TranslationIn
     private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: RouteInterface::class, cascade: ['all'])]
-    #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?RouteInterface $route = null;
 
     public function __construct(

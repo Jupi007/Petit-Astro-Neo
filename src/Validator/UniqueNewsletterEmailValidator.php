@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validator;
 
+use App\Entity\NewsletterRegistration;
 use App\Repository\NewsletterRegistrationRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -32,7 +33,7 @@ class UniqueNewsletterEmailValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (null !== $this->newsletterRegistrationRepository->findOneByEmail($value)) {
+        if ($this->newsletterRegistrationRepository->findOneByEmail($value) instanceof NewsletterRegistration) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ email }}', $value)
                 ->addViolation();

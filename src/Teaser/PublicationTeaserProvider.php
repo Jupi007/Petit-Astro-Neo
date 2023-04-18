@@ -28,7 +28,7 @@ class PublicationTeaserProvider extends ContentTeaserProvider
         ContentMetadataInspectorInterface $contentMetadataInspector,
         #[Autowire('@sulu_page.structure.factory')]
         StructureMetadataFactoryInterface $metadataFactory,
-        private TranslatorInterface $translator,
+        private readonly TranslatorInterface $translator,
         bool $suluDocumentShowDrafts,
     ) {
         parent::__construct(

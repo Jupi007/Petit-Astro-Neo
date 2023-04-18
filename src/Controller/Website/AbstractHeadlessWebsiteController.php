@@ -45,10 +45,10 @@ class AbstractHeadlessWebsiteController extends WebsiteController
                 $partial,
             );
 
-            if (200 === $response->getStatusCode()) {
+            if (Response::HTTP_OK === $response->getStatusCode()) {
                 foreach ($attributes as $v) {
                     if ($v instanceof FormInterface && $v->isSubmitted() && !$v->isValid()) {
-                        $response->setStatusCode(422);
+                        $response->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                         break;
                     }
                 }

@@ -91,8 +91,8 @@ class CommunityEventListener implements EventSubscriberInterface
 
         $registration = $this->findOneByEmail($user->getEmail());
 
-        if (null !== $registration) {
-            if (false === $user->getContact()->getNewsletter()) {
+        if ($registration instanceof NewsletterRegistration) {
+            if (!$user->getContact()->getNewsletter()) {
                 $this->removeRegistration($registration);
             } else {
                 $this->updateRegistration($registration, $user);
@@ -129,8 +129,6 @@ class CommunityEventListener implements EventSubscriberInterface
 
     private function findOneByEmail(?string $email): ?NewsletterRegistration
     {
-        $user = $this->repository->findOneBy(['email' => $email]);
-
-        return $user;
+        return $this->repository->findOneBy(['email' => $email]);
     }
 }

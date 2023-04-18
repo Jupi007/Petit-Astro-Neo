@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Trash;
 
+use App\Entity\Publication;
 use App\Admin\PublicationTypoAdmin;
 use App\Entity\PublicationTypo;
 use App\Event\PublicationTypo\RestoredPublicationTypoActivityEvent;
@@ -84,7 +85,7 @@ class PublicationTypoTrashItemHandler implements
         $data = $trashItem->getRestoreData();
 
         $publication = $this->publicationRepository->find($data['publicationId']);
-        if (null === $publication) {
+        if (!$publication instanceof Publication) {
             throw new PublicationNotFoundException();
         }
 

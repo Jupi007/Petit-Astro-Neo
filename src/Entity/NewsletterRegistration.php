@@ -45,12 +45,10 @@ class NewsletterRegistration implements PersistableEntityInterface, AuditableInt
             throw new \LogicException('You cannot use an user without an email address.');
         }
 
-        $registration = new self(
+        return new self(
             $user->getEmail(),
             $user->getLocale(),
         );
-
-        return $registration;
     }
 
     public function syncWithUser(User $user): self

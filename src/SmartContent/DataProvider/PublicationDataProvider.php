@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\SmartContent\DataProvider;
 
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use App\Entity\Publication;
 use App\ReferenceStore\PublicationReferenceStore;
 use App\Repository\PublicationDataProviderRepository;
@@ -56,7 +57,7 @@ class PublicationDataProvider extends ContentDataProvider
     private function getTypes(): array
     {
         $types = [];
-        if (null !== $this->tokenStorage->getToken()) {
+        if ($this->tokenStorage->getToken() instanceof TokenInterface) {
             $user = $this->tokenStorage->getToken()->getUser();
 
             if (!$user instanceof UserInterface) {

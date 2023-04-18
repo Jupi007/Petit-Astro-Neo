@@ -8,11 +8,9 @@ use Sulu\Component\Rest\Exception\TranslationErrorMessageExceptionInterface;
 
 class NewsletterRegistrationEmailNotUniqueException extends \Exception implements TranslationErrorMessageExceptionInterface
 {
-    private string $email;
-
-    public function __construct(string $email)
-    {
-        $this->email = $email;
+    public function __construct(
+        private readonly string $email,
+    ) {
         parent::__construct(\sprintf('The email "%s" already exists in newsletter database!', $email));
     }
 

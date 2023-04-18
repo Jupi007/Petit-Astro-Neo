@@ -77,26 +77,17 @@ class PublicationController extends AbstractController implements SecuredControl
         $dimensionAttributes = $this->getDimensionAttributes($request);
         $action = $this->getAction($request);
 
-        switch ($action) {
-            case 'copy-locale':
-                $this->publicationManager->copyLocale(
-                    $publication,
-                    (string) $request->query->get('src'),
-                    (string) $request->query->get('dest'),
-                );
-                break;
-            case 'unpublish':
-                $this->publicationManager->unpublish($publication, $dimensionAttributes);
-                break;
-            case 'remove-draft':
-                $this->publicationManager->removeDraft($publication, $dimensionAttributes);
-                break;
-            case 'notify':
-                $this->publicationManager->notify($publication);
-                break;
-            default:
-                throw new RestException(\sprintf('Unrecognized action: %s', $action));
-        }
+        match ($action) {
+            'copy-locale' => $this->publicationManager->copyLocale(
+                $publication,
+                (string) $request->query->get('src'),
+                (string) $request->query->get('dest'),
+            ),
+            'unpublish' => $this->publicationManager->unpublish($publication, $dimensionAttributes),
+            'remove-draft' => $this->publicationManager->removeDraft($publication, $dimensionAttributes),
+            'notify' => $this->publicationManager->notify($publication),
+            default => throw new RestException(\sprintf('Unrecognized action: %s', $action)),
+        };
 
         return $this->json($this->normalize($publication, $dimensionAttributes));
     }
@@ -136,9 +127,7 @@ class PublicationController extends AbstractController implements SecuredControl
     /** @return array<string, mixed> */
     private function getData(Request $request): array
     {
-        $data = $request->request->all();
-
-        return $data;
+        return $request->request->all();
     }
 
     private function getAction(Request $request): ?string

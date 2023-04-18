@@ -88,7 +88,7 @@ class NewsletterRegistrationTrashItemHandler implements
         /** @var TrashData $data */
         $data = $trashItem->getRestoreData();
 
-        if (null !== $this->registrationRepository->findOneBy(['email' => $data['email']])) {
+        if ($this->registrationRepository->findOneBy(['email' => $data['email']]) instanceof NewsletterRegistration) {
             throw new NewsletterRegistrationEmailNotUniqueException($data['email']);
         }
 

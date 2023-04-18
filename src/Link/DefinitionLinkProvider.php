@@ -38,7 +38,7 @@ class DefinitionLinkProvider implements LinkProviderInterface
 
     public function preload(array $hrefs, $locale, $published = true)
     {
-        if (0 === \count($hrefs)) {
+        if ([] === $hrefs) {
             return [];
         }
 

@@ -86,9 +86,7 @@ class PublicationManager
 
         $this->publicationRepository->save($publication, flush: true);
 
-        $this->contentIndexer->index($publication, \array_merge($dimensionAttributes, [
-            'stage' => DimensionContentInterface::STAGE_LIVE,
-        ]));
+        $this->contentIndexer->index($publication, [...$dimensionAttributes, 'stage' => DimensionContentInterface::STAGE_LIVE]);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -103,10 +101,7 @@ class PublicationManager
             $dimensionAttributes,
             WorkflowInterface::WORKFLOW_TRANSITION_UNPUBLISH,
         );
-        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId(), \array_merge(
-            $dimensionAttributes,
-            ['stage' => DimensionContentInterface::STAGE_LIVE],
-        ));
+        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId(), [...$dimensionAttributes, 'stage' => DimensionContentInterface::STAGE_LIVE]);
         $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
 
         $this->publicationRepository->save($publication, flush: true);

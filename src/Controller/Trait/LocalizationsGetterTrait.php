@@ -16,7 +16,7 @@ trait LocalizationsGetterTrait
     /** @return array<string, array{locale: string, url:string|null}> */
     protected function getLocalizationsArray(PersistableEntityInterface $entity): array
     {
-        $routes = $this->routeRepository->findAllByEntity(\get_class($entity), (string) $entity->getId());
+        $routes = $this->routeRepository->findAllByEntity($entity::class, (string) $entity->getId());
 
         $localizations = [];
         foreach ($routes as $route) {

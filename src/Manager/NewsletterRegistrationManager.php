@@ -27,7 +27,7 @@ class NewsletterRegistrationManager
 
     public function create(NewsletterRegistration $registration): NewsletterRegistration
     {
-        if (null !== $this->repository->findOneBy(['email' => $registration->getEmail()])) {
+        if ($this->repository->findOneBy(['email' => $registration->getEmail()]) instanceof NewsletterRegistration) {
             throw new NewsletterRegistrationEmailNotUniqueException($registration->getEmail());
         }
 

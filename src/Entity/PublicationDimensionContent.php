@@ -42,15 +42,13 @@ class PublicationDimensionContent implements PersistableEntityInterface, Dimensi
     use WorkflowTrait;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $title;
+    private ?string $title = null;
 
-    #[ORM\ManyToOne(targetEntity: Publication::class, inversedBy: 'dimensionContents')]
-    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    private Publication $publication;
-
-    public function __construct(Publication $publication)
-    {
-        $this->publication = $publication;
+    public function __construct(
+        #[ORM\ManyToOne(targetEntity: Publication::class, inversedBy: 'dimensionContents')]
+        #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+        private Publication $publication,
+    ) {
     }
 
     public function getTitle(): ?string

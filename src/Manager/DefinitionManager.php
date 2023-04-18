@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
+use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use App\Entity\Definition;
 use App\Event\Definition\CreatedDefinitionActivityEvent;
 use App\Event\Definition\ModifiedDefinitionActivityEvent;
@@ -67,7 +68,7 @@ class DefinitionManager
         foreach ($definition->getLocales() as $locale) {
             $definition->setLocale($locale);
 
-            if (null !== $route = $definition->getRoute()) {
+            if (($route = $definition->getRoute()) instanceof RouteInterface) {
                 $this->routeRepository->remove($route);
 
                 foreach ($route->getHistories() as $historyRoute) {

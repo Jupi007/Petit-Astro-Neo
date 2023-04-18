@@ -125,7 +125,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
 
         $user = $this->findOneUserByEmail($registration->getEmail());
 
-        if (null !== $data['locale'] && null === $user) {
+        if (null !== $data['locale'] && !$user instanceof User) {
             $registration->setLocale($data['locale']);
         }
 

@@ -33,15 +33,11 @@ class DefinitionController extends AbstractController
         ];
 
         if ('json' !== $request->getRequestFormat()) {
-            $parameters = $this->templateAttributeResolver->resolve(\array_merge([
-                'content' => $definition,
-            ], $parameters));
+            $parameters = $this->templateAttributeResolver->resolve(['content' => $definition, ...$parameters]);
 
             return $this->render('definition/definition.html.twig', $parameters);
         }
 
-        return $this->json(\array_merge([
-            'content' => new DefinitionRepresentation($definition),
-        ], $parameters));
+        return $this->json(['content' => new DefinitionRepresentation($definition), ...$parameters]);
     }
 }
