@@ -15,7 +15,7 @@
 >
   <div class="relative w-full {{ headerHeight }} flex flex-col gap-12 py-10 px-8 items-center justify-center bg-gradient-to-b from-black/0 via-black/15 to-black/0 text-white text-center font-light font-colombia"
        x-bind:style="{ transform: 'translate3d(0,' + scrollPosition / 2 + 'px,0)' }">
-    {% include "includes/common/_logo.html.twig" only %}
+    <twig:logo />
 
     <h1 class="text-4xl drop-shadow-vertical">
       {{ headerTitle }}
