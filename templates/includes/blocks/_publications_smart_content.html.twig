@@ -3,13 +3,15 @@
 		{% set gridItems %}
 			{% for publication in content.publications %}
 				{% set media = sulu_resolve_media(publication.coverImage.id|default(publication.excerptImage), app.request.locale) %}
-				{% include "includes/common/_card.html.twig" with {
-					url: sulu_content_path(publication.url),
-					image: media,
-					title: publication.excerptTitle|default(publication.title),
-					description: publication.excerptDescription,
-					dataTurboFrame: '_top',
-				} only %}
+				<a href="{{ sulu_content_path(publication.url) }}" data-turbo-frame="_top">
+					<twig:card :image="media">
+						<twig:block name="title">
+							{{ publication.excerptTitle|default(publication.title) }}
+						</twig:block>
+
+						{{ publication.excerptDescription }}
+					</twig:card>
+				</a>
 			{% endfor %}
 		{% endset %}
 	

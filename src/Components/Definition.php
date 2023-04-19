@@ -10,5 +10,16 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent('definition')]
 class Definition
 {
-    public EntityDefinition $definition;
+    public string $title;
+    public string $description;
+
+    public function mount(?EntityDefinition $definition = null): void
+    {
+        if (!$definition instanceof EntityDefinition) {
+            return;
+        }
+
+        $this->title = $definition->getTitle() ?? '';
+        $this->description = $definition->getDescription() ?? '';
+    }
 }

@@ -3,12 +3,12 @@
     class="cursor-pointer text-center text-base font-semibold underline"
     @click="expanded = ! expanded"
   >
-    {{ definition.title }}
+    {{ title }}
   </h1>
   <div
     class="prose dark:prose-invert"
     x-bind:class="expanded ? 'line-clamp-none' : 'line-clamp-3'"
   >
-    {{ definition.description|raw }}
+    {{ description|raw }}
   </div>
 </article>

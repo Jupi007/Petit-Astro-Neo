@@ -2,13 +2,15 @@
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
 		{% set gridItems %}
 			{% for page in content.pages %}
-				{% include "includes/common/_card.html.twig" with {
-					url: sulu_content_path(page.url),
-					image: page.excerpt.images[0]|default(page.coverImage|default),
-					title: page.excerptTitle|default(page.title),
-					description: page.excerptDescription,
-					dataTurboFrame: '_top',
-				} only %}
+				<a href="{{ sulu_content_path(page.url) }}" data-turbo-frame="_top">
+					<twig:card :image="page.excerpt.images[0]|default(page.coverImage|default(null))">
+						<twig:block name="title">
+							{{ page.excerptTitle|default(page.title) }}
+						</twig:block>
+
+						{{ page.excerptDescription }}
+					</twig:card>
+				</a>
 			{% endfor %}
 		{% endset %}
 	

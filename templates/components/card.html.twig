@@ -1,0 +1,31 @@
+{% set defaultClass = 'h-full flex flex-col shadow-fake-border shadow-outline dark:shadow-outline-invert bg-black/2.5 hover:bg-black/5 dark:bg-black/10 dark:hover:bg-white/2.5 transition-colors' %}
+
+<article 
+  {{ attributes.defaults({
+    class: defaultClass
+  }) }}
+>
+  {% set imgClass = 'aspect-video object-cover' %}
+  {% if image %}
+    {{ get_image(image, {
+      src: 'figure',
+      srcset: 'figure@2x 2x',
+      class: imgClass,
+    }) }}
+  {% else %}
+    <img
+      src="{{ asset('build/website/images/NGC_7293.jpg') }}"
+      alt=""
+      class="{{ imgClass }}"
+      loading="lazy"
+    />
+  {% endif %}
+
+  <div class="p-4">
+    <h3 class="font-bold text-lg mb-2">
+      {{ block('title') }}
+    </h3>
+    
+    {{ block('content') }}
+  </div>
+</article>

@@ -50,11 +50,15 @@
         {% if publicationHits|length > 0 %}
           {% set publicationGridContent %}
             {% for publicationHit in publicationHits %}
-              {% include "includes/common/_card.html.twig" with {
-                url: publicationHit.document.url,
-                title: publicationHit.document.title,
-                description: 'app.publication'|trans,
-              } only %}
+              <a href="{{ publicationHit.document.url }}">
+                <twig:card>
+                  <twig:block name="title">
+                    {{ publicationHit.document.title }}
+                  </twig:block>
+
+                  {{ 'app.publication'|trans }}
+                </twig:card>
+              </a>
             {% endfor %}
           {% endset %}
 
@@ -66,7 +70,11 @@
         {% if definitionHits|length > 0 %}
           {% set definitionContent %}
             {% set definitionGridContent %}
-                <twig:definition :definition="definitionHit.document"/>
+              {% for definitionHit in definitionHits %}
+                <twig:definition
+                  :title="definitionHit.document.title"
+                  :description="definitionHit.document.description"
+                />
               {% endfor %}
             {% endset %}
 
@@ -92,12 +100,15 @@
                 'excerptDescription': 'excerpt.description',
               }) %}
               {% if null != page %}
-                {% include "includes/common/_card.html.twig" with {
-                  url: pageHit.document.url,
-                  image: page.content.excerptImages[0]|default(page.content.coverImage|default),
-                  title: page.content.excerptTitle|default(page.content.title),
-                  description: page.content.excerptDescription,
-                } only %}
+                <a href="{{ pageHit.document.url }}">
+                  <twig:card :image="page.content.excerptImages[0]|default(page.content.coverImage|default(null))">
+                    <twig:block name="title">
+                      {{ page.content.excerptTitle|default(page.content.title) }}
+                    </twig:block>
+  
+                    {{ page.content.excerptDescription }}
+                  </twig:card>
+                </a>
               {% endif %}
             {% endfor %}
           {% endset %}

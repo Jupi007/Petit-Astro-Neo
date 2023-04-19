@@ -6,10 +6,9 @@ namespace App\Components;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent('alert')]
-class Alert
+#[AsTwigComponent('card')]
+class Card
 {
-    use ComponentVariantTrait;
-
-    public bool $demissible = false;
+    /** @var object|mixed[]|null */
+    public object|array|null $image = null;
 }
