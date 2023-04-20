@@ -1,24 +1,24 @@
 <turbo-frame id="smart-publications-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
-		{% set gridItems %}
-			{% for publication in content.publications %}
-				{% set media = sulu_resolve_media(publication.coverImage.id|default(publication.excerptImage), app.request.locale) %}
-				<a href="{{ sulu_content_path(publication.url) }}" data-turbo-frame="_top">
-					<twig:card :image="media">
-						<twig:block name="title">
-							{{ publication.excerptTitle|default(publication.title) }}
-						</twig:block>
+		{% embed "includes/common/_card_grid_container.html.twig" with {
+			content: content,
+			id: 'smart-publications-' ~ id,
+		} %}
+			{% block content %}
+				{% for publication in content.publications %}
+					{% set media = sulu_resolve_media(publication.coverImage.id|default(publication.excerptImage), app.request.locale) %}
+					<a href="{{ sulu_content_path(publication.url) }}" data-turbo-frame="_top">
+						<twig:card :image="media">
+							<twig:block name="title">
+								{{ publication.excerptTitle|default(publication.title) }}
+							</twig:block>
 
-						{{ publication.excerptDescription }}
-					</twig:card>
-				</a>
-			{% endfor %}
-		{% endset %}
-	
-		{% include "includes/common/_card_grid_container.html.twig" with {
-			'content': gridItems,
-			'id': 'smart-publications-' ~ id,
-		} only %}
+							{{ publication.excerptDescription }}
+						</twig:card>
+					</a>
+				{% endfor %}
+			{% endblock %}
+		{% endembed %}
 		
 		{% include "includes/common/_smart_content_pagination.html.twig" with {
 			'view': view.publications,

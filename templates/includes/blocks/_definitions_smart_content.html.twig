@@ -12,19 +12,23 @@
       {% endif %}
 
       {% if (definition.title|first|lower != letter or loop.last) and not loop.first %}
-        {% set definitionContent %}
-          {% set definitionGridContent %}
-            {% for item in letterItems %}
-              <twig:definition :definition="item"/>
-            {% endfor %}
-          {% endset %}
+        {% embed "includes/common/_page_container.html.twig" with {
+          letterItems: letterItems,
+        } only %}
+          {% block content %}
+            {% embed "includes/common/_definition_grid.html.twig" with {
+              letterItems: letterItems,
+            } only %}
+              {% block content %}
+                {% for item in letterItems %}
+                  <twig:definition :definition="item"/>
+                {% endfor %}
+              {% endblock %}
+            {% endembed %}
+          {% endblock %}
+        {% endembed %}
 
-          {% include "includes/common/_definition_grid.html.twig" with {
-            'content': definitionGridContent,
-          } only %}
-        {% endset %}
-
-        {% include "includes/common/_page_container.html.twig" with {'content': definitionContent} only %}
+        
         
         {% set letterItems = [] %}
       {% endif %}

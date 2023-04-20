@@ -1,6 +1,10 @@
 <turbo-frame id="smart-pages-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
-		{% set gridItems %}
+		{% embed "includes/common/_card_grid_container.html.twig" with {
+			content: content,
+			id: 'smart-pages-' ~ id,
+		} only %}
+		{% block content %}
 			{% for page in content.pages %}
 				<a href="{{ sulu_content_path(page.url) }}" data-turbo-frame="_top">
 					<twig:card :image="page.excerpt.images[0]|default(page.coverImage|default(null))">
@@ -12,12 +16,8 @@
 					</twig:card>
 				</a>
 			{% endfor %}
-		{% endset %}
-	
-		{% include "includes/common/_card_grid_container.html.twig" with {
-			'content': gridItems,
-			'id': 'smart-pages-' ~ id,
-		} only %}
+			{% endblock %}
+		{% endembed %}
 		
 		{% include "includes/common/_smart_content_pagination.html.twig" with {
 			'view': view.pages,

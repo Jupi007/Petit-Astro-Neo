@@ -8,52 +8,52 @@
 {% block content %}
   {% include "includes/_blocks.html.twig" %}
 
-  {% set typoFormContent %}
-    <turbo-frame id="typo-form">
-      {% if app.request.get('typoSend') != 'true' %}
-        <twig:expandable>
-          <twig:block name="header">
-            <h2 class="m-0 text-end text-base font-semibold underline">
-              {{ 'app.publication_page.report_typo'|trans }}
-            </h2>
-          </twig:block>
-          
-          {{ form(typoForm) }}
-        </twig:expandable>
-      {% else %}
-        <twig:alert variant="success" class="mt-4">
-          {{ 'app.publication_page.typo_thanks'|trans }}
-        </twig:alert>
-      {% endif %}
-    </turbo-frame>
-  {% endset %}
-
-  {% include "includes/common/_page_container.html.twig" with {
-    'content': typoFormContent,
-    'class': 'my-6'
+  {% embed "includes/common/_page_container.html.twig" with {
+    typoForm: typoForm,
+    class: 'my-6',
   } only %}
+    {% block content %}
+      <turbo-frame id="typo-form">
+        {% if app.request.get('typoSend') != 'true' %}
+          <twig:expandable>
+            <twig:block name="header">
+              <h2 class="m-0 text-end text-base font-semibold underline">
+                {{ 'app.publication_page.report_typo'|trans }}
+              </h2>
+            </twig:block>
+            
+            {{ form(typoForm) }}
+          </twig:expandable>
+        {% else %}
+          <twig:alert variant="success" class="mt-4">
+            {{ 'app.publication_page.typo_thanks'|trans }}
+          </twig:alert>
+        {% endif %}
+      </turbo-frame>
+    {% endblock %}
+  {% endembed %}
 
   {% if content.definitions|length > 0 %}
-    {% set lexiconContent %}
-      <h2 class="text-center mb-6 text-2xl font-colombia">
-        {{ 'app.publication_page.lexicon_title'|trans }}
-      </h2>
-      
-      {% set definitionGridContent %}
-        {% for definition in content.definitions %}
-          <twig:definition :definition="definition"/>
-        {% endfor %}
-      {% endset %}
-
-      {% include "includes/common/_definition_grid.html.twig" with {
-        'content': definitionGridContent,
-      } only %}
-    {% endset %}
-
-    {% include "includes/common/_page_container.html.twig" with {
-      'content': lexiconContent,
-      'class': 'my-6 py-6 border-t border-outline dark:border-outline-invert'
+    {% embed "includes/common/_page_container.html.twig" with {
+      content: content,
+      class: 'my-6 py-6 border-t border-outline dark:border-outline-invert',
     } only %}
+      {% block content %}
+        <h2 class="text-center mb-6 text-2xl font-colombia">
+          {{ 'app.publication_page.lexicon_title'|trans }}
+        </h2>
+        
+        {% embed "includes/common/_definition_grid.html.twig" with {
+          content: content,
+        } only %}
+          {% block content %}
+            {% for definition in content.definitions %}
+              <twig:definition :definition="definition"/>
+            {% endfor %}
+          {% endblock %}
+        {% endembed %}
+      {% endblock %}
+    {% endembed %}
   {% endif %}
   
   <div class="border-t border-outline dark:border-outline-invert">

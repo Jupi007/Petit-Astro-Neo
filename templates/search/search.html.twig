@@ -7,30 +7,30 @@
   <turbo-frame id="search-frame" target="_top" data-turbo-action="advance">
     <div
       class="flex flex-col gap-8">
-      {% set searchForm %}
-        <form action="{{ path('sulu_search.website_search') }}"
-              method="GET"
-              data-turbo-frame="search-frame"
-              class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
-          <input name="q"
-                type="text"
-                placeholder="{{ 'app.search_placeholder'|trans }}"
-                value="{{ query }}"
-                class="flex-grow px-6 py-4 bg-transparent outline-none"/>
-          <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
-        </form>
+      {% embed "includes/common/_page_container.html.twig" only %}
+        {% block content %}
+          <form action="{{ path('sulu_search.website_search') }}"
+                method="GET"
+                data-turbo-frame="search-frame"
+                class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
+            <input name="q"
+                  type="text"
+                  placeholder="{{ 'app.search_placeholder'|trans }}"
+                  value="{{ query }}"
+                  class="flex-grow px-6 py-4 bg-transparent outline-none"/>
+            <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
+          </form>
 
-        {% if query != "" %}
-          <h2 class="font-medium italic text-center">
-            {{ 'app.search_result_title'|trans({
-              'results': hits|length,
-              'query': query
-            }) }}
-          </h2>
-        {% endif %}
-      {% endset %}
-
-      {% include "includes/common/_page_container.html.twig" with { 'content': searchForm } only %}
+          {% if query != "" %}
+            <h2 class="font-medium italic text-center">
+              {{ 'app.search_result_title'|trans({
+                'results': hits|length,
+                'query': query
+              }) }}
+            </h2>
+          {% endif %}
+        {% endblock %}
+      {% endembed %}
 
       {% if query != "" and hits|length > 0 %}
         {% set pageHits = [] %}
@@ -48,74 +48,74 @@
         {% endfor %}
 
         {% if publicationHits|length > 0 %}
-          {% set publicationGridContent %}
-            {% for publicationHit in publicationHits %}
-              <a href="{{ publicationHit.document.url }}">
-                <twig:card>
-                  <twig:block name="title">
-                    {{ publicationHit.document.title }}
-                  </twig:block>
-
-                  {{ 'app.publication'|trans }}
-                </twig:card>
-              </a>
-            {% endfor %}
-          {% endset %}
-
-          {% include "includes/common/_card_grid_container.html.twig" with {
-            'content': publicationGridContent,
+          {% embed "includes/common/_card_grid_container.html.twig" with {
+            publicationHits: publicationHits,
           } only %}
+            {% block content %}
+              {% for publicationHit in publicationHits %}
+                <a href="{{ publicationHit.document.url }}">
+                  <twig:card>
+                    <twig:block name="title">
+                      {{ publicationHit.document.title }}
+                    </twig:block>
+
+                    {{ 'app.publication'|trans }}
+                  </twig:card>
+                </a>
+              {% endfor %}
+            {% endblock %}
+          {% endembed %}
         {% endif %}
 
         {% if definitionHits|length > 0 %}
-          {% set definitionContent %}
-            {% set definitionGridContent %}
-              {% for definitionHit in definitionHits %}
-                <twig:definition
-                  :title="definitionHit.document.title"
-                  :description="definitionHit.document.description"
-                />
-              {% endfor %}
-            {% endset %}
-
-            {% include "includes/common/_definition_grid.html.twig" with {
-              'content': definitionGridContent,
-            } only %}
-          {% endset %}
-
-          {% include "includes/common/_page_container.html.twig" with {
-            'content': definitionContent,
-            'class': 'py-4 shadow-fake-border shadow-outline dark:shadow-outline-invert'
+          {% embed "includes/common/_page_container.html.twig" with {
+            definitionHits: definitionHits,
+            class: 'py-4 shadow-fake-border shadow-outline dark:shadow-outline-invert',
           } only %}
+            {% block content %}
+              {% embed "includes/common/_definition_grid.html.twig" with {
+                definitionHits: definitionHits,
+              } only %}
+                {% block content %}
+                  {% for definitionHit in definitionHits %}
+                    <twig:definition
+                      :title="definitionHit.document.title"
+                      :description="definitionHit.document.description"
+                    />
+                  {% endfor %}
+                {% endblock %}
+              {% endembed %}
+            {% endblock %}
+          {% endembed %}
         {% endif %}
 
         {% if pageHits|length > 0 %}
-          {% set pageGridContent %}
-            {% for pageHit in pageHits %}
-              {% set page = sulu_content_load(pageHit.id, {
-                'title': 'title',
-                'coverImage': 'coverImage',
-                'excerptImages': 'excerpt.images',
-                'excerptTitle': 'excerpt.title',
-                'excerptDescription': 'excerpt.description',
-              }) %}
-              {% if null != page %}
-                <a href="{{ pageHit.document.url }}">
-                  <twig:card :image="page.content.excerptImages[0]|default(page.content.coverImage|default(null))">
-                    <twig:block name="title">
-                      {{ page.content.excerptTitle|default(page.content.title) }}
-                    </twig:block>
-  
-                    {{ page.content.excerptDescription }}
-                  </twig:card>
-                </a>
-              {% endif %}
-            {% endfor %}
-          {% endset %}
-
-          {% include "includes/common/_card_grid_container.html.twig" with {
-            'content': pageGridContent,
+          {% embed "includes/common/_card_grid_container.html.twig" with {
+            pageHits: pageHits,
           } only %}
+            {% block content %}
+              {% for pageHit in pageHits %}
+                {% set page = sulu_content_load(pageHit.id, {
+                  'title': 'title',
+                  'coverImage': 'coverImage',
+                  'excerptImages': 'excerpt.images',
+                  'excerptTitle': 'excerpt.title',
+                  'excerptDescription': 'excerpt.description',
+                }) %}
+                {% if null != page %}
+                  <a href="{{ pageHit.document.url }}">
+                    <twig:card :image="page.content.excerptImages[0]|default(page.content.coverImage|default(null))">
+                      <twig:block name="title">
+                        {{ page.content.excerptTitle|default(page.content.title) }}
+                      </twig:block>
+    
+                      {{ page.content.excerptDescription }}
+                    </twig:card>
+                  </a>
+                {% endif %}
+              {% endfor %}
+            {% endblock %}
+          {% endembed %}
         {% endif %}
       {% endif %}
     </div>

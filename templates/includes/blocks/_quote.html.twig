@@ -1,32 +1,38 @@
 <figure>
-	{% set quoteContent %}
-		<blockquote class="px-0 py-4 border-none">
-			{{ content.quote }}
-		</blockquote>
-	{% endset %}
-
-	{{ include("includes/common/_figure_container.html.twig", {
-		'content': include("includes/common/_page_container.html.twig", {
-			'content': quoteContent
-		})
-	}) }}
+	{% embed "includes/common/_figure_container.html.twig" with {
+		content: content,
+	} only %}
+		{% block content %}
+			{% embed "includes/common/_page_container.html.twig" with {
+				content: content,
+			} only %}
+				{% block content %}
+					<blockquote class="px-0 py-4 border-none">
+						{{ content.quote }}
+					</blockquote>
+				{% endblock %}
+			{% endembed %}
+		{% endblock %}
+	{% endembed %}
 
 	{% if content.source or content.sourceLink %}
-		{% set captionContent %}
-			<figcaption>
-				<cite>
-					{% set source = content.source ?? content.sourceLink %}
-					{% if content.sourceLink %}
-						<a href="{{ content.sourceLink }}" {% if view.sourceLink.provider == 'external' %} target="_blank" {% endif %}>
+		{% embed "includes/common/_page_container.html.twig" with {
+			content: content,
+		} only %}
+			{% block content %}
+				<figcaption>
+					<cite>
+						{% set source = content.source ?? content.sourceLink %}
+						{% if content.sourceLink %}
+							<a href="{{ content.sourceLink }}" {% if view.sourceLink.provider == 'external' %} target="_blank" {% endif %}>
+								{{ source }}
+							</a>
+						{% else %}
 							{{ source }}
-						</a>
-					{% else %}
-						{{ source }}
-					{% endif %}
-				</cite>
-			</figcaption>
-		{% endset %}
-
-		{% include "includes/common/_page_container.html.twig" with {'content': captionContent} only %}
+						{% endif %}
+					</cite>
+				</figcaption>
+			{% endblock %}
+		{% endembed %}
 	{% endif %}
 </figure>

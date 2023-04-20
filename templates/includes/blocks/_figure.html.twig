@@ -1,24 +1,26 @@
 <figure>
-	{% set imageContent %}
-		{{ get_image(content.image, {
-			src: 'figure',
-			srcset: 'figure@2x 2x',
-			class: 'max-h-[80vh] w-auto mx-auto my-0'
-		}) }}
-	{% endset %}
-
-	{% include "includes/common/_figure_container.html.twig" with {
-		'content': imageContent,
-		'class': 'p-4 md:p-8'
+	{% embed "includes/common/_figure_container.html.twig" with {
+		content: content,
+		class: 'p-4 md:p-8',
 	} only %}
+		{% block content %}
+			{{ get_image(content.image, {
+				src: 'figure',
+				srcset: 'figure@2x 2x',
+				class: 'max-h-[80vh] w-auto mx-auto my-0'
+			}) }}
+		{% endblock %}
+	{% endembed %}
 
 	{% if content.caption %}
-		{% set captionContent %}
-			<figcaption class="text-center">
-				{{ content.caption }}
-			</figcaption>
-		{% endset %}
-
-		{% include "includes/common/_page_container.html.twig" with {'content': captionContent} only %}
+		{% embed "includes/common/_page_container.html.twig" with {
+			content: content,
+		} only %}
+			{% block content %}
+				<figcaption class="text-center">
+					{{ content.caption }}
+				</figcaption>
+			{% endblock %}
+		{% endembed %}
 	{% endif %}
 </figure>

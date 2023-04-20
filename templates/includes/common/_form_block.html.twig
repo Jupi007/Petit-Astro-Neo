@@ -1,9 +1,11 @@
-{% set formContent %}
-	{{ form_start(form, {attr: {class: 'max-w-lg mx-auto'}}) }}
-	{{ form_end(form) }}
-{% endset %}
-
-{% include "includes/common/_page_container.html.twig" with {
-	'content': formContent,
-	'class': 'my-4'
+{% embed "includes/common/_page_container.html.twig" with {
+	content: content,
+	class: 'my-4',
 } only %}
+	{% block content %}
+		{{ form_start(form, {attr: {class: 'max-w-lg mx-auto'}}) }}
+		{{ form_end(form) }}
+	{% endblock %}
+{% endembed %}
+
+
