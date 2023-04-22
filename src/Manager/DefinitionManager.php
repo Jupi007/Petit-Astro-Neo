@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use App\Entity\Definition;
 use App\Event\Definition\CreatedDefinitionActivityEvent;
 use App\Event\Definition\ModifiedDefinitionActivityEvent;
@@ -13,6 +12,7 @@ use App\Repository\DefinitionRepository;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
+use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
 
 class DefinitionManager
@@ -38,6 +38,7 @@ class DefinitionManager
 
     public function update(Definition $definition, string $routePath): Definition
     {
+        $this->repository->save($definition, flush: true);
         $this->createOrUpdateRoute($definition, $routePath);
         $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
         $this->repository->save($definition, flush: true);
@@ -55,12 +56,11 @@ class DefinitionManager
 
     private function createOrUpdateRoute(Definition $definition, string $routePath): void
     {
-        $this->routeManager->createOrUpdateByAttributes(
-            Definition::class,
-            (string) $definition->getId(),
-            $definition->getLocale(),
-            $routePath,
-        );
+        if (null === $definition->getRoute()) {
+            $this->routeManager->create($definition, $routePath);
+        } else {
+            $this->routeManager->update($definition, $routePath);
+        }
     }
 
     private function removeRoutes(Definition $definition): void
