@@ -6,8 +6,11 @@
     {{ title }}
   </h1>
   <div
-    class="prose dark:prose-invert"
-    x-bind:class="expanded ? 'line-clamp-none' : 'line-clamp-3'"
+    class="prose dark:prose-invert line-clamp-3"
+    x-bind:class="{
+      'line-clamp-none': expanded, 
+      'line-clamp-3': !expanded,
+    }"
   >
     {{ description|raw }}
   </div>
