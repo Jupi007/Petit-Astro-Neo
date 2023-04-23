@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefinitionController extends AbstractController
+class DefinitionWebsiteController extends AbstractController
 {
     use LocalizationsGetterTrait;
 

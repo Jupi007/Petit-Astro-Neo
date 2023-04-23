@@ -18,7 +18,7 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PublicationController extends AbstractHeadlessWebsiteController
+class PublicationWebsiteController extends AbstractHeadlessWebsiteController
 {
     use LocalizationsGetterTrait;
 
