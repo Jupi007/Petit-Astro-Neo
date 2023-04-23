@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Admin\PublicationAdmin;
+use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
 use App\Entity\Publication;
 use App\Manager\PublicationManager;
-use App\Repository\PublicationRepository;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Security\SecuredControllerInterface;
@@ -23,94 +23,127 @@ class PublicationController extends AbstractController implements SecuredControl
 {
     use LocaleGetterTrait;
 
-    public function __construct(
-        private readonly PublicationRepository $publicationRepository,
-        private readonly PublicationManager $publicationManager,
-        private readonly ContentManagerInterface $contentManager,
-    ) {
-    }
-
     public function getSecurityContext(): string
     {
         return PublicationAdmin::SECURITY_CONTEXT;
     }
 
     #[Route(name: 'get_publication_list', methods: ['GET'])]
-    public function getList(Request $request): JsonResponse
-    {
-        $listRepresentation = $this->publicationRepository->createDoctrineListRepresentation(
-            $this->getLocale($request),
+    public function getList(
+        Request $request,
+        DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
+    ): JsonResponse {
+        return $this->json(
+            $doctrineListRepresentationFactory->createDoctrineListRepresentation(
+                Publication::RESOURCE_KEY,
+                parameters: ['locale' => $this->getLocale($request)],
+                includedFields: ['locale', 'ghostLocale'],
+            )->toArray(),
         );
-
-        return $this->json($listRepresentation->toArray());
     }
 
     #[Route(path: '/{id}', name: 'get_publication', methods: ['GET'])]
-    public function get(Publication $publication, Request $request): JsonResponse
-    {
-        $dimensionAttributes = $this->getDimensionAttributes($request);
-
-        return $this->json($this->normalize($publication, $dimensionAttributes));
+    public function get(
+        Publication $publication,
+        Request $request,
+        ContentManagerInterface $contentManager,
+    ): JsonResponse {
+        return $this->json(
+            $this->normalize(
+                $contentManager,
+                $publication,
+                $this->getDimensionAttributes($request),
+            ),
+        );
     }
 
     #[Route(name: 'post_publication', methods: ['POST'])]
-    public function post(Request $request): JsonResponse
-    {
+    public function post(
+        Request $request,
+        PublicationManager $publicationManager,
+        ContentManagerInterface $contentManager,
+    ): JsonResponse {
         $data = $this->getData($request);
         $dimensionAttributes = $this->getDimensionAttributes($request);
 
-        $publication = $this->publicationManager->create($data, $dimensionAttributes);
+        $publication = $publicationManager->create($data, $dimensionAttributes);
 
         if ('publish' === $this->getAction($request)) {
-            $this->publicationManager->publish($publication, $dimensionAttributes);
+            $publicationManager->publish($publication, $dimensionAttributes);
         }
 
         return $this->json(
-            data: $this->normalize($publication, $dimensionAttributes),
+            data: $this->normalize(
+                $contentManager,
+                $publication,
+                $dimensionAttributes,
+            ),
             status: Response::HTTP_CREATED,
         );
     }
 
     #[Route(path: '/{id}', name: 'post_trigger_publication', methods: ['POST'])]
-    public function postTrigger(Publication $publication, Request $request): JsonResponse
-    {
+    public function postTrigger(
+        Publication $publication,
+        Request $request,
+        PublicationManager $publicationManager,
+        ContentManagerInterface $contentManager,
+    ): JsonResponse {
         $dimensionAttributes = $this->getDimensionAttributes($request);
         $action = $this->getAction($request);
 
         match ($action) {
-            'copy-locale' => $this->publicationManager->copyLocale(
+            'copy-locale' => $publicationManager->copyLocale(
                 $publication,
                 (string) $request->query->get('src'),
                 (string) $request->query->get('dest'),
             ),
-            'unpublish' => $this->publicationManager->unpublish($publication, $dimensionAttributes),
-            'remove-draft' => $this->publicationManager->removeDraft($publication, $dimensionAttributes),
-            'notify' => $this->publicationManager->notify($publication),
+            'unpublish' => $publicationManager->unpublish($publication, $dimensionAttributes),
+            'remove-draft' => $publicationManager->removeDraft($publication, $dimensionAttributes),
+            'notify' => $publicationManager->notify($publication),
             default => throw new RestException(\sprintf('Unrecognized action: %s', $action)),
         };
 
-        return $this->json($this->normalize($publication, $dimensionAttributes));
+        return $this->json(
+            $this->normalize(
+                $contentManager,
+                $publication,
+                $dimensionAttributes,
+            ),
+        );
     }
 
     #[Route(path: '/{id}', name: 'put_publication', methods: ['PUT'])]
-    public function put(Publication $publication, Request $request): JsonResponse
-    {
+    public function put(
+        Publication $publication,
+        Request $request,
+        PublicationManager $publicationManager,
+        ContentManagerInterface $contentManager,
+    ): JsonResponse {
         $data = $this->getData($request);
         $dimensionAttributes = $this->getDimensionAttributes($request);
 
-        $this->publicationManager->update($publication, $data, $dimensionAttributes);
+        $publicationManager->update($publication, $data, $dimensionAttributes);
 
         if ('publish' === $this->getAction($request)) {
-            $this->publicationManager->publish($publication, $dimensionAttributes);
+            $publicationManager->publish($publication, $dimensionAttributes);
         }
 
-        return $this->json($this->normalize($publication, $dimensionAttributes));
+        return $this->json(
+            $this->normalize(
+                $contentManager,
+                $publication,
+                $dimensionAttributes,
+            ),
+        );
     }
 
     #[Route(path: '/{id}', name: 'delete_publication', methods: ['DELETE'])]
-    public function delete(Publication $publication): JsonResponse
-    {
-        $this->publicationManager->remove($publication);
+    public function delete(
+        Publication $publication,
+        PublicationManager $publicationManager,
+    ): JsonResponse {
+        $publicationManager->remove($publication);
 
         return $this->json(
             data: null,
@@ -140,10 +173,13 @@ class PublicationController extends AbstractController implements SecuredControl
      *
      * @return mixed[]
      */
-    public function normalize(Publication $publication, array $dimensionAttributes): array
-    {
-        $data = $this->contentManager->normalize(
-            $this->contentManager->resolve($publication, $dimensionAttributes),
+    public function normalize(
+        ContentManagerInterface $contentManager,
+        Publication $publication,
+        array $dimensionAttributes,
+    ): array {
+        $data = $contentManager->normalize(
+            $contentManager->resolve($publication, $dimensionAttributes),
         );
 
         return \array_merge($data, [

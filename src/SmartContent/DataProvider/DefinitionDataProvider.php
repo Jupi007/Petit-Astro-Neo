@@ -6,8 +6,8 @@ namespace App\SmartContent\DataProvider;
 
 use App\Admin\DefinitionAdmin;
 use App\Entity\Definition;
-use App\Repository\DefinitionRepository;
 use App\SmartContent\DataItem\DefinitionDataItem;
+use App\SmartContent\Repository\DefinitionDataProviderRepository;
 use Sulu\Component\Serializer\ArraySerializerInterface;
 use Sulu\Component\SmartContent\Orm\BaseDataProvider;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 class DefinitionDataProvider extends BaseDataProvider
 {
     public function __construct(
-        DefinitionRepository $repository,
+        DefinitionDataProviderRepository $repository,
         ArraySerializerInterface $serializer,
     ) {
         parent::__construct($repository, $serializer);

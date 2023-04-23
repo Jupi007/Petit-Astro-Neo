@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\SmartContent\DataProvider;
 
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use App\Entity\Publication;
 use App\ReferenceStore\PublicationReferenceStore;
-use App\Repository\PublicationDataProviderRepository;
+use App\SmartContent\Repository\PublicationDataProviderRepository;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\TypedFormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\MetadataProviderInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
@@ -18,6 +17,7 @@ use Sulu\Component\SmartContent\Configuration\BuilderInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 #[AutoconfigureTag('sulu.smart_content.data_provider', [
     'alias' => Publication::RESOURCE_KEY,

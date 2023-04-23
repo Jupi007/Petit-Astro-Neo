@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Common\DoctrineListRepresentationFactory;
 use App\Entity\Publication;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 
 /**
  * @extends ServiceEntityRepository<Publication>
@@ -22,7 +20,6 @@ class PublicationRepository extends ServiceEntityRepository
 {
     public function __construct(
         ManagerRegistry $registry,
-        private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ) {
         parent::__construct($registry, Publication::class);
     }
@@ -43,14 +40,5 @@ class PublicationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-    }
-
-    public function createDoctrineListRepresentation(?string $locale): PaginatedRepresentation
-    {
-        return $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
-            Publication::RESOURCE_KEY,
-            parameters: ['locale' => $locale],
-            includedFields: ['locale', 'ghostLocale'],
-        );
     }
 }

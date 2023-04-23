@@ -12,16 +12,13 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 // Heavily inspired by Sulu\Bundle\FormBundle\Controller\FormTokenController
 class FormTokenController extends AbstractController
 {
-    public function __construct(
-        private readonly CsrfTokenManagerInterface $csrfTokenManager,
-    ) {
-    }
-
-    public function tokenAction(Request $request): Response
-    {
+    public function tokenAction(
+        Request $request,
+        CsrfTokenManagerInterface $csrfTokenManager,
+    ): Response {
         /** @var string $formName */
         $formName = $request->attributes->get('form');
-        $csrfToken = $this->csrfTokenManager->getToken($formName)->getValue();
+        $csrfToken = $csrfTokenManager->getToken($formName)->getValue();
 
         if ($request->get('html')) {
             $response = $this->render('form/form_token_input.html.twig', [

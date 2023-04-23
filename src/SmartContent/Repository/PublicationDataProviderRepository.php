@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\SmartContent\Repository;
 
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;

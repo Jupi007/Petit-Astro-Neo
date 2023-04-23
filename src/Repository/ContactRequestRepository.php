@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Common\DoctrineListRepresentationFactory;
 use App\Entity\ContactRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 
 /**
  * @extends ServiceEntityRepository<ContactRequest>
@@ -22,16 +20,8 @@ class ContactRequestRepository extends ServiceEntityRepository
 {
     public function __construct(
         ManagerRegistry $registry,
-        private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ) {
         parent::__construct($registry, ContactRequest::class);
-    }
-
-    public function createDoctrineListRepresentation(): PaginatedRepresentation
-    {
-        return $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
-            ContactRequest::RESOURCE_KEY,
-        );
     }
 
     public function save(ContactRequest $entity, bool $flush = false): void

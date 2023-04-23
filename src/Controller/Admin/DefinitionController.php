@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Admin\DefinitionAdmin;
+use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
 use App\Entity\Api\DefinitionRepresentation;
 use App\Entity\Definition;
 use App\Manager\DefinitionManager;
-use App\Repository\DefinitionRepository;
 use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,25 +22,22 @@ class DefinitionController extends AbstractController implements SecuredControll
 {
     use LocaleGetterTrait;
 
-    public function __construct(
-        private readonly DefinitionManager $manager,
-        private readonly DefinitionRepository $repository,
-    ) {
-    }
-
     public function getSecurityContext(): string
     {
         return DefinitionAdmin::SECURITY_CONTEXT;
     }
 
     #[Route(name: 'get_definition_list', methods: ['GET'])]
-    public function getList(Request $request): JsonResponse
-    {
-        $listRepresentation = $this->repository->createDoctrineListRepresentation(
-            $this->getLocale($request),
+    public function getList(
+        Request $request,
+        DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
+    ): JsonResponse {
+        return $this->json(
+            $doctrineListRepresentationFactory->createDoctrineListRepresentation(
+                Definition::RESOURCE_KEY,
+                parameters: ['locale' => $this->getLocale($request)],
+            ),
         );
-
-        return $this->json($listRepresentation->toArray());
     }
 
     #[Route(path: '/{id}', name: 'get_definition', methods: ['GET'])]
@@ -52,12 +49,14 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(name: 'post_definition', methods: ['POST'])]
-    public function post(Request $request): JsonResponse
-    {
+    public function post(
+        Request $request,
+        DefinitionManager $manager,
+    ): JsonResponse {
         $definition = new Definition();
 
         $this->mapRequestToDefinition($definition, $request);
-        $this->manager->create($definition, $this->getRoutePath($request));
+        $manager->create($definition, $this->getRoutePath($request));
 
         return $this->json(
             data: new DefinitionRepresentation($definition),
@@ -66,10 +65,13 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(path: '/{id}', name: 'put_definition', methods: ['PUT'])]
-    public function put(Definition $definition, Request $request): JsonResponse
-    {
+    public function put(
+        Definition $definition,
+        Request $request,
+        DefinitionManager $manager,
+    ): JsonResponse {
         $this->mapRequestToDefinition($definition, $request);
-        $this->manager->update($definition, $this->getRoutePath($request));
+        $manager->update($definition, $this->getRoutePath($request));
 
         return $this->json(
             new DefinitionRepresentation($definition),
@@ -77,9 +79,11 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(path: '/{id}', name: 'delete_definition', methods: ['DELETE'])]
-    public function delete(Definition $definition): JsonResponse
-    {
-        $this->manager->remove($definition);
+    public function delete(
+        Definition $definition,
+        DefinitionManager $manager,
+    ): JsonResponse {
+        $manager->remove($definition);
 
         return $this->json(
             data: null,

@@ -31,9 +31,6 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     use LocaleGetterTrait;
 
     public function __construct(
-        private readonly NewsletterRegistrationManager $manager,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
         private readonly UserRepositoryInterface $userRepository,
     ) {
     }
@@ -44,9 +41,10 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(name: 'get_newsletter_registration_list', methods: ['GET'])]
-    public function getList(): JsonResponse
-    {
-        $listRepresentation = $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
+    public function getList(
+        DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
+    ): JsonResponse {
+        $listRepresentation = $doctrineListRepresentationFactory->createDoctrineListRepresentation(
             resourceKey: NewsletterRegistration::RESOURCE_KEY,
             itemsCallback: function (array $items) {
                 /** @var User[] */
@@ -84,14 +82,17 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(name: 'post_newsletter_registration', methods: ['POST'])]
-    public function post(Request $request): JsonResponse
-    {
+    public function post(
+        Request $request,
+        NewsletterRegistrationManager $manager,
+        EntityManagerInterface $entityManager,
+    ): JsonResponse {
         /** @var NewsletterRegistrationData */
         $data = $request->toArray();
 
         if (null !== $data['contact']) {
             /** @var User */
-            $user = $this->entityManager->createQueryBuilder()
+            $user = $entityManager->createQueryBuilder()
                 ->select('user')
                 ->from(User::class, 'user')
                 ->where('user.contact = :contactId')
@@ -109,7 +110,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
             );
         }
 
-        $this->manager->create($registration);
+        $manager->create($registration);
 
         return $this->json(
             data: new NewsletterRegistrationRepresentation($registration, $user),
@@ -118,8 +119,11 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(path: '/{id}', name: 'put_newsletter_registration', methods: ['PUT'])]
-    public function put(NewsletterRegistration $registration, Request $request): JsonResponse
-    {
+    public function put(
+        NewsletterRegistration $registration,
+        Request $request,
+        NewsletterRegistrationManager $manager,
+    ): JsonResponse {
         /** @var NewsletterRegistrationData */
         $data = $request->toArray();
 
@@ -129,7 +133,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
             $registration->setLocale($data['locale']);
         }
 
-        $this->manager->update($registration);
+        $manager->update($registration);
 
         return $this->json(
             new NewsletterRegistrationRepresentation($registration, $user),
@@ -137,9 +141,11 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(path: '/{id}', name: 'delete_newsletter_registration', methods: ['DELETE'])]
-    public function delete(NewsletterRegistration $registration): JsonResponse
-    {
-        $this->manager->remove($registration);
+    public function delete(
+        NewsletterRegistration $registration,
+        NewsletterRegistrationManager $manager,
+    ): JsonResponse {
+        $manager->remove($registration);
 
         return $this->json(
             data: null,
