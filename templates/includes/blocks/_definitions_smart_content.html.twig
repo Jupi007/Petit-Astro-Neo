@@ -1,54 +1,49 @@
 {% set titleSort = view.definitions.sortBy == 'translation.title' %}
 
 {% if titleSort %}
-  {% set letter = null %}
-  {% set letterItems = [] %}
+  {% set currentLetterItems = [] %}
+
   <dl class="flex flex-col gap-7">
     {% for definition in content.definitions %}
       {% set definition = definition.resource %}
+      {% set currentLetter = definition.title|first|lower %}
 
-      {% if loop.last %}
-        {% set letterItems = letterItems|merge([definition]) %}
+      {% if not loop.last %}
+        {% set nextLetter = content.definitions[loop.index0 + 1].resource.title|first|lower %}
+      {% else %}
+        {% set nextLetter = null %}
       {% endif %}
 
-      {% if (definition.title|first|lower != letter or loop.last) and not loop.first %}
-        {% embed "includes/common/_page_container.html.twig" with {
-          letterItems: letterItems,
-        } only %}
-          {% block content %}
-            {% embed "includes/common/_definition_grid.html.twig" with {
-              letterItems: letterItems,
-            } only %}
-              {% block content %}
-                {% for item in letterItems %}
-                  <twig:definition :definition="item"/>
-                {% endfor %}
-              {% endblock %}
-            {% endembed %}
-          {% endblock %}
-        {% endembed %}
+      {% set currentLetterItems = currentLetterItems|merge([definition]) %}
 
-        
-        
-        {% set letterItems = [] %}
-      {% endif %}
-
-      {% if definition.title|first|lower != letter %}
-        {% set letter = definition.title|first|lower %}
-        {% if not loop.first %}</div>{% endif %}
-
+      {% if currentLetter != nextLetter %}
         <div class="flex flex-col gap-2">
-        <dt
-          class="shadow-fake-border shadow-outline dark:shadow-outline-invert py-1 px-2 mb-2 bg-black/2.5
-          dark:bg-black/10 text-center text-xl font-bold"
-        >
-          {{ letter|upper }}
-        </dt>
+          <dt
+            class="shadow-fake-border shadow-outline dark:shadow-outline-invert py-1 px-2 mb-2 bg-black/2.5
+            dark:bg-black/10 text-center text-xl font-bold"
+          >
+            {{ currentLetter|upper }}
+          </dt>
+
+          {% embed "includes/common/_page_container.html.twig" with {
+            currentLetterItems: currentLetterItems,
+          } only %}
+            {% block content %}
+              {% embed "includes/common/_definition_grid.html.twig" with {
+                currentLetterItems: currentLetterItems,
+              } only %}
+                {% block content %}
+                  {% for item in currentLetterItems %}
+                    <twig:definition :definition="item"/>
+                  {% endfor %}
+                {% endblock %}
+              {% endembed %}
+            {% endblock %}
+          {% endembed %}
+        </div>
+
+        {% set currentLetterItems = [] %}
       {% endif %}
-
-      {% set letterItems = letterItems|merge([definition]) %}
-
-      {% if loop.last %}</div>{% endif %}
     {% endfor %}
   </dl>
 {% else %}
