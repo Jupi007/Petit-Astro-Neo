@@ -36,7 +36,7 @@ class DefinitionController extends AbstractController implements SecuredControll
             $doctrineListRepresentationFactory->createDoctrineListRepresentation(
                 Definition::RESOURCE_KEY,
                 parameters: ['locale' => $this->getLocale($request)],
-            ),
+            )->toArray(),
         );
     }
 
