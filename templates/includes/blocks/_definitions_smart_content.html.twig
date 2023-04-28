@@ -27,15 +27,13 @@
 
           <twig:page-container>
             <twig:block name="content">
-              {% embed "includes/common/_definition_grid.html.twig" with {
-                currentLetterItems: currentLetterItems,
-              } only %}
-                {% block content %}
+              <twig:definition-grid>
+			          <twig:block name="content">
                   {% for item in currentLetterItems %}
                     <twig:definition :definition="item"/>
                   {% endfor %}
-                {% endblock %}
-              {% endembed %}
+                </twig:block>
+              </twig:definition-grid>
             </twig:block>
           </twig:page-container>
         </div>

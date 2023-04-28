@@ -68,18 +68,16 @@
         {% if definitionHits|length > 0 %}
           <twig:page-container class="py-4 shadow-fake-border shadow-outline dark:shadow-outline-invert">
             <twig:block name="content">
-              {% embed "includes/common/_definition_grid.html.twig" with {
-                definitionHits: definitionHits,
-              } only %}
-                {% block content %}
+              <twig:definition-grid>
+			          <twig:block name="content">
                   {% for definitionHit in definitionHits %}
                     <twig:definition
                       :title="definitionHit.document.title"
                       :description="definitionHit.document.description"
                     />
                   {% endfor %}
-                {% endblock %}
-              {% endembed %}
+                </twig:block>
+              </twig:definition-grid>
             </twig:block>
           </twig:page-container>
         {% endif %}

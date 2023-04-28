@@ -37,15 +37,13 @@
           {{ 'app.publication_page.lexicon_title'|trans }}
         </h2>
         
-        {% embed "includes/common/_definition_grid.html.twig" with {
-          content: content,
-        } only %}
-          {% block content %}
+        <twig:definition-grid>
+          <twig:block name="content">
             {% for definition in content.definitions %}
               <twig:definition :definition="definition"/>
             {% endfor %}
-          {% endblock %}
-        {% endembed %}
+          </twig:block>
+        </twig:definition-grid>
       </twig:block>
     </twig:page-container>
   {% endif %}
