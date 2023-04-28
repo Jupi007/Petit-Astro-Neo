@@ -1,15 +1,13 @@
 <figure>
-	{% embed "includes/common/_figure_container.html.twig" with {
-		content: content,
-	} only %}
-		{% block content %}
+	<twig:figure-container>
+		<twig:block name="content">
 			<twig:page-container>
 				<blockquote class="px-0 py-4 border-none">
 					{{ content.quote }}
 				</blockquote>
 			</twig:page-container>
-		{% endblock %}
-	{% endembed %}
+		</twig:block>
+	</twig:figure-container>
 
 	{% if content.source or content.sourceLink %}
 		<twig:page-container>

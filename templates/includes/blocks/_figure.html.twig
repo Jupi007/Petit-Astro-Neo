@@ -1,16 +1,13 @@
 <figure>
-	{% embed "includes/common/_figure_container.html.twig" with {
-		content: content,
-		class: 'p-4 md:p-8',
-	} only %}
-		{% block content %}
+	<twig:figure-container>
+		<twig:block name="content">
 			{{ get_image(content.image, {
 				src: 'figure',
 				srcset: 'figure@2x 2x',
 				class: 'max-h-[80vh] w-auto mx-auto my-0'
 			}) }}
-		{% endblock %}
-	{% endembed %}
+		</twig:block>
+	</twig:figure-container>
 
 	{% if content.caption %}
 		<twig:page-container>
