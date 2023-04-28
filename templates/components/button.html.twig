@@ -1,4 +1,5 @@
 {% set defaultClass = 'w-fit h-fit inline-block font-medium no-underline border transition-colors' %}
+{% set disabled = attributes.all.disabled is defined and attributes.all.disabled == true %}
 
 {% if small %}
   {% set defaultClass = defaultClass ~ ' text-xs px-3 py-2' %}
@@ -7,9 +8,14 @@
 {% endif %}
 
 {% if variant == 'error' %}
-  {% set defaultClass = defaultClass ~ ' text-red-700 dark:text-red-500 hover:bg-red-500/5 dark:hover:bg-red-500/10' %}
+  {% set defaultClass = defaultClass ~ ' text-red-700 dark:text-red-500' %}
+  {% if not disabled %}
+    {% set defaultClass = defaultClass ~ ' hover:bg-red-500/5 dark:hover:bg-red-500/10' %}
+  {% endif %}
 {% else %}
-  {% set defaultClass = defaultClass ~ ' hover:bg-black/5 dark:hover:bg-white/5' %}
+  {% if not disabled %}
+    {% set defaultClass = defaultClass ~ ' hover:bg-black/5 dark:hover:bg-white/5' %}
+  {% endif %}
 {% endif %}
 
 {% if bordered %}
@@ -22,7 +28,11 @@
   {% set defaultClass = defaultClass ~ ' border-transparent' %}
 {% endif %}
 
-{% if attributes.all.href is defined %}
+{% if disabled %}
+  {% set defaultClass = defaultClass ~ ' opacity-60 select-none cursor-default' %}
+{% endif %}
+
+{% if attributes.all.href is defined and not disabled %}
   <a
     {{ attributes.defaults({
       class: defaultClass
