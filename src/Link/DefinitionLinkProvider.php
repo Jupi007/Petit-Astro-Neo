@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Link;
 
+use App\Common\AdminTranslatorTrait;
 use App\Entity\Definition;
 use App\Repository\DefinitionRepository;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfigurationBuilder;
@@ -17,6 +18,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 ])]
 class DefinitionLinkProvider implements LinkProviderInterface
 {
+    use AdminTranslatorTrait;
+
     public function __construct(
         private readonly TranslatorInterface $translator,
         private readonly DefinitionRepository $definitionRepository,
@@ -26,12 +29,12 @@ class DefinitionLinkProvider implements LinkProviderInterface
     public function getConfiguration()
     {
         return LinkConfigurationBuilder::create()
-            ->setTitle($this->translator->trans('app.admin.definition', [], 'admin'))
+            ->setTitle($this->trans('app.admin.definition'))
             ->setResourceKey(Definition::RESOURCE_KEY)
             ->setListAdapter('table')
             ->setDisplayProperties(['title'])
-            ->setOverlayTitle($this->translator->trans('app.admin.single_definition_selection_overlay_title', [], 'admin'))
-            ->setEmptyText($this->translator->trans('app.admin.no_definition_selection', [], 'admin'))
+            ->setOverlayTitle($this->trans('app.admin.single_definition_selection_overlay_title'))
+            ->setEmptyText($this->trans('app.admin.no_definition_selection'))
             ->setIcon(Definition::RESOURCE_ICON)
             ->getLinkConfiguration();
     }
@@ -57,5 +60,10 @@ class DefinitionLinkProvider implements LinkProviderInterface
             },
             $definitions,
         );
+    }
+
+    protected function getTranslator(): TranslatorInterface
+    {
+        return $this->translator;
     }
 }
