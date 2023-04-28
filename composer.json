@@ -52,7 +52,7 @@
         "scheb/2fa-trusted-device": "^6.1",
         "sulu/comment-bundle": "2.x-dev",
         "sulu/community-bundle": "3.0.x-dev",
-        "sulu/content-bundle": "0.x-dev",
+        "sulu/content-bundle": "0.7.0",
         "sulu/form-bundle": "2.5.x-dev",
         "sulu/headless-bundle": "^0.9.0",
         "sulu/sulu": "2.5.8",

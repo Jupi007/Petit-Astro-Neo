@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80aee337227ac029cc8015a1338fa34f",
+    "content-hash": "b7bab2baf938b29049c9f8ebd8f905d6",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -5894,7 +5894,7 @@
         },
         {
             "name": "sulu/content-bundle",
-            "version": "0.x-dev",
+            "version": "0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sulu/SuluContentBundle.git",
@@ -5964,7 +5964,6 @@
                 "symfony/string": "^4.4 || ^5.4 || ^6.0",
                 "thecodingmachine/phpstan-strict-rules": "^1.0"
             },
-            "default-branch": true,
             "type": "sulu-bundle",
             "extra": {
                 "public-dir": "Tests/Application/public"
@@ -5991,7 +5990,7 @@
             "homepage": "https://github.com/sulu/SuluContentBundle",
             "support": {
                 "issues": "https://github.com/sulu/SuluContentBundle/issues",
-                "source": "https://github.com/sulu/SuluContentBundle/tree/0.x"
+                "source": "https://github.com/sulu/SuluContentBundle/tree/0.7.0"
             },
             "time": "2023-04-17T10:11:03+00:00"
         },
@@ -15837,7 +15836,6 @@
     "stability-flags": {
         "sulu/comment-bundle": 20,
         "sulu/community-bundle": 20,
-        "sulu/content-bundle": 20,
         "sulu/form-bundle": 20,
         "symfony/ux-twig-component": 20
     },
