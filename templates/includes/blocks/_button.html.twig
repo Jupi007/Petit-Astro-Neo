@@ -1,13 +1,9 @@
-{% embed "includes/common/_page_container.html.twig" with {
-	content: content,
-} only %}
-	{% block content %}
+<twig:page-container>
+	<twig:block name="content">
 		<div class="text-end my-5">
 			<twig:button :href="content.url">
 				{{ content.label }}
 			</twig:button>
 		</div>
-	{% endblock %}
-{% endembed %}
-
-
+	</twig:block>
+</twig:page-container>

@@ -7,11 +7,8 @@
   <turbo-frame id="search-frame" target="_top" data-turbo-action="advance">
     <div
       class="flex flex-col gap-8">
-      {% embed "includes/common/_page_container.html.twig" with {
-        query: query,
-        hits: hits,
-      } only %}
-        {% block content %}
+      <twig:page-container>
+        <twig:block name="content">
           <form action="{{ path('sulu_search.website_search') }}"
                 method="GET"
                 data-turbo-frame="search-frame"
@@ -32,8 +29,8 @@
               }) }}
             </h2>
           {% endif %}
-        {% endblock %}
-      {% endembed %}
+        </twig:block>
+      </twig:page-container>
 
       {% if query != "" and hits|length > 0 %}
         {% set pageHits = [] %}
@@ -71,11 +68,8 @@
         {% endif %}
 
         {% if definitionHits|length > 0 %}
-          {% embed "includes/common/_page_container.html.twig" with {
-            definitionHits: definitionHits,
-            class: 'py-4 shadow-fake-border shadow-outline dark:shadow-outline-invert',
-          } only %}
-            {% block content %}
+          <twig:page-container class="py-4 shadow-fake-border shadow-outline dark:shadow-outline-invert">
+            <twig:block name="content">
               {% embed "includes/common/_definition_grid.html.twig" with {
                 definitionHits: definitionHits,
               } only %}
@@ -88,8 +82,8 @@
                   {% endfor %}
                 {% endblock %}
               {% endembed %}
-            {% endblock %}
-          {% endembed %}
+            </twig:block>
+          </twig:page-container>
         {% endif %}
 
         {% if pageHits|length > 0 %}

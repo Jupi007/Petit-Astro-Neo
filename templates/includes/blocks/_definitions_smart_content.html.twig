@@ -25,10 +25,8 @@
             {{ currentLetter|upper }}
           </dt>
 
-          {% embed "includes/common/_page_container.html.twig" with {
-            currentLetterItems: currentLetterItems,
-          } only %}
-            {% block content %}
+          <twig:page-container>
+            <twig:block name="content">
               {% embed "includes/common/_definition_grid.html.twig" with {
                 currentLetterItems: currentLetterItems,
               } only %}
@@ -38,8 +36,8 @@
                   {% endfor %}
                 {% endblock %}
               {% endembed %}
-            {% endblock %}
-          {% endembed %}
+            </twig:block>
+          </twig:page-container>
         </div>
 
         {% set currentLetterItems = [] %}

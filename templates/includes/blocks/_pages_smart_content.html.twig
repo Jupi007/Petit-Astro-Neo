@@ -19,18 +19,14 @@
 			{% endblock %}
 		{% endembed %}
 		
-		{% embed "includes/common/_page_container.html.twig" with {
-			content: content,
-			id: id,
-			view: view,
-		} only %}
-			{% block content %}
+		<twig:page-container>
+			<twig:block name="content">
 				<twig:smart-content-pagination
 					:view="view.pages"
 					:smartContentId="'smart-pages-' ~ id"
 				/>
-			{% endblock %}
-		{% endembed %}
+			</twig:block>
+		</twig:page-container>
 	</div>
 </turbo-frame>
 
