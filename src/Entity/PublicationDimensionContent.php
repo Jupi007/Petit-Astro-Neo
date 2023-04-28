@@ -16,6 +16,8 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateTrait;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceInterface;
@@ -27,7 +29,7 @@ use Sulu\Component\Persistence\Model\AuditableTrait;
 
 /** @implements DimensionContentInterface<Publication> */
 #[ORM\Entity]
-class PublicationDimensionContent implements PersistableEntityInterface, DimensionContentInterface, ExcerptInterface, SeoInterface, TemplateInterface, RoutableInterface, WorkflowInterface, AuditableInterface, WebspaceInterface
+class PublicationDimensionContent implements PersistableEntityInterface, DimensionContentInterface, ExcerptInterface, SeoInterface, TemplateInterface, RoutableInterface, WorkflowInterface, AuditableInterface, WebspaceInterface, ShadowInterface
 {
     use AuditableTrait;
     use DimensionContentTrait;
@@ -35,6 +37,7 @@ class PublicationDimensionContent implements PersistableEntityInterface, Dimensi
     use PersistableEntityTrait;
     use RoutableTrait;
     use SeoTrait;
+    use ShadowTrait;
     use TemplateTrait {
         setTemplateData as parentSetTemplateData;
     }
