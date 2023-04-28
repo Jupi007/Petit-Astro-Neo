@@ -1,10 +1,7 @@
 <turbo-frame id="smart-publications-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
-		{% embed "includes/common/_card_grid_container.html.twig" with {
-			content: content,
-			id: 'smart-publications-' ~ id,
-		} %}
-			{% block content %}
+		<twig:card-grid :id="'smart-publications-' ~ id">
+			<twig:block name="content">
 				{% for publication in content.publications %}
 					{% set media = sulu_resolve_media(publication.coverImage.id|default(publication.excerptImage), app.request.locale) %}
 					<a href="{{ sulu_content_path(publication.url) }}" data-turbo-frame="_top">
@@ -17,8 +14,8 @@
 						</twig:card>
 					</a>
 				{% endfor %}
-			{% endblock %}
-		{% endembed %}
+			</twig:block>
+		</twig:card-grid>
 
 		<twig:page-container>
 			<twig:block name="content">

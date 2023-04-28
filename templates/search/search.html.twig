@@ -48,10 +48,8 @@
         {% endfor %}
 
         {% if publicationHits|length > 0 %}
-          {% embed "includes/common/_card_grid_container.html.twig" with {
-            publicationHits: publicationHits,
-          } only %}
-            {% block content %}
+          <twig:card-grid>
+            <twig:block name="content">
               {% for publicationHit in publicationHits %}
                 <a href="{{ publicationHit.document.url }}">
                   <twig:card>
@@ -63,8 +61,8 @@
                   </twig:card>
                 </a>
               {% endfor %}
-            {% endblock %}
-          {% endembed %}
+            </twig:block>
+          </twig:card-grid>
         {% endif %}
 
         {% if definitionHits|length > 0 %}
@@ -87,10 +85,8 @@
         {% endif %}
 
         {% if pageHits|length > 0 %}
-          {% embed "includes/common/_card_grid_container.html.twig" with {
-            pageHits: pageHits,
-          } only %}
-            {% block content %}
+          <twig:card-grid>
+            <twig:block name="content">
               {% for pageHit in pageHits %}
                 {% set page = sulu_content_load(pageHit.id, {
                   'title': 'title',
@@ -111,8 +107,8 @@
                   </a>
                 {% endif %}
               {% endfor %}
-            {% endblock %}
-          {% endembed %}
+            </twig:block>
+          </twig:card-grid>
         {% endif %}
       {% endif %}
     </div>

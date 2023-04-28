@@ -1,23 +1,20 @@
 <turbo-frame id="smart-pages-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
-		{% embed "includes/common/_card_grid_container.html.twig" with {
-			content: content,
-			id: 'smart-pages-' ~ id,
-		} only %}
-		{% block content %}
-			{% for page in content.pages %}
-				<a href="{{ sulu_content_path(page.url) }}" data-turbo-frame="_top">
-					<twig:card :image="page.excerpt.images[0]|default(page.coverImage|default(null))">
-						<twig:block name="title">
-							{{ page.excerptTitle|default(page.title) }}
-						</twig:block>
+		<twig:card-grid :id="'smart-pages-' ~ id">
+			<twig:block name="content">
+				{% for page in content.pages %}
+					<a href="{{ sulu_content_path(page.url) }}" data-turbo-frame="_top">
+						<twig:card :image="page.excerpt.images[0]|default(page.coverImage|default(null))">
+							<twig:block name="title">
+								{{ page.excerptTitle|default(page.title) }}
+							</twig:block>
 
-						{{ page.excerptDescription }}
-					</twig:card>
-				</a>
-			{% endfor %}
-			{% endblock %}
-		{% endembed %}
+							{{ page.excerptDescription }}
+						</twig:card>
+					</a>
+				{% endfor %}
+			</twig:block>
+		</twig:card-grid>
 		
 		<twig:page-container>
 			<twig:block name="content">

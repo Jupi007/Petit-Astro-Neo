@@ -1,11 +1,7 @@
 <turbo-frame id="smart-media-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
-
-		{% embed "includes/common/_card_grid_container.html.twig" with {
-			content: content,
-			id: 'smart-media-' ~ id,
-		} only %}
-			{% block content %}
+		<twig:card-grid :id="'smart-media-' ~ id">
+			<twig:block name="content">
 				{% for media in content.media %}
 					<div
 						x-data="{ fullscreen: false }"
@@ -37,8 +33,8 @@
 						</template>
 					</div>
 				{% endfor %}
-			{% endblock %}
-		{% endembed %}
+			</twig:block>
+		</twig:card-grid>
 
 		<twig:page-container>
 			<twig:block name="content">
