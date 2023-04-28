@@ -39,11 +39,18 @@
 				{% endfor %}
 			{% endblock %}
 		{% endembed %}
-		
-		{% include "includes/common/_smart_content_pagination.html.twig" with {
-			'view': view.media,
-			'rootPath': sulu_content_path(parentContent.url),
-			'id': 'smart-media-' ~ id,
+
+		{% embed "includes/common/_page_container.html.twig" with {
+			content: content,
+			id: id,
+			view: view,
 		} only %}
+			{% block content %}
+				<twig:smart-content-pagination
+					:view="view.media"
+					:smartContentId="'smart-media-' ~ id"
+				/>
+			{% endblock %}
+		{% endembed %}
 	</div>	
 </turbo-frame>

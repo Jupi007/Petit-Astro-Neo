@@ -1,0 +1,31 @@
+{% set currentPageIndex = view.page %}
+
+{% set defaultClass = 'flex flex-row mt-5' %}
+{% set defaultId = smartContentId ~ '-pagination' %}
+	
+<div
+  {{ attributes.defaults({
+    class: defaultClass,
+    id: defaultId,
+  }) }}
+>
+  <div class="w-full text-start">
+    <twig:button
+      :href="app.request.pathinfo ~ '?p=' ~ (currentPageIndex - 1) ~ '#' ~ smartContentId ~ '-pagination'"
+      :disabled="currentPageIndex - 1 < 1"
+      small
+    >
+      &laquo; {{ 'app.previous_page'|trans }}
+    </twig:button>
+  </div>
+
+  <div class="w-full text-end">
+    <twig:button
+      :href="app.request.pathinfo ~ '?p=' ~ (currentPageIndex + 1) ~ '#' ~ smartContentId"
+      :disabled="not view.hasNextPage"
+      small
+    >
+      {{ 'app.next_page'|trans }} &raquo;
+    </twig:button>
+  </div>
+</div>
