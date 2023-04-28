@@ -1,3 +1,6 @@
-{% include "includes/common/_form_block.html.twig" with {
-	'form': _parent.contactForm,
-} only %}
+<twig:page-container class="my-4">
+	<twig:block name="content">
+		{{ form_start(_parent.contactForm, {attr: {class: 'max-w-lg mx-auto'}}) }}
+		{{ form_end(_parent.contactForm) }}
+	</twig:block>
+</twig:page-container>
