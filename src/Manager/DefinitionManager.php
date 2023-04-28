@@ -30,6 +30,7 @@ class DefinitionManager
 
         $this->createOrUpdateRoute($definition);
         $this->domainEventCollector->collect(new CreatedDefinitionActivityEvent($definition));
+        $this->repository->save($definition, flush: true);
 
         return $definition;
     }
