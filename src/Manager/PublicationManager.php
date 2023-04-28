@@ -15,7 +15,6 @@ use App\Event\Publication\RemovedPublicationActivityEvent;
 use App\Event\Publication\TranslationCopiedPublicationActivityEvent;
 use App\Event\Publication\UnpublishedPublicationActivityEvent;
 use App\Repository\PublicationRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
@@ -57,7 +56,6 @@ class PublicationManager
     {
         /** @var PublicationDimensionContent $dimensionContent */
         $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
-        $this->domainEventCollector->collect(new ModifiedPublicationActivityEvent($publication));
 
         if (WorkflowInterface::WORKFLOW_PLACE_PUBLISHED === $dimensionContent->getWorkflowPlace()) {
             $dimensionContent = $this->contentManager->applyTransition(
@@ -65,12 +63,12 @@ class PublicationManager
                 $dimensionAttributes,
                 WorkflowInterface::WORKFLOW_TRANSITION_CREATE_DRAFT,
             );
-            $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
         }
 
-        $this->publicationRepository->save($publication, flush: true);
-
         $this->contentIndexer->indexDimensionContent($dimensionContent);
+
+        $this->domainEventCollector->collect(new ModifiedPublicationActivityEvent($publication));
+        $this->publicationRepository->save($publication, flush: true);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -82,10 +80,13 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_PUBLISH,
         );
 
+        $this->contentIndexer->index($publication, [
+            ...$dimensionAttributes,
+            'stage' => DimensionContentInterface::STAGE_LIVE,
+        ]);
+
         $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
         $this->publicationRepository->save($publication, flush: true);
-
-        $this->contentIndexer->index($publication, [...$dimensionAttributes, 'stage' => DimensionContentInterface::STAGE_LIVE]);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -101,7 +102,10 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_UNPUBLISH,
         );
 
-        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId(), [...$dimensionAttributes, 'stage' => DimensionContentInterface::STAGE_LIVE]);
+        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId(), [
+            ...$dimensionAttributes,
+            'stage' => DimensionContentInterface::STAGE_LIVE,
+        ]);
 
         $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
         $this->publicationRepository->save($publication, flush: true);
@@ -143,10 +147,10 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_REMOVE_DRAFT,
         );
 
+        $this->contentIndexer->indexDimensionContent($dimensionContent);
+
         $this->domainEventCollector->collect(new DraftRemovedPublicationActivityEvent($publication));
         $this->publicationRepository->save($publication, flush: true);
-
-        $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
 
     public function remove(Publication $publication): void
