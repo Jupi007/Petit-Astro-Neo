@@ -54,7 +54,7 @@ class DefinitionManager
 
     private function createOrUpdateRoute(Definition $definition): void
     {
-        if (null === $definition->getRoute()) {
+        if (!$definition->getRoute() instanceof RouteInterface) {
             $this->routeManager->create($definition, $definition->getRoutePath());
         }
 
