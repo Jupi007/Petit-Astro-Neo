@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Contract\PersistableEntityInterface;
+use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\ContactRequestRepository;
 use Doctrine\DBAL\Types\Types;
@@ -13,7 +14,7 @@ use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 
 #[ORM\Entity(repositoryClass: ContactRequestRepository::class)]
-class ContactRequest implements PersistableEntityInterface, AuditableInterface
+class ContactRequest implements PersistableEntityInterface, AuditableInterface, TrashableEntityInterface
 {
     use AuditableTrait;
     use PersistableEntityTrait;
@@ -29,6 +30,11 @@ class ContactRequest implements PersistableEntityInterface, AuditableInterface
         #[ORM\Column(type: Types::TEXT)]
         private string $message,
     ) {
+    }
+
+    public static function getResourceKey(): string
+    {
+        return self::RESOURCE_KEY;
     }
 
     public function getId(): ?int

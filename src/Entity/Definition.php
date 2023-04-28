@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Contract\LocalizableInterface;
 use App\Entity\Contract\PersistableEntityInterface;
+use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\LocalizableTrait;
 use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\DefinitionRepository;
@@ -17,7 +18,7 @@ use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
 #[ORM\Entity(repositoryClass: DefinitionRepository::class)]
-class Definition implements PersistableEntityInterface, LocalizableInterface, RoutableInterface
+class Definition implements PersistableEntityInterface, LocalizableInterface, RoutableInterface, TrashableEntityInterface
 {
     /** @use LocalizableTrait<DefinitionTranslation> */
     use LocalizableTrait;
@@ -39,6 +40,11 @@ class Definition implements PersistableEntityInterface, LocalizableInterface, Ro
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+    }
+
+    public static function getResourceKey(): string
+    {
+        return self::RESOURCE_KEY;
     }
 
     private function createTranslation(): DefinitionTranslation
@@ -126,6 +132,18 @@ class Definition implements PersistableEntityInterface, LocalizableInterface, Ro
     public function setRoute(RouteInterface $route): self
     {
         $this->getTranslation(createIfNull: true)->setRoute($route);
+
+        return $this;
+    }
+
+    public function getRoutePath(): ?string
+    {
+        return $this->getTranslation()?->getRoutePath();
+    }
+
+    public function setRoutePath(string $route): self
+    {
+        $this->getTranslation(createIfNull: true)->setRoutePath($route);
 
         return $this;
     }

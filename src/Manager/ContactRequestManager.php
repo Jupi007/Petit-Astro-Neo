@@ -10,17 +10,13 @@ use App\Event\ContactRequest\ModifiedContactRequestActivityEvent;
 use App\Event\ContactRequest\RemovedContactRequestActivityEvent;
 use App\Repository\ContactRequestRepository;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
-use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class ContactRequestManager
 {
     public function __construct(
         private readonly ContactRequestRepository $repository,
         private readonly DomainEventCollectorInterface $domainEventCollector,
-        #[Autowire('%sulu.context%')]
         private readonly string $suluContext,
-        private readonly TrashManagerInterface $trashManager,
     ) {
     }
 
@@ -48,8 +44,6 @@ class ContactRequestManager
 
     public function remove(ContactRequest $request): void
     {
-        $this->trashManager->store(ContactRequest::RESOURCE_KEY, $request);
-
         if ('admin' === $this->suluContext) {
             $this->domainEventCollector->collect(new RemovedContactRequestActivityEvent($request));
         }

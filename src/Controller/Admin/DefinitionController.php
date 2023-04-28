@@ -55,8 +55,8 @@ class DefinitionController extends AbstractController implements SecuredControll
     ): JsonResponse {
         $definition = new Definition();
 
-        $this->mapRequestToDefinition($definition, $request);
-        $manager->create($definition, $this->getRoutePath($request));
+        $this->updateDefinition($definition, $request);
+        $manager->create($definition);
 
         return $this->json(
             data: new DefinitionRepresentation($definition),
@@ -70,8 +70,8 @@ class DefinitionController extends AbstractController implements SecuredControll
         Request $request,
         DefinitionManager $manager,
     ): JsonResponse {
-        $this->mapRequestToDefinition($definition, $request);
-        $manager->update($definition, $this->getRoutePath($request));
+        $this->updateDefinition($definition, $request);
+        $manager->update($definition);
 
         return $this->json(
             new DefinitionRepresentation($definition),
@@ -91,27 +91,19 @@ class DefinitionController extends AbstractController implements SecuredControll
         );
     }
 
-    private function mapRequestToDefinition(Definition $definition, Request $request): void
+    private function updateDefinition(Definition $definition, Request $request): void
     {
         /** @var array{
          *   title: string|null,
          *   description: string|null,
+         *   routePath: string|null,
          * } */
         $data = $request->toArray();
 
         $definition
             ->setLocale($this->getLocale($request))
             ->setTitle($data['title'] ?? '')
-            ->setDescription($data['description'] ?? '');
-    }
-
-    private function getRoutePath(Request $request): string
-    {
-        /** @var array{
-         *   routePath: string|null,
-         * } */
-        $data = $request->toArray();
-
-        return $data['routePath'] ?? '';
+            ->setDescription($data['description'] ?? '')
+            ->setRoutePath($data['routePath'] ?? '');
     }
 }

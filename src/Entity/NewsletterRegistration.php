@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Contract\PersistableEntityInterface;
+use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\NewsletterRegistrationRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +17,7 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NewsletterRegistrationRepository::class)]
-class NewsletterRegistration implements PersistableEntityInterface, AuditableInterface
+class NewsletterRegistration implements PersistableEntityInterface, AuditableInterface, TrashableEntityInterface
 {
     use AuditableTrait;
     use PersistableEntityTrait;
@@ -37,6 +38,11 @@ class NewsletterRegistration implements PersistableEntityInterface, AuditableInt
         private string $locale,
     ) {
         $this->uuid = Uuid::v4();
+    }
+
+    public static function getResourceKey(): string
+    {
+        return self::RESOURCE_KEY;
     }
 
     public static function fromUser(User $user): self

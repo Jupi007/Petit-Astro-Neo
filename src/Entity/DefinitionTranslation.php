@@ -30,6 +30,8 @@ class DefinitionTranslation implements PersistableEntityInterface, TranslationIn
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?RouteInterface $route = null;
 
+    private ?string $routePath = null;
+
     public function __construct(
         #[ORM\ManyToOne(targetEntity: Definition::class, inversedBy: 'translations')]
         #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
@@ -81,6 +83,18 @@ class DefinitionTranslation implements PersistableEntityInterface, TranslationIn
     public function setRoute(RouteInterface $route): self
     {
         $this->route = $route;
+
+        return $this;
+    }
+
+    public function getRoutePath(): ?string
+    {
+        return $this->routePath;
+    }
+
+    public function setRoutePath(?string $routePath): self
+    {
+        $this->routePath = $routePath;
 
         return $this;
     }

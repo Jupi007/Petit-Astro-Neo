@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Contract\PersistableEntityInterface;
+use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\PublicationTypoRepository;
 use Doctrine\DBAL\Types\Types;
@@ -13,7 +14,7 @@ use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 
 #[ORM\Entity(repositoryClass: PublicationTypoRepository::class)]
-class PublicationTypo implements PersistableEntityInterface, AuditableInterface
+class PublicationTypo implements PersistableEntityInterface, AuditableInterface, TrashableEntityInterface
 {
     use AuditableTrait;
     use PersistableEntityTrait;
@@ -29,6 +30,11 @@ class PublicationTypo implements PersistableEntityInterface, AuditableInterface
         #[ORM\JoinColumn(nullable: false)]
         private Publication $publication,
     ) {
+    }
+
+    public static function getResourceKey(): string
+    {
+        return self::RESOURCE_KEY;
     }
 
     public function getDescription(): ?string

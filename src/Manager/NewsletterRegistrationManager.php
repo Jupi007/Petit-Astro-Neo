@@ -11,17 +11,13 @@ use App\Event\NewsletterRegistration\RemovedNewsletterRegistrationActivityEvent;
 use App\Exception\NewsletterRegistrationEmailNotUniqueException;
 use App\Repository\NewsletterRegistrationRepository;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
-use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class NewsletterRegistrationManager
 {
     public function __construct(
         private readonly NewsletterRegistrationRepository $repository,
         private readonly DomainEventCollectorInterface $domainEventCollector,
-        #[Autowire('%sulu.context%')]
         private readonly string $suluContext,
-        private readonly TrashManagerInterface $trashManager,
     ) {
     }
 
@@ -53,7 +49,6 @@ class NewsletterRegistrationManager
 
     public function remove(NewsletterRegistration $registration): void
     {
-        $this->trashManager->store(NewsletterRegistration::RESOURCE_KEY, $registration);
         if ('admin' === $this->suluContext) {
             $this->domainEventCollector->collect(new RemovedNewsletterRegistrationActivityEvent($registration));
         }

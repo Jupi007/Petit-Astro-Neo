@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Contract\PersistableEntityInterface;
+use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use App\Repository\PublicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,7 +17,7 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityTrait;
 
 /** @implements ContentRichEntityInterface<PublicationDimensionContent> */
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
-class Publication implements PersistableEntityInterface, ContentRichEntityInterface
+class Publication implements PersistableEntityInterface, ContentRichEntityInterface, TrashableEntityInterface
 {
     /** @template-use ContentRichEntityTrait<PublicationDimensionContent> */
     use ContentRichEntityTrait;
@@ -51,6 +52,11 @@ class Publication implements PersistableEntityInterface, ContentRichEntityInterf
     {
         $this->dimensionContents = new ArrayCollection();
         $this->typos = new ArrayCollection();
+    }
+
+    public static function getResourceKey(): string
+    {
+        return self::RESOURCE_KEY;
     }
 
     public function createDimensionContent(): PublicationDimensionContent
