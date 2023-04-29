@@ -65,10 +65,10 @@ class PublicationManager
             );
         }
 
-        $this->contentIndexer->indexDimensionContent($dimensionContent);
-
         $this->domainEventCollector->collect(new ModifiedPublicationActivityEvent($publication));
         $this->publicationRepository->save($publication, flush: true);
+
+        $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -80,13 +80,13 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_PUBLISH,
         );
 
+        $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
+        $this->publicationRepository->save($publication, flush: true);
+
         $this->contentIndexer->index($publication, [
             ...$dimensionAttributes,
             'stage' => DimensionContentInterface::STAGE_LIVE,
         ]);
-
-        $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication, flush: true);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -102,13 +102,13 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_UNPUBLISH,
         );
 
+        $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
+        $this->publicationRepository->save($publication, flush: true);
+
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId(), [
             ...$dimensionAttributes,
             'stage' => DimensionContentInterface::STAGE_LIVE,
         ]);
-
-        $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication, flush: true);
     }
 
     public function notify(Publication $publication): void
@@ -147,10 +147,10 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_REMOVE_DRAFT,
         );
 
-        $this->contentIndexer->indexDimensionContent($dimensionContent);
-
         $this->domainEventCollector->collect(new DraftRemovedPublicationActivityEvent($publication));
         $this->publicationRepository->save($publication, flush: true);
+
+        $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
 
     public function remove(Publication $publication): void
@@ -159,9 +159,9 @@ class PublicationManager
             throw new \LogicException('You cannot remove a non-persisted publication.');
         }
 
-        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
-
         $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
         $this->publicationRepository->remove($publication, flush: true);
+
+        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
     }
 }
