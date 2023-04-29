@@ -105,7 +105,7 @@ class PublicationManager
         $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
         $this->publicationRepository->save($publication, flush: true);
 
-        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId(), [
+        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId(), [
             ...$dimensionAttributes,
             'stage' => DimensionContentInterface::STAGE_LIVE,
         ]);
@@ -162,6 +162,6 @@ class PublicationManager
         $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
         $this->publicationRepository->remove($publication, flush: true);
 
-        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, $publication->getId());
+        $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId());
     }
 }
