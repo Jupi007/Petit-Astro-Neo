@@ -27,7 +27,7 @@ class PublicationTypoController extends AbstractController implements SecuredCon
     }
 
     #[Route(name: 'get_publication_typo_list', methods: ['GET'])]
-    public function getList(
+    public function getListAction(
         Request $request,
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ): JsonResponse {
@@ -43,13 +43,13 @@ class PublicationTypoController extends AbstractController implements SecuredCon
     }
 
     #[Route(path: '/{id}', name: 'get_publication_typo', methods: ['GET'])]
-    public function get(PublicationTypo $publicationTypo): JsonResponse
+    public function getAction(PublicationTypo $publicationTypo): JsonResponse
     {
         return $this->json($publicationTypo);
     }
 
     #[Route(path: '/{id}', name: 'delete_publication_typo', methods: ['DELETE'])]
-    public function delete(
+    public function deleteAction(
         PublicationTypo $publicationTypo,
         PublicationTypoManager $manager,
     ): JsonResponse {

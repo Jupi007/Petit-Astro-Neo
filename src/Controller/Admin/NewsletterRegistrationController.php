@@ -41,7 +41,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(name: 'get_newsletter_registration_list', methods: ['GET'])]
-    public function getList(
+    public function getListAction(
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ): JsonResponse {
         $listRepresentation = $doctrineListRepresentationFactory->createDoctrineListRepresentation(
@@ -72,7 +72,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(path: '/{id}', name: 'get_newsletter_registration', methods: ['GET'])]
-    public function get(NewsletterRegistration $registration): JsonResponse
+    public function getAction(NewsletterRegistration $registration): JsonResponse
     {
         $user = $this->findOneUserByEmail($registration->getEmail());
 
@@ -82,7 +82,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(name: 'post_newsletter_registration', methods: ['POST'])]
-    public function post(
+    public function postAction(
         Request $request,
         NewsletterRegistrationManager $manager,
         EntityManagerInterface $entityManager,
@@ -119,7 +119,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(path: '/{id}', name: 'put_newsletter_registration', methods: ['PUT'])]
-    public function put(
+    public function putAction(
         NewsletterRegistration $registration,
         Request $request,
         NewsletterRegistrationManager $manager,
@@ -141,7 +141,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     }
 
     #[Route(path: '/{id}', name: 'delete_newsletter_registration', methods: ['DELETE'])]
-    public function delete(
+    public function deleteAction(
         NewsletterRegistration $registration,
         NewsletterRegistrationManager $manager,
     ): JsonResponse {

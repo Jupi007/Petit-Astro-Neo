@@ -26,7 +26,7 @@ class ContactRequestController extends AbstractController implements SecuredCont
     }
 
     #[Route(name: 'get_contact_request_list', methods: ['GET'])]
-    public function getList(
+    public function getListAction(
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ): JsonResponse {
         return $this->json(
@@ -37,13 +37,13 @@ class ContactRequestController extends AbstractController implements SecuredCont
     }
 
     #[Route(path: '/{id}', name: 'get_contact_request', methods: ['GET'])]
-    public function get(ContactRequest $publicationTypo): JsonResponse
+    public function getAction(ContactRequest $publicationTypo): JsonResponse
     {
         return $this->json($publicationTypo);
     }
 
     #[Route(path: '/{id}', name: 'delete_contact_request', methods: ['DELETE'])]
-    public function delete(
+    public function deleteAction(
         ContactRequest $publicationTypo,
         ContactRequestManager $manager,
     ): JsonResponse {

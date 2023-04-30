@@ -28,7 +28,7 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(name: 'get_definition_list', methods: ['GET'])]
-    public function getList(
+    public function getListAction(
         Request $request,
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ): JsonResponse {
@@ -41,7 +41,7 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(path: '/{id}', name: 'get_definition', methods: ['GET'])]
-    public function get(Definition $definition): JsonResponse
+    public function getAction(Definition $definition): JsonResponse
     {
         return $this->json(
             new DefinitionRepresentation($definition),
@@ -49,7 +49,7 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(name: 'post_definition', methods: ['POST'])]
-    public function post(
+    public function postAction(
         Request $request,
         DefinitionManager $manager,
     ): JsonResponse {
@@ -65,7 +65,7 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(path: '/{id}', name: 'put_definition', methods: ['PUT'])]
-    public function put(
+    public function putAction(
         Definition $definition,
         Request $request,
         DefinitionManager $manager,
@@ -79,7 +79,7 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(path: '/{id}', name: 'delete_definition', methods: ['DELETE'])]
-    public function delete(
+    public function deleteAction(
         Definition $definition,
         DefinitionManager $manager,
     ): JsonResponse {

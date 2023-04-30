@@ -29,7 +29,7 @@ class PublicationController extends AbstractController implements SecuredControl
     }
 
     #[Route(name: 'get_publication_list', methods: ['GET'])]
-    public function getList(
+    public function getListAction(
         Request $request,
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
     ): JsonResponse {
@@ -43,7 +43,7 @@ class PublicationController extends AbstractController implements SecuredControl
     }
 
     #[Route(path: '/{id}', name: 'get_publication', methods: ['GET'])]
-    public function get(
+    public function getAction(
         Publication $publication,
         Request $request,
         ContentManagerInterface $contentManager,
@@ -58,7 +58,7 @@ class PublicationController extends AbstractController implements SecuredControl
     }
 
     #[Route(name: 'post_publication', methods: ['POST'])]
-    public function post(
+    public function postAction(
         Request $request,
         PublicationManager $publicationManager,
         ContentManagerInterface $contentManager,
@@ -68,7 +68,7 @@ class PublicationController extends AbstractController implements SecuredControl
 
         $publication = $publicationManager->create($data, $dimensionAttributes);
 
-        if ('publish' === $this->getAction($request)) {
+        if ('publish' === $this->getRequestAction($request)) {
             $publicationManager->publish($publication, $dimensionAttributes);
         }
 
@@ -83,14 +83,14 @@ class PublicationController extends AbstractController implements SecuredControl
     }
 
     #[Route(path: '/{id}', name: 'post_trigger_publication', methods: ['POST'])]
-    public function postTrigger(
+    public function postTriggerAction(
         Publication $publication,
         Request $request,
         PublicationManager $publicationManager,
         ContentManagerInterface $contentManager,
     ): JsonResponse {
         $dimensionAttributes = $this->getDimensionAttributes($request);
-        $action = $this->getAction($request);
+        $action = $this->getRequestAction($request);
 
         match ($action) {
             'copy-locale' => $publicationManager->copyLocale(
@@ -114,7 +114,7 @@ class PublicationController extends AbstractController implements SecuredControl
     }
 
     #[Route(path: '/{id}', name: 'put_publication', methods: ['PUT'])]
-    public function put(
+    public function putAction(
         Publication $publication,
         Request $request,
         PublicationManager $publicationManager,
@@ -125,7 +125,7 @@ class PublicationController extends AbstractController implements SecuredControl
 
         $publicationManager->update($publication, $data, $dimensionAttributes);
 
-        if ('publish' === $this->getAction($request)) {
+        if ('publish' === $this->getRequestAction($request)) {
             $publicationManager->publish($publication, $dimensionAttributes);
         }
 
@@ -139,7 +139,7 @@ class PublicationController extends AbstractController implements SecuredControl
     }
 
     #[Route(path: '/{id}', name: 'delete_publication', methods: ['DELETE'])]
-    public function delete(
+    public function deleteAction(
         Publication $publication,
         PublicationManager $publicationManager,
     ): JsonResponse {
@@ -163,7 +163,7 @@ class PublicationController extends AbstractController implements SecuredControl
         return $request->request->all();
     }
 
-    private function getAction(Request $request): ?string
+    private function getRequestAction(Request $request): ?string
     {
         return $request->query->get('action', null);
     }
