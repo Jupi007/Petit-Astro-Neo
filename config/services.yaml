@@ -26,6 +26,10 @@ services:
       tags:
         - "massive_search.metadata.provider"
 
+  # Extended sulu MaskConverter with custol permission types
+  sulu_security.mask_converter:
+    class: App\Security\MaskConverter
+
   Sulu\Twig\Extensions\ImageExtension:
     arguments:
       $defaultAttributes:

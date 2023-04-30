@@ -7,13 +7,14 @@ namespace App\Controller\Admin;
 use App\Admin\NewsletterRegistrationAdmin;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
+use App\Controller\Trait\RequestActionGetterTrait;
 use App\Entity\Api\NewsletterRegistrationRepresentation;
 use App\Entity\NewsletterRegistration;
 use App\Manager\NewsletterRegistrationManager;
+use App\Security\SecuredControllerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
-use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class NewsletterRegistrationController extends AbstractController implements SecuredControllerInterface
 {
     use LocaleGetterTrait;
+    use RequestActionGetterTrait;
 
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,

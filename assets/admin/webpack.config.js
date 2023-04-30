@@ -14,5 +14,9 @@ module.exports = (env, argv) => {
     const config = webpackConfig(env, argv);
     config.entry = path.resolve(__dirname, 'index.js');
 
+    /* extends security action icons with custom ones of project */
+    const actionIconJsPath = path.resolve(env.node_modules_path, 'sulu-security-bundle/utils/Permission/getActionIcon.js');
+    config.resolve.alias[actionIconJsPath] = path.resolve(__dirname, 'js-overwrites/getActionIcon.js');
+
     return config;
 };

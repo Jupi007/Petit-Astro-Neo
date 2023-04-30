@@ -7,9 +7,10 @@ namespace App\Controller\Admin;
 use App\Admin\PublicationAdmin;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
+use App\Controller\Trait\RequestActionGetterTrait;
 use App\Entity\PublicationTypo;
 use App\Manager\PublicationTypoManager;
-use Sulu\Component\Security\SecuredControllerInterface;
+use App\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PublicationTypoController extends AbstractController implements SecuredControllerInterface
 {
     use LocaleGetterTrait;
+    use RequestActionGetterTrait;
 
     public function getSecurityContext(): string
     {

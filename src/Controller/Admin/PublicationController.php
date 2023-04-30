@@ -7,11 +7,12 @@ namespace App\Controller\Admin;
 use App\Admin\PublicationAdmin;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
+use App\Controller\Trait\RequestActionGetterTrait;
 use App\Entity\Publication;
 use App\Manager\PublicationManager;
+use App\Security\SecuredControllerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Component\Rest\Exception\RestException;
-use Sulu\Component\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PublicationController extends AbstractController implements SecuredControllerInterface
 {
     use LocaleGetterTrait;
+    use RequestActionGetterTrait;
 
     public function getSecurityContext(): string
     {
@@ -161,11 +163,6 @@ class PublicationController extends AbstractController implements SecuredControl
     private function getData(Request $request): array
     {
         return $request->request->all();
-    }
-
-    private function getRequestAction(Request $request): ?string
-    {
-        return $request->query->get('action', null);
     }
 
     /**

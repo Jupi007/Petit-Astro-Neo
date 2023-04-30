@@ -7,10 +7,11 @@ namespace App\Controller\Admin;
 use App\Admin\DefinitionAdmin;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
+use App\Controller\Trait\RequestActionGetterTrait;
 use App\Entity\Api\DefinitionRepresentation;
 use App\Entity\Definition;
 use App\Manager\DefinitionManager;
-use Sulu\Component\Security\SecuredControllerInterface;
+use App\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefinitionController extends AbstractController implements SecuredControllerInterface
 {
     use LocaleGetterTrait;
+    use RequestActionGetterTrait;
 
     public function getSecurityContext(): string
     {

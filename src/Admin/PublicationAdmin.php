@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Admin;
 
 use App\Entity\Publication;
+use App\Security\PermissionTypes;
 use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
@@ -15,7 +16,7 @@ use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Admin\ContentViewBuilderFactoryInterface;
 use Sulu\Component\Localization\Manager\LocalizationManagerInterface;
-use Sulu\Component\Security\Authorization\PermissionTypes;
+use Sulu\Component\Security\Authorization\PermissionTypes as SuluPermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 
 class PublicationAdmin extends Admin
@@ -42,7 +43,7 @@ class PublicationAdmin extends Admin
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
     {
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, SuluPermissionTypes::VIEW)) {
             $navigationParent = new NavigationItem(static::NAVIGATION_ITEM);
             $navigationParent->setPosition(40);
             $navigationParent->setIcon(Publication::RESOURCE_ICON);
@@ -63,24 +64,24 @@ class PublicationAdmin extends Admin
         $formToolbarActions = [];
         $listToolbarActions = [];
 
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::ADD)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, SuluPermissionTypes::ADD)) {
             $listToolbarActions[] = new ToolbarAction('sulu_admin.add');
         }
 
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, SuluPermissionTypes::EDIT)) {
             $formToolbarActions[] = new ToolbarAction('sulu_admin.save');
         }
 
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::DELETE)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, SuluPermissionTypes::DELETE)) {
             $formToolbarActions[] = new ToolbarAction('sulu_admin.delete');
             $listToolbarActions[] = new ToolbarAction('sulu_admin.delete');
         }
 
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::VIEW)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, SuluPermissionTypes::VIEW)) {
             $listToolbarActions[] = new ToolbarAction('sulu_admin.export');
         }
 
-        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
+        if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, SuluPermissionTypes::EDIT)) {
             $viewCollection->add(
                 $this->viewBuilderFactory->createListViewBuilder(
                     static::LIST_VIEW,
@@ -127,11 +128,13 @@ class PublicationAdmin extends Admin
                 $viewCollection->add($viewBuilder);
             }
 
-            /** @var FormViewBuilderInterface */
-            $editFormView = $viewCollection->get(static::EDIT_FORM_VIEW . '.content');
-            $editFormView->addToolbarActions([
-                new ToolbarAction('app.notify'),
-            ]);
+            if ($this->securityChecker->hasPermission(static::SECURITY_CONTEXT, PermissionTypes::NOTIFY)) {
+                /** @var FormViewBuilderInterface */
+                $editFormView = $viewCollection->get(static::EDIT_FORM_VIEW . '.content');
+                $editFormView->addToolbarActions([
+                    new ToolbarAction('app.notify'),
+                ]);
+            }
 
             if ($this->activityViewBuilderFactory->hasActivityListPermission()) {
                 $viewCollection->add(
@@ -157,11 +160,12 @@ class PublicationAdmin extends Admin
             self::SULU_ADMIN_SECURITY_SYSTEM => [
                 'Publications' => [
                     static::SECURITY_CONTEXT => [
-                        PermissionTypes::VIEW,
-                        PermissionTypes::ADD,
-                        PermissionTypes::EDIT,
-                        PermissionTypes::DELETE,
-                        PermissionTypes::LIVE,
+                        SuluPermissionTypes::VIEW,
+                        SuluPermissionTypes::ADD,
+                        SuluPermissionTypes::EDIT,
+                        SuluPermissionTypes::DELETE,
+                        SuluPermissionTypes::LIVE,
+                        PermissionTypes::NOTIFY,
                     ],
                 ],
             ],
