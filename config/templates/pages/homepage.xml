@@ -20,20 +20,24 @@
         <xi:include href="../includes/subtitle.xml"/>
         <xi:include href="../includes/page-url.xml"/>
 
-        <xi:include href="../includes/cover-image.xml"/>
+        <section name="cover">
+            <meta>
+                <title lang="en">Cover</title>
+                <title lang="fr">Couverture</title>
+            </meta>
 
-        <property name="coverPage" type="smart_content">
-            <params>
-                <param name="provider" value="pages"/>
-                <param name="max_per_page" value="1"/>
-
-                <param name="properties" type="collection">
-                    <param name="title" value="title"/>
-                    <param name="excerptTitle" value="excerpt.title"/>
-                    <param name="coverImage" value="coverImage"/>
-                </param>
-            </params>
-        </property>
+            <properties>
+                <property name="coverTeaser" type="teaser_selection">
+                    <meta>
+                        <title lang="en">Teaser</title>
+                        <title lang="fr">Accroche</title>
+                    </meta>
+                    <params>
+                        <param name="max" value="1"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
 
         <section name="blocks">
             <meta>
