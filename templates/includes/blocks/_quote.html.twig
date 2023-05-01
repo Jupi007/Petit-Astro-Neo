@@ -1,30 +1,31 @@
 <figure>
 	<twig:figure-container>
-		<twig:block name="content">
-			<twig:page-container>
-				<blockquote class="px-0 py-4 border-none">
-					{{ content.quote }}
-				</blockquote>
-			</twig:page-container>
-		</twig:block>
+		<twig:page-container>
+			<blockquote class="px-0 py-4 border-none">
+				{{ content.quote }}
+			</blockquote>
+		</twig:page-container>
 	</twig:figure-container>
 
 	{% if content.source or content.sourceLink %}
 		<twig:page-container>
-			<twig:block name="content">
-				<figcaption>
-					<cite>
-						{% set source = content.source ?? content.sourceLink %}
-						{% if content.sourceLink %}
-							<a href="{{ content.sourceLink }}" {% if view.sourceLink.provider == 'external' %} target="_blank" {% endif %}>
-								{{ source }}
-							</a>
-						{% else %}
+			<figcaption>
+				<cite>
+					{% set source = content.source ?? content.sourceLink %}
+					{% if content.sourceLink %}
+						<a
+							href="{{ content.sourceLink }}"
+							{% if view.sourceLink.provider == 'external' %}
+								target="_blank"
+							{% endif %}
+						>
 							{{ source }}
-						{% endif %}
-					</cite>
-				</figcaption>
-			</twig:block>
+						</a>
+					{% else %}
+						{{ source }}
+					{% endif %}
+				</cite>
+			</figcaption>
 		</twig:page-container>
 	{% endif %}
 </figure>

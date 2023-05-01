@@ -26,15 +26,11 @@
           </dt>
 
           <twig:page-container>
-            <twig:block name="content">
-              <twig:definition-grid>
-			          <twig:block name="content">
-                  {% for item in currentLetterItems %}
-                    <twig:definition :definition="item"/>
-                  {% endfor %}
-                </twig:block>
-              </twig:definition-grid>
-            </twig:block>
+            <twig:definition-grid>
+              {% for item in currentLetterItems %}
+                <twig:definition :definition="item"/>
+              {% endfor %}
+            </twig:definition-grid>
           </twig:page-container>
         </div>
 

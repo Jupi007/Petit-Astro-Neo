@@ -1,48 +1,44 @@
 <turbo-frame id="smart-media-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
-		<twig:card-grid :id="'smart-media-' ~ id">
-			<twig:block name="content">
-				{% for media in content.media %}
-					<div
-						x-data="{ fullscreen: false }"
-						x-on:click="fullscreen = true"
-						class="cursor-zoom-in"
-					>
-						{{ get_image(media, {
-							src: 'figure',
-							srcset: 'figure@2x 2x',
-							class: 'aspect-video object-cover shadow-[0_0_0_1px] shadow-outline dark:shadow-outline-invert',
-						}) }}
-						
-						<template x-teleport="body">
-							<div
-								x-show="fullscreen"
-								x-transition:enter.duration.250ms
-								x-transition:leave.duration.150ms
-								x-on:click="fullscreen = false"
-								@keyup.escape.window="fullscreen = false"
-								x-trap.inert.noscroll="fullscreen"
-								class="fixed inset-0 z-20 flex items-center justify-center md:p-6 bg-black/50 cursor-zoom-out"
-							>
-								{{ get_image(media, {
-									src: 'figure',
-									srcset: 'figure@2x 2x',
-									class: 'w-auto max-h-full m-auto',
-								}) }}
-							</div>
-						</template>
-					</div>
-				{% endfor %}
-			</twig:block>
+		<twig:card-grid id="smart-media-{{ id }}">
+			{% for media in content.media %}
+				<div
+					x-data="{ fullscreen: false }"
+					x-on:click="fullscreen = true"
+					class="cursor-zoom-in"
+				>
+					{{ get_image(media, {
+						src: 'figure',
+						srcset: 'figure@2x 2x',
+						class: 'aspect-video object-cover shadow-[0_0_0_1px] shadow-outline dark:shadow-outline-invert',
+					}) }}
+					
+					<template x-teleport="body">
+						<div
+							x-show="fullscreen"
+							x-transition:enter.duration.250ms
+							x-transition:leave.duration.150ms
+							x-on:click="fullscreen = false"
+							@keyup.escape.window="fullscreen = false"
+							x-trap.inert.noscroll="fullscreen"
+							class="fixed inset-0 z-20 flex items-center justify-center md:p-6 bg-black/50 cursor-zoom-out"
+						>
+							{{ get_image(media, {
+								src: 'figure',
+								srcset: 'figure@2x 2x',
+								class: 'w-auto max-h-full m-auto',
+							}) }}
+						</div>
+					</template>
+				</div>
+			{% endfor %}
 		</twig:card-grid>
 
 		<twig:page-container>
-			<twig:block name="content">
-				<twig:smart-content-pagination
-					:view="view.media"
-					:smartContentId="'smart-media-' ~ id"
-				/>
-			</twig:block>
+			<twig:smart-content-pagination
+				:view="view.media"
+				:smartContentId="smart-media-{{ id }}"
+			/>
 		</twig:page-container>
 	</div>	
 </turbo-frame>

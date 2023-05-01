@@ -1,21 +1,17 @@
 <figure>
 	<twig:figure-container>
-		<twig:block name="content">
-			{{ get_image(content.image, {
-				src: 'figure',
-				srcset: 'figure@2x 2x',
-				class: 'max-h-[80vh] w-auto mx-auto my-0'
-			}) }}
-		</twig:block>
+		{{ get_image(content.image, {
+			src: 'figure',
+			srcset: 'figure@2x 2x',
+			class: 'max-h-[80vh] w-auto mx-auto my-0'
+		}) }}
 	</twig:figure-container>
 
 	{% if content.caption %}
 		<twig:page-container>
-			<twig:block name="content">
-				<figcaption class="text-center">
-					{{ content.caption }}
-				</figcaption>
-			</twig:block>
+			<figcaption class="text-center">
+				{{ content.caption }}
+			</figcaption>
 		</twig:page-container>
 	{% endif %}
 </figure>

@@ -1,15 +1,13 @@
 <twig:page-container class="my-4">
-	<twig:block name="content">
-    {% if content.form %}
-      <div class="not-prose">
-        {{ form(content.form) }}
-      </div>
+  {% if content.form %}
+    <div class="not-prose">
+      {{ form(content.form) }}
+    </div>
 
-      {% if app.request.get('send') == 'true' %}
-        {{ view.form.entity.successText|raw }}
-      {% endif %}
+    {% if app.request.get('send') == 'true' %}
+      {{ view.form.entity.successText|raw }}
     {% endif %}
-  </twig:block>
+  {% endif %}
 </twig:page-container>
 
 

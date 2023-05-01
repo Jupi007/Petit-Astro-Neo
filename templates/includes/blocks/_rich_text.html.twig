@@ -3,13 +3,11 @@
 {% endif %}
 
 <twig:page-container>
-  <twig:block name="content">
-    {% if content.title %}
-      <h2>{{ content.title }}</h2>
-    {% endif %}
-    
-    <div class="text-justify">{{ content.text|raw }}</div>
-  </twig:block>
+  {% if content.title %}
+    <h2>{{ content.title }}</h2>
+  {% endif %}
+  
+  <div class="text-justify">{{ content.text|raw }}</div>
 </twig:page-container>
 
 

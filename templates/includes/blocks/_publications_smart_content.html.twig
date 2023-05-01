@@ -1,29 +1,25 @@
 <turbo-frame id="smart-publications-frame-{{ id }}" data-turbo-action="advance">
 	<div class="{{ null != previousBlockType ? 'my-12' : 'mb-12' }}">
-		<twig:card-grid :id="'smart-publications-' ~ id">
-			<twig:block name="content">
-				{% for publication in content.publications %}
-					{% set media = sulu_resolve_media(publication.coverImage.id|default(publication.excerptImage), app.request.locale) %}
-					<a href="{{ sulu_content_path(publication.url) }}" data-turbo-frame="_top">
-						<twig:card :image="media">
-							<twig:block name="title">
-								{{ publication.excerptTitle|default(publication.title) }}
-							</twig:block>
+		<twig:card-grid id="smart-publications-{{ id }}">
+			{% for publication in content.publications %}
+				{% set media = sulu_resolve_media(publication.coverImage.id|default(publication.excerptImage), app.request.locale) %}
+				<a href="{{ sulu_content_path(publication.url) }}" data-turbo-frame="_top">
+					<twig:card :image="media">
+						<twig:block name="title">
+							{{ publication.excerptTitle|default(publication.title) }}
+						</twig:block>
 
-							{{ publication.excerptDescription }}
-						</twig:card>
-					</a>
-				{% endfor %}
-			</twig:block>
+						{{ publication.excerptDescription }}
+					</twig:card>
+				</a>
+			{% endfor %}
 		</twig:card-grid>
 
 		<twig:page-container>
-			<twig:block name="content">
-				<twig:smart-content-pagination
-					:view="view.publications"
-					:smartContentId="'smart-publications-' ~ id"
-				/>
-			</twig:block>
+			<twig:smart-content-pagination
+				:view="view.publications"
+				smartContentId="smart-publications-{{ id }}"
+			/>
 		</twig:page-container>
 	</div>	
 </turbo-frame>

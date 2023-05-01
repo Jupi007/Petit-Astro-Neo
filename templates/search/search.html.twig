@@ -8,28 +8,26 @@
     <div
       class="flex flex-col gap-8">
       <twig:page-container>
-        <twig:block name="content">
-          <form action="{{ path('sulu_search.website_search') }}"
-                method="GET"
-                data-turbo-frame="search-frame"
-                class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
-            <input name="q"
-                  type="text"
-                  placeholder="{{ 'app.search_placeholder'|trans }}"
-                  value="{{ query }}"
-                  class="flex-grow px-6 py-4 bg-transparent outline-none"/>
-            <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
-          </form>
+        <form action="{{ path('sulu_search.website_search') }}"
+              method="GET"
+              data-turbo-frame="search-frame"
+              class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
+          <input name="q"
+                type="text"
+                placeholder="{{ 'app.search_placeholder'|trans }}"
+                value="{{ query }}"
+                class="flex-grow px-6 py-4 bg-transparent outline-none"/>
+          <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
+        </form>
 
-          {% if query != "" %}
-            <h2 class="font-medium italic text-center">
-              {{ 'app.search_result_title'|trans({
-                'results': hits|length,
-                'query': query
-              }) }}
-            </h2>
-          {% endif %}
-        </twig:block>
+        {% if query != "" %}
+          <h2 class="font-medium italic text-center">
+            {{ 'app.search_result_title'|trans({
+              'results': hits|length,
+              'query': query
+            }) }}
+          </h2>
+        {% endif %}
       </twig:page-container>
 
       {% if query != "" and hits|length > 0 %}
@@ -49,63 +47,55 @@
 
         {% if publicationHits|length > 0 %}
           <twig:card-grid>
-            <twig:block name="content">
-              {% for publicationHit in publicationHits %}
-                <a href="{{ publicationHit.document.url }}">
-                  <twig:card>
-                    <twig:block name="title">
-                      {{ publicationHit.document.title }}
-                    </twig:block>
+            {% for publicationHit in publicationHits %}
+              <a href="{{ publicationHit.document.url }}">
+                <twig:card>
+                  <twig:block name="title">
+                    {{ publicationHit.document.title }}
+                  </twig:block>
 
-                    {{ 'app.publication'|trans }}
-                  </twig:card>
-                </a>
-              {% endfor %}
-            </twig:block>
+                  {{ 'app.publication'|trans }}
+                </twig:card>
+              </a>
+            {% endfor %}
           </twig:card-grid>
         {% endif %}
 
         {% if definitionHits|length > 0 %}
           <twig:page-container class="py-4 shadow-fake-border shadow-outline dark:shadow-outline-invert">
-            <twig:block name="content">
-              <twig:definition-grid>
-			          <twig:block name="content">
-                  {% for definitionHit in definitionHits %}
-                    <twig:definition
-                      :title="definitionHit.document.title"
-                      :description="definitionHit.document.description"
-                    />
-                  {% endfor %}
-                </twig:block>
-              </twig:definition-grid>
-            </twig:block>
+            <twig:definition-grid>
+                {% for definitionHit in definitionHits %}
+                  <twig:definition
+                    :title="definitionHit.document.title"
+                    :description="definitionHit.document.description"
+                  />
+                {% endfor %}
+            </twig:definition-grid>
           </twig:page-container>
         {% endif %}
 
         {% if pageHits|length > 0 %}
           <twig:card-grid>
-            <twig:block name="content">
-              {% for pageHit in pageHits %}
-                {% set page = sulu_content_load(pageHit.id, {
-                  'title': 'title',
-                  'coverImage': 'coverImage',
-                  'excerptImages': 'excerpt.images',
-                  'excerptTitle': 'excerpt.title',
-                  'excerptDescription': 'excerpt.description',
-                }) %}
-                {% if null != page %}
-                  <a href="{{ pageHit.document.url }}">
-                    <twig:card :image="page.content.excerptImages[0]|default(page.content.coverImage|default(null))">
-                      <twig:block name="title">
-                        {{ page.content.excerptTitle|default(page.content.title) }}
-                      </twig:block>
-    
-                      {{ page.content.excerptDescription }}
-                    </twig:card>
-                  </a>
-                {% endif %}
-              {% endfor %}
-            </twig:block>
+            {% for pageHit in pageHits %}
+              {% set page = sulu_content_load(pageHit.id, {
+                'title': 'title',
+                'coverImage': 'coverImage',
+                'excerptImages': 'excerpt.images',
+                'excerptTitle': 'excerpt.title',
+                'excerptDescription': 'excerpt.description',
+              }) %}
+              {% if null != page %}
+                <a href="{{ pageHit.document.url }}">
+                  <twig:card :image="page.content.excerptImages[0]|default(page.content.coverImage|default(null))">
+                    <twig:block name="title">
+                      {{ page.content.excerptTitle|default(page.content.title) }}
+                    </twig:block>
+  
+                    {{ page.content.excerptDescription }}
+                  </twig:card>
+                </a>
+              {% endif %}
+            {% endfor %}
           </twig:card-grid>
         {% endif %}
       {% endif %}

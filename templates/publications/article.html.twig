@@ -9,42 +9,36 @@
   {% include "includes/_blocks.html.twig" %}
 
   <twig:page-container class="my-6">
-    <twig:block name="content">
-      <turbo-frame id="typo-form">
-        {% if app.request.get('typoSend') != 'true' %}
-          <twig:expandable>
-            <twig:block name="header">
-              <h2 class="m-0 text-end text-base font-semibold underline">
-                {{ 'app.publication_page.report_typo'|trans }}
-              </h2>
-            </twig:block>
-            
-            {{ form(typoForm) }}
-          </twig:expandable>
-        {% else %}
-          <twig:alert variant="success" class="mt-4">
-            {{ 'app.publication_page.typo_thanks'|trans }}
-          </twig:alert>
-        {% endif %}
-      </turbo-frame>
-    </twig:block>
+    <turbo-frame id="typo-form">
+      {% if app.request.get('typoSend') != 'true' %}
+        <twig:expandable>
+          <twig:block name="header">
+            <h2 class="m-0 text-end text-base font-semibold underline">
+              {{ 'app.publication_page.report_typo'|trans }}
+            </h2>
+          </twig:block>
+          
+          {{ form(typoForm) }}
+        </twig:expandable>
+      {% else %}
+        <twig:alert variant="success" class="mt-4">
+          {{ 'app.publication_page.typo_thanks'|trans }}
+        </twig:alert>
+      {% endif %}
+    </turbo-frame>
   </twig:page-container>
 
   {% if content.definitions|length > 0 %}
     <twig:page-container class="my-6 py-6 border-t border-outline dark:border-outline-invert">
-			<twig:block name="content">
-        <h2 class="text-center mb-6 text-2xl font-colombia">
-          {{ 'app.publication_page.lexicon_title'|trans }}
-        </h2>
-        
-        <twig:definition-grid>
-          <twig:block name="content">
-            {% for definition in content.definitions %}
-              <twig:definition :definition="definition"/>
-            {% endfor %}
-          </twig:block>
-        </twig:definition-grid>
-      </twig:block>
+      <h2 class="text-center mb-6 text-2xl font-colombia">
+        {{ 'app.publication_page.lexicon_title'|trans }}
+      </h2>
+      
+      <twig:definition-grid>
+        {% for definition in content.definitions %}
+          <twig:definition :definition="definition"/>
+        {% endfor %}
+      </twig:definition-grid>
     </twig:page-container>
   {% endif %}
   
