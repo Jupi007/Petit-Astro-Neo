@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\SmartContent\DataProvider;
 
 use App\Entity\Publication;
-use App\ReferenceStore\PublicationReferenceStore;
 use App\SmartContent\Repository\PublicationDataProviderRepository;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\TypedFormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\MetadataProviderInterface;
@@ -28,7 +27,6 @@ class PublicationDataProvider extends ContentDataProvider
         PublicationDataProviderRepository $repository,
         ArraySerializerInterface $arraySerializer,
         ContentManagerInterface $contentManager,
-        PublicationReferenceStore $referenceStore,
         #[Autowire('@sulu_admin.form_metadata_provider')]
         private readonly MetadataProviderInterface $formMetadataProvider,
         private readonly TokenStorageInterface $tokenStorage,
@@ -37,7 +35,6 @@ class PublicationDataProvider extends ContentDataProvider
             $repository,
             $arraySerializer,
             $contentManager,
-            $referenceStore,
         );
     }
 
