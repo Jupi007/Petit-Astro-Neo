@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Trash;
 
-use App\Entity\Publication;
 use App\Admin\PublicationTypoAdmin;
+use App\Entity\Publication;
 use App\Entity\PublicationTypo;
 use App\Event\PublicationTypo\RestoredPublicationTypoActivityEvent;
 use App\Exception\PublicationNotFoundException;
@@ -22,7 +22,7 @@ use Webmozart\Assert\Assert;
 
 /**
  * @phpstan-type TrashData array{
- *    description: string|null,
+ *    description: string,
  *    publicationId: int|null,
  *    created: string|null,
  *    changed: string|null,
@@ -69,7 +69,7 @@ class PublicationTypoTrashItemHandler implements
         return $this->trashItemRepository->create(
             resourceKey: PublicationTypo::RESOURCE_KEY,
             resourceId: (string) $resource->getId(),
-            resourceTitle: $resource->getDescription() ?? '',
+            resourceTitle: $resource->getDescription(),
             restoreData: $data,
             restoreType: null,
             restoreOptions: $options,
@@ -89,9 +89,11 @@ class PublicationTypoTrashItemHandler implements
             throw new PublicationNotFoundException();
         }
 
-        $typo = new PublicationTypo($publication);
+        $typo = new PublicationTypo(
+            publication: $publication,
+            description: $data['description'],
+        );
         $typo
-            ->setDescription($data['description'] ?? '')
             ->setCreated(new \DateTime($data['created'] ?? ''))
             ->setChanged(new \DateTime($data['changed'] ?? ''));
 

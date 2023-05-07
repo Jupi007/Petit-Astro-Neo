@@ -57,7 +57,7 @@ use Webmozart\Assert\Assert;
  * }
  * @phpstan-type TypoTrashData array{
  *   id: int|null,
- *   description: string|null,
+ *   description: string,
  *   publicationId: int|null,
  *   created: string,
  *   changed: string,
@@ -238,9 +238,11 @@ class PublicationTrashItemHandler implements
 
         /** @var TypoTrashData $typoData */
         foreach ($data['typos'] as $typoData) {
-            $typo = new PublicationTypo($publication);
+            $typo = new PublicationTypo(
+                publication: $publication,
+                description: $typoData['description'],
+            );
             $typo
-                ->setDescription($typoData['description'] ?? '')
                 ->setCreated(new \DateTime($typoData['created']))
                 ->setChanged(new \DateTime($typoData['changed']));
 

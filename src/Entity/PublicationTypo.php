@@ -22,13 +22,12 @@ class PublicationTypo implements PersistableEntityInterface, AuditableInterface,
     final public const RESOURCE_KEY = 'publication_typos';
     final public const RESOURCE_ICON = 'su-unpublish';
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
-
     public function __construct(
         #[ORM\ManyToOne(inversedBy: 'typos')]
         #[ORM\JoinColumn(nullable: false)]
-        private Publication $publication,
+        private readonly Publication $publication,
+        #[ORM\Column(type: Types::TEXT)]
+        private string $description,
     ) {
     }
 
@@ -37,7 +36,7 @@ class PublicationTypo implements PersistableEntityInterface, AuditableInterface,
         return self::RESOURCE_KEY;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }

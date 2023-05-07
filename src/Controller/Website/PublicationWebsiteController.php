@@ -8,6 +8,8 @@ use App\Controller\Trait\LocalizationsGetterTrait;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Entity\PublicationTypo;
+use App\Exception\NullAssertionException;
+use App\Form\Data\PublicationTypoTypeData;
 use App\Form\PublicationTypoType;
 use App\Manager\PublicationTypoManager;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
@@ -37,14 +39,17 @@ class PublicationWebsiteController extends AbstractHeadlessWebsiteController
         bool $preview = false,
         bool $partial = false,
     ): Response {
-        $typo = new PublicationTypo($this->getPublication($structure));
-
-        $typoForm = $this->createForm(PublicationTypoType::class, $typo);
+        $typoForm = $this->createForm(PublicationTypoType::class);
         $typoForm->handleRequest($request);
 
         if ($typoForm->isSubmitted() && $typoForm->isValid()) {
-            /** @var PublicationTypo */
-            $typo = $typoForm->getData();
+            /** @var PublicationTypoTypeData */
+            $data = $typoForm->getData();
+
+            $typo = new PublicationTypo(
+                publication: $this->getPublication($structure),
+                description: $data->description ?? throw new NullAssertionException(),
+            );
             $this->manager->create($typo);
 
             return $this->redirect('?typoSend=true');
