@@ -41,7 +41,7 @@ class PublicationManager
         $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
 
         $this->domainEventCollector->collect(new CreatedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication, flush: true);
+        $this->publicationRepository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
 
@@ -66,7 +66,7 @@ class PublicationManager
         }
 
         $this->domainEventCollector->collect(new ModifiedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication, flush: true);
+        $this->publicationRepository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
@@ -81,7 +81,7 @@ class PublicationManager
         );
 
         $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication, flush: true);
+        $this->publicationRepository->save($publication);
 
         $this->contentIndexer->index($publication, [
             ...$dimensionAttributes,
@@ -103,7 +103,7 @@ class PublicationManager
         );
 
         $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication, flush: true);
+        $this->publicationRepository->save($publication);
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId(), [
             ...$dimensionAttributes,
@@ -116,7 +116,7 @@ class PublicationManager
         $publication->setNotified(true);
 
         $this->domainEventCollector->collect(new NotifiedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication, flush: true);
+        $this->publicationRepository->save($publication);
     }
 
     public function copyLocale(Publication $publication, string $srcLocale, string $destLocale): void
@@ -135,7 +135,7 @@ class PublicationManager
         );
 
         $this->domainEventCollector->collect(new TranslationCopiedPublicationActivityEvent($publication, $srcLocale, $destLocale));
-        $this->publicationRepository->save($publication, flush: true);
+        $this->publicationRepository->save($publication);
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
@@ -148,7 +148,7 @@ class PublicationManager
         );
 
         $this->domainEventCollector->collect(new DraftRemovedPublicationActivityEvent($publication));
-        $this->publicationRepository->save($publication, flush: true);
+        $this->publicationRepository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
     }
@@ -160,7 +160,7 @@ class PublicationManager
         }
 
         $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
-        $this->publicationRepository->remove($publication, flush: true);
+        $this->publicationRepository->remove($publication);
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId());
     }

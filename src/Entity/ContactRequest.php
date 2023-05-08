@@ -7,13 +7,12 @@ namespace App\Entity;
 use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
-use App\Repository\ContactRequestRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 
-#[ORM\Entity(repositoryClass: ContactRequestRepository::class)]
+#[ORM\Entity]
 class ContactRequest implements PersistableEntityInterface, AuditableInterface, TrashableEntityInterface
 {
     use AuditableTrait;

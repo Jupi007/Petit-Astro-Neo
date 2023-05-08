@@ -9,13 +9,13 @@ use App\Event\NewsletterRegistration\CreatedNewsletterRegistrationActivityEvent;
 use App\Event\NewsletterRegistration\ModifiedNewsletterRegistrationActivityEvent;
 use App\Event\NewsletterRegistration\RemovedNewsletterRegistrationActivityEvent;
 use App\Exception\NewsletterRegistrationEmailNotUniqueException;
-use App\Repository\NewsletterRegistrationRepository;
+use App\Repository\NewsletterRegistrationRepositoryInterface;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 
 class NewsletterRegistrationManager
 {
     public function __construct(
-        private readonly NewsletterRegistrationRepository $repository,
+        private readonly NewsletterRegistrationRepositoryInterface $repository,
         private readonly DomainEventCollectorInterface $domainEventCollector,
         private readonly string $suluContext,
     ) {
@@ -31,7 +31,7 @@ class NewsletterRegistrationManager
             $this->domainEventCollector->collect(new CreatedNewsletterRegistrationActivityEvent($registration));
         }
 
-        $this->repository->save($registration, flush: true);
+        $this->repository->save($registration);
 
         return $registration;
     }
@@ -42,7 +42,7 @@ class NewsletterRegistrationManager
             $this->domainEventCollector->collect(new ModifiedNewsletterRegistrationActivityEvent($registration));
         }
 
-        $this->repository->save($registration, flush: true);
+        $this->repository->save($registration);
 
         return $registration;
     }
@@ -53,6 +53,6 @@ class NewsletterRegistrationManager
             $this->domainEventCollector->collect(new RemovedNewsletterRegistrationActivityEvent($registration));
         }
 
-        $this->repository->remove($registration, flush: true);
+        $this->repository->remove($registration);
     }
 }

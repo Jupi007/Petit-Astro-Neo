@@ -33,7 +33,7 @@ class UniqueNewsletterEmailValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if ($this->newsletterRegistrationRepository->findOneByEmail($value) instanceof NewsletterRegistration) {
+        if ($this->newsletterRegistrationRepository->findOneBy(['email' => $value]) instanceof NewsletterRegistration) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ email }}', $value)
                 ->addViolation();

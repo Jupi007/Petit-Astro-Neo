@@ -6,7 +6,7 @@ namespace App\EventListener;
 
 use App\Entity\NewsletterRegistration;
 use App\Manager\NewsletterRegistrationManager;
-use App\Repository\NewsletterRegistrationRepository;
+use App\Repository\NewsletterRegistrationRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\CommunityBundle\Event\UserConfirmedEvent;
 use Sulu\Bundle\CommunityBundle\Event\UserEmailConfirmedEvent;
@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class CommunityEventListener implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly NewsletterRegistrationRepository $repository,
+        private readonly NewsletterRegistrationRepositoryInterface $repository,
         private readonly NewsletterRegistrationManager $manager,
         private readonly EntityManagerInterface $entityManager,
     ) {

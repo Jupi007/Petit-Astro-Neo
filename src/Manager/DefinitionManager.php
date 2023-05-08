@@ -8,7 +8,7 @@ use App\Entity\Definition;
 use App\Event\Definition\CreatedDefinitionActivityEvent;
 use App\Event\Definition\ModifiedDefinitionActivityEvent;
 use App\Event\Definition\RemovedDefinitionActivityEvent;
-use App\Repository\DefinitionRepository;
+use App\Repository\DefinitionRepositoryInterface;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
@@ -17,7 +17,7 @@ use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 class DefinitionManager
 {
     public function __construct(
-        private readonly DefinitionRepository $repository,
+        private readonly DefinitionRepositoryInterface $repository,
         private readonly DomainEventCollectorInterface $domainEventCollector,
         private readonly RouteManagerInterface $routeManager,
         private readonly RouteRepositoryInterface $routeRepository,
@@ -26,11 +26,11 @@ class DefinitionManager
 
     public function create(Definition $definition): Definition
     {
-        $this->repository->save($definition, flush: true);
+        $this->repository->save($definition);
 
         $this->createOrUpdateRoute($definition);
         $this->domainEventCollector->collect(new CreatedDefinitionActivityEvent($definition));
-        $this->repository->save($definition, flush: true);
+        $this->repository->save($definition);
 
         return $definition;
     }
@@ -40,7 +40,7 @@ class DefinitionManager
         $this->createOrUpdateRoute($definition);
 
         $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
-        $this->repository->save($definition, flush: true);
+        $this->repository->save($definition);
 
         return $definition;
     }
@@ -49,7 +49,7 @@ class DefinitionManager
     {
         $this->domainEventCollector->collect(new RemovedDefinitionActivityEvent($definition));
         $this->removeRoutes($definition);
-        $this->repository->remove($definition, flush: true);
+        $this->repository->remove($definition);
     }
 
     private function createOrUpdateRoute(Definition $definition): void

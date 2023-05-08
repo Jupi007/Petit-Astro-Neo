@@ -84,7 +84,7 @@ class PublicationTypoTrashItemHandler implements
         /** @var TrashData $data */
         $data = $trashItem->getRestoreData();
 
-        $publication = $this->publicationRepository->find($data['publicationId']);
+        $publication = $this->publicationRepository->findOne($data['publicationId']);
         if (!$publication instanceof Publication) {
             throw new PublicationNotFoundException();
         }

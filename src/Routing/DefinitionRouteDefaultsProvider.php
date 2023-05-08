@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Routing;
 
 use App\Entity\Definition;
-use App\Repository\DefinitionRepository;
+use App\Repository\DefinitionRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface;
 
 class DefinitionRouteDefaultsProvider implements RouteDefaultsProviderInterface
 {
     public function __construct(
-        private readonly DefinitionRepository $repository,
+        private readonly DefinitionRepositoryInterface $repository,
     ) {
     }
 
@@ -30,7 +30,7 @@ class DefinitionRouteDefaultsProvider implements RouteDefaultsProviderInterface
     {
         return [
             '_controller' => 'App\Controller\Website\DefinitionController::index',
-            'definition' => $object ?: $this->repository->findById((int) $id, $locale),
+            'definition' => $object ?: $this->repository->findOneLocalized($id, $locale),
         ];
     }
 

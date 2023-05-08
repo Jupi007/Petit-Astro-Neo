@@ -7,7 +7,6 @@ namespace App\Entity;
 use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
-use App\Repository\PublicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -16,7 +15,7 @@ use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\ContentRichEntityTrait;
 
 /** @implements ContentRichEntityInterface<PublicationDimensionContent> */
-#[ORM\Entity(repositoryClass: PublicationRepository::class)]
+#[ORM\Entity]
 class Publication implements PersistableEntityInterface, ContentRichEntityInterface, TrashableEntityInterface
 {
     /** @template-use ContentRichEntityTrait<PublicationDimensionContent> */

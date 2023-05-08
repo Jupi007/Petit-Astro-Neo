@@ -7,13 +7,13 @@ namespace App\Manager;
 use App\Entity\PublicationTypo;
 use App\Event\PublicationTypo\CreatedPublicationTypoActivityEvent;
 use App\Event\PublicationTypo\RemovedPublicationTypoActivityEvent;
-use App\Repository\PublicationTypoRepository;
+use App\Repository\PublicationTypoRepositoryInterface;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 
 class PublicationTypoManager
 {
     public function __construct(
-        private readonly PublicationTypoRepository $repository,
+        private readonly PublicationTypoRepositoryInterface $repository,
         private readonly DomainEventCollectorInterface $domainEventCollector,
         private readonly string $suluContext,
     ) {
@@ -25,7 +25,7 @@ class PublicationTypoManager
             $this->domainEventCollector->collect(new CreatedPublicationTypoActivityEvent($typo));
         }
 
-        $this->repository->save($typo, flush: true);
+        $this->repository->save($typo);
     }
 
     public function remove(PublicationTypo $typo): void
@@ -34,6 +34,6 @@ class PublicationTypoManager
             $this->domainEventCollector->collect(new RemovedPublicationTypoActivityEvent($typo));
         }
 
-        $this->repository->remove($typo, flush: true);
+        $this->repository->remove($typo);
     }
 }

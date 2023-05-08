@@ -5,40 +5,15 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\NewsletterRegistration;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Utils\BaseRepository;
 
 /**
- * @extends ServiceEntityRepository<NewsletterRegistration>
- *
- * @method NewsletterRegistration|null find($id, $lockMode = null, $lockVersion = null)
- * @method NewsletterRegistration|null findOneBy(array $criteria, array $orderBy = null)
- * @method NewsletterRegistration[] findAll()
- * @method NewsletterRegistration[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends BaseRepository<NewsletterRegistration>
  */
-class NewsletterRegistrationRepository extends ServiceEntityRepository
+class NewsletterRegistrationRepository extends BaseRepository implements NewsletterRegistrationRepositoryInterface
 {
-    public function __construct(
-        ManagerRegistry $registry,
-    ) {
-        parent::__construct($registry, NewsletterRegistration::class);
-    }
-
-    public function save(NewsletterRegistration $entity, bool $flush = false): void
+    protected static function getClassName(): string
     {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(NewsletterRegistration $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        return NewsletterRegistration::class;
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\SmartContent\Repository;
 
 use App\Entity\Definition;
-use App\Repository\DefinitionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Sulu\Component\SmartContent\Orm\DataProviderRepositoryInterface;
@@ -18,7 +18,7 @@ class DefinitionDataProviderRepository implements DataProviderRepositoryInterfac
     }
 
     public function __construct(
-        private readonly DefinitionRepository $definitionRepository,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -28,7 +28,7 @@ class DefinitionDataProviderRepository implements DataProviderRepositoryInterfac
      */
     public function createQueryBuilder($alias, $indexBy = null): QueryBuilder
     {
-        return $this->definitionRepository->createQueryBuilder($alias, $indexBy);
+        return $this->entityManager->createQueryBuilder()->from(Definition::class, $alias, $indexBy);
     }
 
     /**

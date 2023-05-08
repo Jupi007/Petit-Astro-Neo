@@ -7,7 +7,6 @@ namespace App\Entity;
 use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
-use App\Repository\NewsletterRegistrationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Component\Persistence\Model\AuditableInterface;
@@ -16,7 +15,7 @@ use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: NewsletterRegistrationRepository::class)]
+#[ORM\Entity]
 class NewsletterRegistration implements PersistableEntityInterface, AuditableInterface, TrashableEntityInterface
 {
     use AuditableTrait;
