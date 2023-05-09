@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Manager;
 
 use App\Entity\ContactRequest;
-use App\Event\ContactRequest\CreatedContactRequestActivityEvent;
-use App\Event\ContactRequest\ModifiedContactRequestActivityEvent;
-use App\Event\ContactRequest\RemovedContactRequestActivityEvent;
 use App\Repository\ContactRequestRepositoryInterface;
+use App\SuluDomainEvent\ContactRequest\CreatedContactRequestActivityEvent;
+use App\SuluDomainEvent\ContactRequest\ModifiedContactRequestActivityEvent;
+use App\SuluDomainEvent\ContactRequest\RemovedContactRequestActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 
 class ContactRequestManager

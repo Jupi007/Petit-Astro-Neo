@@ -6,8 +6,8 @@ namespace App\Trash;
 
 use App\Admin\DefinitionAdmin;
 use App\Entity\Definition;
-use App\Event\Definition\RestoredDefinitionActivityEvent;
 use App\Repository\DefinitionRepository;
+use App\SuluDomainEvent\Definition\RestoredDefinitionActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;

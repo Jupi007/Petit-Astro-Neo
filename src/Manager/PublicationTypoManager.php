@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Manager;
 
 use App\Entity\PublicationTypo;
-use App\Event\PublicationTypo\CreatedPublicationTypoActivityEvent;
-use App\Event\PublicationTypo\RemovedPublicationTypoActivityEvent;
 use App\Repository\PublicationTypoRepositoryInterface;
+use App\SuluDomainEvent\PublicationTypo\CreatedPublicationTypoActivityEvent;
+use App\SuluDomainEvent\PublicationTypo\RemovedPublicationTypoActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 
 class PublicationTypoManager

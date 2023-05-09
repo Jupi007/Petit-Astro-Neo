@@ -8,7 +8,7 @@ use App\Admin\PublicationAdmin;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Entity\PublicationTypo;
-use App\Event\Publication\RestoredPublicationActivityEvent;
+use App\SuluDomainEvent\Publication\RestoredPublicationActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;

@@ -6,7 +6,7 @@ namespace App\Trash;
 
 use App\Admin\ContactRequestAdmin;
 use App\Entity\ContactRequest;
-use App\Event\ContactRequest\RestoredContactRequestActivityEvent;
+use App\SuluDomainEvent\ContactRequest\RestoredContactRequestActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;

@@ -6,9 +6,9 @@ namespace App\Trash;
 
 use App\Admin\NewsletterRegistrationAdmin;
 use App\Entity\NewsletterRegistration;
-use App\Event\NewsletterRegistration\RestoredNewsletterRegistrationActivityEvent;
 use App\Exception\NewsletterRegistrationEmailNotUniqueException;
 use App\Repository\NewsletterRegistrationRepository;
+use App\SuluDomainEvent\NewsletterRegistration\RestoredNewsletterRegistrationActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
