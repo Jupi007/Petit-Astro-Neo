@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Contract\EntityTranslationInterface;
 use App\Entity\Contract\PersistableEntityInterface;
-use App\Entity\Contract\TranslationInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +14,7 @@ use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 
 #[ORM\Entity]
-class DefinitionTranslation implements PersistableEntityInterface, TranslationInterface, AuditableInterface
+class DefinitionTranslation implements PersistableEntityInterface, EntityTranslationInterface, AuditableInterface
 {
     use AuditableTrait;
     use PersistableEntityTrait;

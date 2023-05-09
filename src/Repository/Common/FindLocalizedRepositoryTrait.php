@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Repository\Common;
 
-use App\Entity\Contract\LocalizableInterface;
+use App\Entity\Contract\LocalizableEntityInterface;
 
-/** @template T of LocalizableInterface */
+/** @template T of LocalizableEntityInterface */
 trait FindLocalizedRepositoryTrait
 {
     abstract public function findOne(mixed $id): ?object;
 
     /** @return T|null */
-    public function findOneLocalized(mixed $id, string $locale): ?LocalizableInterface
+    public function findOneLocalized(mixed $id, string $locale): ?LocalizableEntityInterface
     {
         return $this->setEntityLocale(
             object: $this->findOne($id),
@@ -32,7 +32,7 @@ trait FindLocalizedRepositoryTrait
      *
      * @return T|null
      */
-    public function findOneLocalizedBy(array $criteria, array $orderBy = null, string $locale): ?LocalizableInterface
+    public function findOneLocalizedBy(array $criteria, array $orderBy = null, string $locale): ?LocalizableEntityInterface
     {
         return $this->setEntityLocale(
             object: $this->findOneBy($criteria, $orderBy),
@@ -79,7 +79,7 @@ trait FindLocalizedRepositoryTrait
      *
      * @return T|null
      */
-    private function setEntityLocale(?LocalizableInterface $object, string $locale): ?LocalizableInterface
+    private function setEntityLocale(?LocalizableEntityInterface $object, string $locale): ?LocalizableEntityInterface
     {
         $object?->setLocale($locale);
 

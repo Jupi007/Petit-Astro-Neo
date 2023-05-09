@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity\Trait;
 
-use App\Entity\Contract\TranslationInterface;
+use App\Entity\Contract\EntityTranslationInterface;
 use Doctrine\Common\Collections\Collection;
 
-/** @template T of TranslationInterface */
-trait LocalizableTrait
+/** @template T of EntityTranslationInterface */
+trait LocalizableEntityTrait
 {
     private string $locale;
 

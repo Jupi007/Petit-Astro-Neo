@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Repository\Common;
 
-use App\Entity\Contract\LocalizableInterface;
+use App\Entity\Contract\LocalizableEntityInterface;
 
-/** @template T of LocalizableInterface */
+/** @template T of LocalizableEntityInterface */
 interface FindLocalizedRepositoryInterface
 {
     /** @return T|null */
-    public function findOneLocalized(mixed $id, string $locale): ?LocalizableInterface;
+    public function findOneLocalized(mixed $id, string $locale): ?LocalizableEntityInterface;
 
     /**
      * @param array<string, mixed> $criteria
@@ -18,7 +18,7 @@ interface FindLocalizedRepositoryInterface
      *
      * @return T|null
      */
-    public function findOneLocalizedBy(array $criteria, array $orderBy = null, string $locale): ?LocalizableInterface;
+    public function findOneLocalizedBy(array $criteria, array $orderBy = null, string $locale): ?LocalizableEntityInterface;
 
     /** @return T[] */
     public function findAllLocalized(string $locale): array;

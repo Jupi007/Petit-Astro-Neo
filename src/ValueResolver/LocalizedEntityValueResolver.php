@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ValueResolver;
 
-use App\Entity\Contract\LocalizableInterface;
+use App\Entity\Contract\LocalizableEntityInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
@@ -24,10 +24,10 @@ class LocalizedEntityValueResolver implements ValueResolverInterface
         $this->entityValueResolver = new EntityValueResolver($registry);
     }
 
-    /** @return LocalizableInterface[] */
+    /** @return LocalizableEntityInterface[] */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        if ($argument->isVariadic() || !\is_subclass_of($argument->getType() ?? '', LocalizableInterface::class)) {
+        if ($argument->isVariadic() || !\is_subclass_of($argument->getType() ?? '', LocalizableEntityInterface::class)) {
             return [];
         }
 
@@ -43,7 +43,7 @@ class LocalizedEntityValueResolver implements ValueResolverInterface
 
         $object = $object[0];
 
-        if (!$object instanceof LocalizableInterface) {
+        if (!$object instanceof LocalizableEntityInterface) {
             return [];
         }
 

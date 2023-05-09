@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Contract\LocalizableInterface;
+use App\Entity\Contract\LocalizableEntityInterface;
 use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Contract\TrashableEntityInterface;
-use App\Entity\Trait\LocalizableTrait;
+use App\Entity\Trait\LocalizableEntityTrait;
 use App\Entity\Trait\PersistableEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,10 +17,10 @@ use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
 #[ORM\Entity]
-class Definition implements PersistableEntityInterface, LocalizableInterface, RoutableInterface, TrashableEntityInterface
+class Definition implements PersistableEntityInterface, LocalizableEntityInterface, RoutableInterface, TrashableEntityInterface
 {
-    /** @use LocalizableTrait<DefinitionTranslation> */
-    use LocalizableTrait;
+    /** @use LocalizableEntityTrait<DefinitionTranslation> */
+    use LocalizableEntityTrait;
     use PersistableEntityTrait;
 
     final public const RESOURCE_KEY = 'definitions';
