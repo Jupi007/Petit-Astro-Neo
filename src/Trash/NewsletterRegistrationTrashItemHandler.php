@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Trash;
 
-use App\ActivityEvent\NewsletterRegistration\RestoredNewsletterRegistrationActivityEvent;
 use App\Admin\NewsletterRegistrationAdmin;
+use App\DomainEvent\NewsletterRegistration\RestoredNewsletterRegistrationEvent;
 use App\Entity\NewsletterRegistration;
 use App\Exception\NewsletterRegistrationEmailNotUniqueException;
 use App\Repository\NewsletterRegistrationRepository;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfigurationProviderInterface;
@@ -18,6 +17,7 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerIn
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -40,7 +40,7 @@ class NewsletterRegistrationTrashItemHandler implements
         private readonly TrashItemRepositoryInterface $trashItemRepository,
         private readonly UserRepositoryInterface $userRepository,
         private readonly DoctrineRestoreHelperInterface $doctrineRestoreHelper,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -108,7 +108,7 @@ class NewsletterRegistrationTrashItemHandler implements
             $registration->setChanger($this->userRepository->find($data['changerId']));
         }
 
-        $this->domainEventCollector->collect(new RestoredNewsletterRegistrationActivityEvent($registration));
+        $this->eventDispatcher->dispatch(new RestoredNewsletterRegistrationEvent($registration));
         $this->doctrineRestoreHelper->persistAndFlushWithId($registration, (int) $trashItem->getResourceId());
 
         return $registration;

@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\ActivityEvent\Definition\CreatedDefinitionActivityEvent;
-use App\ActivityEvent\Definition\ModifiedDefinitionActivityEvent;
-use App\ActivityEvent\Definition\RemovedDefinitionActivityEvent;
+use App\DomainEvent\Definition\CreatedDefinitionEvent;
+use App\DomainEvent\Definition\ModifiedDefinitionEvent;
+use App\DomainEvent\Definition\RemovedDefinitionEvent;
 use App\Entity\Definition;
 use App\Repository\DefinitionRepositoryInterface;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DefinitionManager
 {
     public function __construct(
         private readonly DefinitionRepositoryInterface $repository,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly EventDispatcherInterface $eventDispatcher,
         private readonly RouteManagerInterface $routeManager,
         private readonly RouteRepositoryInterface $routeRepository,
     ) {
@@ -29,7 +29,7 @@ class DefinitionManager
         $this->repository->save($definition);
 
         $this->createOrUpdateRoute($definition);
-        $this->domainEventCollector->collect(new CreatedDefinitionActivityEvent($definition));
+        $this->eventDispatcher->dispatch(new CreatedDefinitionEvent($definition));
         $this->repository->save($definition);
 
         return $definition;
@@ -39,7 +39,7 @@ class DefinitionManager
     {
         $this->createOrUpdateRoute($definition);
 
-        $this->domainEventCollector->collect(new ModifiedDefinitionActivityEvent($definition));
+        $this->eventDispatcher->dispatch(new ModifiedDefinitionEvent($definition));
         $this->repository->save($definition);
 
         return $definition;
@@ -47,7 +47,7 @@ class DefinitionManager
 
     public function remove(Definition $definition): void
     {
-        $this->domainEventCollector->collect(new RemovedDefinitionActivityEvent($definition));
+        $this->eventDispatcher->dispatch(new RemovedDefinitionEvent($definition));
         $this->removeRoutes($definition);
         $this->repository->remove($definition);
     }

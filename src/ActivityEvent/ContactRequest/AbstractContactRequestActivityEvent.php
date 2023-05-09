@@ -11,7 +11,7 @@ use App\Entity\ContactRequest;
 abstract class AbstractContactRequestActivityEvent extends AbstractActivityEvent
 {
     public function __construct(
-        private readonly ContactRequest $definition,
+        private readonly ContactRequest $contactRequest,
     ) {
         parent::__construct();
     }
@@ -23,12 +23,12 @@ abstract class AbstractContactRequestActivityEvent extends AbstractActivityEvent
 
     public function getResourceId(): string
     {
-        return (string) $this->definition->getId();
+        return (string) $this->contactRequest->getId();
     }
 
     public function getResourceTitle(): ?string
     {
-        return $this->definition->getEmail();
+        return $this->contactRequest->getEmail();
     }
 
     public function getResourceSecurityContext(): ?string

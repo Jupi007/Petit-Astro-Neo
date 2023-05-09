@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Trash;
 
-use App\ActivityEvent\ContactRequest\RestoredContactRequestActivityEvent;
 use App\Admin\ContactRequestAdmin;
+use App\DomainEvent\ContactRequest\RestoredContactRequestEvent;
 use App\Entity\ContactRequest;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfigurationProviderInterface;
@@ -16,6 +15,7 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerIn
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -38,7 +38,7 @@ class ContactRequestTrashItemHandler implements
         private readonly UserRepositoryInterface $userRepository,
         private readonly TrashItemRepositoryInterface $trashItemRepository,
         private readonly DoctrineRestoreHelperInterface $doctrineRestoreHelper,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -105,7 +105,7 @@ class ContactRequestTrashItemHandler implements
             $request->setChanger($this->userRepository->find($data['changerId']));
         }
 
-        $this->domainEventCollector->collect(new RestoredContactRequestActivityEvent($request));
+        $this->eventDispatcher->dispatch(new RestoredContactRequestEvent($request));
         $this->doctrineRestoreHelper->persistAndFlushWithId($request, (int) $trashItem->getResourceId());
 
         return $request;

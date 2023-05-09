@@ -4,28 +4,24 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\ActivityEvent\ContactRequest\CreatedContactRequestActivityEvent;
-use App\ActivityEvent\ContactRequest\ModifiedContactRequestActivityEvent;
-use App\ActivityEvent\ContactRequest\RemovedContactRequestActivityEvent;
+use App\DomainEvent\ContactRequest\CreatedContactRequestEvent;
+use App\DomainEvent\ContactRequest\ModifiedContactRequestEvent;
+use App\DomainEvent\ContactRequest\RemovedContactRequestEvent;
 use App\Entity\ContactRequest;
 use App\Repository\ContactRequestRepositoryInterface;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ContactRequestManager
 {
     public function __construct(
         private readonly ContactRequestRepositoryInterface $repository,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
-        private readonly string $suluContext,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
     public function create(ContactRequest $request): ContactRequest
     {
-        if ('admin' === $this->suluContext) {
-            $this->domainEventCollector->collect(new CreatedContactRequestActivityEvent($request));
-        }
-
+        $this->eventDispatcher->dispatch(new CreatedContactRequestEvent($request));
         $this->repository->save($request);
 
         return $request;
@@ -33,10 +29,7 @@ class ContactRequestManager
 
     public function update(ContactRequest $request): ContactRequest
     {
-        if ('admin' === $this->suluContext) {
-            $this->domainEventCollector->collect(new ModifiedContactRequestActivityEvent($request));
-        }
-
+        $this->eventDispatcher->dispatch(new ModifiedContactRequestEvent($request));
         $this->repository->save($request);
 
         return $request;
@@ -44,10 +37,7 @@ class ContactRequestManager
 
     public function remove(ContactRequest $request): void
     {
-        if ('admin' === $this->suluContext) {
-            $this->domainEventCollector->collect(new RemovedContactRequestActivityEvent($request));
-        }
-
+        $this->eventDispatcher->dispatch(new RemovedContactRequestEvent($request));
         $this->repository->remove($request);
     }
 }

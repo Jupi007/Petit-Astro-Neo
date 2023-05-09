@@ -14,7 +14,9 @@ services:
   App\:
     resource: "../src/"
     exclude:
+      - "../src/ActivityEvent/"
       - "../src/DependencyInjection/"
+      - "../src/DomainEvent/"
       - "../src/Entity/"
       - "../src/Kernel.php"
 

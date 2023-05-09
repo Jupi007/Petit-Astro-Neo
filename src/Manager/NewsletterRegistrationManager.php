@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\ActivityEvent\NewsletterRegistration\CreatedNewsletterRegistrationActivityEvent;
-use App\ActivityEvent\NewsletterRegistration\ModifiedNewsletterRegistrationActivityEvent;
-use App\ActivityEvent\NewsletterRegistration\RemovedNewsletterRegistrationActivityEvent;
+use App\DomainEvent\NewsletterRegistration\CreatedNewsletterRegistrationEvent;
+use App\DomainEvent\NewsletterRegistration\ModifiedNewsletterRegistrationEvent;
+use App\DomainEvent\NewsletterRegistration\RemovedNewsletterRegistrationEvent;
 use App\Entity\NewsletterRegistration;
 use App\Exception\NewsletterRegistrationEmailNotUniqueException;
 use App\Repository\NewsletterRegistrationRepositoryInterface;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class NewsletterRegistrationManager
 {
     public function __construct(
         private readonly NewsletterRegistrationRepositoryInterface $repository,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
-        private readonly string $suluContext,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -27,10 +26,7 @@ class NewsletterRegistrationManager
             throw new NewsletterRegistrationEmailNotUniqueException($registration->getEmail());
         }
 
-        if ('admin' === $this->suluContext) {
-            $this->domainEventCollector->collect(new CreatedNewsletterRegistrationActivityEvent($registration));
-        }
-
+        $this->eventDispatcher->dispatch(new CreatedNewsletterRegistrationEvent($registration));
         $this->repository->save($registration);
 
         return $registration;
@@ -38,10 +34,7 @@ class NewsletterRegistrationManager
 
     public function update(NewsletterRegistration $registration): NewsletterRegistration
     {
-        if ('admin' === $this->suluContext) {
-            $this->domainEventCollector->collect(new ModifiedNewsletterRegistrationActivityEvent($registration));
-        }
-
+        $this->eventDispatcher->dispatch(new ModifiedNewsletterRegistrationEvent($registration));
         $this->repository->save($registration);
 
         return $registration;
@@ -49,10 +42,7 @@ class NewsletterRegistrationManager
 
     public function remove(NewsletterRegistration $registration): void
     {
-        if ('admin' === $this->suluContext) {
-            $this->domainEventCollector->collect(new RemovedNewsletterRegistrationActivityEvent($registration));
-        }
-
+        $this->eventDispatcher->dispatch(new RemovedNewsletterRegistrationEvent($registration));
         $this->repository->remove($registration);
     }
 }

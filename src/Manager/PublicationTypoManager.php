@@ -4,36 +4,29 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\ActivityEvent\PublicationTypo\CreatedPublicationTypoActivityEvent;
-use App\ActivityEvent\PublicationTypo\RemovedPublicationTypoActivityEvent;
+use App\DomainEvent\PublicationTypo\CreatedPublicationTypoEvent;
+use App\DomainEvent\PublicationTypo\RemovedPublicationTypoEvent;
 use App\Entity\PublicationTypo;
 use App\Repository\PublicationTypoRepositoryInterface;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PublicationTypoManager
 {
     public function __construct(
         private readonly PublicationTypoRepositoryInterface $repository,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
-        private readonly string $suluContext,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
     public function create(PublicationTypo $typo): void
     {
-        if ('admin' === $this->suluContext) {
-            $this->domainEventCollector->collect(new CreatedPublicationTypoActivityEvent($typo));
-        }
-
+        $this->eventDispatcher->dispatch(new CreatedPublicationTypoEvent($typo));
         $this->repository->save($typo);
     }
 
     public function remove(PublicationTypo $typo): void
     {
-        if ('admin' === $this->suluContext) {
-            $this->domainEventCollector->collect(new RemovedPublicationTypoActivityEvent($typo));
-        }
-
+        $this->eventDispatcher->dispatch(new RemovedPublicationTypoEvent($typo));
         $this->repository->remove($typo);
     }
 }

@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Trash;
 
-use App\ActivityEvent\PublicationTypo\RestoredPublicationTypoActivityEvent;
 use App\Admin\PublicationTypoAdmin;
+use App\DomainEvent\PublicationTypo\RestoredPublicationTypoEvent;
 use App\Entity\Publication;
 use App\Entity\PublicationTypo;
 use App\Exception\PublicationNotFoundException;
 use App\Repository\PublicationRepository;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfigurationProviderInterface;
@@ -18,6 +17,7 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\RestoreTrashItemHandler
 use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerInterface;
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -37,7 +37,7 @@ class PublicationTypoTrashItemHandler implements
         private readonly PublicationRepository $publicationRepository,
         private readonly TrashItemRepositoryInterface $trashItemRepository,
         private readonly DoctrineRestoreHelperInterface $doctrineRestoreHelper,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -97,7 +97,7 @@ class PublicationTypoTrashItemHandler implements
             ->setCreated(new \DateTime($data['created'] ?? ''))
             ->setChanged(new \DateTime($data['changed'] ?? ''));
 
-        $this->domainEventCollector->collect(new RestoredPublicationTypoActivityEvent($typo));
+        $this->eventDispatcher->dispatch(new RestoredPublicationTypoEvent($typo));
         $this->doctrineRestoreHelper->persistAndFlushWithId($typo, (int) $trashItem->getResourceId());
 
         return $typo;

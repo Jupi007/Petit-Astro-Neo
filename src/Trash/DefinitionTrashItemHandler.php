@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Trash;
 
-use App\ActivityEvent\Definition\RestoredDefinitionActivityEvent;
 use App\Admin\DefinitionAdmin;
+use App\DomainEvent\Definition\RestoredDefinitionEvent;
 use App\Entity\Definition;
 use App\Repository\DefinitionRepository;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
@@ -18,6 +17,7 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerIn
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -42,7 +42,7 @@ class DefinitionTrashItemHandler implements
         private readonly RouteManagerInterface $routeManager,
         private readonly UserRepositoryInterface $userRepository,
         private readonly DefinitionRepository $definitionRepository,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -79,7 +79,7 @@ class DefinitionTrashItemHandler implements
     public function restore(TrashItemInterface $trashItem, array $restoreFormData = []): object
     {
         $definition = $this->trashItemToDefinition($trashItem);
-        $this->domainEventCollector->collect(new RestoredDefinitionActivityEvent($definition));
+        $this->eventDispatcher->dispatch(new RestoredDefinitionEvent($definition));
         $this->doctrineRestoreHelper->persistAndFlushWithId($definition, (int) $trashItem->getResourceId());
 
         $this->restoreDefinitionRoutes($definition, $trashItem);

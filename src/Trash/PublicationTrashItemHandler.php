@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Trash;
 
-use App\ActivityEvent\Publication\RestoredPublicationActivityEvent;
 use App\Admin\PublicationAdmin;
+use App\DomainEvent\Publication\RestoredPublicationEvent;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Entity\PublicationTypo;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
 use Sulu\Bundle\TagBundle\Tag\TagRepositoryInterface;
@@ -21,6 +20,7 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerIn
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -71,7 +71,7 @@ class PublicationTrashItemHandler implements
     public function __construct(
         private readonly TrashItemRepositoryInterface $trashItemRepository,
         private readonly DoctrineRestoreHelperInterface $doctrineRestoreHelper,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly EventDispatcherInterface $eventDispatcher,
         private readonly UserRepositoryInterface $userRepository,
         private readonly TagRepositoryInterface $tagRepository,
         private readonly CategoryRepositoryInterface $categoryRepository,
@@ -230,7 +230,7 @@ class PublicationTrashItemHandler implements
             );
         }
 
-        $this->domainEventCollector->collect(new RestoredPublicationActivityEvent($publication));
+        $this->eventDispatcher->dispatch(new RestoredPublicationEvent($publication));
         $this->doctrineRestoreHelper->persistAndFlushWithId(
             $publication,
             (int) $trashItem->getResourceId(),

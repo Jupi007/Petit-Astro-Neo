@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\ActivityEvent\Publication\CreatedPublicationActivityEvent;
-use App\ActivityEvent\Publication\DraftRemovedPublicationActivityEvent;
-use App\ActivityEvent\Publication\ModifiedPublicationActivityEvent;
-use App\ActivityEvent\Publication\NotifiedPublicationActivityEvent;
-use App\ActivityEvent\Publication\PublishedPublicationActivityEvent;
-use App\ActivityEvent\Publication\RemovedPublicationActivityEvent;
-use App\ActivityEvent\Publication\TranslationCopiedPublicationActivityEvent;
-use App\ActivityEvent\Publication\UnpublishedPublicationActivityEvent;
+use App\DomainEvent\Publication\CreatedPublicationEvent;
+use App\DomainEvent\Publication\DraftRemovedPublicationEvent;
+use App\DomainEvent\Publication\ModifiedPublicationEvent;
+use App\DomainEvent\Publication\NotifiedPublicationEvent;
+use App\DomainEvent\Publication\PublishedPublicationEvent;
+use App\DomainEvent\Publication\RemovedPublicationEvent;
+use App\DomainEvent\Publication\TranslationCopiedPublicationEvent;
+use App\DomainEvent\Publication\UnpublishedPublicationEvent;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Repository\PublicationRepository;
-use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PublicationManager
 {
@@ -27,7 +27,7 @@ class PublicationManager
         private readonly PublicationRepository $publicationRepository,
         private readonly ContentManagerInterface $contentManager,
         private readonly ContentIndexerInterface $contentIndexer,
-        private readonly DomainEventCollectorInterface $domainEventCollector,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -40,7 +40,7 @@ class PublicationManager
         $publication = new Publication();
         $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
 
-        $this->domainEventCollector->collect(new CreatedPublicationActivityEvent($publication));
+        $this->eventDispatcher->dispatch(new CreatedPublicationEvent($publication));
         $this->publicationRepository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
@@ -65,7 +65,7 @@ class PublicationManager
             );
         }
 
-        $this->domainEventCollector->collect(new ModifiedPublicationActivityEvent($publication));
+        $this->eventDispatcher->dispatch(new ModifiedPublicationEvent($publication));
         $this->publicationRepository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
@@ -80,7 +80,7 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_PUBLISH,
         );
 
-        $this->domainEventCollector->collect(new PublishedPublicationActivityEvent($publication));
+        $this->eventDispatcher->dispatch(new PublishedPublicationEvent($publication));
         $this->publicationRepository->save($publication);
 
         $this->contentIndexer->index($publication, [
@@ -102,7 +102,7 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_UNPUBLISH,
         );
 
-        $this->domainEventCollector->collect(new UnpublishedPublicationActivityEvent($publication));
+        $this->eventDispatcher->dispatch(new UnpublishedPublicationEvent($publication));
         $this->publicationRepository->save($publication);
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId(), [
@@ -115,7 +115,7 @@ class PublicationManager
     {
         $publication->setNotified(true);
 
-        $this->domainEventCollector->collect(new NotifiedPublicationActivityEvent($publication));
+        $this->eventDispatcher->dispatch(new NotifiedPublicationEvent($publication));
         $this->publicationRepository->save($publication);
     }
 
@@ -134,7 +134,7 @@ class PublicationManager
             ],
         );
 
-        $this->domainEventCollector->collect(new TranslationCopiedPublicationActivityEvent($publication, $srcLocale, $destLocale));
+        $this->eventDispatcher->dispatch(new TranslationCopiedPublicationEvent($publication, $srcLocale, $destLocale));
         $this->publicationRepository->save($publication);
     }
 
@@ -147,7 +147,7 @@ class PublicationManager
             WorkflowInterface::WORKFLOW_TRANSITION_REMOVE_DRAFT,
         );
 
-        $this->domainEventCollector->collect(new DraftRemovedPublicationActivityEvent($publication));
+        $this->eventDispatcher->dispatch(new DraftRemovedPublicationEvent($publication));
         $this->publicationRepository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
@@ -159,7 +159,7 @@ class PublicationManager
             throw new \LogicException('You cannot remove a non-persisted publication.');
         }
 
-        $this->domainEventCollector->collect(new RemovedPublicationActivityEvent($publication));
+        $this->eventDispatcher->dispatch(new RemovedPublicationEvent($publication));
         $this->publicationRepository->remove($publication);
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId());
