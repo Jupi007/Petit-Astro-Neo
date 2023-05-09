@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Utils;
+namespace App\Repository\Common;
 
 use App\Entity\Contract\LocalizableInterface;
 

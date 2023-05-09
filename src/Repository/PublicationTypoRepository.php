@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\PublicationTypo;
-use App\Repository\Utils\BaseRepository;
+use App\Repository\Common\BaseRepository;
 
 /** @extends BaseRepository<PublicationTypo> */
 class PublicationTypoRepository extends BaseRepository implements PublicationTypoRepositoryInterface

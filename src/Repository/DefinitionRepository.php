@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Definition;
-use App\Repository\Utils\BaseRepository;
-use App\Repository\Utils\FindLocalizedRepositoryTrait;
+use App\Repository\Common\BaseRepository;
+use App\Repository\Common\FindLocalizedRepositoryTrait;
 
 /** @extends BaseRepository<Definition> */
 class DefinitionRepository extends BaseRepository implements DefinitionRepositoryInterface

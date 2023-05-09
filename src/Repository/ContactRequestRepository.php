@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\ContactRequest;
-use App\Repository\Utils\BaseRepository;
+use App\Repository\Common\BaseRepository;
 
 /** @extends BaseRepository<ContactRequest> */
 class ContactRequestRepository extends BaseRepository implements ContactRequestRepositoryInterface
