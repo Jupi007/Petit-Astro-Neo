@@ -46,23 +46,23 @@ class NewsletterRegistration implements PersistableEntityInterface, AuditableInt
 
     public static function fromUser(User $user): self
     {
-        if (null === $user->getEmail()) {
-            throw new \LogicException('You cannot use an user without an email address.');
+        if (null === $user->getContact()->getMainEmail()) {
+            throw new \LogicException('You cannot use an user without a contact email address.');
         }
 
         return new self(
-            $user->getEmail(),
+            $user->getContact()->getMainEmail(),
             $user->getLocale(),
         );
     }
 
     public function syncWithUser(User $user): self
     {
-        if ($this->email !== $user->getEmail()) {
+        if ($this->email !== $user->getContact()->getMainEmail()) {
             throw new \LogicException(\sprintf(
                 'You cannot sync with a different user email address (this: %s - user: %s).',
                 $this->email,
-                $user->getEmail(),
+                $user->getContact()->getMainEmail(),
             ));
         }
 
