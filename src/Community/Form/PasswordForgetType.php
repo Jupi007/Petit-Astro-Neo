@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Community\Form;
 
 use Sulu\Bundle\CommunityBundle\Validator\Constraints\Exist;
 use Sulu\Bundle\SecurityBundle\Entity\User;

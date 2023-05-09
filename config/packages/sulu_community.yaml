@@ -15,7 +15,7 @@ sulu_community:
 
       # Registration
       registration:
-        type: App\Form\RegistrationType
+        type: App\Community\Form\RegistrationType
         template: community/registration_form.html.twig
 
       # Confirmation
@@ -38,7 +38,7 @@ sulu_community:
         #   admin_template: ~
         #   user_template: community/password_forget_email.html.twig
         template: community/password_forget_form.html.twig
-        type: App\Form\PasswordForgetType
+        type: App\Community\Form\PasswordForgetType
       password_reset:
         auto_login: true
         # email:
@@ -46,11 +46,11 @@ sulu_community:
         #   admin_template: ~
         #   user_template: community/password_reset_email.html.twig
         template: community/password_reset_form.html.twig
-        type: App\Form\PasswordResetType
+        type: App\Community\Form\PasswordResetType
 
       # Profile
       profile:
-        type: App\Form\ProfileType
+        type: App\Community\Form\ProfileType
         redirect_to: ?send=true
         template: community/profile_form.html.twig
 
