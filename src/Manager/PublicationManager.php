@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
+use App\ActivityEvent\Publication\CreatedPublicationActivityEvent;
+use App\ActivityEvent\Publication\DraftRemovedPublicationActivityEvent;
+use App\ActivityEvent\Publication\ModifiedPublicationActivityEvent;
+use App\ActivityEvent\Publication\NotifiedPublicationActivityEvent;
+use App\ActivityEvent\Publication\PublishedPublicationActivityEvent;
+use App\ActivityEvent\Publication\RemovedPublicationActivityEvent;
+use App\ActivityEvent\Publication\TranslationCopiedPublicationActivityEvent;
+use App\ActivityEvent\Publication\UnpublishedPublicationActivityEvent;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Repository\PublicationRepository;
-use App\SuluDomainEvent\Publication\CreatedPublicationActivityEvent;
-use App\SuluDomainEvent\Publication\DraftRemovedPublicationActivityEvent;
-use App\SuluDomainEvent\Publication\ModifiedPublicationActivityEvent;
-use App\SuluDomainEvent\Publication\NotifiedPublicationActivityEvent;
-use App\SuluDomainEvent\Publication\PublishedPublicationActivityEvent;
-use App\SuluDomainEvent\Publication\RemovedPublicationActivityEvent;
-use App\SuluDomainEvent\Publication\TranslationCopiedPublicationActivityEvent;
-use App\SuluDomainEvent\Publication\UnpublishedPublicationActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;

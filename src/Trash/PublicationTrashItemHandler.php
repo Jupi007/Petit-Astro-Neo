@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Trash;
 
+use App\ActivityEvent\Publication\RestoredPublicationActivityEvent;
 use App\Admin\PublicationAdmin;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Entity\PublicationTypo;
-use App\SuluDomainEvent\Publication\RestoredPublicationActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;

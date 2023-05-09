@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
+use App\ActivityEvent\Definition\CreatedDefinitionActivityEvent;
+use App\ActivityEvent\Definition\ModifiedDefinitionActivityEvent;
+use App\ActivityEvent\Definition\RemovedDefinitionActivityEvent;
 use App\Entity\Definition;
 use App\Repository\DefinitionRepositoryInterface;
-use App\SuluDomainEvent\Definition\CreatedDefinitionActivityEvent;
-use App\SuluDomainEvent\Definition\ModifiedDefinitionActivityEvent;
-use App\SuluDomainEvent\Definition\RemovedDefinitionActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;

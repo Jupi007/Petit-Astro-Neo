@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
+use App\ActivityEvent\ContactRequest\CreatedContactRequestActivityEvent;
+use App\ActivityEvent\ContactRequest\ModifiedContactRequestActivityEvent;
+use App\ActivityEvent\ContactRequest\RemovedContactRequestActivityEvent;
 use App\Entity\ContactRequest;
 use App\Repository\ContactRequestRepositoryInterface;
-use App\SuluDomainEvent\ContactRequest\CreatedContactRequestActivityEvent;
-use App\SuluDomainEvent\ContactRequest\ModifiedContactRequestActivityEvent;
-use App\SuluDomainEvent\ContactRequest\RemovedContactRequestActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 
 class ContactRequestManager

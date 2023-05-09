@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
+use App\ActivityEvent\NewsletterRegistration\CreatedNewsletterRegistrationActivityEvent;
+use App\ActivityEvent\NewsletterRegistration\ModifiedNewsletterRegistrationActivityEvent;
+use App\ActivityEvent\NewsletterRegistration\RemovedNewsletterRegistrationActivityEvent;
 use App\Entity\NewsletterRegistration;
 use App\Exception\NewsletterRegistrationEmailNotUniqueException;
 use App\Repository\NewsletterRegistrationRepositoryInterface;
-use App\SuluDomainEvent\NewsletterRegistration\CreatedNewsletterRegistrationActivityEvent;
-use App\SuluDomainEvent\NewsletterRegistration\ModifiedNewsletterRegistrationActivityEvent;
-use App\SuluDomainEvent\NewsletterRegistration\RemovedNewsletterRegistrationActivityEvent;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 
 class NewsletterRegistrationManager
