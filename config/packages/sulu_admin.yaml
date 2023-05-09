@@ -36,7 +36,7 @@ sulu_admin:
         default_type: list_overlay
         resource_key: !php/const App\Entity\Definition::RESOURCE_KEY
         view:
-          name: !php/const App\Admin\DefinitionAdmin::EDIT_FORM_VIEW
+          name: !php/const App\Sulu\Admin\DefinitionAdmin::EDIT_FORM_VIEW
           result_to_view:
             id: id
         types:

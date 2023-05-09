@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Admin\DefinitionAdmin;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
 use App\Controller\Trait\RequestActionGetterTrait;
 use App\Entity\Api\DefinitionRepresentation;
 use App\Entity\Definition;
 use App\Manager\DefinitionManager;
-use App\Security\SecuredControllerInterface;
+use App\Sulu\Admin\DefinitionAdmin;
+use App\Sulu\Security\SecuredControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -3,20 +3,20 @@ sulu_search:
     !php/const App\Entity\Definition::RESOURCE_KEY:
       name: app.admin.lexicon
       icon: !php/const App\Entity\Definition::RESOURCE_ICON
-      security_context: !php/const App\Admin\DefinitionAdmin::SECURITY_CONTEXT
+      security_context: !php/const App\Sulu\Admin\DefinitionAdmin::SECURITY_CONTEXT
       contexts: []
       view:
-        name: !php/const App\Admin\DefinitionAdmin::EDIT_FORM_VIEW
+        name: !php/const App\Sulu\Admin\DefinitionAdmin::EDIT_FORM_VIEW
         result_to_view:
           id: id
           locale: locale
     !php/const App\Entity\Publication::RESOURCE_KEY:
       name: app.admin.publications
       icon: !php/const App\Entity\Publication::RESOURCE_ICON
-      security_context: !php/const App\Admin\PublicationAdmin::SECURITY_CONTEXT
+      security_context: !php/const App\Sulu\Admin\PublicationAdmin::SECURITY_CONTEXT
       contexts: []
       view:
-        name: !php/const App\Admin\PublicationAdmin::EDIT_FORM_VIEW
+        name: !php/const App\Sulu\Admin\PublicationAdmin::EDIT_FORM_VIEW
         result_to_view:
           id: id
           locale: locale
