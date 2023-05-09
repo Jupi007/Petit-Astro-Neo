@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Components;
+namespace App\TwigComponents;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent('expandable')]
-class Expandable
+#[AsTwigComponent('definition-grid')]
+class DefinitionGrid
 {
 }
