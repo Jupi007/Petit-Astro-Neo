@@ -6,6 +6,7 @@ namespace App\Form;
 
 use App\Form\Data\NewsletterRegistrationTypeData;
 use App\Form\Type\WebspaceLocaleChoiceType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,6 +24,7 @@ class NewsletterRegistrationType extends AbstractType
             ->add('locale', WebspaceLocaleChoiceType::class, [
                 'label' => 'app.community.profile.prefered_language',
             ])
+            ->add('captcha', CaptchaType::class)
             ->add('send', SubmitType::class, [
                 'label' => 'app.submit',
             ]);

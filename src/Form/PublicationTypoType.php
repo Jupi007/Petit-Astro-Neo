@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Form\Data\PublicationTypoTypeData;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -17,6 +18,7 @@ class PublicationTypoType extends AbstractType
     {
         $builder
             ->add('description', TextareaType::class)
+            ->add('captcha', CaptchaType::class)
             ->add('send', SubmitType::class, [
                 'label' => 'app.submit',
             ]);

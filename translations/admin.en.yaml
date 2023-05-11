@@ -29,6 +29,10 @@ app.admin:
   publication_not_found: "The publication does not exist or no longer exists."
   answer: "Answer"
 
+  form:
+    type:
+      captcha: "Captcha"
+
 sulu_activity:
   resource:
     definitions: "Definition"

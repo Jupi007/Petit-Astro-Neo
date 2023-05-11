@@ -28,6 +28,10 @@ app.admin:
   publication_not_found: "La publication n’existe pas ou plus."
   answer: "Répondre"
 
+  form:
+    type:
+      captcha: "Captcha"
+
 sulu_activity:
   resource:
     definitions: "Définition"

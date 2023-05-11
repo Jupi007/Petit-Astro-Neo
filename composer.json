@@ -43,6 +43,7 @@
         "doctrine/doctrine-bundle": "^2.7.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofsymfony/http-cache-bundle": "^2.10.1",
+        "gregwar/captcha-bundle": "^2.2",
         "handcraftedinthealps/zendsearch": "^2.1",
         "jackalope/jackalope-doctrine-dbal": "^1.7",
         "phpdocumentor/reflection-docblock": "^5.3",

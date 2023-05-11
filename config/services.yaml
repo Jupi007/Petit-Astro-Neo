@@ -7,6 +7,7 @@ services:
     autoconfigure: true
     bind:
       "string $kernelEnvironment": "%kernel.environment%"
+      "string $projectDir": "%kernel.project_dir%"
       "string $suluContext": "%sulu.context%"
       "string $suluRouteClass": "%sulu.model.route.class%"
       "bool $suluDocumentShowDrafts": "%sulu_document_manager.show_drafts%"

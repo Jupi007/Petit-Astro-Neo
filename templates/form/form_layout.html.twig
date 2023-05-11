@@ -21,7 +21,7 @@
 {%- endblock widget_attributes -%}
 
 {%- block widget_attributes_class -%}
-  {{ widget_class|default('block p-3 outline-accent border border-outline leading-none dark:border-outline-invert focus:outline focus:outline-1 focus:border-accent bg-black/2.5 dark:bg-white/2.5')}}
+  {{ widget_class|default('block w-full p-3 outline-accent border border-outline leading-none dark:border-outline-invert focus:outline focus:outline-1 focus:border-accent bg-black/2.5 dark:bg-white/2.5')}}
   {% if disabled %}
     {{ widget_disabled_class|default('text-gray-500 bg-black/5 dark:bg-white/10') }}
   {% endif %}
@@ -178,3 +178,11 @@
 
 {%- block spacer_widget -%}
 {%- endblock spacer_widget -%}
+
+{# Captcha #}
+{%- block captcha_widget -%}
+  <div class="flex flex-row gap-2">
+    <img src="{{ captcha_code }}" title="captcha" width="{{ captcha_width }}" height="{{ captcha_height }}" />
+    {{ form_widget(form) }}
+  </div>
+{%- endblock captcha_widget -%}
