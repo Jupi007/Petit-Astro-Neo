@@ -26,6 +26,7 @@ app.admin:
   notify_warning_title: "Envoyer les notifications ?"
   notify_warning_text: "Voulez-vous vraiment envoyer les messages de notification ?"
   publication_not_found: "La publication n’existe pas ou plus."
+  publication_already_notified: "Les notifications pour cette publication ont déjà été envoyées."
   answer: "Répondre"
 
   form:

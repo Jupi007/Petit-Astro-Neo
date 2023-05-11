@@ -27,6 +27,7 @@ app.admin:
   notify_warning_title: "Send notifications?"
   notify_warning_text: "Do you really want to send notifications messages?"
   publication_not_found: "The publication does not exist or no longer exists."
+  publication_already_notified: "Notifications for this publication has already been sent."
   answer: "Answer"
 
   form:

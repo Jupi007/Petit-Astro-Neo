@@ -14,6 +14,7 @@ use App\DomainEvent\Publication\TranslationCopiedPublicationEvent;
 use App\DomainEvent\Publication\UnpublishedPublicationEvent;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
+use App\Exception\PublicationAlreadyNotifiedException;
 use App\Repository\PublicationRepository;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
@@ -113,6 +114,10 @@ class PublicationManager
 
     public function notify(Publication $publication): void
     {
+        if ($publication->isNotified()) {
+            throw new PublicationAlreadyNotifiedException();
+        }
+
         $publication->setNotified(true);
 
         $this->eventDispatcher->dispatch(new NotifiedPublicationEvent($publication));
