@@ -1,6 +1,7 @@
 <twig:page-container class="my-4">
   {% if content.form %}
     <div class="not-prose">
+      {% form_theme content.form 'form/form_layout.html.twig' %}
       {{ form(content.form) }}
     </div>
 
@@ -9,6 +10,3 @@
     {% endif %}
   {% endif %}
 </twig:page-container>
-
-
-

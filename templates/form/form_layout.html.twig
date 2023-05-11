@@ -16,7 +16,7 @@
 {%- endblock form_row -%}
 
 {%- block widget_attributes -%}
-  {%- set attr = attr|default({ class: block('widget_attributes_class') }) -%}
+  {%- set attr = attr|merge({ class: attr.class|default(block('widget_attributes_class')) }) -%}
   {{- parent() -}}
 {%- endblock widget_attributes -%}
 
@@ -86,7 +86,7 @@
 {%- endblock radio_widget -%}
 
 {%- block textarea_widget -%}
-  {%- set attr = attr|default({class: block('widget_attributes_class') ~ ' !leading-normal !py-2'}) -%}
+  {%- set attr = attr|merge({class: attr.class|default(block('widget_attributes_class') ~ ' !leading-normal !py-2')}) -%}
   {{- parent() -}}
 {%- endblock textarea_widget -%}
 
