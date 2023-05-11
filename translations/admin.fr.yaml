@@ -27,22 +27,14 @@ app.admin:
   notify_warning_text: "Voulez-vous vraiment envoyer les messages de notification ?"
   publication_not_found: "La publication n’existe pas ou plus."
   answer: "Répondre"
-  contact_request: "Demande de contact"
-  contact_requests: "Demandes de contact"
 
 sulu_activity:
   resource:
-    contact_requests: "Demande de contact"
     definitions: "Définition"
     newsletter_registrations: "Inscription à l'infolettre"
     publications: "Publication"
     publication_typos: "Faute"
   description:
-    contact_requests:
-      created: '{userFullName} a créé la demande de contact "{resourceTitle}"'
-      modified: '{userFullName} a modifié la demande de contact "{resourceTitle}"'
-      removed: '{userFullName} a supprimé la demande de contact "{resourceTitle}"'
-      restored: '{userFullName} a restoré la demande de contact "{resourceTitle}"'
     definitions:
       created: '{userFullName} a créé la définition "{resourceTitle}"'
       modified: '{userFullName} a modifié la définition "{resourceTitle}"'

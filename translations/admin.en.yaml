@@ -28,22 +28,14 @@ app.admin:
   notify_warning_text: "Do you really want to send notifications messages?"
   publication_not_found: "The publication does not exist or no longer exists."
   answer: "Answer"
-  contact_request: "Contact request"
-  contact_requests: "Contact requests"
 
 sulu_activity:
   resource:
-    contact_requests: "Contact request"
     definitions: "Definition"
     newsletter_registrations: "Newsletter registration"
     publications: "Publication"
     publication_typos: "Typo"
   description:
-    contact_requests:
-      created: '{userFullName} has created the contact request "{resourceTitle}"'
-      modified: '{userFullName} has changed the contact request "{resourceTitle}"'
-      removed: '{userFullName} has removed the contact request "{resourceTitle}"'
-      restored: '{userFullName} has restored the contact request "{resourceTitle}"'
     definitions:
       created: '{userFullName} has created the definition "{resourceTitle}"'
       modified: '{userFullName} has changed the definition "{resourceTitle}"'

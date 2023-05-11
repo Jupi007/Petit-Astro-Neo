@@ -95,11 +95,5 @@ app:
 
     email_confirmation_message: "Email was successfully changed."
 
-  contact_form:
-    object_label: "Object:"
-    email_label: "Email:"
-    message_label: "Message:"
-    success_message: "Your message was successfully sent."
-
   newsletter_form:
     success_message: "You have successfully subscribed to the newsletter."

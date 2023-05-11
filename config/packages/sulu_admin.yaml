@@ -9,10 +9,6 @@ sulu_admin:
       - "%kernel.project_dir%/config/lists"
 
   resources:
-    !php/const App\Entity\ContactRequest::RESOURCE_KEY:
-      routes:
-        list: app.admin.get_contact_request_list
-        detail: app.admin.get_contact_request
     !php/const App\Entity\Definition::RESOURCE_KEY:
       routes:
         list: app.admin.get_definition_list
