@@ -75,6 +75,13 @@
             <transformer type="title"/>
         </case-property>
 
+        <property name="notified" translation="app.admin.notified">
+            <field-name>notified</field-name>
+            <entity-name>App\Entity\Publication</entity-name>
+
+            <transformer type="bool"/>
+        </property>
+
         <property name="created" translation="sulu_admin.created" type="datetime" visibility="yes">
             <field-name>created</field-name>
             <entity-name>dimensionContent</entity-name>
