@@ -97,3 +97,8 @@ app:
 
   newsletter_form:
     success_message: "Votre inscription à l'infolettre a bien été enregistré."
+
+  emails:
+    publication_notification:
+      title: "Nouvelle publication sur lepetitastro.fr"
+      more_text: "Lire la suite"

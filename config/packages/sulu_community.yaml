@@ -1,7 +1,7 @@
 sulu_community:
   webspaces:
     petit-astro:
-      from: "%env(SULU_ADMIN_EMAIL)%"
+      from: "%env(WEBSITE_EMAIL)%"
 
       # Maintenance
       maintenance:

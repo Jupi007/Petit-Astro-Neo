@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Sulu\Sitemap;
 
+use App\Common\DefaultLocaleGetterTrait;
 use App\Entity\Definition;
 use App\Entity\DefinitionTranslation;
 use App\Exception\NullAssertionException;
@@ -13,11 +14,12 @@ use Sulu\Bundle\WebsiteBundle\Sitemap\Sitemap;
 use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapAlternateLink;
 use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapProviderInterface;
 use Sulu\Bundle\WebsiteBundle\Sitemap\SitemapUrl;
-use Sulu\Component\Localization\Localization;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 class DefinitionSitemapProvider implements SitemapProviderInterface
 {
+    use DefaultLocaleGetterTrait;
+
     public function __construct(
         private readonly WebspaceManagerInterface $webspaceManager,
         private readonly EntityManagerInterface $entityManager,
@@ -76,17 +78,6 @@ class DefinitionSitemapProvider implements SitemapProviderInterface
             ->getSingleScalarResult();
 
         return (int) \ceil($count / self::PAGE_SIZE);
-    }
-
-    private function getDefaultLocale(): string
-    {
-        foreach ($this->webspaceManager->getAllLocalizations() as $localization) {
-            if ($localization->isDefault()) {
-                return $localization->getLocale(Localization::DASH);
-            }
-        }
-
-        throw new \LogicException('No default locale.');
     }
 
     /** @return array<int, non-empty-array<string, DefinitionTranslation>> */
@@ -152,5 +143,10 @@ class DefinitionSitemapProvider implements SitemapProviderInterface
     private function generateUrl(string $scheme, string $host, string $path): string
     {
         return $scheme . '://' . $host . $path;
+    }
+
+    protected function getWebspaceManager(): WebspaceManagerInterface
+    {
+        return $this->webspaceManager;
     }
 }

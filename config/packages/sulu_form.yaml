@@ -1,8 +1,8 @@
 sulu_form:
     csrf_protection: true
     mail:
-        from: "%env(SULU_ADMIN_EMAIL)%"
+        from: "%env(WEBSITE_EMAIL)%"
+        sender: "%env(WEBSITE_EMAIL)%"
         to: "%env(SULU_ADMIN_EMAIL)%"
-        sender: "%env(SULU_ADMIN_EMAIL)%"
     media:
         protected: true

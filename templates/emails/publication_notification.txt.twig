@@ -1,0 +1,8 @@
+{{ 'app.emails.publication_notification.title'|trans }}
+
+{{ title }}
+-----
+{{ description|striptags }}
+
+{{ moreText|default('app.emails.publication_notification.more_text'|trans) }} - {{ sulu_content_path(url, 'petit-astro', publicationLocale) }}
+-----
