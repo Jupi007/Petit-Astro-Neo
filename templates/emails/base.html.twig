@@ -1,0 +1,201 @@
+{% if locale is not defined %}
+  {% set locale = app.request.locale %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <meta name="”x-apple-disable-message-reformatting”">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="email=no">
+    <!--[if !mso]><!-- --><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->
+
+    <title>{% block meta_title %}Le Petit Astro{% endblock %}</title>
+
+    <style type="text/css">
+      a,
+      div,
+      li,
+      p,
+      td {
+        -webkit-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+      }
+      table td {
+        border-collapse: collapse;
+      }
+      a[x-apple-data-detectors] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; min-width:100%!important; word-wrap:anywhere;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <table
+            class="wrapper"
+            align="center"
+            cellpadding="0"
+            cellspacing="0"
+            style="max-width: 640px;width: 100%;margin: auto;"
+          >
+            {# SPACER #}
+            <tr>
+              <td height="15" style="line-height:0; font-size:0;">&nbsp;</td>
+            </tr>
+            {# END SPACER #}
+
+            <tr>
+              <td
+                align="center"
+                style="font-size:13px; font-weight:bold;"
+                width="90%"
+              >
+                {{ 'app.emails.auto_message'|trans }}
+              </td>
+            </tr>
+
+            {# SPACER #}
+            <tr>
+              <td height="15" style="line-height:0; font-size:0;">&nbsp;</td>
+            </tr>
+            {# END SPACER #}
+
+            {# HEADER #}
+            <tr>
+              <td
+                class="mailHeader"
+                bgcolor="#000000"
+                style="color:#ffffff; background-image:linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('{{ absolute_url(headerImageUrl|default(asset('build/website/images/NGC_1952.jpg'))) }}');background-position:center; background-size:cover;"
+              >
+                <table align="center">
+                  {# SPACER #}
+                  <tr>
+                    <td height="40" style="line-height:0; font-size:0;">&nbsp;</td>
+                  </tr>
+                  {# END SPACER #}
+
+                  {# LOGO #}
+                  <tr>
+                    <td>
+                      <a
+                        href="{{ sulu_content_path('/', 'petit-astro') }}"
+                        style="color:#ffffff; text-decoration:none;"
+                      >
+                        <table
+                          cellspacing="0"
+                          cellpadding="0"
+                          align="center"
+                        >
+                          <tr>
+                            <td>
+                              <img
+                                src="{{ absolute_url(asset('build/website/images/logo.svg')) }}"
+                                alt="Le Petit Astro logo"
+                                width="375"
+                                height="93.75"
+                              >
+                            </td>
+                          </tr>
+                        </table>
+                      </a>
+                    </td>
+                  </tr>
+                  {# END LOGO #}
+
+                  {# SPACER #}
+                  <tr>
+                    <td height="30" style="line-height:0; font-size:0;">&nbsp;</td>
+                  </tr>
+                  {# END SPACER #}
+
+                  {# TITLE #}
+                  <tr>
+                    <td>
+                      <h1 style="color:#ffffff; font-weight:300; margin:0; padding-left:15px; padding-right:15px; font-size:1.75em;" align="center">
+                        {% block title %}{% endblock %}
+                      </h1>
+                    </td>
+                  </tr>
+                  {# END TITLE #}
+
+                  {# SPACER #}
+                  <tr>
+                    <td height="40" style="line-height:0; font-size:0;">&nbsp;</td>
+                  </tr>
+                  {# END SPACER #}
+                </table>
+              </td>
+            </tr>
+            {# END HEADER #}
+
+            {# SPACER #}
+            <tr>
+              <td height="30" style="line-height:0; font-size:0;">&nbsp;</td>
+            </tr>
+            {# END SPACER #}
+
+            {# MAIN #}
+            <tr>
+              <td style="border-color:rgb(228 228 231); border-style:solid; border-width:0; border-left-width:1px; border-right-width:1px;">
+                <table
+                  cellspacing="0"
+                  cellpadding="0"
+                  width="90%"
+                  align="center"
+                >
+                  {# SPACER #}
+                  <tr>
+                    <td height="15" style="line-height:0; font-size:0;">&nbsp;</td>
+                  </tr>
+                  {# END SPACER #}
+
+                  {% block content %}{% endblock %}
+
+                  {# SPACER #}
+                  <tr>
+                    <td height="15" style="line-height:0; font-size:0;">&nbsp;</td>
+                  </tr>
+                  {# END SPACER #}
+                </table>
+              </td>
+            </tr>
+            {# END MAIN #}
+
+            {# SPACER #}
+            <tr>
+              <td height="15" style="line-height:0; font-size:0;">&nbsp;</td>
+            </tr>
+            {# END SPACER #}
+
+            {% if optout is defined and optout %}
+              <tr>
+                <td align="center" style="font-size:13px" width="90%">
+                  <a href="">{{ 'app.emails.optout'|trans }}</a>
+                </td>
+              </tr>
+
+              {# SPACER #}
+              <tr>
+                <td height="15" style="line-height:0; font-size:0;">&nbsp;</td>
+              </tr>
+              {# END SPACER #}
+            {% endif %}
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

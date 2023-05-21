@@ -118,7 +118,7 @@ class PublicationManager
             throw new PublicationAlreadyNotifiedException();
         }
 
-        $publication->setNotified(true);
+        // $publication->setNotified(true);
 
         $this->eventDispatcher->dispatch(new NotifiedPublicationEvent($publication));
         $this->publicationRepository->save($publication);

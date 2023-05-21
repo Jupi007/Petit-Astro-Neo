@@ -81,7 +81,7 @@ app:
       message: "Les fonctions communautaires sont en cours de maintenance."
 
     confirmation:
-      confirmation: "Confirmation"
+      title: "Confirmation"
       message: "Vous avez activé avec succès votre utilisateur."
 
     password_forget:
@@ -93,12 +93,29 @@ app:
       title: "Réinitialisation du mot de passe"
       success_message: "Mot de passe modifié avec succès."
 
-    email_confirmation_message: "L'e-mail a été modifié avec succès."
+    email_confirmation:
+      message: "L'e-mail a été modifié avec succès."
 
   newsletter_form:
     success_message: "Votre inscription à l'infolettre a bien été enregistré."
 
   emails:
+    auto_message: "Cet email a été envoyé automatiquement, merci de ne pas y répondre."
+    optout: "Se désabonner"
     publication_notification:
-      title: "Nouvelle publication sur lepetitastro.fr"
+      title_txt: "Nouvelle publication sur lepetitastro.fr"
+      title_html: "Nouvelle publication"
       more_text: "Lire la suite"
+    community:
+      password_forget:
+        title: "Mot de passe oublié"
+        message: "Cliquez sur ce lien pour réinitialiser votre mot de passe :"
+        button_label: "Réinitialiser"
+      registration:
+        title: "Confirmez votre inscription"
+        message: "Cliquez sur le lien ci-dessous afin de confirmer votre adresse email pour activer votre compte."
+        button_label: "Confirmer"
+      email_confirmation:
+        title: "Confirmez votre email"
+        message: "Cliquez sur le lien ci-dessous afin de confirmer votre adresse email."
+        button_label: "Confirmer"

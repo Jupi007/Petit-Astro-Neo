@@ -1,0 +1,84 @@
+{% extends "emails/base.html.twig" %}
+
+{% block meta_title %}
+  {{ title }} - {{ 'app.emails.publication_notification.title_html'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block title %}
+  {{ 'app.emails.publication_notification.title_html'|trans }}
+{% endblock %}
+
+{% if imageId %}
+  {% set headerImageUrl = sulu_resolve_media(imageId, locale).thumbnails['figure'] %}
+{% endif %}
+
+{% set optout = true %}
+
+{% block content %}
+  {# TITLE #}
+  <tr>
+    <td style="line-height: 1.5;">
+      <h1 style="margin-top: 0;">
+        {{ title }}
+      </h1>
+      
+      {{ description|raw }}
+    </td>
+  </tr>
+  {# END TITLE #}
+
+  {# SPACER #}
+  <tr>
+    <td height="15" style="line-height: 0; font-size: 0;">&nbsp;</td>
+  </tr>
+  {# END SPACER #}
+
+  {% set publication_url = sulu_content_path(url, 'petit-astro', publicationLocale) %}
+  
+  {# BUTTON #}
+  <tr>
+    <td>
+      <a
+        href="{{ publication_url }}"
+        title="{{ publication_url }}"
+        style="color: black; text-decoration: none"
+      >
+        <table
+          border="0"
+          cellspacing="0"
+          cellpadding="0"
+          align="center"
+          style="border: 1px solid rgb(228 228 231);"
+        >
+          <tr>
+            <td width="20"></td>
+            <td height="45" style="font-size: 16px;">
+              {{ moreText|default('app.emails.publication_notification.more_text'|trans) }}
+            </td>
+            <td width="20"></td>
+          </tr>
+        </table>
+      </a>
+    </td>
+  </tr>
+  {# END BUTTON #}
+
+  {# SPACER #}
+  <tr>
+    <td height="10" style="line-height: 0; font-size: 0;">&nbsp;</td>
+  </tr>
+  {# END SPACER #}
+
+  {# ALT LINK #}
+  <tr>
+    <td align="center">
+      <a
+        href="{{ publication_url }}"
+        style="font-size: 12px;color:#000000; text-decoration: none"
+      >
+        {{ publication_url }}
+      </a>
+    </td>
+  </tr>
+  {# END ALT LINK #}
+{% endblock %}

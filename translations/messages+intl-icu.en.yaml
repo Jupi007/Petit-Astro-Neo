@@ -81,7 +81,7 @@ app:
       message: "Community functions are being maintained."
 
     confirmation:
-      confirmation: "Confirmation"
+      title: "Confirmation"
       message: "You successfully activated your user."
 
     password_forget:
@@ -93,12 +93,29 @@ app:
       title: "Password reset"
       success_message: "Password successfully changed."
 
-    email_confirmation_message: "Email was successfully changed."
+    email_confirmation:
+      message: "Email was successfully changed."
 
   newsletter_form:
     success_message: "You have successfully subscribed to the newsletter."
 
   emails:
+    auto_message: "This email has been sent automatically, please do not reply."
+    optout: "Unsubscribe"
     publication_notification:
-      title: "New publication on lepetitastro.fr"
+      title_txt: "New publication on lepetitastro.fr"
+      title_html: "New publication"
       more_text: "Read more"
+    community:
+      password_forget:
+        title: "Forgotten password"
+        message: "Click on this link to reset your password:"
+        button_label: "Reset"
+      registration:
+        title: "Confirm your registration"
+        message: "Click on the link below to confirm your email address to activate your account."
+        button_label: "Confirm"
+      email_confirmation:
+        title: "Confirm your email"
+        message: "Click on the link below to confirm your email address."
+        button_label: "Confirm"

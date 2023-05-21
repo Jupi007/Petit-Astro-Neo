@@ -88,17 +88,21 @@ class PublicationEmailNotifier implements EventSubscriberInterface
             $description = $this->getDescription($dimensionContent, $data);
             $url = $this->getUrl($data);
             $moreText = $dimensionContent->getExcerptMore();
+            $imageId = $this->getImageId($dimensionContent, $data);
 
             $email = (new TemplatedEmail())
                 ->to(new Address($registration->getEmail()))
                 ->subject($title)
                 ->textTemplate('emails/publication_notification.txt.twig')
+                ->htmlTemplate('emails/publication_notification.html.twig')
                 ->context([
+                    'locale' => $registration->getLocale(),
                     'publicationLocale' => $publicationLocale,
                     'title' => $title,
                     'description' => $description,
                     'url' => $url,
                     'moreText' => $moreText,
+                    'imageId' => $imageId,
                 ]);
 
             $this->localeSwitcher->runWithLocale(
@@ -138,21 +142,21 @@ class PublicationEmailNotifier implements EventSubscriberInterface
         return $data['url'];
     }
 
-    // /** @param mixed[] $data */
-    // private function getImageId(PublicationDimensionContent $dimensionContent, array $data): ?int
-    // {
-    //     if (
-    //         null !== $dimensionContent->getExcerptImage() &&
-    //         $excerptImageId = $dimensionContent->getExcerptImage()['id']
-    //     ) {
-    //         return $excerptImageId;
-    //     }
+    /** @param mixed[] $data */
+    private function getImageId(PublicationDimensionContent $dimensionContent, array $data): ?int
+    {
+        if (
+            null !== $dimensionContent->getExcerptImage() &&
+            $excerptImageId = $dimensionContent->getExcerptImage()['id']
+        ) {
+            return $excerptImageId;
+        }
 
-    //     /** @var array{id: int}|null */
-    //     $coverImage = $data['coverImage'];
+        /** @var array{id: int}|null */
+        $coverImage = $data['coverImage'];
 
-    //     return null !== $coverImage ? $coverImage['id'] : null;
-    // }
+        return null !== $coverImage ? $coverImage['id'] : null;
+    }
 
     protected function getContentManager(): ContentManagerInterface
     {

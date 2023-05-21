@@ -15,6 +15,10 @@ sulu_community:
 
       # Registration
       registration:
+        email:
+          subject: Registration
+          user_template: emails/community/registration_email.html.twig
+          admin_template: ~
         type: App\Sulu\Community\Form\RegistrationType
         template: community/registration_form.html.twig
 
@@ -22,10 +26,7 @@ sulu_community:
       confirmation:
         activate_user: true
         auto_login: true
-        # email:
-        #   subject: Confirmation
-        #   user_template: ~
-        #   admin_template: ~
+        email: ~
         template: community/confirmation_message.html.twig
 
       # Completion
@@ -33,18 +34,15 @@ sulu_community:
 
       # Password Forget / Reset
       password_forget:
-        # email:
-        #   subject: Password Forget
-        #   admin_template: ~
-        #   user_template: community/password_forget_email.html.twig
+        email:
+          subject: app.emails.community.password_forget.title
+          admin_template: ~
+          user_template: emails/community/password_forget_email.html.twig
         template: community/password_forget_form.html.twig
         type: App\Sulu\Community\Form\PasswordForgetType
       password_reset:
         auto_login: true
-        # email:
-        #   subject: Password Reset
-        #   admin_template: ~
-        #   user_template: community/password_reset_email.html.twig
+        email: ~
         template: community/password_reset_form.html.twig
         type: App\Sulu\Community\Form\PasswordResetType
 
@@ -56,27 +54,18 @@ sulu_community:
 
       # Email Confirmation
       email_confirmation:
-        # email:
-        #   subject: Email Changed
-        #   user_template: community/email_confirmation_email.html.twig
-        #   admin_template: ~
+        email:
+          subject: Email Changed
+          user_template: emails/community/email_confirmation.html.twig
+          admin_template: ~
         template: community/email_confirmation_success.html.twig
 
       # Blacklist
       blacklisted:
-        # email:
-        #   subject: Blacklisted
-        #   admin_template: community/blacklist_email.html.twig
-        #   user_template: ~
+        email: ~
       blacklist_denied:
-        # email:
-        #   subject: Denied
-        #   admin_template: ~
-        #   user_template: ~
+        email: ~
         template: community/blacklist_denied.html.twig
       blacklist_confirmed:
-        # email:
-        #   subject: Registration
-        #   admin_template: ~
-        #   user_template: community/registration_email.html.twig
+        email: ~
         template: community/blacklist_confirmed.html.twig
