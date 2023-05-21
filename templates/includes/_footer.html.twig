@@ -1,0 +1,18 @@
+<footer class="py-8 border-t border-outline dark:border-outline-invert">
+  <twig:page-container>
+    <nav>
+      <ul class="flex flex-col md:flex-row justify-center items-center gap-8 font-colombia">
+        {% for item in sulu_navigation_root_flat('footer', 1, true) %}
+          <li>
+            <a
+              href="{{ sulu_content_path(item.url, item.webspaceKey) }}"
+              class="hover:opacity-80 transition-opacity"
+            >
+              {{ item.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </twig:page-container>
+</footer>

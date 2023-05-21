@@ -28,8 +28,14 @@
         <contexts>
             <context key="main">
                 <meta>
-                    <title lang="fr">Navigation Principale</title>
-                    <title lang="en">Main Navigation</title>
+                    <title lang="fr">Navigation principale</title>
+                    <title lang="en">Main navigation</title>
+                </meta>
+            </context>
+            <context key="footer">
+                <meta>
+                    <title lang="fr">Pied de page</title>
+                    <title lang="en">Footer</title>
                 </meta>
             </context>
         </contexts>
