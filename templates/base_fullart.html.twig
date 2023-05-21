@@ -16,6 +16,19 @@
         <span class="inline-block group-hover:-translate-x-1 transition-transform">←</span> {{ 'app.back_home'|trans }}
       </a>
 
+      <li class="flex flex-row items-center justify-center gap-2 text-white font-colombia drop-shadow-vertical">
+        {% for localization in localizations %}
+          <a
+            href="{{ localization.url }}"
+            title="{{ localization.locale }}"
+            class="{{ localization.locale == app.request.locale ? 'underline' : '' }} hover:opacity-80 transition-opacity"
+            data-turbo="false"
+          >
+              {{ localization.locale|upper }}
+          </a>
+        {% endfor %}
+      </li>
+
       <div class="relative max-w-[28rem] w-full p-8 rounded-md border border-outline dark:border-outline-invert bg-white dark:bg-zinc-800 shadow-md shadow-black/50 {{ contentClass }}">
         {% if title|default %}
           <h1 class="mb-6 text-2xl text-center font-colombia first-letter:uppercase">
