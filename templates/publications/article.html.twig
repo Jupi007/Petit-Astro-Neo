@@ -44,13 +44,14 @@
   
   <div class="border-t border-outline dark:border-outline-invert">
     <turbo-frame
-      id="publication-{{ uuid }}-frame"
+      id="publication-{{ uuid }}-comments-frame"
       data-turbo-permanent
     >
       {{ render(path('sulu_comment.get_threads_comments', {
         threadId: 'publication-' ~ uuid, 
         referrer: app.request.uri, 
-        _format: 'html'
+        _format: 'html',
+        _locale: app.request.locale,
       })) }}
     </turbo-frame>
   </div>

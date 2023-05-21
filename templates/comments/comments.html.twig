@@ -1,11 +1,12 @@
 {% set nested = nested|default(false) %}
+{% set locale = app.request.query.get('_locale') %}
 
 {% if not nested %}
 <section class="flex flex-col gap-6 py-4 px-6">
   <h1 class="text-2xl text-center font-colombia">
     {{ 'app.comment.title'|trans({
       totalComments: totalComments,
-    }) }}
+    }, locale = locale) }}
   </h1>
 {% endif %}
 
@@ -22,7 +23,7 @@
     {% if not loop.last and not nested %}<hr>{% endif %}
   {% else %}
     {% if not nested %}
-      <p>{{ 'app.comment.no_comments'|trans }}</p>
+      <p>{{ 'app.comment.no_comments'|trans(locale = locale) }}</p>
     {% endif %}
   {% endfor %}
 
@@ -31,12 +32,12 @@
     <hr>
     {% if is_granted('ROLE_USER') %}
       <h2 class="text-xl text-center font-colombia">
-        {{ 'app.comment.add_title'|trans }}
+        {{ 'app.comment.add_title'|trans(locale = locale) }}
       </h2>
       {{ form(form) }}
     {% else %}
       <p class="text-center">
-        {{ 'app.comment.login'|trans }}
+        {{ 'app.comment.login'|trans(locale = locale) }}
       </p>
     {% endif %}
   {% endif %}

@@ -5,9 +5,9 @@
     <p>{{ comment.message|nl2br }}</p>
     <h3 class="mt-1 text-sm italic opacity-60">
       {{ 'app.comment.signing'|trans({
-        username: comment.creator.fullName|default('app.comment.unknow_user'|trans),
+        username: comment.creator.fullName|default('app.comment.unknow_user'|trans(locale = locale)),
         datetime: comment.created|format_datetime('short', 'short'),
-      }) }}
+      }, locale = locale) }}
     </h3>
   </div>
 
@@ -29,7 +29,7 @@
     <twig:expandable>
       <twig:block name="header">
         <div class="text-end text-sm font-bold underline">
-          {{ 'app.comment.answer'|trans }}
+          {{ 'app.comment.answer'|trans(locale = locale) }}
         </div>
       </twig:block>
 
