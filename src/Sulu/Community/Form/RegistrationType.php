@@ -50,7 +50,7 @@ class RegistrationType extends AbstractType
                 'mapped' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'app.submit',
+                'label' => 'app.community.registration.submit',
             ]);
     }
 

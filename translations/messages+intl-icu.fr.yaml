@@ -59,6 +59,7 @@ app:
       login: "Déjà inscrit ?"
       success_message: "Pour compléter l'inscription, cliquez sur le lien figurant dans l'e-mail reçu."
       opt_in_newsletter: "S’inscrire à l’infolettre"
+      submit: "S'inscrire"
 
     profile:
       title: "Profil"

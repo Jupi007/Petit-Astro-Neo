@@ -59,6 +59,7 @@ app:
       login: "Already registered?"
       success_message: "To complete the registration click on the link in the received email."
       opt_in_newsletter: "Subscribe to the newsletter"
+      submit: "Register"
 
     profile:
       title: "Profile"
