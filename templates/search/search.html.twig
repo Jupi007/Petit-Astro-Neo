@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% set headerTitle = 'app.search'|trans %}
+{% set headerTitle = 'app.search.title'|trans %}
 {% set headerSubtitle = null %}
 
 {% block content %}
@@ -14,15 +14,25 @@
               class="flex flex-row my-8 bg-black/2.5 dark:bg-black/10 border border-outline dark:border-outline-invert focus-within:border-accent focus-within:outline focus-within:outline-1 focus-within:outline-accent">
           <input name="q"
                 type="text"
-                placeholder="{{ 'app.search_placeholder'|trans }}"
+                placeholder="{{ 'app.search.placeholder'|trans }}"
                 value="{{ query }}"
                 class="flex-grow px-6 py-4 bg-transparent outline-none"/>
-          <button type="submit" class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none">Go</button>
+          <button
+            type="submit"
+            title="{{ 'app.search.button_title'|trans }}"
+            class="px-6 py-4 hover:bg-black/2.5 focus:bg-black/2.5 dark:hover:bg-white/2.5 dark:focus:bg-white/2.5 transition-colors outline-none"
+          >
+            <img
+              src="{{ asset('build/website/images/looking-glass.svg') }}"
+              alt="{{ 'app.search.button_icon_alt'|trans }}"
+              class="w-6 invert dark:invert-0 opacity-75"
+            >
+          </button>
         </form>
 
         {% if query != "" %}
           <h2 class="font-medium italic text-center">
-            {{ 'app.search_result_title'|trans({
+            {{ 'app.search.result_title'|trans({
               'results': hits|length,
               'query': query
             }) }}

@@ -9,18 +9,22 @@ app:
   previous_page: "Previous page"
   next_page: "Next page"
   homepage: "Homepage"
-  search: "Search"
-  search_placeholder: "Solar system..."
-  search_result_title: >-
-    {results, plural,
-        =0    {No results for "{query}"}
-        one   {1 result for "{query}"}
-        other {# results for "{query}"}
-    }
   last_publication: "Last publication"
   read: "Read"
   publication: "Publication"
   definition: "Definition"
+
+  search:
+    title: "Search"
+    placeholder: "Solar system..."
+    button_title: "Start search"
+    button_icon_alt: "Looking glass icon"
+    result_title: >-
+      {results, plural,
+          =0    {No results for "{query}"}
+          one   {1 result for "{query}"}
+          other {# results for "{query}"}
+      }
 
   publication_page:
     report_typo: "Report a typo"

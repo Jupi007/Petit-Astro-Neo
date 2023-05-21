@@ -9,18 +9,22 @@ app:
   previous_page: "Page précédente"
   next_page: "Page suivante"
   homepage: "Accueil"
-  search: "Recherche"
-  search_placeholder: "Système solaire..."
-  search_result_title: >-
-    {results, plural,
-        =0    {Pas de résultat pour "{query}"}
-        one   {1 résultat pour "{query}"}
-        other {# résultats pour "{query}"}
-    }
   last_publication: "Dernière publication"
   read: "Lire"
   publication: "Publication"
   definition: "Définition"
+
+  search:
+    title: "Recherche"
+    placeholder: "Système solaire..."
+    button_title: "Lancer la recherche"
+    button_icon_alt: "Icône loupe"
+    result_title: >-
+      {results, plural,
+          =0    {Pas de résultat pour "{query}"}
+          one   {1 résultat pour "{query}"}
+          other {# résultats pour "{query}"}
+      }
 
   publication_page:
     report_typo: "Signaler une faute"
