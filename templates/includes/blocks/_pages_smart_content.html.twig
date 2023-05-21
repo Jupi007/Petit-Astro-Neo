@@ -8,7 +8,7 @@
 							{{ page.excerptTitle|default(page.title) }}
 						</twig:block>
 
-						{{ page.excerptDescription }}
+						{{ page.excerptDescription|raw }}
 					</twig:card>
 				</a>
 			{% endfor %}

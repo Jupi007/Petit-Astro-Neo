@@ -9,7 +9,7 @@
 							{{ publication.excerptTitle|default(publication.title) }}
 						</twig:block>
 
-						{{ publication.excerptDescription }}
+						{{ publication.excerptDescription|raw }}
 					</twig:card>
 				</a>
 			{% endfor %}
