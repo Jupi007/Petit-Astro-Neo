@@ -33,7 +33,7 @@ class PublicationEmailNotifier implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             NotifiedPublicationEvent::class => 'onPublicationNotified',
@@ -59,7 +59,7 @@ class PublicationEmailNotifier implements EventSubscriberInterface
             /** @var PublicationDimensionContent|null */
             $dimensionContent = $this->resolveContent($publication, $publicationLocale);
 
-            if (!$dimensionContent) {
+            if (!$dimensionContent instanceof PublicationDimensionContent) {
                 continue;
             }
 

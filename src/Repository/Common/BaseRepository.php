@@ -16,7 +16,7 @@ abstract class BaseRepository
     public function __construct(
         protected readonly EntityManagerInterface $entityManager,
     ) {
-        $this->repository = $entityManager->getRepository($this->getClassName());
+        $this->repository = $entityManager->getRepository(static::getClassName());
     }
 
     /** @return class-string<T> */

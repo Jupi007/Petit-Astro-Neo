@@ -32,7 +32,7 @@ trait FindLocalizedRepositoryTrait
      *
      * @return T|null
      */
-    public function findOneLocalizedBy(array $criteria, array $orderBy = null, string $locale): ?LocalizableEntityInterface
+    public function findOneLocalizedBy(array $criteria, string $locale, array $orderBy = null): ?LocalizableEntityInterface
     {
         return $this->setEntityLocale(
             object: $this->findOneBy($criteria, $orderBy),
@@ -66,7 +66,7 @@ trait FindLocalizedRepositoryTrait
      *
      * @return T[]
      */
-    public function findLocalizedBy(array $criteria, array $orderBy = null, int $limit = null, int $offset = null, string $locale): array
+    public function findLocalizedBy(array $criteria, string $locale, array $orderBy = null, int $limit = null, int $offset = null): array
     {
         return $this->setEntitiesLocale(
             objects: $this->findBy($criteria, $orderBy, $limit, $offset),

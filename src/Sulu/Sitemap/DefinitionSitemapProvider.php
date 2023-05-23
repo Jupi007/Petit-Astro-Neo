@@ -127,7 +127,7 @@ class DefinitionSitemapProvider implements SitemapProviderInterface
         $lastMod = null;
 
         foreach ($definitionTranslations as $translation) {
-            if (null === $lastMod || $lastMod < $translation->getChanged()) {
+            if (!$lastMod instanceof \DateTime || $lastMod < $translation->getChanged()) {
                 $lastMod = $translation->getChanged();
             }
         }

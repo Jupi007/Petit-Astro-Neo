@@ -18,7 +18,7 @@ interface FindLocalizedRepositoryInterface
      *
      * @return T|null
      */
-    public function findOneLocalizedBy(array $criteria, array $orderBy = null, string $locale): ?LocalizableEntityInterface;
+    public function findOneLocalizedBy(array $criteria, string $locale, array $orderBy = null): ?LocalizableEntityInterface;
 
     /** @return T[] */
     public function findAllLocalized(string $locale): array;
@@ -29,5 +29,5 @@ interface FindLocalizedRepositoryInterface
      *
      * @return T[]
      */
-    public function findLocalizedBy(array $criteria, array $orderBy = null, int $limit = null, int $offset = null, string $locale): array;
+    public function findLocalizedBy(array $criteria, string $locale, array $orderBy = null, int $limit = null, int $offset = null): array;
 }

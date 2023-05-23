@@ -30,11 +30,9 @@ class MaskConverter extends SuluMaskConverter
     /** @return array<string, int> */
     public function convertPermissionsToArray($permissions): array
     {
-        $permissionsData = [
+        return [
             ...parent::convertPermissionsToArray($permissions),
             PermissionTypes::NOTIFY => (bool) ($permissions & $this->permissions[PermissionTypes::NOTIFY]),
         ];
-
-        return $permissionsData;
     }
 }
