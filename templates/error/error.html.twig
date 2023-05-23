@@ -1,5 +1,10 @@
-{% extends "base.html.twig" %}
+{% extends 'base_fullart.html.twig' %}
+
+{% set backgroundImage = asset('build/website/images/Messier_87.jpg') %}
+{% set title = "Error " ~ status_code %}
 
 {% block content %}
-    <h1>Error {{ status_code }}: {{ status_text }}</h1>
+    <p class="text-center">
+        {{ status_text }}
+    </p>
 {% endblock %}

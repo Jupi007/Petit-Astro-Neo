@@ -3,7 +3,7 @@
 {% set contentClass = contentClass|default %}
 
 {% block body %}
-  <img src="{{ asset('build/website/images/NGC_1952.jpg') }}"
+  <img src="{{ backgroundImage|default(asset('build/website/images/NGC_1952.jpg')) }}"
       alt="NGC_1952"
       class="fixed z-[-1] h-screen w-screen object-cover bg-slate-600"
       loading="lazy"/>
@@ -16,18 +16,20 @@
         <span class="inline-block group-hover:-translate-x-1 transition-transform">←</span> {{ 'app.back_home'|trans }}
       </a>
 
-      <li class="flex flex-row items-center justify-center gap-2 text-white font-colombia drop-shadow-vertical">
-        {% for localization in localizations %}
-          <a
-            href="{{ localization.url }}"
-            title="{{ localization.locale }}"
-            class="{{ localization.locale == app.request.locale ? 'underline' : '' }} hover:opacity-80 transition-opacity"
-            data-turbo="false"
-          >
-              {{ localization.locale|upper }}
-          </a>
-        {% endfor %}
-      </li>
+      {% if localizations|length > 0 %}
+        <li class="flex flex-row items-center justify-center gap-2 text-white font-colombia drop-shadow-vertical">
+          {% for localization in localizations %}
+            <a
+              href="{{ localization.url }}"
+              title="{{ localization.locale }}"
+              class="{{ localization.locale == app.request.locale ? 'underline' : '' }} hover:opacity-80 transition-opacity"
+              data-turbo="false"
+            >
+                {{ localization.locale|upper }}
+            </a>
+          {% endfor %}
+        </li>
+      {% endif %}
 
       <div class="relative max-w-[28rem] w-full p-8 rounded-md border border-outline dark:border-outline-invert bg-white dark:bg-zinc-800 shadow-md shadow-black/50 {{ contentClass }}">
         {% if title|default %}
