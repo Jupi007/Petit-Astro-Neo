@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Validator;
 
 use App\Entity\NewsletterRegistration;
-use App\Repository\NewsletterRegistrationRepository;
+use App\Repository\NewsletterRegistrationRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 class UniqueNewsletterEmailValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly NewsletterRegistrationRepository $newsletterRegistrationRepository,
+        private readonly NewsletterRegistrationRepositoryInterface $newsletterRegistrationRepository,
     ) {
     }
 

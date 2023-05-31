@@ -15,7 +15,7 @@ use App\DomainEvent\Publication\UnpublishedPublicationEvent;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Exception\PublicationAlreadyNotifiedException;
-use App\Repository\PublicationRepository;
+use App\Repository\PublicationRepositoryInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentIndexer\ContentIndexerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
@@ -25,7 +25,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class PublicationManager
 {
     public function __construct(
-        private readonly PublicationRepository $publicationRepository,
+        private readonly PublicationRepositoryInterface $publicationRepository,
         private readonly ContentManagerInterface $contentManager,
         private readonly ContentIndexerInterface $contentIndexer,
         private readonly EventDispatcherInterface $eventDispatcher,
