@@ -92,9 +92,8 @@ class CommunityEventListener implements EventSubscriberInterface
             email: $user->getContact()->getMainEmail() ?? throw new NullAssertionException(),
             locale: $user->getLocale(),
         );
-        $registration = $this->manager->create($dto);
 
-        return $registration;
+        return $this->manager->create($dto);
     }
 
     private function updateRegistration(int $id, User $user): void
