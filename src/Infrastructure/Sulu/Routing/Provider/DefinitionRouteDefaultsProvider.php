@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Sulu\Routing;
+namespace App\Infrastructure\Sulu\Routing\Provider;
 
 use App\Entity\Definition;
 use App\Repository\DefinitionRepositoryInterface;

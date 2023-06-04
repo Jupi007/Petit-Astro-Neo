@@ -54,7 +54,7 @@ class DefinitionLinkProvider implements LinkProviderInterface
                 return new LinkItem(
                     id: (string) $definition->getId(),
                     title: $definition->getTitle() ?? '',
-                    url: $definition->getRoute()?->getPath() ?? '',
+                    url: $definition->getRoutePath() ?? '',
                     published: true,
                 );
             },

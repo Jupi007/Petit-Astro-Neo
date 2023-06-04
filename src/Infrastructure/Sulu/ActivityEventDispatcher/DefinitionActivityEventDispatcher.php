@@ -8,10 +8,12 @@ use App\DomainEvent\Definition\CreatedDefinitionEvent;
 use App\DomainEvent\Definition\ModifiedDefinitionEvent;
 use App\DomainEvent\Definition\RemovedDefinitionEvent;
 use App\DomainEvent\Definition\RestoredDefinitionEvent;
+use App\DomainEvent\Definition\TranslationCopiedDefinitionEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Definition\CreatedDefinitionActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Definition\ModifiedDefinitionActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Definition\RemovedDefinitionActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Definition\RestoredDefinitionActivityEvent;
+use App\Infrastructure\Sulu\ActivityEvent\Definition\TranslationCopiedDefinitionActivityEvent;
 
 class DefinitionActivityEventDispatcher extends AbstractActivityEventDispatcher
 {
@@ -20,6 +22,7 @@ class DefinitionActivityEventDispatcher extends AbstractActivityEventDispatcher
         return [
             CreatedDefinitionEvent::class => 'onCreatedDefinition',
             ModifiedDefinitionEvent::class => 'onModifiedDefinition',
+            TranslationCopiedDefinitionEvent::class => 'onTranslationCopiedDefinition',
             RemovedDefinitionEvent::class => 'onRemovedDefinition',
             RestoredDefinitionEvent::class => 'onRestoredDefinition',
         ];
@@ -33,6 +36,15 @@ class DefinitionActivityEventDispatcher extends AbstractActivityEventDispatcher
     public function onModifiedDefinition(ModifiedDefinitionEvent $event): void
     {
         $this->maybeCollectActivityEvent(new ModifiedDefinitionActivityEvent($event->getResource()));
+    }
+
+    public function onTranslationCopiedDefinition(TranslationCopiedDefinitionEvent $event): void
+    {
+        $this->maybeCollectActivityEvent(new TranslationCopiedDefinitionActivityEvent(
+            $event->getResource(),
+            $event->getSrcLocale(),
+            $event->getDestLocale(),
+        ));
     }
 
     public function onRemovedDefinition(RemovedDefinitionEvent $event): void

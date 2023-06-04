@@ -9,7 +9,6 @@ use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 
@@ -25,10 +24,7 @@ class DefinitionTranslation implements PersistableEntityInterface, EntityTransla
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: RouteInterface::class, cascade: ['all'])]
-    #[ORM\JoinColumn(onDelete: 'SET NULL')]
-    private ?RouteInterface $route = null;
-
+    #[ORM\Column(type: Types::STRING, length: 191, nullable: true)]
     private ?string $routePath = null;
 
     public function __construct(
@@ -70,18 +66,6 @@ class DefinitionTranslation implements PersistableEntityInterface, EntityTransla
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getRoute(): ?RouteInterface
-    {
-        return $this->route;
-    }
-
-    public function setRoute(RouteInterface $route): self
-    {
-        $this->route = $route;
 
         return $this;
     }

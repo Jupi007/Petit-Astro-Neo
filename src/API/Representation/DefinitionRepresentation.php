@@ -57,6 +57,6 @@ class DefinitionRepresentation
     #[SerializedName('routePath')]
     public function getRoutePath(): ?string
     {
-        return $this->definition->getRoute()?->getPath();
+        return $this->definition->getRoutePath();
     }
 }

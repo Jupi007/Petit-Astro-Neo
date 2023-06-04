@@ -12,12 +12,10 @@ use App\Entity\Trait\PersistableEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Sulu\Bundle\RouteBundle\Model\RoutableInterface;
-use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Sulu\Component\Security\Authentication\UserInterface;
 
 #[ORM\Entity]
-class Definition implements PersistableEntityInterface, LocalizableEntityInterface, RoutableInterface, TrashableEntityInterface
+class Definition implements PersistableEntityInterface, LocalizableEntityInterface, TrashableEntityInterface
 {
     /** @use LocalizableEntityTrait<DefinitionTranslation> */
     use LocalizableEntityTrait;
@@ -123,14 +121,14 @@ class Definition implements PersistableEntityInterface, LocalizableEntityInterfa
         return $this;
     }
 
-    public function getRoute(): ?RouteInterface
+    public function getRoutePath(): ?string
     {
-        return $this->getTranslation()?->getRoute();
+        return $this->getTranslation()?->getRoutePath();
     }
 
-    public function setRoute(RouteInterface $route): self
+    public function setRoutePath(string $title): self
     {
-        $this->getTranslation(createIfNull: true)->setRoute($route);
+        $this->getTranslation(createIfNull: true)->setRoutePath($title);
 
         return $this;
     }

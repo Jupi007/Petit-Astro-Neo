@@ -137,7 +137,7 @@ class DefinitionSitemapProvider implements SitemapProviderInterface
 
     private function getTranslationRoutePath(DefinitionTranslation $translation): string
     {
-        return $translation->getRoute()?->getPath() ?? throw new NullAssertionException();
+        return $translation->getRoutePath() ?? throw new NullAssertionException();
     }
 
     private function generateUrl(string $scheme, string $host, string $path): string

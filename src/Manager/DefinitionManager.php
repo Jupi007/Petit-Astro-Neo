@@ -12,9 +12,6 @@ use App\DTO\Definition\CreateDefinitionDTO;
 use App\DTO\Definition\UpdateDefinitionDTO;
 use App\Entity\Definition;
 use App\Repository\DefinitionRepositoryInterface;
-use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
-use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
-use Sulu\Bundle\RouteBundle\Model\RouteInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DefinitionManager
@@ -22,8 +19,6 @@ class DefinitionManager
     public function __construct(
         private readonly DefinitionRepositoryInterface $repository,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly RouteManagerInterface $routeManager,
-        private readonly RouteRepositoryInterface $routeRepository,
     ) {
     }
 
@@ -32,11 +27,11 @@ class DefinitionManager
         $definition = (new Definition())
             ->setLocale($dto->locale)
             ->setTitle($dto->title)
-            ->setDescription($dto->description);
+            ->setDescription($dto->description)
+            ->setRoutePath($dto->routePath);
 
+        // Save a first time to generate an ID in database.
         $this->repository->save($definition);
-
-        $this->createOrUpdateRoute($definition, $dto->routePath);
 
         $this->eventDispatcher->dispatch(new CreatedDefinitionEvent($definition));
         $this->repository->save($definition);
@@ -49,8 +44,8 @@ class DefinitionManager
         $definition = $this->repository->getOne($dto->id)
             ->setLocale($dto->locale)
             ->setTitle($dto->title)
-            ->setDescription($dto->description);
-        $this->createOrUpdateRoute($definition, $dto->routePath);
+            ->setDescription($dto->description)
+            ->setRoutePath($dto->routePath);
 
         $this->eventDispatcher->dispatch(new ModifiedDefinitionEvent($definition));
         $this->repository->save($definition);
@@ -64,13 +59,13 @@ class DefinitionManager
 
         $srcTitle = $definition->getTitle() ?? '';
         $srcDescription = $definition->getDescription() ?? '';
-        $srcRoutePath = $definition->getRoute()?->getPath() ?? '';
+        $srcRoutePath = $definition->getRoutePath() ?? '';
 
         $definition
             ->setLocale($destLocale)
             ->setTitle($srcTitle)
-            ->setDescription($srcDescription);
-        $this->createOrUpdateRoute($definition, $srcRoutePath);
+            ->setDescription($srcDescription)
+            ->setRoutePath($srcRoutePath);
 
         $this->eventDispatcher->dispatch(
             new TranslationCopiedDefinitionEvent(
@@ -89,31 +84,6 @@ class DefinitionManager
         $definition = $this->repository->getOne($id);
 
         $this->eventDispatcher->dispatch(new RemovedDefinitionEvent($definition));
-        $this->removeRoutes($definition);
         $this->repository->remove($definition);
-    }
-
-    private function createOrUpdateRoute(Definition $definition, string $routePath): void
-    {
-        if (!$definition->getRoute() instanceof RouteInterface) {
-            $this->routeManager->create($definition, $routePath);
-        }
-
-        $this->routeManager->update($definition, $routePath);
-    }
-
-    private function removeRoutes(Definition $definition): void
-    {
-        foreach ($definition->getLocales() as $locale) {
-            $definition->setLocale($locale);
-
-            if (($route = $definition->getRoute()) instanceof RouteInterface) {
-                $this->routeRepository->remove($route);
-
-                foreach ($route->getHistories() as $historyRoute) {
-                    $this->routeRepository->remove($historyRoute);
-                }
-            }
-        }
     }
 }

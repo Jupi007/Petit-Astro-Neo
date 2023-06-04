@@ -82,7 +82,7 @@ class DefinitionTrashItemHandler implements
         $this->eventDispatcher->dispatch(new RestoredDefinitionEvent($definition));
         $this->doctrineRestoreHelper->persistAndFlushWithId($definition, (int) $trashItem->getResourceId());
 
-        $this->restoreDefinitionRoutes($definition, $trashItem);
+        $this->restoreDefinitionRoutes($trashItem);
         $this->definitionRepository->save($definition);
 
         return $definition;
@@ -104,7 +104,7 @@ class DefinitionTrashItemHandler implements
                 'changed' => $definition->getChanged()?->format('c'),
                 'creatorId' => $definition->getCreator()?->getId(),
                 'changerId' => $definition->getChanger()?->getId(),
-                'routePath' => $definition->getRoute()?->getPath(),
+                'routePath' => $definition->getRoutePath(),
             ];
         }
 
@@ -137,7 +137,8 @@ class DefinitionTrashItemHandler implements
                 ->setTitle($translationData['title'] ?? '')
                 ->setDescription($translationData['description'] ?? '')
                 ->setCreated(new \DateTime($translationData['created'] ?? ''))
-                ->setChanged(new \DateTime($translationData['changed'] ?? ''));
+                ->setChanged(new \DateTime($translationData['changed'] ?? ''))
+                ->setRoutePath($translationData['routePath'] ?? '');
 
             if (null !== $translationData['creatorId']) {
                 $definition->setCreator($this->userRepository->find($translationData['creatorId']));
@@ -151,15 +152,19 @@ class DefinitionTrashItemHandler implements
         return $definition;
     }
 
-    public function restoreDefinitionRoutes(Definition $definition, TrashItemInterface $trashItem): void
+    public function restoreDefinitionRoutes(TrashItemInterface $trashItem): void
     {
         /** @var TrashData */
         $data = $trashItem->getRestoreData();
 
         foreach ($data as $locale => $translationData) {
             if (null !== $translationData['routePath']) {
-                $definition->setLocale($locale);
-                $this->routeManager->create($definition, $translationData['routePath']);
+                $this->routeManager->createOrUpdateByAttributes(
+                    Definition::class,
+                    $trashItem->getResourceId(),
+                    $locale,
+                    $translationData['routePath'],
+                );
             }
         }
     }
