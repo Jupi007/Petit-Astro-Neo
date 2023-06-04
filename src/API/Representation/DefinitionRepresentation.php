@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Api;
+namespace App\API\Representation;
 
 use App\Entity\Definition;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -29,6 +29,14 @@ class DefinitionRepresentation
     public function getLocale(): ?string
     {
         return $this->definition->getLocale();
+    }
+
+    /** @return string[] */
+    #[VirtualProperty]
+    #[SerializedName('availableLocales')]
+    public function getAvailableLocales(): array
+    {
+        return $this->definition->getLocales();
     }
 
     #[VirtualProperty]

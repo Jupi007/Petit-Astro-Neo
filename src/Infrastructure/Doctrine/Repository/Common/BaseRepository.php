@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Repository\Common;
 
-use App\Repository\Common\BaseRepositoryInterface;
+use App\Repository\Contract\BaseRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -47,6 +47,16 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->repository->find($id);
     }
 
+    /** @return T */
+    public function getOne(mixed $id): object
+    {
+        if (null === $entity = $this->findOne($id)) {
+            $this->throwNotFoundException(['id' => $id]);
+        }
+
+        return $entity;
+    }
+
     /**
      * @param array<string, mixed> $criteria
      * @param array<string, string>|null $orderBy
@@ -56,6 +66,21 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function findOneBy(array $criteria, array $orderBy = null): ?object
     {
         return $this->repository->findOneBy($criteria, $orderBy);
+    }
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @param array<string, string>|null $orderBy
+     *
+     * @return T
+     */
+    public function getOneBy(array $criteria, array $orderBy = null): object
+    {
+        if (null === $entity = $this->findOneBy($criteria, $orderBy)) {
+            $this->throwNotFoundException($criteria);
+        }
+
+        return $entity;
     }
 
     /** @return T[] */
@@ -74,4 +99,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
+
+    /** @param array<string, mixed> $criteria */
+    abstract public function throwNotFoundException(array $criteria): never;
 }

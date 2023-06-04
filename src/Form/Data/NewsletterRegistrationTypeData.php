@@ -12,9 +12,9 @@ class NewsletterRegistrationTypeData
     #[Assert\NotBlank]
     #[Assert\Email]
     #[AppAssert\UniqueNewsletterEmail]
-    public ?string $email = null;
+    public string $email;
 
     #[Assert\NotBlank]
     #[Assert\Locale]
-    public ?string $locale = null;
+    public string $locale;
 }

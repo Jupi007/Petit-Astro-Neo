@@ -134,16 +134,4 @@ class Definition implements PersistableEntityInterface, LocalizableEntityInterfa
 
         return $this;
     }
-
-    public function getRoutePath(): ?string
-    {
-        return $this->getTranslation()?->getRoutePath();
-    }
-
-    public function setRoutePath(string $route): self
-    {
-        $this->getTranslation(createIfNull: true)->setRoutePath($route);
-
-        return $this;
-    }
 }

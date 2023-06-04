@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Headless\DataProvider;
 
-use App\Entity\Api\DefinitionRepresentation;
+use App\API\Representation\DefinitionRepresentation;
 use App\Entity\Definition;
 use App\Infrastructure\Sulu\SmartContent\DataProvider\DefinitionDataProvider;
 use JMS\Serializer\ArrayTransformerInterface;

@@ -8,7 +8,6 @@ use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Contract\TrashableEntityInterface;
 use App\Entity\Trait\PersistableEntityTrait;
 use Doctrine\ORM\Mapping as ORM;
-use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Component\Persistence\Model\AuditableInterface;
 use Sulu\Component\Persistence\Model\AuditableTrait;
 use Symfony\Bridge\Doctrine\Types\UuidType;
@@ -42,33 +41,6 @@ class NewsletterRegistration implements PersistableEntityInterface, AuditableInt
     public static function getResourceKey(): string
     {
         return self::RESOURCE_KEY;
-    }
-
-    public static function fromUser(User $user): self
-    {
-        if (null === $user->getContact()->getMainEmail()) {
-            throw new \LogicException('You cannot use an user without a contact email address.');
-        }
-
-        return new self(
-            $user->getContact()->getMainEmail(),
-            $user->getLocale(),
-        );
-    }
-
-    public function syncWithUser(User $user): self
-    {
-        if ($this->email !== $user->getContact()->getMainEmail()) {
-            throw new \LogicException(\sprintf(
-                'You cannot sync with a different user email address (this: %s - user: %s).',
-                $this->email,
-                $user->getContact()->getMainEmail(),
-            ));
-        }
-
-        $this->setLocale($user->getLocale());
-
-        return $this;
     }
 
     public function getEmail(): string

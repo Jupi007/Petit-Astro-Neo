@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Community;
 
+use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
+use App\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
 use App\Entity\NewsletterRegistration;
+use App\Exception\NullAssertionException;
 use App\Manager\NewsletterRegistrationManager;
 use App\Repository\NewsletterRegistrationRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,7 +48,7 @@ class CommunityEventListener implements EventSubscriberInterface
         $user = $event->getResourceUser();
         $this->onUserEvent($user);
 
-        // Needed because domain events are dispatched after flush
+        // Needed because domain events are dispatched after flush.
         $this->entityManager->flush();
     }
 
@@ -56,7 +59,7 @@ class CommunityEventListener implements EventSubscriberInterface
         $registration = $this->onUserEvent($user);
 
         if (null === $registration?->getId()) {
-            // The user isn't logged in yet, so we set this manually
+            // The user isn't logged in yet, so we set this manually.
             $registration?->setCreator($user);
         }
     }
@@ -71,9 +74,9 @@ class CommunityEventListener implements EventSubscriberInterface
 
         if ($registration instanceof NewsletterRegistration) {
             if (!$user->getContact()->getNewsletter()) {
-                $this->removeRegistration($registration);
+                $this->removeRegistration((int) $registration->getId());
             } else {
-                $this->updateRegistration($registration, $user);
+                $this->updateRegistration((int) $registration->getId(), $user);
             }
         } elseif ($user->getContact()->getNewsletter()) {
             $registration = $this->createRegistration($user);
@@ -85,23 +88,27 @@ class CommunityEventListener implements EventSubscriberInterface
     private function createRegistration(User $user): NewsletterRegistration
     {
         $user->getContact()->setNewsletter(true);
-        $registration = NewsletterRegistration::fromUser($user);
-        $this->manager->create($registration);
+        $dto = new CreateNewsletterRegistrationDTO(
+            email: $user->getContact()->getMainEmail() ?? throw new NullAssertionException(),
+            locale: $user->getLocale(),
+        );
+        $registration = $this->manager->create($dto);
 
         return $registration;
     }
 
-    private function updateRegistration(NewsletterRegistration $registration, User $user): NewsletterRegistration
+    private function updateRegistration(int $id, User $user): void
     {
         $user->getContact()->setNewsletter(true);
-        $registration->syncWithUser($user);
-        $this->manager->update($registration);
-
-        return $registration;
+        $dto = new UpdateNewsletterRegistrationDTO(
+            $id,
+            $user->getLocale(),
+        );
+        $this->manager->update($dto);
     }
 
-    private function removeRegistration(NewsletterRegistration $registration): void
+    private function removeRegistration(int $id): void
     {
-        $this->manager->remove($registration);
+        $this->manager->remove($id);
     }
 }

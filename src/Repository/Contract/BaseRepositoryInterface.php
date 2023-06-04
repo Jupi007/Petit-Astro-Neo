@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Common;
+namespace App\Repository\Contract;
 
 /** @template T of object */
 interface BaseRepositoryInterface
@@ -16,6 +16,9 @@ interface BaseRepositoryInterface
     /** @return T|null */
     public function findOne(mixed $id): ?object;
 
+    /** @return T */
+    public function getOne(mixed $id): object;
+
     /**
      * @param array<string, mixed> $criteria
      * @param array<string, string>|null $orderBy
@@ -23,6 +26,14 @@ interface BaseRepositoryInterface
      * @return T|null
      */
     public function findOneBy(array $criteria, array $orderBy = null): ?object;
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @param array<string, string>|null $orderBy
+     *
+     * @return T
+     */
+    public function getOneBy(array $criteria, array $orderBy = null): object;
 
     /** @return T[] */
     public function findAll(): array;

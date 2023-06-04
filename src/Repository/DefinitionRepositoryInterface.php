@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Definition;
-use App\Repository\Common\BaseRepositoryInterface;
-use App\Repository\Common\FindLocalizedRepositoryInterface;
+use App\Repository\Contract\BaseRepositoryInterface;
+use App\Repository\Contract\LocalizedRepositoryInterface;
 
 /**
  * @extends BaseRepositoryInterface<Definition>
- * @extends FindLocalizedRepositoryInterface<Definition>
+ * @extends LocalizedRepositoryInterface<Definition>
  */
-interface DefinitionRepositoryInterface extends BaseRepositoryInterface, FindLocalizedRepositoryInterface
+interface DefinitionRepositoryInterface extends BaseRepositoryInterface, LocalizedRepositoryInterface
 {
 }

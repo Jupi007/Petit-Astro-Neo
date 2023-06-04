@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
-use App\Entity\NewsletterRegistration;
-use App\Exception\NullAssertionException;
+use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
 use App\Form\Data\NewsletterRegistrationTypeData;
 use App\Form\NewsletterRegistrationType;
 use App\Manager\NewsletterRegistrationManager;
@@ -41,11 +40,12 @@ class NewsletterWebsiteController extends AbstractHeadlessWebsiteController
             /** @var NewsletterRegistrationTypeData */
             $data = $registrationForm->getData();
 
-            $registration = new NewsletterRegistration(
-                email: $data->email ?? throw new NullAssertionException(),
-                locale: $data->locale ?? throw new NullAssertionException(),
+            $this->manager->create(
+                new CreateNewsletterRegistrationDTO(
+                    $data->email,
+                    $data->locale,
+                ),
             );
-            $this->manager->create($registration);
 
             $this->addFlash(
                 'success',

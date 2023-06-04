@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\API\Representation\PublicationTypoRepresentation;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
 use App\Controller\Trait\RequestActionGetterTrait;
@@ -45,17 +46,19 @@ class PublicationTypoController extends AbstractController implements SecuredCon
     }
 
     #[Route(path: '/{id}', name: 'get_publication_typo', methods: ['GET'])]
-    public function getAction(PublicationTypo $publicationTypo): JsonResponse
+    public function getAction(PublicationTypo $typo): JsonResponse
     {
-        return $this->json($publicationTypo);
+        return $this->json(
+            new PublicationTypoRepresentation($typo),
+        );
     }
 
     #[Route(path: '/{id}', name: 'delete_publication_typo', methods: ['DELETE'])]
     public function deleteAction(
-        PublicationTypo $publicationTypo,
+        int $id,
         PublicationTypoManager $manager,
     ): JsonResponse {
-        $manager->remove($publicationTypo);
+        $manager->remove($id);
 
         return $this->json(
             data: null,

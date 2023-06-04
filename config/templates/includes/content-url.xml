@@ -11,4 +11,8 @@
 
   <tag name="sulu.rlp"/>
   <tag name="sulu.search.field" role="url"/>
+
+  <params>
+    <param name="mode" value="leaf"/>
+  </params>
 </property>

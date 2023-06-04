@@ -49,7 +49,7 @@ app:
     password_repeat_label: "Confirmez le mot de passe :"
 
   route:
-    publications: "publications"
+    publications: "publications_fr"
     lexicon: "lexique"
 
   community:

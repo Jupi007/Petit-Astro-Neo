@@ -4,18 +4,26 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\API\Representation\DefinitionRepresentation;
+use App\API\Request\Definition\CreateDefinitionRequest;
+use App\API\Request\Definition\UpdateDefinitionRequest;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
 use App\Controller\Trait\RequestActionGetterTrait;
-use App\Entity\Api\DefinitionRepresentation;
+use App\DTO\Definition\CreateDefinitionDTO;
+use App\DTO\Definition\UpdateDefinitionDTO;
 use App\Entity\Definition;
 use App\Infrastructure\Sulu\Admin\DefinitionAdmin;
 use App\Infrastructure\Sulu\Security\SecuredControllerInterface;
 use App\Manager\DefinitionManager;
+use App\Repository\DefinitionRepositoryInterface;
+use Sulu\Component\Rest\Exception\RestException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/api/definitions', name: 'app.admin.')]
@@ -43,8 +51,13 @@ class DefinitionController extends AbstractController implements SecuredControll
     }
 
     #[Route(path: '/{id}', name: 'get_definition', methods: ['GET'])]
-    public function getAction(Definition $definition): JsonResponse
-    {
+    public function getAction(
+        int $id,
+        #[MapQueryParameter] string $locale,
+        DefinitionRepositoryInterface $repository,
+    ): JsonResponse {
+        $definition = $repository->getOneLocalized($id, $locale);
+
         return $this->json(
             new DefinitionRepresentation($definition),
         );
@@ -52,13 +65,41 @@ class DefinitionController extends AbstractController implements SecuredControll
 
     #[Route(name: 'post_definition', methods: ['POST'])]
     public function postAction(
+        #[MapRequestPayload] CreateDefinitionRequest $request,
+        #[MapQueryParameter] string $locale,
+        DefinitionManager $manager,
+    ): JsonResponse {
+        $definition = $manager->create(
+            new CreateDefinitionDTO(
+                title: $request->title,
+                description: $request->description,
+                routePath: $request->routePath,
+                locale: $locale,
+            ),
+        );
+
+        return $this->json(
+            data: new DefinitionRepresentation($definition),
+            status: Response::HTTP_CREATED,
+        );
+    }
+
+    #[Route(path: '/{id}', name: 'post_trigger_definition', methods: ['POST'])]
+    public function postTriggerAction(
+        int $id,
         Request $request,
         DefinitionManager $manager,
     ): JsonResponse {
-        $definition = new Definition();
+        $action = $this->getRequestAction($request);
 
-        $this->updateDefinition($definition, $request);
-        $manager->create($definition);
+        match ($action) {
+            'copy-locale' => $definition = $manager->copyLocale(
+                $id,
+                (string) $request->query->get('src'),
+                (string) $request->query->get('dest'),
+            ),
+            default => throw new RestException(\sprintf('Unrecognized action: %s', $action)),
+        };
 
         return $this->json(
             data: new DefinitionRepresentation($definition),
@@ -68,12 +109,20 @@ class DefinitionController extends AbstractController implements SecuredControll
 
     #[Route(path: '/{id}', name: 'put_definition', methods: ['PUT'])]
     public function putAction(
-        Definition $definition,
-        Request $request,
+        int $id,
+        #[MapRequestPayload] UpdateDefinitionRequest $request,
+        #[MapQueryParameter] string $locale,
         DefinitionManager $manager,
     ): JsonResponse {
-        $this->updateDefinition($definition, $request);
-        $manager->update($definition);
+        $definition = $manager->update(
+            new UpdateDefinitionDTO(
+                id: $id,
+                title: $request->title,
+                description: $request->description,
+                routePath: $request->routePath,
+                locale: $locale,
+            ),
+        );
 
         return $this->json(
             new DefinitionRepresentation($definition),
@@ -82,30 +131,14 @@ class DefinitionController extends AbstractController implements SecuredControll
 
     #[Route(path: '/{id}', name: 'delete_definition', methods: ['DELETE'])]
     public function deleteAction(
-        Definition $definition,
+        int $id,
         DefinitionManager $manager,
     ): JsonResponse {
-        $manager->remove($definition);
+        $manager->remove($id);
 
         return $this->json(
             data: null,
             status: Response::HTTP_NO_CONTENT,
         );
-    }
-
-    private function updateDefinition(Definition $definition, Request $request): void
-    {
-        /** @var array{
-         *   title: string|null,
-         *   description: string|null,
-         *   routePath: string|null,
-         * } */
-        $data = $request->toArray();
-
-        $definition
-            ->setLocale($this->getLocale($request))
-            ->setTitle($data['title'] ?? '')
-            ->setDescription($data['description'] ?? '')
-            ->setRoutePath($data['routePath'] ?? '');
     }
 }

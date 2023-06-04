@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\API\Representation\NewsletterRegistrationRepresentation;
+use App\API\Request\NewsletterRegistration\CreateNewsletterRegistrationRequest;
+use App\API\Request\NewsletterRegistration\UpdateNewsletterRegistrationRequest;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Trait\LocaleGetterTrait;
 use App\Controller\Trait\RequestActionGetterTrait;
-use App\Entity\Api\NewsletterRegistrationRepresentation;
+use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
+use App\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
 use App\Entity\NewsletterRegistration;
+use App\Exception\NullAssertionException;
 use App\Infrastructure\Sulu\Admin\NewsletterRegistrationAdmin;
 use App\Infrastructure\Sulu\Security\SecuredControllerInterface;
 use App\Manager\NewsletterRegistrationManager;
@@ -17,8 +22,8 @@ use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 
 /** @phpstan-type NewsletterRegistrationData array{
@@ -85,34 +90,38 @@ class NewsletterRegistrationController extends AbstractController implements Sec
 
     #[Route(name: 'post_newsletter_registration', methods: ['POST'])]
     public function postAction(
-        Request $request,
+        #[MapRequestPayload] CreateNewsletterRegistrationRequest $request,
         NewsletterRegistrationManager $manager,
         EntityManagerInterface $entityManager,
     ): JsonResponse {
-        /** @var NewsletterRegistrationData */
-        $data = $request->toArray();
-
-        if (null !== $data['contact']) {
+        if (null !== $request->contact) {
             /** @var User */
             $user = $entityManager->createQueryBuilder()
                 ->select('user')
                 ->from(User::class, 'user')
                 ->where('user.contact = :contactId')
-                ->setParameter('contactId', $data['contact'])
+                ->setParameter('contactId', $request->contact)
                 ->getQuery()
                 ->getSingleResult();
 
-            $registration = NewsletterRegistration::fromUser($user);
-        } else {
-            $user = $this->findOneUserByEmail($data['email']);
-
-            $registration = new NewsletterRegistration(
-                $data['email'] ?? '',
-                $data['locale'] ?? '',
+            $dto = new CreateNewsletterRegistrationDTO(
+                email: $user->getContact()->getMainEmail() ?? throw new NullAssertionException(),
+                locale: $user->getLocale(),
             );
+        } elseif (
+            null !== $request->email
+            && null !== $request->locale
+        ) {
+            $user = $this->findOneUserByEmail($request->email);
+            $dto = new CreateNewsletterRegistrationDTO(
+                email: $request->email,
+                locale: $request->locale,
+            );
+        } else {
+            throw new \LogicException('Error Processing Request');
         }
 
-        $manager->create($registration);
+        $registration = $manager->create($dto);
 
         return $this->json(
             data: new NewsletterRegistrationRepresentation($registration, $user),
@@ -122,32 +131,31 @@ class NewsletterRegistrationController extends AbstractController implements Sec
 
     #[Route(path: '/{id}', name: 'put_newsletter_registration', methods: ['PUT'])]
     public function putAction(
-        NewsletterRegistration $registration,
-        Request $request,
+        int $id,
+        #[MapRequestPayload] UpdateNewsletterRegistrationRequest $request,
         NewsletterRegistrationManager $manager,
     ): JsonResponse {
-        /** @var NewsletterRegistrationData */
-        $data = $request->toArray();
-
-        $user = $this->findOneUserByEmail($registration->getEmail());
-
-        if (null !== $data['locale'] && !$user instanceof User) {
-            $registration->setLocale($data['locale']);
-        }
-
-        $manager->update($registration);
+        $registration = $manager->update(
+            new UpdateNewsletterRegistrationDTO(
+                id: $id,
+                locale: $request->locale,
+            ),
+        );
 
         return $this->json(
-            new NewsletterRegistrationRepresentation($registration, $user),
+            new NewsletterRegistrationRepresentation(
+                $registration,
+                $this->findOneUserByEmail($registration->getEmail()),
+            ),
         );
     }
 
     #[Route(path: '/{id}', name: 'delete_newsletter_registration', methods: ['DELETE'])]
     public function deleteAction(
-        NewsletterRegistration $registration,
+        int $id,
         NewsletterRegistrationManager $manager,
     ): JsonResponse {
-        $manager->remove($registration);
+        $manager->remove($id);
 
         return $this->json(
             data: null,
@@ -158,8 +166,6 @@ class NewsletterRegistrationController extends AbstractController implements Sec
     private function findOneUserByEmail(?string $email): ?User
     {
         /** @var User|null */
-        $user = $this->userRepository->findOneBy(['email' => $email]);
-
-        return $user;
+        return $this->userRepository->findOneBy(['email' => $email]);
     }
 }

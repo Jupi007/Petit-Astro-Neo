@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
+use App\API\Representation\DefinitionRepresentation;
 use App\Controller\Trait\LocalizationsGetterTrait;
-use App\Entity\Api\DefinitionRepresentation;
 use App\Entity\Definition;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\WebsiteBundle\Resolver\TemplateAttributeResolverInterface;

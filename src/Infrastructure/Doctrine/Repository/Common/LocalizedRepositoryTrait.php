@@ -7,7 +7,7 @@ namespace App\Infrastructure\Doctrine\Repository\Common;
 use App\Entity\Contract\LocalizableEntityInterface;
 
 /** @template T of LocalizableEntityInterface */
-trait FindLocalizedRepositoryTrait
+trait LocalizedRepositoryTrait
 {
     abstract public function findOne(mixed $id): ?object;
 
@@ -18,6 +18,18 @@ trait FindLocalizedRepositoryTrait
             object: $this->findOne($id),
             locale: $locale,
         );
+    }
+
+    /** @return T */
+    public function getOneLocalized(mixed $id, string $locale): LocalizableEntityInterface
+    {
+        $entity = $this->findOneLocalized($id, $locale);
+
+        if (null === $entity) {
+            $this->throwNotFoundException(['id' => $id]);
+        }
+
+        return $entity;
     }
 
     /**
@@ -38,6 +50,23 @@ trait FindLocalizedRepositoryTrait
             object: $this->findOneBy($criteria, $orderBy),
             locale: $locale,
         );
+    }
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @param array<string, string>|null $orderBy
+     *
+     * @return T
+     */
+    public function getOneLocalizedBy(array $criteria, string $locale, array $orderBy = null): LocalizableEntityInterface
+    {
+        $entity = $this->findOneLocalizedBy($criteria, $locale, $orderBy);
+
+        if (null === $entity) {
+            $this->throwNotFoundException($criteria);
+        }
+
+        return $entity;
     }
 
     /** @return object[] */
@@ -99,4 +128,7 @@ trait FindLocalizedRepositoryTrait
 
         return $objects;
     }
+
+    /** @param array<string, mixed> $criteria */
+    abstract public function throwNotFoundException(array $criteria): never;
 }

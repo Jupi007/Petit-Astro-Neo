@@ -9,5 +9,5 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PublicationTypoTypeData
 {
     #[Assert\NotBlank]
-    public ?string $description = null;
+    public string $description;
 }

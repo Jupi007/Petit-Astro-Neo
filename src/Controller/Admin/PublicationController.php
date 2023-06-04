@@ -71,7 +71,7 @@ class PublicationController extends AbstractController implements SecuredControl
         $publication = $publicationManager->create($data, $dimensionAttributes);
 
         if ('publish' === $this->getRequestAction($request)) {
-            $publicationManager->publish($publication, $dimensionAttributes);
+            $publicationManager->publish((int) $publication->getId(), $dimensionAttributes);
         }
 
         return $this->json(
@@ -86,7 +86,7 @@ class PublicationController extends AbstractController implements SecuredControl
 
     #[Route(path: '/{id}', name: 'post_trigger_publication', methods: ['POST'])]
     public function postTriggerAction(
-        Publication $publication,
+        int $id,
         Request $request,
         PublicationManager $publicationManager,
         ContentManagerInterface $contentManager,
@@ -95,14 +95,14 @@ class PublicationController extends AbstractController implements SecuredControl
         $action = $this->getRequestAction($request);
 
         match ($action) {
-            'copy-locale' => $publicationManager->copyLocale(
-                $publication,
+            'copy-locale' => $publication = $publicationManager->copyLocale(
+                $id,
                 (string) $request->query->get('src'),
                 (string) $request->query->get('dest'),
             ),
-            'unpublish' => $publicationManager->unpublish($publication, $dimensionAttributes),
-            'remove-draft' => $publicationManager->removeDraft($publication, $dimensionAttributes),
-            'notify' => $publicationManager->notify($publication),
+            'unpublish' => $publication = $publicationManager->unpublish($id, $dimensionAttributes),
+            'remove-draft' => $publication = $publicationManager->removeDraft($id, $dimensionAttributes),
+            'notify' => $publication = $publicationManager->notify($id),
             default => throw new RestException(\sprintf('Unrecognized action: %s', $action)),
         };
 
@@ -117,7 +117,7 @@ class PublicationController extends AbstractController implements SecuredControl
 
     #[Route(path: '/{id}', name: 'put_publication', methods: ['PUT'])]
     public function putAction(
-        Publication $publication,
+        int $id,
         Request $request,
         PublicationManager $publicationManager,
         ContentManagerInterface $contentManager,
@@ -125,10 +125,10 @@ class PublicationController extends AbstractController implements SecuredControl
         $data = $this->getData($request);
         $dimensionAttributes = $this->getDimensionAttributes($request);
 
-        $publicationManager->update($publication, $data, $dimensionAttributes);
+        $publication = $publicationManager->update($id, $data, $dimensionAttributes);
 
         if ('publish' === $this->getRequestAction($request)) {
-            $publicationManager->publish($publication, $dimensionAttributes);
+            $publication = $publicationManager->publish($id, $dimensionAttributes);
         }
 
         return $this->json(
@@ -142,10 +142,10 @@ class PublicationController extends AbstractController implements SecuredControl
 
     #[Route(path: '/{id}', name: 'delete_publication', methods: ['DELETE'])]
     public function deleteAction(
-        Publication $publication,
+        int $id,
         PublicationManager $publicationManager,
     ): JsonResponse {
-        $publicationManager->remove($publication);
+        $publicationManager->remove($id);
 
         return $this->json(
             data: null,

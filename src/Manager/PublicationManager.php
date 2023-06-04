@@ -25,7 +25,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class PublicationManager
 {
     public function __construct(
-        private readonly PublicationRepositoryInterface $publicationRepository,
+        private readonly PublicationRepositoryInterface $repository,
         private readonly ContentManagerInterface $contentManager,
         private readonly ContentIndexerInterface $contentIndexer,
         private readonly EventDispatcherInterface $eventDispatcher,
@@ -42,7 +42,7 @@ class PublicationManager
         $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
 
         $this->eventDispatcher->dispatch(new CreatedPublicationEvent($publication));
-        $this->publicationRepository->save($publication);
+        $this->repository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
 
@@ -53,8 +53,10 @@ class PublicationManager
      * @param array<string, mixed> $data
      * @param array<string, mixed> $dimensionAttributes
      */
-    public function update(Publication $publication, array $data, array $dimensionAttributes): void
+    public function update(int $id, array $data, array $dimensionAttributes): Publication
     {
+        $publication = $this->repository->getOne($id);
+
         /** @var PublicationDimensionContent $dimensionContent */
         $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
 
@@ -67,14 +69,18 @@ class PublicationManager
         }
 
         $this->eventDispatcher->dispatch(new ModifiedPublicationEvent($publication));
-        $this->publicationRepository->save($publication);
+        $this->repository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
+
+        return $publication;
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
-    public function publish(Publication $publication, array $dimensionAttributes): void
+    public function publish(int $id, array $dimensionAttributes): Publication
     {
+        $publication = $this->repository->getOne($id);
+
         $this->contentManager->applyTransition(
             $publication,
             $dimensionAttributes,
@@ -82,17 +88,21 @@ class PublicationManager
         );
 
         $this->eventDispatcher->dispatch(new PublishedPublicationEvent($publication));
-        $this->publicationRepository->save($publication);
+        $this->repository->save($publication);
 
         $this->contentIndexer->index($publication, [
             ...$dimensionAttributes,
             'stage' => DimensionContentInterface::STAGE_LIVE,
         ]);
+
+        return $publication;
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
-    public function unpublish(Publication $publication, array $dimensionAttributes): void
+    public function unpublish(int $id, array $dimensionAttributes): Publication
     {
+        $publication = $this->repository->getOne($id);
+
         if (null === $publication->getId()) {
             throw new \LogicException('You cannot unpublish a non-persisted publication.');
         }
@@ -104,16 +114,20 @@ class PublicationManager
         );
 
         $this->eventDispatcher->dispatch(new UnpublishedPublicationEvent($publication));
-        $this->publicationRepository->save($publication);
+        $this->repository->save($publication);
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId(), [
             ...$dimensionAttributes,
             'stage' => DimensionContentInterface::STAGE_LIVE,
         ]);
+
+        return $publication;
     }
 
-    public function notify(Publication $publication): void
+    public function notify(int $id): Publication
     {
+        $publication = $this->repository->getOne($id);
+
         if ($publication->isNotified()) {
             throw new PublicationAlreadyNotifiedException();
         }
@@ -121,11 +135,15 @@ class PublicationManager
         $publication->setNotified(true);
 
         $this->eventDispatcher->dispatch(new NotifiedPublicationEvent($publication));
-        $this->publicationRepository->save($publication);
+        $this->repository->save($publication);
+
+        return $publication;
     }
 
-    public function copyLocale(Publication $publication, string $srcLocale, string $destLocale): void
+    public function copyLocale(int $id, string $srcLocale, string $destLocale): Publication
     {
+        $publication = $this->repository->getOne($id);
+
         $this->contentManager->copy(
             $publication,
             [
@@ -140,12 +158,16 @@ class PublicationManager
         );
 
         $this->eventDispatcher->dispatch(new TranslationCopiedPublicationEvent($publication, $srcLocale, $destLocale));
-        $this->publicationRepository->save($publication);
+        $this->repository->save($publication);
+
+        return $publication;
     }
 
     /** @param array<string, mixed> $dimensionAttributes */
-    public function removeDraft(Publication $publication, array $dimensionAttributes): void
+    public function removeDraft(int $id, array $dimensionAttributes): Publication
     {
+        $publication = $this->repository->getOne($id);
+
         $dimensionContent = $this->contentManager->applyTransition(
             $publication,
             $dimensionAttributes,
@@ -153,20 +175,26 @@ class PublicationManager
         );
 
         $this->eventDispatcher->dispatch(new DraftRemovedPublicationEvent($publication));
-        $this->publicationRepository->save($publication);
+        $this->repository->save($publication);
 
         $this->contentIndexer->indexDimensionContent($dimensionContent);
+
+        return $publication;
     }
 
-    public function remove(Publication $publication): void
+    public function remove(int $id): Publication
     {
+        $publication = $this->repository->getOne($id);
+
         if (null === $publication->getId()) {
             throw new \LogicException('You cannot remove a non-persisted publication.');
         }
 
         $this->eventDispatcher->dispatch(new RemovedPublicationEvent($publication));
-        $this->publicationRepository->remove($publication);
+        $this->repository->remove($publication);
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId());
+
+        return $publication;
     }
 }

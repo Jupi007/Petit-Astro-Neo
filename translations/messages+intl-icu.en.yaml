@@ -49,7 +49,7 @@ app:
     password_repeat_label: "Repeat password:"
 
   route:
-    publications: "publications"
+    publications: "publications_en"
     lexicon: "lexicon"
 
   community:

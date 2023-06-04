@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Website;
 
 use App\Controller\Trait\LocalizationsGetterTrait;
+use App\DTO\PublicationTypo\CreatePublicationTypoDTO;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
-use App\Entity\PublicationTypo;
-use App\Exception\NullAssertionException;
 use App\Form\Data\PublicationTypoTypeData;
 use App\Form\PublicationTypoType;
 use App\Manager\PublicationTypoManager;
@@ -46,11 +45,12 @@ class PublicationWebsiteController extends AbstractHeadlessWebsiteController
             /** @var PublicationTypoTypeData */
             $data = $typoForm->getData();
 
-            $typo = new PublicationTypo(
-                publication: $this->getPublication($structure),
-                description: $data->description ?? throw new NullAssertionException(),
+            $this->manager->create(
+                new CreatePublicationTypoDTO(
+                    publicationId: (int) $this->getPublication($structure)->getId(),
+                    description: $data->description,
+                ),
             );
-            $this->manager->create($typo);
 
             return $this->redirect('?typoSend=true');
         }

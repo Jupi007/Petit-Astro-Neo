@@ -9,4 +9,4 @@ sulu_route:
       generator: schema
       resource_key: !php/const App\Entity\Publication::RESOURCE_KEY
       options:
-        route_schema: /{object["title"]}
+        route_schema: /{translator.trans('app.route.publications')}/{object["title"]}

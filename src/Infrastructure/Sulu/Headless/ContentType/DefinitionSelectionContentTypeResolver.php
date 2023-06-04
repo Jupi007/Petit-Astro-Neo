@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Headless\ContentType;
 
-use App\Entity\Api\DefinitionRepresentation;
+use App\API\Representation\DefinitionRepresentation;
 use App\Entity\Definition;
 use App\Infrastructure\Sulu\ContentType\DefinitionSelectionContentType;
 use JMS\Serializer\ArrayTransformerInterface;

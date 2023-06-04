@@ -1,2 +1,11 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Variable \\$definition might not be defined\\.$#"
+			count: 1
+			path: src/Controller/Admin/DefinitionController.php
+
+		-
+			message: "#^Variable \\$publication might not be defined\\.$#"
+			count: 1
+			path: src/Controller/Admin/PublicationController.php

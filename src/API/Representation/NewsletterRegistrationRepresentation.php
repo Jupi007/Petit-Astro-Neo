@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Api;
+namespace App\API\Representation;
 
 use App\Entity\NewsletterRegistration;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -28,14 +28,14 @@ class NewsletterRegistrationRepresentation
 
     #[VirtualProperty]
     #[SerializedName('locale')]
-    public function getLocale(): ?string
+    public function getLocale(): string
     {
         return $this->registration->getLocale();
     }
 
     #[VirtualProperty]
     #[SerializedName('email')]
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->registration->getEmail();
     }

@@ -9,16 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\WithHttpStatus;
 
 #[WithHttpStatus(Response::HTTP_NOT_FOUND)]
-class PublicationNotFoundException extends \Exception implements TranslationErrorMessageExceptionInterface
+class NewsletterRegistrationNotFoundException extends \Exception implements TranslationErrorMessageExceptionInterface
 {
     public function __construct()
     {
-        parent::__construct('The publication does not exist or no longer exists.');
+        parent::__construct('The newsletter registration does not exist or no longer exists.');
     }
 
     public function getMessageTranslationKey(): string
     {
-        return 'app.admin.publication_not_found';
+        return 'app.admin.newsletter_registration_not_found';
     }
 
     public function getMessageTranslationParameters(): array
