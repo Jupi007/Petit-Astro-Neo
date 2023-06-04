@@ -1,7 +1,7 @@
 {% set defaultClass = 'border p-2 text-center font-bold' %}
 
 {% if variant == null %}
-  {% set defaultClass = defaultClass ~ ' border-outline bg-white dark:border-outline-invert dark:bg-zinc-800' %}
+  {% set defaultClass = defaultClass ~ ' border-outline bg-body dark:border-outline-invert dark:bg-body-invert' %}
 {% elseif variant == 'info' %}
   {% set defaultClass = defaultClass ~ ' bg-blue-100 border-blue-300 text-blue-900 dark:bg-blue-950 dark:border-blue-900 dark:text-blue-200' %}
 {% elseif variant == 'success' %}

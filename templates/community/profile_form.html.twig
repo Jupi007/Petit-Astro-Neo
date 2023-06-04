@@ -14,7 +14,7 @@
 {{ form_start(form) }}
     <div class="absolute -top-20 left-0 right-0">
       <label class="block w-fit mx-auto" for="{{ form.vars.name }}_avatar">
-        {% set class = 'w-48 h-48 p-4 rounded-full bg-white dark:bg-zinc-800 border border-outline dark:border-outline-invert cursor-pointer' %}
+        {% set class = 'w-48 h-48 p-4 rounded-full bg-body dark:bg-body-invert border border-outline dark:border-outline-invert cursor-pointer' %}
         {% if media is not null %}
           {{ get_image(media, {
             src: 'avatar_large',

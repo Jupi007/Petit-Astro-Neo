@@ -1,5 +1,4 @@
 const plugin = require('tailwindcss/plugin');
-const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
@@ -23,6 +22,8 @@ module.exports = {
       },
       colors: {
         'accent': colors.slate[500],
+        'body': colors.white,
+        'body-invert': colors.zinc[800],
         'outline': colors.zinc[200],
         'outline-invert': colors.zinc[700],
       },
@@ -33,6 +34,8 @@ module.exports = {
         '2.5': '.025',
         '15': '0.15',
         '35': '0.35',
+        'hover': '0.8',
+        'caption': '0.6',
       },
       boxShadow: {
         'fake-border': '0 0 0 1px',
@@ -46,8 +49,8 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            '--tw-prose-hr': theme('colors.zinc.200'),
-            '--tw-prose-invert-hr': theme('colors.zinc.700'),
+            '--tw-prose-hr': theme('colors.outline'),
+            '--tw-prose-invert-hr': theme('colors.outline-invert'),
           },
         },
       }),
@@ -60,5 +63,21 @@ module.exports = {
   ],
   plugins: [
     require('@tailwindcss/typography'),
+    plugin(function ({ addUtilities, theme }) {
+      addUtilities({
+        '.bg-dotted, .bg-dotted-invert': {
+          'background-size': '24px 24px',
+          'background-position': 'center',
+        },
+        '.bg-dotted': {
+          'background-image': `linear-gradient(90deg, ${theme('colors.body')} 22px, transparent 1%), linear-gradient(${theme('colors.body')} 22px, transparent 1%)`,
+          'background-color': theme('colors.outline'),
+        },
+        '.bg-dotted-invert': {
+          'background-image': `linear-gradient(90deg, ${theme('colors.body-invert')} 22px, transparent 1%), linear-gradient(${theme('colors.body-invert')} 22px, transparent 1%)`,
+          'background-color': theme('colors.outline-invert'),
+        },
+      });
+    }),
   ],
 };

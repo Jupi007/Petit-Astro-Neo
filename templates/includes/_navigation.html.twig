@@ -51,7 +51,7 @@
             <a
               href="{{ localization.url }}"
               title="{{ localization.locale }}"
-              class="{{ localization.locale == app.request.locale ? 'underline' : '' }} hover:opacity-80 transition-opacity"
+              class="{{ localization.locale == app.request.locale ? 'underline' : '' }} hover:opacity-hover transition-opacity"
               data-turbo="false"
               @click="hideMenu()"
             >

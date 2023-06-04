@@ -16,13 +16,8 @@
   <div class="min-h-screen flex flex-col md:ml-24 transition-[margin]">
     {% include "includes/_header.html.twig" %}
 
-    <div class="
-      flex-grow flex lg:px-16
-      bg-[linear-gradient(90deg,white_22px,transparent_1%),linear-gradient(white_22px,transparent_1%)]
-      dark:bg-[linear-gradient(90deg,theme('colors.zinc.800')_22px,transparent_1%),linear-gradient(theme('colors.zinc.800')_22px,transparent_1%)]
-      bg-neutral-300 dark:bg-neutral-700 bg-fixed bg-center bg-[length:24px_24px]
-    ">
-      <div class="flex-grow flex flex-col justify-between overflow-hidden lg:max-w-4xl w-full mx-auto lg:border-x border-outline dark:border-outline-invert bg-white dark:bg-zinc-800">
+    <div class="flex-grow flex lg:px-16 bg-dotted dark:bg-dotted-invert bg-fixed">
+      <div class="flex-grow flex flex-col justify-between overflow-hidden lg:max-w-4xl w-full mx-auto lg:border-x border-outline dark:border-outline-invert bg-body dark:bg-body-invert">
         <main class="pb-8">
           {% block content %}{% endblock %}
         </main>
