@@ -73,8 +73,8 @@ class PublicationEmailNotifier implements EventSubscriberInterface
             $publicationLocale = $registration->getLocale();
 
             if (
-                !\array_key_exists($publicationLocale, $localizedResolvedPublications) &&
-                \array_key_exists($defaultLocale, $localizedResolvedPublications)
+                !\array_key_exists($publicationLocale, $localizedResolvedPublications)
+                && \array_key_exists($defaultLocale, $localizedResolvedPublications)
             ) {
                 $publicationLocale = $defaultLocale;
             } else {
@@ -146,8 +146,8 @@ class PublicationEmailNotifier implements EventSubscriberInterface
     private function getImageId(PublicationDimensionContent $dimensionContent, array $data): ?int
     {
         if (
-            null !== $dimensionContent->getExcerptImage() &&
-            $excerptImageId = $dimensionContent->getExcerptImage()['id']
+            null !== $dimensionContent->getExcerptImage()
+            && $excerptImageId = $dimensionContent->getExcerptImage()['id']
         ) {
             return $excerptImageId;
         }
@@ -161,10 +161,5 @@ class PublicationEmailNotifier implements EventSubscriberInterface
     protected function getContentManager(): ContentManagerInterface
     {
         return $this->contentManager;
-    }
-
-    protected function getWebspaceManager(): WebspaceManagerInterface
-    {
-        return $this->webspaceManager;
     }
 }

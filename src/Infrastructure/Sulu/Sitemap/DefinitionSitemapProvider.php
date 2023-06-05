@@ -144,9 +144,4 @@ class DefinitionSitemapProvider implements SitemapProviderInterface
     {
         return $scheme . '://' . $host . $path;
     }
-
-    protected function getWebspaceManager(): WebspaceManagerInterface
-    {
-        return $this->webspaceManager;
-    }
 }

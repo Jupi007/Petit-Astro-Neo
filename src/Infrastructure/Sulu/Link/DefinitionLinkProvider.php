@@ -61,9 +61,4 @@ class DefinitionLinkProvider implements LinkProviderInterface
             $definitions,
         );
     }
-
-    protected function getTranslator(): TranslatorInterface
-    {
-        return $this->translator;
-    }
 }

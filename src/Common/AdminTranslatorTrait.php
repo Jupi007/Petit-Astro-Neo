@@ -8,10 +8,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 trait AdminTranslatorTrait
 {
+    private readonly TranslatorInterface $translator;
+
     public function trans(string $id): string
     {
-        return $this->getTranslator()->trans($id, domain: 'admin');
+        return $this->translator->trans($id, domain: 'admin');
     }
-
-    abstract protected function getTranslator(): TranslatorInterface;
 }

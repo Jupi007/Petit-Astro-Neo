@@ -9,9 +9,11 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 trait DefaultLocaleGetterTrait
 {
+    private readonly WebspaceManagerInterface $webspaceManager;
+
     private function getDefaultLocale(): string
     {
-        foreach ($this->getWebspaceManager()->getAllLocalizations() as $localization) {
+        foreach ($this->webspaceManager->getAllLocalizations() as $localization) {
             if ($localization->isDefault()) {
                 return $localization->getLocale(Localization::DASH);
             }
@@ -19,6 +21,4 @@ trait DefaultLocaleGetterTrait
 
         throw new \LogicException('No default locale.');
     }
-
-    abstract protected function getWebspaceManager(): WebspaceManagerInterface;
 }

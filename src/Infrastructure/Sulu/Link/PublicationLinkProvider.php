@@ -47,9 +47,4 @@ class PublicationLinkProvider extends ContentLinkProvider
             ->setIcon(Publication::RESOURCE_ICON)
             ->getLinkConfiguration();
     }
-
-    protected function getTranslator(): TranslatorInterface
-    {
-        return $this->translator;
-    }
 }
