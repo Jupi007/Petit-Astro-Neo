@@ -34,12 +34,15 @@ class PublicationManager
 
     /**
      * @param array<string, mixed> $data
-     * @param array<string, mixed> $dimensionAttributes
      */
-    public function create(array $data, array $dimensionAttributes): Publication
+    public function create(array $data, string $locale): Publication
     {
         $publication = new Publication();
-        $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
+        $dimensionContent = $this->contentManager->persist(
+            $publication,
+            $data,
+            ['locale' => $locale],
+        );
 
         $this->eventDispatcher->dispatch(new CreatedPublicationEvent($publication));
         $this->repository->save($publication);
@@ -51,19 +54,22 @@ class PublicationManager
 
     /**
      * @param array<string, mixed> $data
-     * @param array<string, mixed> $dimensionAttributes
      */
-    public function update(int $id, array $data, array $dimensionAttributes): Publication
+    public function update(int $id, array $data, string $locale): Publication
     {
         $publication = $this->repository->getOne($id);
 
         /** @var PublicationDimensionContent $dimensionContent */
-        $dimensionContent = $this->contentManager->persist($publication, $data, $dimensionAttributes);
+        $dimensionContent = $this->contentManager->persist(
+            $publication,
+            $data,
+            ['locale' => $locale],
+        );
 
         if (WorkflowInterface::WORKFLOW_PLACE_PUBLISHED === $dimensionContent->getWorkflowPlace()) {
             $dimensionContent = $this->contentManager->applyTransition(
                 $publication,
-                $dimensionAttributes,
+                ['locale' => $locale],
                 WorkflowInterface::WORKFLOW_TRANSITION_CREATE_DRAFT,
             );
         }
@@ -76,14 +82,13 @@ class PublicationManager
         return $publication;
     }
 
-    /** @param array<string, mixed> $dimensionAttributes */
-    public function publish(int $id, array $dimensionAttributes): Publication
+    public function publish(int $id, string $locale): Publication
     {
         $publication = $this->repository->getOne($id);
 
         $this->contentManager->applyTransition(
             $publication,
-            $dimensionAttributes,
+            ['locale' => $locale],
             WorkflowInterface::WORKFLOW_TRANSITION_PUBLISH,
         );
 
@@ -91,15 +96,14 @@ class PublicationManager
         $this->repository->save($publication);
 
         $this->contentIndexer->index($publication, [
-            ...$dimensionAttributes,
+            'locale' => $locale,
             'stage' => DimensionContentInterface::STAGE_LIVE,
         ]);
 
         return $publication;
     }
 
-    /** @param array<string, mixed> $dimensionAttributes */
-    public function unpublish(int $id, array $dimensionAttributes): Publication
+    public function unpublish(int $id, string $locale): Publication
     {
         $publication = $this->repository->getOne($id);
 
@@ -109,7 +113,7 @@ class PublicationManager
 
         $this->contentManager->applyTransition(
             $publication,
-            $dimensionAttributes,
+            ['locale' => $locale],
             WorkflowInterface::WORKFLOW_TRANSITION_UNPUBLISH,
         );
 
@@ -117,7 +121,7 @@ class PublicationManager
         $this->repository->save($publication);
 
         $this->contentIndexer->deindex(Publication::RESOURCE_KEY, (int) $publication->getId(), [
-            ...$dimensionAttributes,
+            'locale' => $locale,
             'stage' => DimensionContentInterface::STAGE_LIVE,
         ]);
 
@@ -163,14 +167,13 @@ class PublicationManager
         return $publication;
     }
 
-    /** @param array<string, mixed> $dimensionAttributes */
-    public function removeDraft(int $id, array $dimensionAttributes): Publication
+    public function removeDraft(int $id, string $locale): Publication
     {
         $publication = $this->repository->getOne($id);
 
         $dimensionContent = $this->contentManager->applyTransition(
             $publication,
-            $dimensionAttributes,
+            ['locale' => $locale],
             WorkflowInterface::WORKFLOW_TRANSITION_REMOVE_DRAFT,
         );
 
