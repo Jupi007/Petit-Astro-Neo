@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Website;
 
-use App\Entity\Definition;
+use App\Repository\DefinitionRepositoryInterface;
 use App\UserInterface\API\Representation\DefinitionRepresentation;
 use App\UserInterface\Controller\Trait\LocalizationsGetterTrait;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
@@ -22,12 +22,15 @@ class DefinitionWebsiteController extends AbstractController
         private readonly TemplateAttributeResolverInterface $templateAttributeResolver,
         private readonly RouteRepositoryInterface $routeRepository,
         private readonly WebspaceManagerInterface $webspaceManager,
+        private readonly DefinitionRepositoryInterface $definitionRepository,
     ) {
     }
 
     // Controlled by App\Routing\DefinitionRouteDefaultsProvider
-    public function index(Request $request, Definition $definition): Response
+    public function index(Request $request, int $id, string $locale): Response
     {
+        $definition = $this->definitionRepository->getOneLocalized($id, $locale);
+
         $parameters = [
             'localizations' => $this->getLocalizationsArray($definition),
         ];

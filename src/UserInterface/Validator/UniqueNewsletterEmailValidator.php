@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Validator;
+namespace App\UserInterface\Validator;
 
 use App\Entity\NewsletterRegistration;
 use App\Repository\NewsletterRegistrationRepositoryInterface;

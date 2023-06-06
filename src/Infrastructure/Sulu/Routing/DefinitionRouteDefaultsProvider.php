@@ -2,35 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Sulu\Routing\Provider;
+namespace App\Infrastructure\Sulu\Routing;
 
 use App\Entity\Definition;
-use App\Repository\DefinitionRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface;
 
 class DefinitionRouteDefaultsProvider implements RouteDefaultsProviderInterface
 {
-    public function __construct(
-        private readonly DefinitionRepositoryInterface $repository,
-    ) {
-    }
-
     /**
      * @param string $entityClass
      * @param string $id
      * @param string $locale
      * @param Definition|null $object
      *
-     * @return array{
-     *   '_controller': string,
-     *   'definition': null|Definition
-     * }
+     * @return mixed[]
      */
     public function getByEntity($entityClass, $id, $locale, $object = null): array
     {
         return [
-            '_controller' => 'App\UserInterface\Controller\Website\DefinitionController::index',
-            'definition' => $object ?: $this->repository->findOneLocalized($id, $locale),
+            '_controller' => 'App\UserInterface\Controller\Website\DefinitionWebsiteController::index',
+            'id' => (int) $id,
+            'locale' => $locale,
         ];
     }
 

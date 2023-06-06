@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Form\Data;
 
-use App\Validator as AppAssert;
+use App\UserInterface\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class NewsletterRegistrationTypeData

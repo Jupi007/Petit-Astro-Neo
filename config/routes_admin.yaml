@@ -1,5 +1,4 @@
-# Define your admin routes here
 controllers:
-    resource: ../src/Controller/Admin/
+    resource: ../src/UserInterface/Controller/Admin/
     defaults: { _format: json }
     type: attribute

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Sulu\Routing\Manager;
+namespace App\Infrastructure\Sulu\Routing;
 
 use App\DomainEvent\Definition\CreatedDefinitionEvent;
 use App\DomainEvent\Definition\ModifiedDefinitionEvent;
