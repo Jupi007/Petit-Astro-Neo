@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Routing;
 
-use App\Entity\Definition;
+use App\Domain\Entity\Definition;
+use App\UserInterface\Controller\Website\DefinitionWebsiteController;
 use Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface;
 
 class DefinitionRouteDefaultsProvider implements RouteDefaultsProviderInterface
@@ -20,7 +21,7 @@ class DefinitionRouteDefaultsProvider implements RouteDefaultsProviderInterface
     public function getByEntity($entityClass, $id, $locale, $object = null): array
     {
         return [
-            '_controller' => 'App\UserInterface\Controller\Website\DefinitionWebsiteController::index',
+            '_controller' => \sprintf('%s::index', DefinitionWebsiteController::class),
             'id' => (int) $id,
             'locale' => $locale,
         ];

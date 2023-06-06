@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Trash;
 
-use App\Entity\Contract\TrashableEntityInterface;
+use App\Domain\Entity\Contract\TrashableEntityInterface;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Events;

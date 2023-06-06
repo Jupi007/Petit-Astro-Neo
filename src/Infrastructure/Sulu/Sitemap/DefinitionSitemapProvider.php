@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Infrastructure\Sulu\Sitemap;
 
 use App\Common\DefaultLocaleGetterTrait;
-use App\Entity\Definition;
-use App\Entity\DefinitionTranslation;
-use App\Exception\NullAssertionException;
+use App\Domain\Entity\Definition;
+use App\Domain\Entity\DefinitionTranslation;
+use App\Domain\Exception\NullAssertionException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Sulu\Bundle\WebsiteBundle\Sitemap\Sitemap;

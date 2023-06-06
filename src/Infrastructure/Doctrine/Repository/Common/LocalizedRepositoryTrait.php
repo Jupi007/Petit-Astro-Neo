@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Repository\Common;
 
-use App\Entity\Contract\LocalizableEntityInterface;
+use App\Domain\Entity\Contract\LocalizableEntityInterface;
 
 /** @template T of LocalizableEntityInterface */
 trait LocalizedRepositoryTrait

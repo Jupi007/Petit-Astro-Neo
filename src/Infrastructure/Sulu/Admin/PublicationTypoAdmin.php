@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Admin;
 
-use App\Entity\PublicationTypo;
+use App\Domain\Entity\PublicationTypo;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItem;
 use Sulu\Bundle\AdminBundle\Admin\Navigation\NavigationItemCollection;

@@ -9,8 +9,8 @@ sulu_core:
   content:
     structure:
       paths:
-        !php/const App\Entity\Publication::TEMPLATE_TYPE:
+        !php/const App\Domain\Entity\Publication::TEMPLATE_TYPE:
           path: "%kernel.project_dir%/config/templates/publications"
-          type: !php/const App\Entity\Publication::TEMPLATE_TYPE
+          type: !php/const App\Domain\Entity\Publication::TEMPLATE_TYPE
       default_type:
-        !php/const App\Entity\Publication::TEMPLATE_TYPE: "article"
+        !php/const App\Domain\Entity\Publication::TEMPLATE_TYPE: "article"

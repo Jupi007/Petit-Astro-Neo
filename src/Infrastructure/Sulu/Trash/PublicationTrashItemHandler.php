@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Trash;
 
-use App\DomainEvent\Publication\RestoredPublicationEvent;
-use App\Entity\Publication;
-use App\Entity\PublicationDimensionContent;
-use App\Entity\PublicationTypo;
+use App\Domain\Entity\Publication;
+use App\Domain\Entity\PublicationDimensionContent;
+use App\Domain\Entity\PublicationTypo;
+use App\Domain\Event\Publication\RestoredPublicationEvent;
 use App\Infrastructure\Sulu\Admin\PublicationAdmin;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
 use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;

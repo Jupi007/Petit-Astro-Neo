@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\ActivityEventDispatcher;
 
-use App\DomainEvent\Definition\CreatedDefinitionEvent;
-use App\DomainEvent\Definition\ModifiedDefinitionEvent;
-use App\DomainEvent\Definition\RemovedDefinitionEvent;
-use App\DomainEvent\Definition\RestoredDefinitionEvent;
-use App\DomainEvent\Definition\TranslationCopiedDefinitionEvent;
+use App\Domain\Event\Definition\CreatedDefinitionEvent;
+use App\Domain\Event\Definition\ModifiedDefinitionEvent;
+use App\Domain\Event\Definition\RemovedDefinitionEvent;
+use App\Domain\Event\Definition\RestoredDefinitionEvent;
+use App\Domain\Event\Definition\TranslationCopiedDefinitionEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Definition\CreatedDefinitionActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Definition\ModifiedDefinitionActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Definition\RemovedDefinitionActivityEvent;

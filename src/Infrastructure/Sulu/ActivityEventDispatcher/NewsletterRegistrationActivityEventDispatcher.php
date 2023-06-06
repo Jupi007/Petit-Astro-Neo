@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\ActivityEventDispatcher;
 
-use App\DomainEvent\NewsletterRegistration\CreatedNewsletterRegistrationEvent;
-use App\DomainEvent\NewsletterRegistration\ModifiedNewsletterRegistrationEvent;
-use App\DomainEvent\NewsletterRegistration\RemovedNewsletterRegistrationEvent;
-use App\DomainEvent\NewsletterRegistration\RestoredNewsletterRegistrationEvent;
+use App\Domain\Event\NewsletterRegistration\CreatedNewsletterRegistrationEvent;
+use App\Domain\Event\NewsletterRegistration\ModifiedNewsletterRegistrationEvent;
+use App\Domain\Event\NewsletterRegistration\RemovedNewsletterRegistrationEvent;
+use App\Domain\Event\NewsletterRegistration\RestoredNewsletterRegistrationEvent;
 use App\Infrastructure\Sulu\ActivityEvent\NewsletterRegistration\CreatedNewsletterRegistrationActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\NewsletterRegistration\ModifiedNewsletterRegistrationActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\NewsletterRegistration\RemovedNewsletterRegistrationActivityEvent;

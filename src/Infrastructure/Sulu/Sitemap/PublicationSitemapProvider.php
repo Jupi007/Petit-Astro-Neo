@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Sitemap;
 
-use App\Entity\Publication;
-use App\Entity\PublicationDimensionContent;
+use App\Domain\Entity\Publication;
+use App\Domain\Entity\PublicationDimensionContent;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Sitemap\ContentSitemapProvider;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;

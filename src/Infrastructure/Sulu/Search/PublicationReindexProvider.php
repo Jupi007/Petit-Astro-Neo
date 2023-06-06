@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Search;
 
-use App\Entity\Publication;
-use App\Entity\PublicationDimensionContent;
+use App\Domain\Entity\Publication;
+use App\Domain\Entity\PublicationDimensionContent;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentMetadataInspector\ContentMetadataInspectorInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentResolver\ContentResolverInterface;

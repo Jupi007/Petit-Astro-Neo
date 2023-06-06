@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Website;
 
-use App\DTO\PublicationTypo\CreatePublicationTypoDTO;
-use App\Entity\Publication;
-use App\Entity\PublicationDimensionContent;
-use App\Manager\PublicationTypoManager;
+use App\Application\DTO\PublicationTypo\CreatePublicationTypoDTO;
+use App\Application\Manager\PublicationTypoManager;
+use App\Domain\Entity\Publication;
+use App\Domain\Entity\PublicationDimensionContent;
 use App\UserInterface\Controller\Trait\LocalizationsGetterTrait;
 use App\UserInterface\Form\Data\PublicationTypoTypeData;
 use App\UserInterface\Form\PublicationTypoType;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Headless\DataProvider;
 
-use App\Entity\Publication;
+use App\Domain\Entity\Publication;
 
 class PublicationDataProviderResolver extends AbstractContentDataProviderResolver
 {

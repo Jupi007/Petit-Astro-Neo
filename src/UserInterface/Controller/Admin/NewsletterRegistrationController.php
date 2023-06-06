@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Admin;
 
-use App\Common\DoctrineListRepresentationFactory;
-use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
-use App\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
-use App\Entity\NewsletterRegistration;
-use App\Exception\NullAssertionException;
+use App\Application\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
+use App\Application\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
+use App\Application\Manager\NewsletterRegistrationManager;
+use App\Domain\Entity\NewsletterRegistration;
+use App\Domain\Exception\NullAssertionException;
 use App\Infrastructure\Sulu\Admin\NewsletterRegistrationAdmin;
 use App\Infrastructure\Sulu\Security\SecuredControllerInterface;
-use App\Manager\NewsletterRegistrationManager;
 use App\UserInterface\API\Representation\NewsletterRegistrationRepresentation;
 use App\UserInterface\API\Request\NewsletterRegistration\CreateNewsletterRegistrationRequest;
 use App\UserInterface\API\Request\NewsletterRegistration\UpdateNewsletterRegistrationRequest;
 use App\UserInterface\Controller\Trait\LocaleGetterTrait;
 use App\UserInterface\Controller\Trait\RequestActionGetterTrait;
+use App\UserInterface\DoctrineListRepresentationFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Component\Security\Authentication\UserRepositoryInterface;

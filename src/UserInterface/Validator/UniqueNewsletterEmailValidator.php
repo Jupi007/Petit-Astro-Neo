@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Validator;
 
-use App\Entity\NewsletterRegistration;
-use App\Repository\NewsletterRegistrationRepositoryInterface;
+use App\Domain\Entity\NewsletterRegistration;
+use App\Domain\Repository\NewsletterRegistrationRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

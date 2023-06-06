@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Sulu\Link;
 
 use App\Common\AdminTranslatorTrait;
-use App\Entity\Publication;
-use App\Entity\PublicationDimensionContent;
+use App\Domain\Entity\Publication;
+use App\Domain\Entity\PublicationDimensionContent;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Link\ContentLinkProvider;

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Admin;
 
-use App\Common\DoctrineListRepresentationFactory;
-use App\Entity\PublicationTypo;
+use App\Application\Manager\PublicationTypoManager;
+use App\Domain\Entity\PublicationTypo;
 use App\Infrastructure\Sulu\Admin\PublicationAdmin;
 use App\Infrastructure\Sulu\Security\SecuredControllerInterface;
-use App\Manager\PublicationTypoManager;
 use App\UserInterface\API\Representation\PublicationTypoRepresentation;
 use App\UserInterface\Controller\Trait\LocaleGetterTrait;
 use App\UserInterface\Controller\Trait\RequestActionGetterTrait;
+use App\UserInterface\DoctrineListRepresentationFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

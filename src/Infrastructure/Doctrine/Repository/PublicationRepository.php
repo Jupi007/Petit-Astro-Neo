@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Repository;
 
-use App\Entity\Publication;
-use App\Exception\PublicationNotFoundException;
+use App\Domain\Entity\Publication;
+use App\Domain\Exception\PublicationNotFoundException;
+use App\Domain\Repository\PublicationRepositoryInterface;
 use App\Infrastructure\Doctrine\Repository\Common\BaseRepository;
-use App\Repository\PublicationRepositoryInterface;
 
 /** @extends BaseRepository<Publication> */
 class PublicationRepository extends BaseRepository implements PublicationRepositoryInterface

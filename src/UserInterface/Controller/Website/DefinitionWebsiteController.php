@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Website;
 
-use App\Repository\DefinitionRepositoryInterface;
+use App\Domain\Repository\DefinitionRepositoryInterface;
 use App\UserInterface\API\Representation\DefinitionRepresentation;
 use App\UserInterface\Controller\Trait\LocalizationsGetterTrait;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;

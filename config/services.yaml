@@ -15,13 +15,13 @@ services:
   App\:
     resource: "../src/"
     exclude:
-      - "../src/API/"
+      - "../src/Application/DTO/"
       - "../src/DependencyInjection/"
-      - "../src/DomainEvent/"
-      - "../src/DTO/"
-      - "../src/Entity/"
+      - "../src/Domain/Entity/"
+      - "../src/Domain/Event/"
       - "../src/Kernel.php"
       - "../src/Sulu/ActivityEvent/"
+      - "../src/UserInterface/API/"
 
   _instanceof:
     Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface:

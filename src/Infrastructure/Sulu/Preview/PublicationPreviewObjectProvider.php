@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Preview;
 
-use App\Entity\Publication;
-use App\Entity\PublicationDimensionContent;
+use App\Domain\Entity\Publication;
+use App\Domain\Entity\PublicationDimensionContent;
 use App\Infrastructure\Sulu\Admin\PublicationAdmin;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentDataMapper\ContentDataMapperInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Repository\Common;
 
-use App\Repository\Contract\BaseRepositoryInterface;
+use App\Domain\Repository\Contract\BaseRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 

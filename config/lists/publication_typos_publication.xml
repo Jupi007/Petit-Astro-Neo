@@ -5,12 +5,12 @@
     <properties>
         <property name="id" translation="sulu_admin.id">
             <field-name>id</field-name>
-            <entity-name>App\Entity\PublicationTypo</entity-name>
+            <entity-name>App\Domain\Entity\PublicationTypo</entity-name>
         </property>
 
         <property name="description" visibility="always" searchability="yes" translation="sulu_admin.description">
             <field-name>description</field-name>
-            <entity-name>App\Entity\PublicationTypo</entity-name>
+            <entity-name>App\Domain\Entity\PublicationTypo</entity-name>
         </property>
     </properties>
 </list>

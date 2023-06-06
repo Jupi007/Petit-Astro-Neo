@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\ActivityEvent\Publication;
 
-use App\Entity\Publication;
+use App\Domain\Entity\Publication;
 use App\Infrastructure\Sulu\ActivityEvent\AbstractActivityEvent;
 use App\Infrastructure\Sulu\Admin\PublicationAdmin;
 

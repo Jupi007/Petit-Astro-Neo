@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\SmartContent\DataProvider;
 
-use App\Entity\Definition;
+use App\Domain\Entity\Definition;
 use App\Infrastructure\Sulu\Admin\DefinitionAdmin;
 use App\Infrastructure\Sulu\SmartContent\DataItem\DefinitionDataItem;
 use App\Infrastructure\Sulu\SmartContent\Repository\DefinitionDataProviderRepository;

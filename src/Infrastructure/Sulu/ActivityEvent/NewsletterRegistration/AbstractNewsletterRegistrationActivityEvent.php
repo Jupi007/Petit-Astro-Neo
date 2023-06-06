@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\ActivityEvent\NewsletterRegistration;
 
-use App\Entity\NewsletterRegistration;
+use App\Domain\Entity\NewsletterRegistration;
 use App\Infrastructure\Sulu\ActivityEvent\AbstractActivityEvent;
 use App\Infrastructure\Sulu\Admin\NewsletterRegistrationAdmin;
 

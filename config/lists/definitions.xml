@@ -5,16 +5,16 @@
 
   <joins name="translation">
     <join>
-      <entity-name>App\Entity\DefinitionTranslation</entity-name>
-      <field-name>App\Entity\Definition.translations</field-name>
-      <condition>App\Entity\DefinitionTranslation.locale = :locale</condition>
+      <entity-name>App\Domain\Entity\DefinitionTranslation</entity-name>
+      <field-name>App\Domain\Entity\Definition.translations</field-name>
+      <condition>App\Domain\Entity\DefinitionTranslation.locale = :locale</condition>
     </join>
   </joins>
 
   <joins name="changer" ref="translation">
     <join>
       <entity-name>%sulu.model.user.class%_changer</entity-name>
-      <field-name>App\Entity\DefinitionTranslation.changer</field-name>
+      <field-name>App\Domain\Entity\DefinitionTranslation.changer</field-name>
     </join>
     <join>
       <entity-name>%sulu.model.contact.class%_changer</entity-name>
@@ -25,7 +25,7 @@
   <joins name="creator" ref="translation">
     <join>
       <entity-name>%sulu.model.user.class%_creator</entity-name>
-      <field-name>App\Entity\DefinitionTranslation.creator</field-name>
+      <field-name>App\Domain\Entity\DefinitionTranslation.creator</field-name>
     </join>
     <join>
       <entity-name>%sulu.model.contact.class%_creator</entity-name>
@@ -36,12 +36,12 @@
   <properties>
     <property name="id" visibility="no" translation="sulu_admin.id">
       <field-name>id</field-name>
-      <entity-name>App\Entity\Definition</entity-name>
+      <entity-name>App\Domain\Entity\Definition</entity-name>
     </property>
 
     <property name="title" visibility="always" searchability="yes" translation="sulu_admin.title">
       <field-name>title</field-name>
-      <entity-name>App\Entity\DefinitionTranslation</entity-name>
+      <entity-name>App\Domain\Entity\DefinitionTranslation</entity-name>
 
       <joins ref="translation"/>
     </property>
@@ -70,7 +70,7 @@
 
     <property name="created" translation="sulu_admin.created" type="datetime" visibility="yes">
       <field-name>created</field-name>
-      <entity-name>App\Entity\DefinitionTranslation</entity-name>
+      <entity-name>App\Domain\Entity\DefinitionTranslation</entity-name>
 
       <joins ref="translation"/>
     </property>
@@ -99,7 +99,7 @@
 
     <property name="changed" translation="sulu_admin.changed" type="datetime" visibility="yes">
       <field-name>changed</field-name>
-      <entity-name>App\Entity\DefinitionTranslation</entity-name>
+      <entity-name>App\Domain\Entity\DefinitionTranslation</entity-name>
 
       <joins ref="translation"/>
     </property>

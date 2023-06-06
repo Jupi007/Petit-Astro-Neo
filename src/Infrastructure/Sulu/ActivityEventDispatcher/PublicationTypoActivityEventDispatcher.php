@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\ActivityEventDispatcher;
 
-use App\DomainEvent\PublicationTypo\CreatedPublicationTypoEvent;
-use App\DomainEvent\PublicationTypo\RemovedPublicationTypoEvent;
-use App\DomainEvent\PublicationTypo\RestoredPublicationTypoEvent;
+use App\Domain\Event\PublicationTypo\CreatedPublicationTypoEvent;
+use App\Domain\Event\PublicationTypo\RemovedPublicationTypoEvent;
+use App\Domain\Event\PublicationTypo\RestoredPublicationTypoEvent;
 use App\Infrastructure\Sulu\ActivityEvent\PublicationTypo\CreatedPublicationTypoActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\PublicationTypo\RemovedPublicationTypoActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\PublicationTypo\RestoredPublicationTypoActivityEvent;

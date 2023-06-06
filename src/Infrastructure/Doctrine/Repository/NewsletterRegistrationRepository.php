@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Repository;
 
-use App\Entity\NewsletterRegistration;
-use App\Exception\NewsletterRegistrationNotFoundException;
+use App\Domain\Entity\NewsletterRegistration;
+use App\Domain\Exception\NewsletterRegistrationNotFoundException;
+use App\Domain\Repository\NewsletterRegistrationRepositoryInterface;
 use App\Infrastructure\Doctrine\Repository\Common\BaseRepository;
-use App\Repository\NewsletterRegistrationRepositoryInterface;
 
 /**
  * @extends BaseRepository<NewsletterRegistration>

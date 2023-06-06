@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Sulu\Link;
 
 use App\Common\AdminTranslatorTrait;
-use App\Entity\Definition;
-use App\Repository\DefinitionRepositoryInterface;
+use App\Domain\Entity\Definition;
+use App\Domain\Repository\DefinitionRepositoryInterface;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkConfigurationBuilder;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkItem;
 use Sulu\Bundle\MarkupBundle\Markup\Link\LinkProviderInterface;

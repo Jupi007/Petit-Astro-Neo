@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Trait;
 
-use App\Entity\Contract\PersistableEntityInterface;
+use App\Domain\Entity\Contract\PersistableEntityInterface;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\SmartContent\DataItem;
 
-use App\Entity\Definition;
+use App\Domain\Entity\Definition;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Sulu\Component\SmartContent\ItemInterface;

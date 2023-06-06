@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Trash;
 
-use App\DomainEvent\NewsletterRegistration\RestoredNewsletterRegistrationEvent;
-use App\Entity\NewsletterRegistration;
-use App\Exception\NewsletterRegistrationEmailNotUniqueException;
+use App\Domain\Entity\NewsletterRegistration;
+use App\Domain\Event\NewsletterRegistration\RestoredNewsletterRegistrationEvent;
+use App\Domain\Exception\NewsletterRegistrationEmailNotUniqueException;
+use App\Domain\Repository\NewsletterRegistrationRepositoryInterface;
 use App\Infrastructure\Sulu\Admin\NewsletterRegistrationAdmin;
-use App\Repository\NewsletterRegistrationRepositoryInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfigurationProviderInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\API\Representation;
 
-use App\Entity\PublicationTypo;
+use App\Domain\Entity\PublicationTypo;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;

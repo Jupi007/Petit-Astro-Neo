@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\ContentType;
 
-use App\Entity\Definition;
-use App\Repository\DefinitionRepositoryInterface;
+use App\Domain\Entity\Definition;
+use App\Domain\Repository\DefinitionRepositoryInterface;
 use Sulu\Component\Content\Compat\PropertyInterface;
 use Sulu\Component\Content\SimpleContentType;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;

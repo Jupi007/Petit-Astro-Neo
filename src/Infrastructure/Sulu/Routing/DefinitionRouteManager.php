@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Routing;
 
-use App\DomainEvent\Definition\CreatedDefinitionEvent;
-use App\DomainEvent\Definition\ModifiedDefinitionEvent;
-use App\DomainEvent\Definition\RemovedDefinitionEvent;
-use App\DomainEvent\Definition\TranslationCopiedDefinitionEvent;
-use App\Entity\Definition;
-use App\Exception\NullAssertionException;
+use App\Domain\Entity\Definition;
+use App\Domain\Event\Definition\CreatedDefinitionEvent;
+use App\Domain\Event\Definition\ModifiedDefinitionEvent;
+use App\Domain\Event\Definition\RemovedDefinitionEvent;
+use App\Domain\Event\Definition\TranslationCopiedDefinitionEvent;
+use App\Domain\Exception\NullAssertionException;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

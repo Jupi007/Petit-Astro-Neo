@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Trash;
 
-use App\DomainEvent\PublicationTypo\RestoredPublicationTypoEvent;
-use App\Entity\Publication;
-use App\Entity\PublicationTypo;
-use App\Exception\PublicationNotFoundException;
+use App\Domain\Entity\Publication;
+use App\Domain\Entity\PublicationTypo;
+use App\Domain\Event\PublicationTypo\RestoredPublicationTypoEvent;
+use App\Domain\Exception\PublicationNotFoundException;
+use App\Domain\Repository\PublicationRepositoryInterface;
 use App\Infrastructure\Sulu\Admin\PublicationTypoAdmin;
-use App\Repository\PublicationRepositoryInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfigurationProviderInterface;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Trash;
 
-use App\DomainEvent\Definition\RestoredDefinitionEvent;
-use App\Entity\Definition;
+use App\Domain\Entity\Definition;
+use App\Domain\Event\Definition\RestoredDefinitionEvent;
+use App\Domain\Repository\DefinitionRepositoryInterface;
 use App\Infrastructure\Sulu\Admin\DefinitionAdmin;
-use App\Repository\DefinitionRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Manager\RouteManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
 use Sulu\Bundle\TrashBundle\Application\RestoreConfigurationProvider\RestoreConfiguration;

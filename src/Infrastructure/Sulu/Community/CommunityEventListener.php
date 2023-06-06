@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Community;
 
-use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
-use App\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
-use App\Entity\NewsletterRegistration;
-use App\Exception\NullAssertionException;
-use App\Manager\NewsletterRegistrationManager;
-use App\Repository\NewsletterRegistrationRepositoryInterface;
+use App\Application\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
+use App\Application\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
+use App\Application\Manager\NewsletterRegistrationManager;
+use App\Domain\Entity\NewsletterRegistration;
+use App\Domain\Exception\NullAssertionException;
+use App\Domain\Repository\NewsletterRegistrationRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sulu\Bundle\CommunityBundle\Event\AbstractCommunityEvent;
 use Sulu\Bundle\CommunityBundle\Event\UserConfirmedEvent;

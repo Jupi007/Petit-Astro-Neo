@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\SmartContent\DataProvider;
 
-use App\Entity\Publication;
+use App\Domain\Entity\Publication;
 use App\Infrastructure\Sulu\SmartContent\Repository\PublicationDataProviderRepository;
 use Sulu\Bundle\AdminBundle\Metadata\FormMetadata\TypedFormMetadata;
 use Sulu\Bundle\AdminBundle\Metadata\MetadataProviderInterface;

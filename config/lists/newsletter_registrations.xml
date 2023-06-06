@@ -6,7 +6,7 @@
   <joins name="changer">
     <join>
       <entity-name>%sulu.model.user.class%_changer</entity-name>
-      <field-name>App\Entity\NewsletterRegistration.changer</field-name>
+      <field-name>App\Domain\Entity\NewsletterRegistration.changer</field-name>
     </join>
     <join>
       <entity-name>%sulu.model.contact.class%_changer</entity-name>
@@ -17,7 +17,7 @@
   <joins name="creator">
     <join>
       <entity-name>%sulu.model.user.class%_creator</entity-name>
-      <field-name>App\Entity\NewsletterRegistration.creator</field-name>
+      <field-name>App\Domain\Entity\NewsletterRegistration.creator</field-name>
     </join>
     <join>
       <entity-name>%sulu.model.contact.class%_creator</entity-name>
@@ -28,17 +28,17 @@
   <properties>
     <property name="id" visibility="no" translation="sulu_admin.id">
       <field-name>id</field-name>
-      <entity-name>App\Entity\NewsletterRegistration</entity-name>
+      <entity-name>App\Domain\Entity\NewsletterRegistration</entity-name>
     </property>
 
     <property name="email" visibility="always" searchability="yes" translation="sulu_contact.email">
       <field-name>email</field-name>
-      <entity-name>App\Entity\NewsletterRegistration</entity-name>
+      <entity-name>App\Domain\Entity\NewsletterRegistration</entity-name>
     </property>
 
     <property name="locale" visibility="yes" searchability="yes" translation="app.admin.locale">
       <field-name>locale</field-name>
-      <entity-name>App\Entity\NewsletterRegistration</entity-name>
+      <entity-name>App\Domain\Entity\NewsletterRegistration</entity-name>
     </property>
 
     <property name="user" translation="sulu_security.user" visibility="no" searchability="yes"/>
@@ -67,7 +67,7 @@
 
     <property name="created" translation="sulu_admin.created" type="datetime" visibility="yes">
       <field-name>created</field-name>
-      <entity-name>App\Entity\NewsletterRegistration</entity-name>
+      <entity-name>App\Domain\Entity\NewsletterRegistration</entity-name>
     </property>
 
     <concatenation-property name="changer" translation="sulu_admin.changer" visibility="no" searchability="yes">
@@ -94,7 +94,7 @@
 
     <property name="changed" translation="sulu_admin.changed" type="datetime" visibility="no">
       <field-name>changed</field-name>
-      <entity-name>App\Entity\NewsletterRegistration</entity-name>
+      <entity-name>App\Domain\Entity\NewsletterRegistration</entity-name>
     </property>
   </properties>
 </list>

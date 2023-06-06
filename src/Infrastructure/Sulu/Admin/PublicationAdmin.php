@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Admin;
 
-use App\Entity\Publication;
+use App\Domain\Entity\Publication;
 use App\Infrastructure\Sulu\Security\PermissionTypes;
 use Sulu\Bundle\ActivityBundle\Infrastructure\Sulu\Admin\View\ActivityViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\Admin;

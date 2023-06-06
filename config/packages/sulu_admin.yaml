@@ -9,19 +9,19 @@ sulu_admin:
       - "%kernel.project_dir%/config/lists"
 
   resources:
-    !php/const App\Entity\Definition::RESOURCE_KEY:
+    !php/const App\Domain\Entity\Definition::RESOURCE_KEY:
       routes:
         list: app.admin.get_definition_list
         detail: app.admin.get_definition
-    !php/const App\Entity\NewsletterRegistration::RESOURCE_KEY:
+    !php/const App\Domain\Entity\NewsletterRegistration::RESOURCE_KEY:
       routes:
         list: app.admin.get_newsletter_registration_list
         detail: app.admin.get_newsletter_registration
-    !php/const App\Entity\Publication::RESOURCE_KEY:
+    !php/const App\Domain\Entity\Publication::RESOURCE_KEY:
       routes:
         list: app.admin.get_publication_list
         detail: app.admin.get_publication
-    !php/const App\Entity\PublicationTypo::RESOURCE_KEY:
+    !php/const App\Domain\Entity\PublicationTypo::RESOURCE_KEY:
       routes:
         list: app.admin.get_publication_typo_list
         detail: app.admin.get_publication_typo
@@ -30,7 +30,7 @@ sulu_admin:
     selection:
       definitions_selection:
         default_type: list_overlay
-        resource_key: !php/const App\Entity\Definition::RESOURCE_KEY
+        resource_key: !php/const App\Domain\Entity\Definition::RESOURCE_KEY
         view:
           name: !php/const App\Infrastructure\Sulu\Admin\DefinitionAdmin::EDIT_FORM_VIEW
           result_to_view:
@@ -42,9 +42,9 @@ sulu_admin:
               - title
           list_overlay:
             adapter: table
-            list_key: !php/const App\Entity\Definition::RESOURCE_KEY
+            list_key: !php/const App\Domain\Entity\Definition::RESOURCE_KEY
             display_properties:
               - title
             label: "app.admin.definition_selection"
-            icon: !php/const App\Entity\Definition::RESOURCE_ICON
+            icon: !php/const App\Domain\Entity\Definition::RESOURCE_ICON
             overlay_title: "app.admin.definition_selection_overlay_title"

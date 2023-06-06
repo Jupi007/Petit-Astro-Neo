@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Website;
 
-use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
-use App\Manager\NewsletterRegistrationManager;
+use App\Application\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
+use App\Application\Manager\NewsletterRegistrationManager;
 use App\UserInterface\Form\Data\NewsletterRegistrationTypeData;
 use App\UserInterface\Form\NewsletterRegistrationType;
 use Sulu\Bundle\HeadlessBundle\Content\StructureResolverInterface;

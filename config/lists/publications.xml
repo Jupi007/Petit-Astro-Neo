@@ -5,7 +5,7 @@
     <joins name="dimensionContent">
         <join>
             <entity-name>dimensionContent</entity-name>
-            <field-name>App\Entity\Publication.dimensionContents</field-name>
+            <field-name>App\Domain\Entity\Publication.dimensionContents</field-name>
             <method>LEFT</method>
             <condition>dimensionContent.locale = :locale AND dimensionContent.stage = 'draft'</condition>
         </join>
@@ -14,7 +14,7 @@
     <joins name="unlocalizedDimensionContent">
         <join>
             <entity-name>unlocalizedDimensionContent</entity-name>
-            <field-name>App\Entity\Publication.dimensionContents</field-name>
+            <field-name>App\Domain\Entity\Publication.dimensionContents</field-name>
             <method>LEFT</method>
             <condition>unlocalizedDimensionContent.locale IS NULL AND unlocalizedDimensionContent.stage = 'draft'</condition>
         </join>
@@ -23,7 +23,7 @@
     <joins name="ghostDimensionContent" ref="unlocalizedDimensionContent">
         <join>
             <entity-name>ghostDimensionContent</entity-name>
-            <field-name>App\Entity\Publication.dimensionContents</field-name>
+            <field-name>App\Domain\Entity\Publication.dimensionContents</field-name>
             <method>LEFT</method>
             <condition>ghostDimensionContent.locale = unlocalizedDimensionContent.ghostLocale AND ghostDimensionContent.stage = 'draft'</condition>
         </join>
@@ -54,7 +54,7 @@
     <properties>
         <property name="id" translation="sulu_admin.id">
             <field-name>id</field-name>
-            <entity-name>App\Entity\Publication</entity-name>
+            <entity-name>App\Domain\Entity\Publication</entity-name>
         </property>
 
         <case-property name="title" translation="sulu_admin.title" visibility="always" searchability="yes">
@@ -77,7 +77,7 @@
 
         <property name="notified" translation="app.admin.notified">
             <field-name>notified</field-name>
-            <entity-name>App\Entity\Publication</entity-name>
+            <entity-name>App\Domain\Entity\Publication</entity-name>
 
             <transformer type="bool"/>
         </property>

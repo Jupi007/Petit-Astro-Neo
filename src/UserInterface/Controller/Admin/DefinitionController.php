@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Admin;
 
-use App\Common\DoctrineListRepresentationFactory;
-use App\DTO\Definition\CreateDefinitionDTO;
-use App\DTO\Definition\UpdateDefinitionDTO;
-use App\Entity\Definition;
+use App\Application\DTO\Definition\CreateDefinitionDTO;
+use App\Application\DTO\Definition\UpdateDefinitionDTO;
+use App\Application\Manager\DefinitionManager;
+use App\Domain\Entity\Definition;
+use App\Domain\Repository\DefinitionRepositoryInterface;
 use App\Infrastructure\Sulu\Admin\DefinitionAdmin;
 use App\Infrastructure\Sulu\Security\SecuredControllerInterface;
-use App\Manager\DefinitionManager;
-use App\Repository\DefinitionRepositoryInterface;
 use App\UserInterface\API\Representation\DefinitionRepresentation;
 use App\UserInterface\API\Request\Definition\CreateDefinitionRequest;
 use App\UserInterface\API\Request\Definition\UpdateDefinitionRequest;
 use App\UserInterface\Controller\Trait\LocaleGetterTrait;
 use App\UserInterface\Controller\Trait\RequestActionGetterTrait;
+use App\UserInterface\DoctrineListRepresentationFactory;
 use Sulu\Component\Rest\Exception\RestException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

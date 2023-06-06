@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Controller\Admin;
 
-use App\Common\DoctrineListRepresentationFactory;
-use App\Entity\Publication;
+use App\Application\Manager\PublicationManager;
+use App\Domain\Entity\Publication;
 use App\Infrastructure\Sulu\Admin\PublicationAdmin;
 use App\Infrastructure\Sulu\Security\SecuredControllerInterface;
-use App\Manager\PublicationManager;
 use App\UserInterface\Controller\Trait\LocaleGetterTrait;
 use App\UserInterface\Controller\Trait\RequestActionGetterTrait;
+use App\UserInterface\DoctrineListRepresentationFactory;
 use Sulu\Bundle\ContentBundle\Content\Application\ContentManager\ContentManagerInterface;
 use Sulu\Component\Rest\Exception\RestException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -1,0 +1,85 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\Entity;
+
+use App\Domain\Entity\Contract\PersistableEntityInterface;
+use App\Domain\Entity\Trait\PersistableEntityTrait;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\DimensionContentTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ExcerptInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ExcerptTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\RoutableTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\SeoTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\ShadowTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\TemplateTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\WebspaceTrait;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowInterface;
+use Sulu\Bundle\ContentBundle\Content\Domain\Model\WorkflowTrait;
+use Sulu\Component\Persistence\Model\AuditableInterface;
+use Sulu\Component\Persistence\Model\AuditableTrait;
+
+/** @implements DimensionContentInterface<Publication> */
+#[ORM\Entity]
+class PublicationDimensionContent implements PersistableEntityInterface, DimensionContentInterface, ExcerptInterface, SeoInterface, TemplateInterface, RoutableInterface, WorkflowInterface, AuditableInterface, WebspaceInterface, ShadowInterface
+{
+    use AuditableTrait;
+    use DimensionContentTrait;
+    use ExcerptTrait;
+    use PersistableEntityTrait;
+    use RoutableTrait;
+    use SeoTrait;
+    use ShadowTrait;
+    use TemplateTrait {
+        setTemplateData as parentSetTemplateData;
+    }
+    use WebspaceTrait;
+    use WorkflowTrait;
+
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $title = null;
+
+    public function __construct(
+        #[ORM\ManyToOne(targetEntity: Publication::class, inversedBy: 'dimensionContents')]
+        #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+        private Publication $publication,
+    ) {
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function getResource(): Publication
+    {
+        return $this->publication;
+    }
+
+    public function setTemplateData(array $templateData): void
+    {
+        if (\array_key_exists('title', $templateData)) {
+            $this->title = $templateData['title'];
+        }
+
+        $this->parentSetTemplateData($templateData);
+    }
+
+    public static function getTemplateType(): string
+    {
+        return Publication::TEMPLATE_TYPE;
+    }
+
+    public static function getResourceKey(): string
+    {
+        return Publication::RESOURCE_KEY;
+    }
+}

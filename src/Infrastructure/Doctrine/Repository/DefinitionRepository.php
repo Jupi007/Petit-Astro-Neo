@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Repository;
 
-use App\Entity\Definition;
-use App\Exception\DefinitionNotFoundException;
+use App\Domain\Entity\Definition;
+use App\Domain\Exception\DefinitionNotFoundException;
+use App\Domain\Repository\DefinitionRepositoryInterface;
 use App\Infrastructure\Doctrine\Repository\Common\BaseRepository;
 use App\Infrastructure\Doctrine\Repository\Common\LocalizedRepositoryTrait;
-use App\Repository\DefinitionRepositoryInterface;
 
 /** @extends BaseRepository<Definition> */
 class DefinitionRepository extends BaseRepository implements DefinitionRepositoryInterface

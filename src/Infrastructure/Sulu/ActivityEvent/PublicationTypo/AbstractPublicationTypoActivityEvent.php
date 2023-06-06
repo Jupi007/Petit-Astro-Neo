@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\ActivityEvent\PublicationTypo;
 
-use App\Entity\PublicationTypo;
+use App\Domain\Entity\PublicationTypo;
 use App\Infrastructure\Sulu\ActivityEvent\AbstractActivityEvent;
 use App\Infrastructure\Sulu\Admin\PublicationTypoAdmin;
 

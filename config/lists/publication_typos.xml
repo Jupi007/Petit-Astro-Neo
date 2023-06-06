@@ -4,20 +4,20 @@
 
     <joins name="publication">
         <join>
-            <entity-name>App\Entity\Publication</entity-name>
-            <field-name>App\Entity\PublicationTypo.publication</field-name>
+            <entity-name>App\Domain\Entity\Publication</entity-name>
+            <field-name>App\Domain\Entity\PublicationTypo.publication</field-name>
         </join>
     </joins>
 
     <joins name="publicationDimensionContent">
         <join>
-            <entity-name>App\Entity\Publication</entity-name>
-            <field-name>App\Entity\PublicationTypo.publication</field-name>
+            <entity-name>App\Domain\Entity\Publication</entity-name>
+            <field-name>App\Domain\Entity\PublicationTypo.publication</field-name>
         </join>
 
         <join>
             <entity-name>publicationDimensionContent</entity-name>
-            <field-name>App\Entity\Publication.dimensionContents</field-name>
+            <field-name>App\Domain\Entity\Publication.dimensionContents</field-name>
             <method>LEFT</method>
             <condition>publicationDimensionContent.locale = :locale AND publicationDimensionContent.stage = 'draft'</condition>
         </join>
@@ -26,17 +26,17 @@
     <properties>
         <property name="id" translation="sulu_admin.id">
             <field-name>id</field-name>
-            <entity-name>App\Entity\PublicationTypo</entity-name>
+            <entity-name>App\Domain\Entity\PublicationTypo</entity-name>
         </property>
 
         <property name="description" visibility="always" searchability="yes" translation="sulu_admin.description">
             <field-name>description</field-name>
-            <entity-name>App\Entity\PublicationTypo</entity-name>
+            <entity-name>App\Domain\Entity\PublicationTypo</entity-name>
         </property>
 
         <property name="publicationId" visibility="never" searchability="no">
             <field-name>id</field-name>
-            <entity-name>App\Entity\Publication</entity-name>
+            <entity-name>App\Domain\Entity\Publication</entity-name>
 
             <joins ref="publication"/>
         </property>

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\ActivityEventDispatcher;
 
-use App\DomainEvent\Publication\CreatedPublicationEvent;
-use App\DomainEvent\Publication\DraftRemovedPublicationEvent;
-use App\DomainEvent\Publication\ModifiedPublicationEvent;
-use App\DomainEvent\Publication\NotifiedPublicationEvent;
-use App\DomainEvent\Publication\PublishedPublicationEvent;
-use App\DomainEvent\Publication\RemovedPublicationEvent;
-use App\DomainEvent\Publication\RestoredPublicationEvent;
-use App\DomainEvent\Publication\TranslationCopiedPublicationEvent;
-use App\DomainEvent\Publication\UnpublishedPublicationEvent;
+use App\Domain\Event\Publication\CreatedPublicationEvent;
+use App\Domain\Event\Publication\DraftRemovedPublicationEvent;
+use App\Domain\Event\Publication\ModifiedPublicationEvent;
+use App\Domain\Event\Publication\NotifiedPublicationEvent;
+use App\Domain\Event\Publication\PublishedPublicationEvent;
+use App\Domain\Event\Publication\RemovedPublicationEvent;
+use App\Domain\Event\Publication\RestoredPublicationEvent;
+use App\Domain\Event\Publication\TranslationCopiedPublicationEvent;
+use App\Domain\Event\Publication\UnpublishedPublicationEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Publication\CreatedPublicationActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Publication\DraftRemovedPublicationActivityEvent;
 use App\Infrastructure\Sulu\ActivityEvent\Publication\ModifiedPublicationActivityEvent;
