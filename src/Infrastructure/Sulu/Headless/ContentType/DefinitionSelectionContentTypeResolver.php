@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Sulu\Headless\ContentType;
 
-use App\API\Representation\DefinitionRepresentation;
 use App\Entity\Definition;
 use App\Infrastructure\Sulu\ContentType\DefinitionSelectionContentType;
+use App\UserInterface\API\Representation\DefinitionRepresentation;
 use JMS\Serializer\ArrayTransformerInterface;
 use Sulu\Bundle\HeadlessBundle\Content\ContentTypeResolver\ContentTypeResolverInterface;
 use Sulu\Bundle\HeadlessBundle\Content\ContentView;

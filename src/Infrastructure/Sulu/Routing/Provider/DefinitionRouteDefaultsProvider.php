@@ -29,7 +29,7 @@ class DefinitionRouteDefaultsProvider implements RouteDefaultsProviderInterface
     public function getByEntity($entityClass, $id, $locale, $object = null): array
     {
         return [
-            '_controller' => 'App\Controller\Website\DefinitionController::index',
+            '_controller' => 'App\UserInterface\Controller\Website\DefinitionController::index',
             'definition' => $object ?: $this->repository->findOneLocalized($id, $locale),
         ];
     }
