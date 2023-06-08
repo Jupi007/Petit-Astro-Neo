@@ -6,7 +6,7 @@
     <key>newsletter-form</key>
 
     <view>pages/newsletter_form</view>
-    <controller>App\UserInterface\Controller\Website\NewsletterWebsiteController::indexAction</controller>
+    <controller>App\Controller\Website\NewsletterWebsiteController::indexAction</controller>
     <cacheLifetime>604800</cacheLifetime>
 
     <meta>

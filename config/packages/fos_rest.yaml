@@ -1,5 +1,5 @@
 fos_rest:
   exception:
     codes:
-      App\Domain\Exception\NewsletterRegistrationEmailNotUniqueException: 409
-      App\Domain\Exception\PublicationNotFoundException: 404
+      App\Exception\NewsletterRegistrationEmailNotUniqueException: 409
+      App\Exception\PublicationNotFoundException: 404

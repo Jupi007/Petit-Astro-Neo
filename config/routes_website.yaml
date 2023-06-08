@@ -1,3 +1,3 @@
 controllers:
-    resource: ../src/UserInterface/Controller/Website/
+    resource: ../src/Controller/Website/
     type: attribute

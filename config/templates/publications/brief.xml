@@ -6,7 +6,7 @@
     <key>brief</key>
 
     <view>publications/brief</view>
-    <controller>App\UserInterface\Controller\Website\PublicationWebsiteController::indexAction</controller>
+    <controller>App\Controller\Website\PublicationWebsiteController::indexAction</controller>
     <cacheLifetime>604800</cacheLifetime>
 
     <meta>

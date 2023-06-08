@@ -3,9 +3,9 @@ parameters:
 		-
 			message: "#^Variable \\$definition might not be defined\\.$#"
 			count: 1
-			path: src/UserInterface/Controller/Admin/DefinitionController.php
+			path: src/Controller/Admin/DefinitionController.php
 
 		-
 			message: "#^Variable \\$publication might not be defined\\.$#"
 			count: 1
-			path: src/UserInterface/Controller/Admin/PublicationController.php
+			path: src/Controller/Admin/PublicationController.php

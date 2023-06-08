@@ -1,4 +1,4 @@
 controllers:
-    resource: ../src/UserInterface/Controller/Admin/
+    resource: ../src/Controller/Admin/
     defaults: { _format: json }
     type: attribute

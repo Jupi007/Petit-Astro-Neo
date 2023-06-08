@@ -15,13 +15,13 @@ services:
   App\:
     resource: "../src/"
     exclude:
-      - "../src/Application/DTO/"
+      - "../src/API/"
       - "../src/DependencyInjection/"
-      - "../src/Domain/Entity/"
-      - "../src/Domain/Event/"
+      - "../src/DTO/"
+      - "../src/Entity/"
+      - "../src/Event/"
       - "../src/Kernel.php"
       - "../src/Sulu/ActivityEvent/"
-      - "../src/UserInterface/API/"
 
   _instanceof:
     Sulu\Bundle\RouteBundle\Routing\Defaults\RouteDefaultsProviderInterface:
@@ -33,7 +33,7 @@ services:
 
   # Extended sulu MaskConverter with custol permission types
   sulu_security.mask_converter:
-    class: App\Infrastructure\Sulu\Security\MaskConverter
+    class: App\Sulu\Security\MaskConverter
 
   Sulu\Twig\Extensions\ImageExtension:
     arguments:
