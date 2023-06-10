@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
-use App\Controller\Trait\LocalizationsGetterTrait;
-use App\DTO\PublicationTypo\CreatePublicationTypoDTO;
+use App\Controller\Common\LocalizationsGetterTrait;
 use App\Entity\Publication;
 use App\Entity\PublicationDimensionContent;
 use App\Form\Data\PublicationTypoTypeData;
 use App\Form\PublicationTypoType;
+use App\Manager\Data\PublicationTypo\CreatePublicationTypoData;
 use App\Manager\PublicationTypoManager;
 use Sulu\Bundle\ContentBundle\Content\Infrastructure\Sulu\Structure\ContentStructureBridge;
 use Sulu\Bundle\HeadlessBundle\Content\StructureResolverInterface;
@@ -46,7 +46,7 @@ class PublicationWebsiteController extends AbstractHeadlessWebsiteController
             $data = $typoForm->getData();
 
             $this->manager->create(
-                new CreatePublicationTypoDTO(
+                new CreatePublicationTypoData(
                     publicationId: (int) $this->getPublication($structure)->getId(),
                     description: $data->description,
                 ),

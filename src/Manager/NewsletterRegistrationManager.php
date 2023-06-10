@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
-use App\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
 use App\Entity\NewsletterRegistration;
 use App\Event\NewsletterRegistration\CreatedNewsletterRegistrationEvent;
 use App\Event\NewsletterRegistration\ModifiedNewsletterRegistrationEvent;
 use App\Event\NewsletterRegistration\RemovedNewsletterRegistrationEvent;
 use App\Exception\NewsletterRegistrationEmailNotUniqueException;
+use App\Manager\Data\NewsletterRegistration\CreateNewsletterRegistrationData;
+use App\Manager\Data\NewsletterRegistration\UpdateNewsletterRegistrationData;
 use App\Repository\NewsletterRegistrationRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -22,15 +22,15 @@ class NewsletterRegistrationManager
     ) {
     }
 
-    public function create(CreateNewsletterRegistrationDTO $dto): NewsletterRegistration
+    public function create(CreateNewsletterRegistrationData $data): NewsletterRegistration
     {
-        if ($this->repository->findOneBy(['email' => $dto->email]) instanceof NewsletterRegistration) {
-            throw new NewsletterRegistrationEmailNotUniqueException($dto->email);
+        if ($this->repository->findOneBy(['email' => $data->email]) instanceof NewsletterRegistration) {
+            throw new NewsletterRegistrationEmailNotUniqueException($data->email);
         }
 
         $registration = new NewsletterRegistration(
-            $dto->email,
-            $dto->locale,
+            $data->email,
+            $data->locale,
         );
 
         $this->eventDispatcher->dispatch(new CreatedNewsletterRegistrationEvent($registration));
@@ -39,10 +39,10 @@ class NewsletterRegistrationManager
         return $registration;
     }
 
-    public function update(UpdateNewsletterRegistrationDTO $dto): NewsletterRegistration
+    public function update(UpdateNewsletterRegistrationData $data): NewsletterRegistration
     {
-        $registration = $this->repository->getOne($dto->id)
-            ->setLocale($dto->locale);
+        $registration = $this->repository->getOne($data->id)
+            ->setLocale($data->locale);
 
         $this->eventDispatcher->dispatch(new ModifiedNewsletterRegistrationEvent($registration));
         $this->repository->save($registration);

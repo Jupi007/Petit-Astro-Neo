@@ -8,11 +8,11 @@ use App\API\Representation\DefinitionRepresentation;
 use App\API\Request\Definition\CreateDefinitionRequest;
 use App\API\Request\Definition\UpdateDefinitionRequest;
 use App\Common\DoctrineListRepresentationFactory;
-use App\Controller\Trait\LocaleGetterTrait;
-use App\Controller\Trait\RequestActionGetterTrait;
-use App\DTO\Definition\CreateDefinitionDTO;
-use App\DTO\Definition\UpdateDefinitionDTO;
+use App\Controller\Common\LocaleGetterTrait;
+use App\Controller\Common\RequestActionGetterTrait;
 use App\Entity\Definition;
+use App\Manager\Data\Definition\CreateDefinitionData;
+use App\Manager\Data\Definition\UpdateDefinitionData;
 use App\Manager\DefinitionManager;
 use App\Repository\DefinitionRepositoryInterface;
 use App\Sulu\Admin\DefinitionAdmin;
@@ -70,7 +70,7 @@ class DefinitionController extends AbstractController implements SecuredControll
         DefinitionManager $manager,
     ): JsonResponse {
         $definition = $manager->create(
-            new CreateDefinitionDTO(
+            new CreateDefinitionData(
                 title: $request->title,
                 description: $request->description,
                 routePath: $request->routePath,
@@ -115,7 +115,7 @@ class DefinitionController extends AbstractController implements SecuredControll
         DefinitionManager $manager,
     ): JsonResponse {
         $definition = $manager->update(
-            new UpdateDefinitionDTO(
+            new UpdateDefinitionData(
                 id: $id,
                 title: $request->title,
                 description: $request->description,

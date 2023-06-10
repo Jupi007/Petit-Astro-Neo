@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Sulu\ActivityEvent\Publication;
 
-use App\Sulu\ActivityEvent\Trait\DraftRemovedActivityEventTrait;
+use App\Sulu\ActivityEvent\Common\DraftRemovedActivityEventTrait;
 
 class DraftRemovedPublicationActivityEvent extends AbstractPublicationActivityEvent
 {

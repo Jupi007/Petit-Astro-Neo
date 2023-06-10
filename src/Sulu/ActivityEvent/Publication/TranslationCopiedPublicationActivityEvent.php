@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Sulu\ActivityEvent\Publication;
 
 use App\Entity\Publication;
-use App\Sulu\ActivityEvent\Trait\TranslationCopiedActivityEventTrait;
+use App\Sulu\ActivityEvent\Common\TranslationCopiedActivityEventTrait;
 
 class TranslationCopiedPublicationActivityEvent extends AbstractPublicationActivityEvent
 {

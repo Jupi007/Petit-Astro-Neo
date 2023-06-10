@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Common\PersistableEntityTrait;
 use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Contract\TrashableEntityInterface;
-use App\Entity\Trait\PersistableEntityTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Sulu\Component\Persistence\Model\AuditableInterface;

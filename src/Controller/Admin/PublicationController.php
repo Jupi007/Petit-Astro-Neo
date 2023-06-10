@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Common\DoctrineListRepresentationFactory;
-use App\Controller\Trait\LocaleGetterTrait;
-use App\Controller\Trait\RequestActionGetterTrait;
+use App\Controller\Common\LocaleGetterTrait;
+use App\Controller\Common\RequestActionGetterTrait;
 use App\Entity\Publication;
 use App\Manager\PublicationManager;
 use App\Sulu\Admin\PublicationAdmin;

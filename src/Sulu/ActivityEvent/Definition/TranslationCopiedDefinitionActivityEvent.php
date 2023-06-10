@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Sulu\ActivityEvent\Definition;
 
 use App\Entity\Definition;
-use App\Sulu\ActivityEvent\Trait\TranslationCopiedActivityEventTrait;
+use App\Sulu\ActivityEvent\Common\TranslationCopiedActivityEventTrait;
 
 class TranslationCopiedDefinitionActivityEvent extends AbstractDefinitionActivityEvent
 {

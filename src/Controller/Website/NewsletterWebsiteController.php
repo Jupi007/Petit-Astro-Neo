@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
-use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
 use App\Form\Data\NewsletterRegistrationTypeData;
 use App\Form\NewsletterRegistrationType;
+use App\Manager\Data\NewsletterRegistration\CreateNewsletterRegistrationData;
 use App\Manager\NewsletterRegistrationManager;
 use Sulu\Bundle\HeadlessBundle\Content\StructureResolverInterface;
 use Sulu\Bundle\WebsiteBundle\Twig\Content\ContentPathInterface;
@@ -41,7 +41,7 @@ class NewsletterWebsiteController extends AbstractHeadlessWebsiteController
             $data = $registrationForm->getData();
 
             $this->manager->create(
-                new CreateNewsletterRegistrationDTO(
+                new CreateNewsletterRegistrationData(
                     $data->email,
                     $data->locale,
                 ),

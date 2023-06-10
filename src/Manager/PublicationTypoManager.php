@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\DTO\PublicationTypo\CreatePublicationTypoDTO;
 use App\Entity\PublicationTypo;
 use App\Event\PublicationTypo\CreatedPublicationTypoEvent;
 use App\Event\PublicationTypo\RemovedPublicationTypoEvent;
+use App\Manager\Data\PublicationTypo\CreatePublicationTypoData;
 use App\Repository\PublicationRepositoryInterface;
 use App\Repository\PublicationTypoRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -21,12 +21,12 @@ class PublicationTypoManager
     ) {
     }
 
-    public function create(CreatePublicationTypoDTO $dto): void
+    public function create(CreatePublicationTypoData $data): void
     {
-        $publication = $this->publicationRepository->getOne($dto->publicationId);
+        $publication = $this->publicationRepository->getOne($data->publicationId);
 
         $typo = new PublicationTypo(
-            description: $dto->description,
+            description: $data->description,
             publication: $publication,
         );
 

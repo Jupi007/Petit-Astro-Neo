@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Sulu\Community;
 
-use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
-use App\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
 use App\Entity\NewsletterRegistration;
 use App\Exception\NullAssertionException;
+use App\Manager\Data\NewsletterRegistration\CreateNewsletterRegistrationData;
+use App\Manager\Data\NewsletterRegistration\UpdateNewsletterRegistrationData;
 use App\Manager\NewsletterRegistrationManager;
 use App\Repository\NewsletterRegistrationRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,22 +88,22 @@ class CommunityEventListener implements EventSubscriberInterface
     private function createRegistration(User $user): NewsletterRegistration
     {
         $user->getContact()->setNewsletter(true);
-        $dto = new CreateNewsletterRegistrationDTO(
+        $data = new CreateNewsletterRegistrationData(
             email: $user->getContact()->getMainEmail() ?? throw new NullAssertionException(),
             locale: $user->getLocale(),
         );
 
-        return $this->manager->create($dto);
+        return $this->manager->create($data);
     }
 
     private function updateRegistration(int $id, User $user): void
     {
         $user->getContact()->setNewsletter(true);
-        $dto = new UpdateNewsletterRegistrationDTO(
+        $data = new UpdateNewsletterRegistrationData(
             $id,
             $user->getLocale(),
         );
-        $this->manager->update($dto);
+        $this->manager->update($data);
     }
 
     private function removeRegistration(int $id): void

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Website;
 
 use App\API\Representation\DefinitionRepresentation;
-use App\Controller\Trait\LocalizationsGetterTrait;
+use App\Controller\Common\LocalizationsGetterTrait;
 use App\Repository\DefinitionRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\WebsiteBundle\Resolver\TemplateAttributeResolverInterface;

@@ -8,12 +8,12 @@ use App\API\Representation\NewsletterRegistrationRepresentation;
 use App\API\Request\NewsletterRegistration\CreateNewsletterRegistrationRequest;
 use App\API\Request\NewsletterRegistration\UpdateNewsletterRegistrationRequest;
 use App\Common\DoctrineListRepresentationFactory;
-use App\Controller\Trait\LocaleGetterTrait;
-use App\Controller\Trait\RequestActionGetterTrait;
-use App\DTO\NewsletterRegistration\CreateNewsletterRegistrationDTO;
-use App\DTO\NewsletterRegistration\UpdateNewsletterRegistrationDTO;
+use App\Controller\Common\LocaleGetterTrait;
+use App\Controller\Common\RequestActionGetterTrait;
 use App\Entity\NewsletterRegistration;
 use App\Exception\NullAssertionException;
+use App\Manager\Data\NewsletterRegistration\CreateNewsletterRegistrationData;
+use App\Manager\Data\NewsletterRegistration\UpdateNewsletterRegistrationData;
 use App\Manager\NewsletterRegistrationManager;
 use App\Sulu\Admin\NewsletterRegistrationAdmin;
 use App\Sulu\Security\SecuredControllerInterface;
@@ -104,7 +104,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
                 ->getQuery()
                 ->getSingleResult();
 
-            $dto = new CreateNewsletterRegistrationDTO(
+            $data = new CreateNewsletterRegistrationData(
                 email: $user->getContact()->getMainEmail() ?? throw new NullAssertionException(),
                 locale: $user->getLocale(),
             );
@@ -113,7 +113,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
             && null !== $request->locale
         ) {
             $user = $this->findOneUserByEmail($request->email);
-            $dto = new CreateNewsletterRegistrationDTO(
+            $data = new CreateNewsletterRegistrationData(
                 email: $request->email,
                 locale: $request->locale,
             );
@@ -121,7 +121,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
             throw new \LogicException('Error Processing Request');
         }
 
-        $registration = $manager->create($dto);
+        $registration = $manager->create($data);
 
         return $this->json(
             data: new NewsletterRegistrationRepresentation($registration, $user),
@@ -136,7 +136,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
         NewsletterRegistrationManager $manager,
     ): JsonResponse {
         $registration = $manager->update(
-            new UpdateNewsletterRegistrationDTO(
+            new UpdateNewsletterRegistrationData(
                 id: $id,
                 locale: $request->locale,
             ),

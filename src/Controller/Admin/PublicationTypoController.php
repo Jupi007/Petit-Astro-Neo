@@ -6,8 +6,8 @@ namespace App\Controller\Admin;
 
 use App\API\Representation\PublicationTypoRepresentation;
 use App\Common\DoctrineListRepresentationFactory;
-use App\Controller\Trait\LocaleGetterTrait;
-use App\Controller\Trait\RequestActionGetterTrait;
+use App\Controller\Common\LocaleGetterTrait;
+use App\Controller\Common\RequestActionGetterTrait;
 use App\Entity\PublicationTypo;
 use App\Manager\PublicationTypoManager;
 use App\Sulu\Admin\PublicationAdmin;

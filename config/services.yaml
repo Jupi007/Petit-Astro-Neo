@@ -17,7 +17,8 @@ services:
     exclude:
       - "../src/API/"
       - "../src/DependencyInjection/"
-      - "../src/DTO/"
+      - "../src/Form/Data/"
+      - "../src/Manager/Data/"
       - "../src/Entity/"
       - "../src/Event/"
       - "../src/Kernel.php"
