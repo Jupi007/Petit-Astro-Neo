@@ -1,6 +1,7 @@
 <h1 align="center">Le Petit Astro - NEO</h1>
 
 A full refresh of my website https://lepetitastro.fr/, using my latest knowledge.
+Still not deployed due to a server PHP version conflict.
 
 ![Alt text](.github/images/readme.png)
 
