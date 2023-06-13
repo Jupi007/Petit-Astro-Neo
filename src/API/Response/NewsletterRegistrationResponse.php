@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\API\Representation;
+namespace App\API\Response;
 
 use App\Entity\NewsletterRegistration;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 
 #[ExclusionPolicy(ExclusionPolicy::ALL)]
-class NewsletterRegistrationRepresentation
+class NewsletterRegistrationResponse
 {
     public function __construct(
         private readonly NewsletterRegistration $registration,

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\API\Representation\NewsletterRegistrationRepresentation;
 use App\API\Request\NewsletterRegistration\CreateNewsletterRegistrationRequest;
 use App\API\Request\NewsletterRegistration\UpdateNewsletterRegistrationRequest;
+use App\API\Response\NewsletterRegistrationResponse;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Common\LocaleGetterTrait;
 use App\Controller\Common\RequestActionGetterTrait;
@@ -84,7 +84,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
         $user = $this->findOneUserByEmail($registration->getEmail());
 
         return $this->json(
-            new NewsletterRegistrationRepresentation($registration, $user),
+            new NewsletterRegistrationResponse($registration, $user),
         );
     }
 
@@ -124,7 +124,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
         $registration = $manager->create($data);
 
         return $this->json(
-            data: new NewsletterRegistrationRepresentation($registration, $user),
+            data: new NewsletterRegistrationResponse($registration, $user),
             status: Response::HTTP_CREATED,
         );
     }
@@ -143,7 +143,7 @@ class NewsletterRegistrationController extends AbstractController implements Sec
         );
 
         return $this->json(
-            new NewsletterRegistrationRepresentation(
+            new NewsletterRegistrationResponse(
                 $registration,
                 $this->findOneUserByEmail($registration->getEmail()),
             ),

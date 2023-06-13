@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Sulu\Headless\DataProvider;
 
-use App\API\Representation\DefinitionRepresentation;
+use App\API\Response\DefinitionResponse;
 use App\Entity\Definition;
 use App\Sulu\SmartContent\DataProvider\DefinitionDataProvider;
 use JMS\Serializer\ArrayTransformerInterface;
@@ -48,7 +48,7 @@ class DefinitionDataProviderResolver implements DataProviderResolverInterface
 
         $definitionRepresentations = [];
         foreach ($providerResult->getItems() as $resultItem) {
-            $definitionRepresentations[] = new DefinitionRepresentation($resultItem->getResource());
+            $definitionRepresentations[] = new DefinitionResponse($resultItem->getResource());
         }
 
         return new DataProviderResult($this->serializer->toArray($definitionRepresentations), $providerResult->getHasNextPage());

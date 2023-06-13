@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
-use App\API\Representation\DefinitionRepresentation;
+use App\API\Response\DefinitionResponse;
 use App\Controller\Common\LocalizationsGetterTrait;
 use App\Repository\DefinitionRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
@@ -41,6 +41,6 @@ class DefinitionWebsiteController extends AbstractController
             return $this->render('definition/definition.html.twig', $parameters);
         }
 
-        return $this->json(['content' => new DefinitionRepresentation($definition), ...$parameters]);
+        return $this->json(['content' => new DefinitionResponse($definition), ...$parameters]);
     }
 }

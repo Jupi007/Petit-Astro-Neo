@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\API\Representation\DefinitionRepresentation;
 use App\API\Request\Definition\CreateDefinitionRequest;
 use App\API\Request\Definition\UpdateDefinitionRequest;
+use App\API\Response\DefinitionResponse;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Common\LocaleGetterTrait;
 use App\Controller\Common\RequestActionGetterTrait;
@@ -59,7 +59,7 @@ class DefinitionController extends AbstractController implements SecuredControll
         $definition = $repository->getOneLocalized($id, $locale);
 
         return $this->json(
-            new DefinitionRepresentation($definition),
+            new DefinitionResponse($definition),
         );
     }
 
@@ -79,7 +79,7 @@ class DefinitionController extends AbstractController implements SecuredControll
         );
 
         return $this->json(
-            data: new DefinitionRepresentation($definition),
+            data: new DefinitionResponse($definition),
             status: Response::HTTP_CREATED,
         );
     }
@@ -102,7 +102,7 @@ class DefinitionController extends AbstractController implements SecuredControll
         };
 
         return $this->json(
-            data: new DefinitionRepresentation($definition),
+            data: new DefinitionResponse($definition),
             status: Response::HTTP_CREATED,
         );
     }
@@ -125,7 +125,7 @@ class DefinitionController extends AbstractController implements SecuredControll
         );
 
         return $this->json(
-            new DefinitionRepresentation($definition),
+            new DefinitionResponse($definition),
         );
     }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Sulu\Headless\ContentType;
 
-use App\API\Representation\DefinitionRepresentation;
+use App\API\Response\DefinitionResponse;
 use App\Entity\Definition;
 use App\Sulu\ContentType\DefinitionSelectionContentType;
 use JMS\Serializer\ArrayTransformerInterface;
@@ -28,7 +28,7 @@ class DefinitionSelectionContentTypeResolver implements ContentTypeResolverInter
     public function resolve($data, PropertyInterface $property, string $locale, array $attributes = []): ContentView
     {
         $definitions = $this->definitionSelectionContentType->getContentData($property);
-        \array_walk($definitions, fn (Definition & $definition) => $definition = new DefinitionRepresentation($definition));
+        \array_walk($definitions, fn (Definition & $definition) => $definition = new DefinitionResponse($definition));
 
         return new ContentView(
             $this->serializer->toArray($definitions),

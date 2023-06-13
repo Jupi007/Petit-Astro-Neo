@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\API\Representation;
+namespace App\API\Response;
 
 use App\Entity\Definition;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
 
 #[ExclusionPolicy(ExclusionPolicy::ALL)]
-class DefinitionRepresentation
+class DefinitionResponse
 {
     public function __construct(
         private readonly Definition $definition,

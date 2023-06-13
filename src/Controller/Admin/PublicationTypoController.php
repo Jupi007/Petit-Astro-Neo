@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\API\Representation\PublicationTypoRepresentation;
+use App\API\Response\PublicationTypoResponse;
 use App\Common\DoctrineListRepresentationFactory;
 use App\Controller\Common\LocaleGetterTrait;
 use App\Controller\Common\RequestActionGetterTrait;
@@ -49,7 +49,7 @@ class PublicationTypoController extends AbstractController implements SecuredCon
     public function getAction(PublicationTypo $typo): JsonResponse
     {
         return $this->json(
-            new PublicationTypoRepresentation($typo),
+            new PublicationTypoResponse($typo),
         );
     }
 
