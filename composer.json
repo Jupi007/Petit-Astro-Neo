@@ -42,6 +42,7 @@
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.7.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
         "friendsofsymfony/http-cache-bundle": "^2.10.1",
         "gregwar/captcha-bundle": "^2.2",
         "handcraftedinthealps/zendsearch": "^2.1",
