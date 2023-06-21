@@ -26,12 +26,12 @@
     },
     "repositories": [
         {
-            "url": "../dev-newvisibility:SuluCommunityBundle",
-            "type": "path"
+            "url": "git@github.com:Jupi007/SuluCommunityBundle.git",
+            "type": "vcs"
         },
         {
-            "url": "../SuluCommentBundle",
-            "type": "path"
+            "url": "git@github.com:Jupi007/SuluCommentBundle.git",
+            "type": "vcs"
         }
     ],
     "require": {
