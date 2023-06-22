@@ -1,10 +1,8 @@
 doctrine:
     dbal:
         url: "%env(resolve:DATABASE_URL)%"
-
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '15'
+        default_table_options:
+            collation: utf8mb4_unicode_520_ci
     orm:
         auto_generate_proxy_classes: true
         # Disabled until Sulu update doctrine/persistence to ^3.1
