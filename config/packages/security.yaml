@@ -57,6 +57,7 @@ security:
     petit-astro:
       pattern: ^/
       lazy: true
+      entry_point: App\Security\AuthenticationEntryPoint
       form_login:
         login_path: sulu_community.login
         check_path: sulu_community.login
