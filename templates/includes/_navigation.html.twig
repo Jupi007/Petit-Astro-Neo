@@ -34,7 +34,7 @@
         } %}
     
         {% for item in sulu_navigation_root_flat('main', 1, true) %}
-          {% set menuIcon = item.excerpt.menu_icon %}
+          {% set menuIcon = item.excerpt.menuIcon %}
           {% include 'includes/navigation/_link.html.twig' with {
             url: sulu_content_path(item.url, item.webspaceKey),
             label: item.title,

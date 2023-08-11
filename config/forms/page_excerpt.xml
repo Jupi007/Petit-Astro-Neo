@@ -4,7 +4,7 @@
   <key>page_excerpt</key>
 
   <properties>
-    <property name="ext/excerpt/menu_icon" type="single_select">
+    <property name="ext/excerpt/menuIcon" type="single_select">
       <meta>
         <title lang="en">Menu icon</title>
         <title lang="fr">Icône du menu</title>
