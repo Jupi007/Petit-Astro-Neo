@@ -28,8 +28,8 @@
 
         <property name="label" type="text_line" mandatory="true">
             <meta>
-                <title lang="en">Text</title>
-                <title lang="fr">Texte</title>
+                <title lang="en">Label</title>
+                <title lang="fr">Étiquette</title>
             </meta>
         </property>
     </properties>
