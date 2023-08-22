@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+namespace App\Tests\Functional\Pages;
+
 use App\Tests\Common\PageTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomepageTest extends SuluTestCase
 {
@@ -32,7 +35,7 @@ class HomepageTest extends SuluTestCase
             ],
         );
 
-        $this->client->request('GET', '/fr/accueil');
+        $this->client->request(Request::METHOD_GET, '/fr/accueil');
         $this->assertResponseIsSuccessful();
     }
 

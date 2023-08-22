@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+namespace App\Tests\Functional\Pages;
+
 use App\Tests\Common\PageTrait;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
 use Sulu\Component\DocumentManager\DocumentManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterFormTest extends SuluTestCase
 {
@@ -33,7 +36,7 @@ class NewsletterFormTest extends SuluTestCase
             ],
         );
 
-        $this->client->request('GET', '/fr/newsletter');
+        $this->client->request(Request::METHOD_GET, '/fr/newsletter');
         $this->assertResponseIsSuccessful();
     }
 
