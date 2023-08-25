@@ -6,10 +6,6 @@
   outline: 2px solid theme('colors.accent');
 }
 
-picture {
-  @apply flex w-full h-full;
-}
-
 hr {
   @apply border-outline dark:border-outline-invert;
 }
