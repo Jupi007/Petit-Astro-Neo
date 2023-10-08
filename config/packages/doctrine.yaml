@@ -7,6 +7,8 @@ doctrine:
         auto_generate_proxy_classes: true
         # Disabled until Sulu update doctrine/persistence to ^3.1
         # enable_lazy_ghost_objects: true
+        report_fields_where_declared: true
+        validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
