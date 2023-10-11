@@ -71,7 +71,7 @@ class DefinitionSitemapProvider implements SitemapProviderInterface
 
     public function getMaxPage($scheme, $host)
     {
-        $count = $this->entityManager->createQueryBuilder()
+        $count = (int) $this->entityManager->createQueryBuilder()
             ->from(DefinitionTranslation::class, 'translation')
             ->select('COUNT(translation)')
             ->getQuery()

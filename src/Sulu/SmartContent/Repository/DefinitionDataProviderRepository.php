@@ -36,6 +36,7 @@ class DefinitionDataProviderRepository implements DataProviderRepositoryInterfac
      */
     public function findByFilters($filters, $page, $pageSize, $limit, $locale, $options = [])
     {
+        /** @var Definition[] */
         $definitions = $this->parentFindByFilters($filters, $page, $pageSize, $limit, $locale, $options);
 
         return \array_map(
