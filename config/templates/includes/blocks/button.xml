@@ -20,6 +20,8 @@
                 <param name="enable_attributes" value="true"/>
                 <param name="types" type="collection">
                     <param name="page"/>
+                    <param name="publications"/>
+                    <param name="definitions"/>
                     <param name="external"/>
                     <param name="media"/>
                 </param>

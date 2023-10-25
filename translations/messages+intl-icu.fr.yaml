@@ -31,6 +31,10 @@ app:
     typo_thanks: "Merci beaucoup !"
     lexicon_title: "Lexique des termes"
 
+  markup:
+    reference_link:
+      title: "Références et sources"
+
   comment:
     title: >-
       {totalComments, plural,
