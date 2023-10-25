@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a81cb51d1f00ef542d882059d503cf9",
+    "content-hash": "6438367e82f3c9dbca883348e6c65f43",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -5968,10 +5968,16 @@
         {
             "name": "sulu/comment-bundle",
             "version": "dev-petitastro",
-            "dist": {
-                "type": "path",
-                "url": "../SuluCommentBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Jupi007/SuluCommentBundle.git",
                 "reference": "879d8fc168fe32ac474a6fd3fae0755b7a6a5978"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Jupi007/SuluCommentBundle/zipball/879d8fc168fe32ac474a6fd3fae0755b7a6a5978",
+                "reference": "879d8fc168fe32ac474a6fd3fae0755b7a6a5978",
+                "shasum": ""
             },
             "require": {
                 "friendsofsymfony/rest-bundle": "^2.6 || ^3.0",
@@ -6077,17 +6083,24 @@
             ],
             "description": "Sulu Bundle for adding comments on entities",
             "homepage": "https://github.com/sulu/SuluCommentBundle",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/Jupi007/SuluCommentBundle/tree/petitastro"
+            },
+            "time": "2023-06-21T21:13:02+00:00"
         },
         {
             "name": "sulu/community-bundle",
             "version": "dev-petitastro",
-            "dist": {
-                "type": "path",
-                "url": "../SuluCommunityBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Jupi007/SuluCommunityBundle.git",
                 "reference": "3b13e34e8db1fa2dc63d5c4afb6a7d8dd8230603"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Jupi007/SuluCommunityBundle/zipball/3b13e34e8db1fa2dc63d5c4afb6a7d8dd8230603",
+                "reference": "3b13e34e8db1fa2dc63d5c4afb6a7d8dd8230603",
+                "shasum": ""
             },
             "require": {
                 "beberlei/doctrineextensions": "^1.0",
@@ -6214,9 +6227,10 @@
                 "registration",
                 "single opt-in"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/Jupi007/SuluCommunityBundle/tree/petitastro"
+            },
+            "time": "2023-06-21T12:26:37+00:00"
         },
         {
             "name": "sulu/content-bundle",
