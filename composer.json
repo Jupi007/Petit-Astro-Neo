@@ -26,7 +26,7 @@
     },
     "repositories": [
         {
-            "url": "../dev-newvisibility:SuluCommunityBundle",
+            "url": "../SuluCommunityBundle",
             "type": "path"
         },
         {
