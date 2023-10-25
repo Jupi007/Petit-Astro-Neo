@@ -63,6 +63,7 @@ module.exports = {
   ],
   plugins: [
     require('@tailwindcss/typography'),
+    require('tailwind-children'),
     plugin(function ({ addUtilities, theme }) {
       addUtilities({
         '.bg-dotted, .bg-dotted-invert': {

@@ -1,0 +1,64 @@
+<type name="alert"
+    xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <meta>
+        <title lang="en">Alert</title>
+        <title lang="fr">Alerte</title>
+    </meta>
+
+    <properties>
+        <property name="variant" type="single_select" mandatory="true" colspan="4">
+            <meta>
+                <title lang="en">Type</title>
+                <title lang="fr">Type</title>
+            </meta>
+
+            <params>
+                <param name="default_value" value="null"/>
+
+                <param name="values" type="collection">
+                    <param name="null">
+                        <meta>
+                            <title lang="en">Default</title>
+                            <title lang="fr">Défaut</title>
+                        </meta>
+                    </param>
+                    <param name="info">
+                        <meta>
+                            <title lang="en">Info</title>
+                            <title lang="fr">Information</title>
+                        </meta>
+                    </param>
+                    <param name="success">
+                        <meta>
+                            <title lang="en">Success</title>
+                            <title lang="fr">Succès</title>
+                        </meta>
+                    </param>
+                    <param name="warning">
+                        <meta>
+                            <title lang="en">Warning</title>
+                            <title lang="fr">Avertissement</title>
+                        </meta>
+                    </param>
+                    <param name="error">
+                        <meta>
+                            <title lang="en">Error</title>
+                            <title lang="fr">Erreur</title>
+                        </meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+
+        <property name="text" type="text_editor" mandatory="true">
+            <meta>
+                <title lang="en">Texte</title>
+                <title lang="fr">Texte</title>
+            </meta>
+            <tag name="sulu.search.field" />
+        </property>
+    </properties>
+</type>

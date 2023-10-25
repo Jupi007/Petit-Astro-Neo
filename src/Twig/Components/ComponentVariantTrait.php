@@ -23,6 +23,7 @@ trait ComponentVariantTrait
             ->setDefault('variant', null)
             ->setAllowedValues('variant', [
                 null,
+                'null',
                 'info',
                 'success',
                 'warning',

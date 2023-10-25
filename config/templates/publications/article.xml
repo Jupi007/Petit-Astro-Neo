@@ -34,6 +34,7 @@
                         <xi:include href="../includes/blocks/figure.xml" />
                         <xi:include href="../includes/blocks/quote.xml" />
                         <xi:include href="../includes/blocks/button.xml" />
+                        <xi:include href="../includes/blocks/alert.xml" />
                         <xi:include href="../includes/blocks/definitions.xml" />
                     </types>
                 </block>
