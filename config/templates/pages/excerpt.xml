@@ -14,6 +14,6 @@
     <!-- include properties of default excerpt form -->
     <xi:include href="../../../vendor/sulu/sulu/src/Sulu/Bundle/PageBundle/Content/templates/excerpt.xml" xpointer="xmlns(sulu=http://schemas.sulu.io/template/template)xpointer(/sulu:template/sulu:properties/*)"/>
 
-    <property name="menu_icon" type="single_select"/>
+    <property name="menuIcon" type="single_select"/>
   </properties>
 </template>

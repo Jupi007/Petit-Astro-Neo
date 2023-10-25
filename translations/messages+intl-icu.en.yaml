@@ -31,6 +31,10 @@ app:
     typo_thanks: "Thanks a lot!"
     lexicon_title: "Lexicon of terms"
 
+  markup:
+    reference_link:
+      title: "References and sources"
+
   comment:
     title: >-
       {totalComments, plural,
@@ -49,7 +53,7 @@ app:
     password_repeat_label: "Repeat password:"
 
   route:
-    publications: "publications_en"
+    publications: "publications"
     lexicon: "lexicon"
 
   community:

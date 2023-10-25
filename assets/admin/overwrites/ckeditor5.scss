@@ -1,0 +1,33 @@
+@import 'sulu-admin-bundle/containers/CKEditor5/ckeditor5.scss';
+
+:global {
+    .ck {
+
+        /* stylelint-disable selector-type-no-unknown */
+        sulu-reference {
+            color: $textEditorLinkColor !important;
+            text-decoration: underline dotted !important;
+            text-decoration-thickness: 2px !important;
+        }
+
+        sulu-reference::after {
+            content: ' 🕮';
+        }
+
+        sulu-reference[sulu-validation-state='removed'] {
+            color: $textEditorRemovedLinkColor !important;
+            text-decoration: line-through dotted !important;
+        }
+
+        sulu-reference[sulu-validation-state='unpublished']::before {
+            color: $textEditorUnpublishedLinkColor;
+            content: '•';
+            display: inline-block;
+            font-size: 20px;
+            line-height: $textEditorFontSize;
+            vertical-align: middle;
+        }
+
+        /* stylelint-enable */
+    }
+}

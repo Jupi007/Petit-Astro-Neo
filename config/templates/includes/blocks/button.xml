@@ -20,6 +20,8 @@
                 <param name="enable_attributes" value="true"/>
                 <param name="types" type="collection">
                     <param name="page"/>
+                    <param name="publications"/>
+                    <param name="definitions"/>
                     <param name="external"/>
                     <param name="media"/>
                 </param>
@@ -28,8 +30,8 @@
 
         <property name="label" type="text_line" mandatory="true">
             <meta>
-                <title lang="en">Text</title>
-                <title lang="fr">Texte</title>
+                <title lang="en">Label</title>
+                <title lang="fr">Étiquette</title>
             </meta>
         </property>
     </properties>

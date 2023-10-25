@@ -24,7 +24,7 @@ module.exports = {
         'accent': colors.slate[500],
         'body': colors.white,
         'body-invert': colors.zinc[800],
-        'outline': colors.zinc[200],
+        'outline': colors.zinc[300],
         'outline-invert': colors.zinc[700],
       },
       listStyleType: {
