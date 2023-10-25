@@ -11,13 +11,13 @@
 <div
   class="relative overflow-hidden w-full dark:border-b border-outline-invert"
   x-data="{ scrollPosition: window.pageYOffset }"
-  @scroll.window="requestAnimationFrame(() => scrollPosition = window.pageYOffset)"
+  @scroll.window="scrollPosition = window.pageYOffset"
 >
   <div class="relative w-full {{ headerHeight }} flex flex-col gap-12 py-10 px-8 items-center justify-center bg-gradient-to-b from-black/0 via-black/15 to-black/0 text-white text-center font-light font-colombia"
        x-bind:style="{ transform: 'translate3d(0,' + scrollPosition / 2 + 'px,0)' }">
     <twig:logo />
 
-    <h1 class="text-4xl drop-shadow-vertical">
+    <h1 class="text-4xl drop-shadow-vertical leading-normal">
       {{ headerTitle }}
       {% if headerSubtitle|default != null %}
         <br> <small class="italic text-3xl">{{ headerSubtitle }}</small>
