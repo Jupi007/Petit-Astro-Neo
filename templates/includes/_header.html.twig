@@ -14,7 +14,9 @@
     scrollPosition: window.pageYOffset,
     updateScrollPosition() {
       requestAnimationFrame(() => this.updateScrollPosition());
-      this.scrollPosition = window.pageYOffset;
+      if (this.scrollPosition !== window.pageYOffset) {
+        this.scrollPosition = window.pageYOffset;
+      }
     },
   }"
   x-init="requestAnimationFrame(() => updateScrollPosition())"
