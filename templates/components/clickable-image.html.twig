@@ -1,0 +1,27 @@
+<div
+  x-data="{ fullscreen: false }"
+  x-on:click="fullscreen = true"
+  {{ attributes.defaults({
+    class: 'cursor-zoom-in'
+  }) }}
+>
+  {{ block('content') }}
+
+  <template x-teleport="body">
+    <div
+      x-show="fullscreen"
+      x-transition:enter.duration.250ms
+      x-transition:leave.duration.150ms
+      x-on:click="fullscreen = false"
+      @keyup.escape.window="fullscreen = false"
+      x-trap.inert.noscroll="fullscreen"
+      class="fixed inset-0 z-20 flex items-center justify-center md:p-6 bg-black/50 cursor-zoom-out"
+    >
+      {{ get_image(image, {
+        src: 'figure',
+        srcset: 'figure@2x 2x',
+        class: 'w-auto max-h-full m-auto',
+      }) }}
+    </div>
+  </template>
+</div>
