@@ -5,7 +5,7 @@
 {% set headerImage = coverTeaser ? sulu_resolve_media(coverTeaser.mediaId, app.request.locale) : null %}
 {% set headerTitle = coverTeaser ? 'app.last_publication'|trans : content.title %}
 {% set headerSubtitle = coverTeaser ? coverTeaser.title : null %}
-{% set headerLinkUrl = coverTeaser ? coverTeaser.url : null %}
+{% set headerLinkUrl = coverTeaser ? sulu_content_path(coverTeaser.url) : null %}
 {% set headerLinkLabel = coverTeaser and coverTeaser.moreText ? coverTeaser.moreText : 'app.read'|trans %}
 
 {% set coverSize = 'medium' %}
