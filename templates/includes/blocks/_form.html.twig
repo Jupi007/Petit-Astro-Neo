@@ -1,12 +1,14 @@
 <twig:page-container class="my-4 max-w-2xl mx-auto">
   {% if content.form %}
+    {% if app.request.get('send') == 'true' %}
+      <twig:alert variant="success">
+        {{ view.form.entity.successText|raw }}
+      </twig:alert>
+    {% endif %}
+
     <div class="not-prose">
       {% form_theme content.form 'form/form_layout.html.twig' %}
       {{ form(content.form) }}
     </div>
-
-    {% if app.request.get('send') == 'true' %}
-      {{ view.form.entity.successText|raw }}
-    {% endif %}
   {% endif %}
 </twig:page-container>
