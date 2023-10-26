@@ -1,10 +1,12 @@
 <figure>
 	<twig:figure-container>
-		{{ get_image(content.image, {
-			src: 'figure',
-			srcset: 'figure@2x 2x',
-			class: 'max-h-[80vh] w-auto mx-auto my-0'
-		}) }}
+		<twig:clickable-image :image="content.image">
+			{{ get_image(content.image, {
+				src: 'figure',
+				srcset: 'figure@2x 2x',
+				class: 'max-h-[80vh] w-auto mx-auto my-0'
+			}) }}
+		</twig:clickable-image>
 	</twig:figure-container>
 
 	{% if content.caption %}
