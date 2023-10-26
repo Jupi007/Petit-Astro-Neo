@@ -9,7 +9,7 @@
   </meta>
 
   <properties>
-    <property name="definitions" type="definitions_selection">
+    <property name="definitions" type="definitions_selection" multilingual="false">
       <meta>
         <title lang="en">Lexicon</title>
         <title lang="fr">Lexique</title>

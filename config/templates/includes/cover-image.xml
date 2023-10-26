@@ -23,7 +23,7 @@
             <tag name="sulu.search.field" role="image" index="false" />
         </property>
 
-        <property name="coverSize" type="single_select" colspan="4" mandatory="true">
+        <property name="coverSize" type="single_select" colspan="4" mandatory="true" multilingual="false">
             <meta>
                 <title lang="en">Size</title>
                 <title lang="fr">Taille</title>
