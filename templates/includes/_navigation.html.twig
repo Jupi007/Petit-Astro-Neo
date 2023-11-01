@@ -15,7 +15,7 @@
       }
     }
   }"
-  class="fixed top-0 left-0 bottom-0 z-20 transition-transform md:translate-x-0"
+  class="fixed top-0 left-0 bottom-0 z-20 transition-transform -translate-x-24 md:translate-x-0"
   :class="isMenuOpen ? 'translate-x-0' : '-translate-x-24'"
   @keyup.escape.window="hideMenu()"
   @resize.window.throttle="maybeHideMenu()"

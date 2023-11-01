@@ -27,7 +27,7 @@
             </meta>
 
             <properties>
-                <property name="coverTeaser" type="teaser_selection">
+                <property name="coverTeaser" type="teaser_selection" multilingual="false">
                     <meta>
                         <title lang="en">Teaser</title>
                         <title lang="fr">Accroche</title>
