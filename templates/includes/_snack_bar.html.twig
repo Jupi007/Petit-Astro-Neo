@@ -1,9 +1,10 @@
-<div class="flex flex-col gap-4 fixed right-0 bottom-0 z-30 max-w-lg w-full p-4">
+<div class="flex flex-col fixed right-0 bottom-0 z-30 max-w-lg w-full">
   {% for type, messages in app.flashes %}
     {% for message in messages %}
       <twig:alert
         :variant="type"
         demissible
+        class="mx-4 mb-4"
       >
         {{ message|trans }}
       </twig:alert>
