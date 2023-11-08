@@ -34,7 +34,7 @@ class DoctrineListRepresentationFactory
         array $includedFields = [],
         callable $itemsCallback = null,
     ): PaginatedRepresentation {
-        /** @var DoctrineFieldDescriptor[] $fieldDescriptors */
+        /** @var DoctrineFieldDescriptor[] */
         $fieldDescriptors = $this->fieldDescriptorFactory->getFieldDescriptors($resourceKey);
 
         /** @var DoctrineListBuilder $listBuilder */

@@ -10,7 +10,7 @@ trait AdminTranslatorTrait
 {
     private readonly TranslatorInterface $translator;
 
-    public function trans(string $id): string
+    private function trans(string $id): string
     {
         return $this->translator->trans($id, domain: 'admin');
     }
