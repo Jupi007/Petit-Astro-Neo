@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 class PublicationTypoResponseTest extends TestCase
 {
     /** @return mixed[] */
-    public function dataProviderForResponseMethods(): array
+    public function dataProvider(): array
     {
         return [
             ['getDescription', 'Sample Description'],
@@ -20,8 +20,8 @@ class PublicationTypoResponseTest extends TestCase
         ];
     }
 
-    /** @dataProvider dataProviderForResponseMethods */
-    public function testResponseMethods(string $method, mixed $expectedValue): void
+    /** @dataProvider dataProvider */
+    public function testMethods(string $method, mixed $expectedValue): void
     {
         $response = $this->getConfiguredPublicationTypoResponse($method, $expectedValue);
 

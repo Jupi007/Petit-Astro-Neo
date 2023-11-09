@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Common;
 
 use App\Entity\Contract\PersistableEntityInterface;
-use App\Tests\Unit\Controller\Common\LocalizationsGetterTraitImplementation;
+use App\Tests\Implementation\Controller\Common\LocalizationsGetterTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;
@@ -13,7 +13,7 @@ use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
 class LocalizationsGetterTraitTest extends TestCase
 {
-    public function testGetLocale(): void
+    public function testGetLocalizationsArray(): void
     {
         $route = $this->createRouteMock('/url', 'fr');
 
@@ -27,14 +27,17 @@ class LocalizationsGetterTraitTest extends TestCase
             $routeRepository,
             $webspaceManager,
         );
-        $entity = $this->createPersistableEntity();
+        $entity = $this->createPersistableEntityMock();
 
-        $this->assertSame([
-            'fr' => [
-                'locale' => 'fr',
-                'url' => 'https://test.fr/url',
+        $this->assertSame(
+            [
+                'fr' => [
+                    'locale' => 'fr',
+                    'url' => 'https://test.fr/url',
+                ],
             ],
-        ], $class->getLocalizationsArrayForTesting($entity));
+            $class->getLocalizationsArrayForTesting($entity),
+        );
     }
 
     private function createRouteMock(string $path, string $locale): RouteInterface
@@ -46,13 +49,8 @@ class LocalizationsGetterTraitTest extends TestCase
         return $route;
     }
 
-    private function createPersistableEntity(): PersistableEntityInterface
+    private function createPersistableEntityMock(): PersistableEntityInterface
     {
-        return new class() implements PersistableEntityInterface {
-            public function getId(): ?int
-            {
-                return 1;
-            }
-        };
+        return $this->createMock(PersistableEntityInterface::class);
     }
 }

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Common;
 
-use App\Tests\Unit\Controller\Common\RequestActionGetterTraitImplementation;
+use App\Tests\Implementation\Controller\Common\RequestActionGetterTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class RequestActionGetterTraitTest extends TestCase
 {
-    public function testGetLocale(): void
+    public function testGetRequestAction(): void
     {
         $action = 'get';
 

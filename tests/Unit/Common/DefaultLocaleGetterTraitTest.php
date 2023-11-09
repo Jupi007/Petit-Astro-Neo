@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Common;
 
-use App\Tests\Unit\Common\DefaultLocaleGetterImplementation;
+use App\Tests\Implementation\Common\DefaultLocaleGetterTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
@@ -33,12 +33,12 @@ class DefaultLocaleGetterTraitTest extends TestCase
     }
 
     /** @param array<Localization> $localizations */
-    private function createDefaultLocaleGetterImplementation(array $localizations): DefaultLocaleGetterImplementation
+    private function createDefaultLocaleGetterImplementation(array $localizations): DefaultLocaleGetterTraitImplementation
     {
         $webspaceManager = $this->createMock(WebspaceManagerInterface::class);
         $webspaceManager->method('getAllLocalizations')->willReturn($localizations);
 
-        return new DefaultLocaleGetterImplementation($webspaceManager);
+        return new DefaultLocaleGetterTraitImplementation($webspaceManager);
     }
 
     private function createLocalizationMock(

@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Common\LocalizableAuditableTrait;
 use App\Entity\Common\LocalizableEntityTrait;
 use App\Entity\Common\PersistableEntityTrait;
 use App\Entity\Contract\LocalizableEntityInterface;
 use App\Entity\Contract\PersistableEntityInterface;
 use App\Entity\Contract\TrashableEntityInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Sulu\Component\Security\Authentication\UserInterface;
 
 #[ORM\Entity]
 class Definition implements PersistableEntityInterface, LocalizableEntityInterface, TrashableEntityInterface
 {
+    /** @use LocalizableAuditableTrait<DefinitionTranslation> */
+    use LocalizableAuditableTrait;
     /** @use LocalizableEntityTrait<DefinitionTranslation> */
     use LocalizableEntityTrait;
     use PersistableEntityTrait;
@@ -36,7 +37,7 @@ class Definition implements PersistableEntityInterface, LocalizableEntityInterfa
 
     public function __construct()
     {
-        $this->translations = new ArrayCollection();
+        $this->__localizableEntityTraitConstructor();
     }
 
     public static function getResourceKey(): string
@@ -51,84 +52,36 @@ class Definition implements PersistableEntityInterface, LocalizableEntityInterfa
 
     public function getTitle(): ?string
     {
-        return $this->getTranslation()?->getTitle();
+        return $this->getTranslation()->getTitle();
     }
 
     public function setTitle(string $title): self
     {
-        $this->getTranslation(createIfNull: true)->setTitle($title);
+        $this->getTranslation()->setTitle($title);
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->getTranslation()?->getDescription();
+        return $this->getTranslation()->getDescription();
     }
 
     public function setDescription(string $description): self
     {
-        $this->getTranslation(createIfNull: true)->setDescription($description);
-
-        return $this;
-    }
-
-    public function getCreator(): ?UserInterface
-    {
-        return $this->getTranslation()?->getCreator();
-    }
-
-    public function setCreator(?UserInterface $creator): self
-    {
-        $this->getTranslation(createIfNull: true)->setCreator($creator);
-
-        return $this;
-    }
-
-    public function getChanger(): ?UserInterface
-    {
-        return $this->getTranslation()?->getChanger();
-    }
-
-    public function setChanger(?UserInterface $changer): self
-    {
-        $this->getTranslation(createIfNull: true)->setChanger($changer);
-
-        return $this;
-    }
-
-    public function getCreated(): ?\DateTime
-    {
-        return $this->getTranslation()?->getCreated();
-    }
-
-    public function setCreated(\DateTime $created): self
-    {
-        $this->getTranslation(createIfNull: true)->setCreated($created);
-
-        return $this;
-    }
-
-    public function getChanged(): ?\DateTime
-    {
-        return $this->getTranslation()?->getChanged();
-    }
-
-    public function setChanged(\DateTime $changed): self
-    {
-        $this->getTranslation(createIfNull: true)->setChanged($changed);
+        $this->getTranslation()->setDescription($description);
 
         return $this;
     }
 
     public function getRoutePath(): ?string
     {
-        return $this->getTranslation()?->getRoutePath();
+        return $this->getTranslation()->getRoutePath();
     }
 
     public function setRoutePath(string $title): self
     {
-        $this->getTranslation(createIfNull: true)->setRoutePath($title);
+        $this->getTranslation()->setRoutePath($title);
 
         return $this;
     }

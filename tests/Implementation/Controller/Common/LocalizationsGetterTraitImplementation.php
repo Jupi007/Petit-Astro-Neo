@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Controller\Common;
+namespace App\Tests\Implementation\Controller\Common;
 
 use App\Controller\Common\LocalizationsGetterTrait;
 use App\Entity\Contract\PersistableEntityInterface;

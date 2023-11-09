@@ -48,7 +48,7 @@ class NewsletterRegistration implements PersistableEntityInterface, AuditableInt
         return $this->email;
     }
 
-    public function getUuid(): ?Uuid
+    public function getUuid(): Uuid
     {
         return $this->uuid;
     }

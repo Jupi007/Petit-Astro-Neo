@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Common;
 
-use App\Tests\Unit\Common\AdminTranslatorTraitImplementation;
+use App\Common\AdminTranslatorTrait;
+use App\Tests\Implementation\Common\AdminTranslatorTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdminTranslatorTraitTest extends TestCase
 {
-    public function testGetDefaultLocale(): void
+    public function testTrans(): void
     {
         $translatedString = 'translated string';
         $id = 'id';

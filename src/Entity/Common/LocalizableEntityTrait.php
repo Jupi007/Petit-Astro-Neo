@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Common;
 
 use App\Entity\Contract\EntityTranslationInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /** @template T of EntityTranslationInterface */
@@ -14,6 +15,11 @@ trait LocalizableEntityTrait
 
     /** @var Collection<string, T> */
     private Collection $translations;
+
+    public function __localizableEntityTraitConstructor(): void
+    {
+        $this->translations = new ArrayCollection();
+    }
 
     public function getLocale(): string
     {
@@ -33,13 +39,12 @@ trait LocalizableEntityTrait
         return \array_keys($this->translations->toArray());
     }
 
-    /** @return ($createIfNull is true ? T : ?T) */
-    private function getTranslation(bool $createIfNull = false)
+    /** @return T */
+    public function getTranslation(): EntityTranslationInterface
     {
         if ($this->translations->containsKey($this->locale)) {
+            /** @var T */
             return $this->translations->get($this->locale);
-        } elseif (!$createIfNull) {
-            return null;
         }
 
         $translation = $this->createTranslation();
@@ -49,5 +54,5 @@ trait LocalizableEntityTrait
     }
 
     /** @return T */
-    abstract private function createTranslation();
+    abstract private function createTranslation(): EntityTranslationInterface;
 }

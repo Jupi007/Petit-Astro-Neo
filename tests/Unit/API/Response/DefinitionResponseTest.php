@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class DefinitionResponseTest extends TestCase
 {
     /** @return mixed[] */
-    public function dataProviderForResponseMethods(): array
+    public function dataProvider(): array
     {
         return [
             ['getId', 123],
@@ -23,8 +23,8 @@ class DefinitionResponseTest extends TestCase
         ];
     }
 
-    /** @dataProvider dataProviderForResponseMethods */
-    public function testResponseMethods(string $method, mixed $expectedValue): void
+    /** @dataProvider dataProvider */
+    public function testMethods(string $method, mixed $expectedValue): void
     {
         $response = $this->getConfiguredDefinitionResponse($method, $expectedValue);
 

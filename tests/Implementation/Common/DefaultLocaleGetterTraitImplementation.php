@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Common;
+namespace App\Tests\Implementation\Common;
 
 use App\Common\DefaultLocaleGetterTrait;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 
-class DefaultLocaleGetterImplementation
+class DefaultLocaleGetterTraitImplementation
 {
     use DefaultLocaleGetterTrait;
 

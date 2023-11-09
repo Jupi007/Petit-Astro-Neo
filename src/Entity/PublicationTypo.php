@@ -28,6 +28,7 @@ class PublicationTypo implements PersistableEntityInterface, AuditableInterface,
         #[ORM\Column(type: Types::TEXT)]
         private string $description,
     ) {
+        $publication->getTypos()->add($this);
     }
 
     public static function getResourceKey(): string
