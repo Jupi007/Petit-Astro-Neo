@@ -41,8 +41,7 @@ class DefinitionManager
 
     public function update(UpdateDefinitionData $data): Definition
     {
-        $definition = $this->repository->getOne($data->id)
-            ->setLocale($data->locale)
+        $definition = $this->repository->getOneLocalized($data->id, $data->locale)
             ->setTitle($data->title)
             ->setDescription($data->description)
             ->setRoutePath($data->routePath);

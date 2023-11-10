@@ -107,10 +107,6 @@ class PublicationManager
     {
         $publication = $this->repository->getOne($id);
 
-        if (null === $publication->getId()) {
-            throw new \LogicException('You cannot unpublish a non-persisted publication.');
-        }
-
         $this->contentManager->applyTransition(
             $publication,
             ['locale' => $locale],
@@ -188,10 +184,6 @@ class PublicationManager
     public function remove(int $id): Publication
     {
         $publication = $this->repository->getOne($id);
-
-        if (null === $publication->getId()) {
-            throw new \LogicException('You cannot remove a non-persisted publication.');
-        }
 
         $this->eventDispatcher->dispatch(new RemovedPublicationEvent($publication));
         $this->repository->remove($publication);

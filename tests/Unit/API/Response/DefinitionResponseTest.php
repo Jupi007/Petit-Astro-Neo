@@ -16,7 +16,7 @@ class DefinitionResponseTest extends TestCase
         return [
             ['getId', 123],
             ['getLocale', 'en'],
-            ['getAvailableLocales', ['en', 'fr', 'de']],
+            ['getLocales', ['en', 'fr', 'de']],
             ['getTitle', 'Sample Title'],
             ['getDescription', 'Sample Description'],
             ['getRoutePath', '/sample/route'],

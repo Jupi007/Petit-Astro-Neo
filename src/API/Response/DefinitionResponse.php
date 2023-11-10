@@ -34,7 +34,7 @@ class DefinitionResponse
     /** @return string[] */
     #[VirtualProperty]
     #[SerializedName('availableLocales')]
-    public function getAvailableLocales(): array
+    public function getLocales(): array
     {
         return $this->definition->getLocales();
     }

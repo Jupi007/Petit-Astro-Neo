@@ -21,7 +21,7 @@ class PublicationTypoManager
     ) {
     }
 
-    public function create(CreatePublicationTypoData $data): void
+    public function create(CreatePublicationTypoData $data): PublicationTypo
     {
         $publication = $this->publicationRepository->getOne($data->publicationId);
 
@@ -32,6 +32,8 @@ class PublicationTypoManager
 
         $this->eventDispatcher->dispatch(new CreatedPublicationTypoEvent($typo));
         $this->repository->save($typo);
+
+        return $typo;
     }
 
     public function remove(int $id): void
