@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Twig\Components;
+namespace App\Twig\Components\Common;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
