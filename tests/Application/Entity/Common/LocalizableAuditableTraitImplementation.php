@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Implementation\Entity\Common;
+namespace App\Tests\Application\Entity\Common;
 
 use App\Entity\Common\AuditableTrait;
 use App\Entity\Common\LocalizableAuditableTrait;
@@ -26,6 +26,11 @@ class LocalizableAuditableTraitImplementation
     {
         return new class() implements EntityTranslationInterface, AuditableInterface {
             use AuditableTrait;
+
+            public function getId(): ?int
+            {
+                return 1;
+            }
 
             public function getLocale(): string
             {

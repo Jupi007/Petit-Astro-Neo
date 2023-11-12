@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Common;
 
 use App\Entity\Contract\PersistableEntityInterface;
-use App\Tests\Implementation\Controller\Common\LocalizationsGetterTraitImplementation;
+use App\Tests\Application\Controller\Common\LocalizationsGetterTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Sulu\Bundle\RouteBundle\Entity\RouteRepositoryInterface;
 use Sulu\Bundle\RouteBundle\Model\RouteInterface;

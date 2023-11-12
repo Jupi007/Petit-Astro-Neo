@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Implementation\Common;
+namespace App\Tests\Application\Common;
 
 use App\Common\AdminTranslatorTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;

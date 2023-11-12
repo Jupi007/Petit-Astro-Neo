@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Entity\Common;
 
-use App\Tests\Implementation\Entity\Common\AuditableTraitImplementation;
+use App\Tests\Application\Entity\Common\AuditableTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Sulu\Component\Security\Authentication\UserInterface;
 

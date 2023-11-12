@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Entity\Common;
 
-use App\Tests\Implementation\Entity\Common\LocalizableEntityTraitImplementation;
+use App\Tests\Application\Entity\Common\LocalizableEntityTraitImplementation;
 use PHPUnit\Framework\TestCase;
 
 class LocalizableEntityTraitTest extends TestCase

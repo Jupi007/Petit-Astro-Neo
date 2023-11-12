@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Common;
 
-use App\Tests\Implementation\Common\DefaultLocaleGetterTraitImplementation;
+use App\Tests\Application\Common\DefaultLocaleGetterTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Sulu\Component\Localization\Localization;
 use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;

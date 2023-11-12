@@ -24,6 +24,14 @@ when@test:
         dbal:
             # "TEST_TOKEN" is typically set by ParaTest
             dbname_suffix: "_test%env(default::TEST_TOKEN)%"
+        orm:
+            mappings:
+                Tests:
+                    type: attribute
+                    is_bundle: false
+                    dir: "%kernel.project_dir%/tests/Application/Entity"
+                    prefix: 'App\Tests\Application\Entity'
+                    alias: Tests
 
 when@prod: &prod
     doctrine:

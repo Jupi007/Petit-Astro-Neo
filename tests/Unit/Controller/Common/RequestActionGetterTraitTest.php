@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Common;
 
-use App\Tests\Implementation\Controller\Common\RequestActionGetterTraitImplementation;
+use App\Tests\Application\Controller\Common\RequestActionGetterTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;

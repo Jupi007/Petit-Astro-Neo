@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Implementation\Entity\Common;
+namespace App\Tests\Application\Entity\Common;
 
 use App\Entity\Common\AuditableTrait;
 

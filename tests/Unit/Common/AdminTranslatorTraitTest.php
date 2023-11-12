@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Common;
 
-use App\Common\AdminTranslatorTrait;
-use App\Tests\Implementation\Common\AdminTranslatorTraitImplementation;
+use App\Tests\Application\Common\AdminTranslatorTraitImplementation;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Translator;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdminTranslatorTraitTest extends TestCase
 {
